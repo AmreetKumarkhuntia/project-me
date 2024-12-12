@@ -1,8 +1,12 @@
 <script lang="ts">
+  import "vergins/src/css/improved-theme.css";
   import "$css/style.css";
+  import Navbar from "$components/Navbar.svelte";
   import { onMount } from "svelte";
 
   let splineViewer: HTMLDivElement | null = null;
+  const splineUrl =
+    "https://prod.spline.design/NOCuMB-Go49BrzoP/scene.splinecode";
 
   function hideSpline() {
     while (splineViewer === null) {}
@@ -36,19 +40,19 @@
 </svelte:head>
 
 <div class="spline-background">
-  <spline-viewer
-    bind:this={splineViewer}
-    url="https://prod.spline.design/NOCuMB-Go49BrzoP/scene.splinecode"
-  ></spline-viewer>
+  <spline-viewer bind:this={splineViewer} url={splineUrl}></spline-viewer>
 </div>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div class="body" on:mousemove={handleMouseMove}>
+  <Navbar />
   <slot />
 </div>
 
 <style>
-  .spline-background {
+  .spline-background,
+  .body {
+    position: fixed;
     z-index: -10;
     top: 0;
     left: 0;
@@ -56,9 +60,7 @@
     width: 100vw;
   }
   .body {
-    position: fixed;
     z-index: 0;
-    top: 0;
-    left: 0;
+    margin-top: 100px;
   }
 </style>
