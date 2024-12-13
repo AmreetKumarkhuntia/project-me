@@ -48,7 +48,7 @@
 
 <style>
   .navbar {
-    height: 100px;
+    height: var(--navbar-height);
     width: 100%;
     position: fixed;
     top: 0;
