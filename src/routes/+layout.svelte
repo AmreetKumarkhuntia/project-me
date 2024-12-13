@@ -1,6 +1,6 @@
 <script lang="ts">
   import "vergins/src/css/improved-theme.css";
-  import "$css/style.css";
+  import "$css/style.scss";
   import Navbar from "$components/Navbar.svelte";
   import { onMount } from "svelte";
 

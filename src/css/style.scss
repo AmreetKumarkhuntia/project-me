@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+  --primary-font-family: "Inter", sans-serif;
+  --secondary-font-family: "Playfair Display", serif;
+  --tertiary-font-family: "Roboto", serif;
+
+  --primary-color: #fdf5e2;
+  --secondary-color: #fdf1cb;
+  --tertiary-color: #fbe5ba;
+  --quaternary-color: #fddcb4;
+  --quinary-color: #ffd6a4;
+
+  --active-color: #ffc57d;
+  --active-color-complementary: #ff7b3e;
+
+  // Home
+  --home-padding: 7%;
+  --home-height: calc(100vh - var(--navbar--height) - 2 * var(--home-padding));
+  --home-width: calc(100vw  - 2 * var(--home-padding));
+
+  // Navbar
+  --navbar--height: 100px;
+  --navbar-item-active-color: var(--active-color);
+  --navbar-underline-active-border: 1px solid var(--active-color);
+
+  // Wrapper Text
+  --wrapper-text-hover-color: var(--active-color);
+
+  body {
+    padding: 0;
+    margin: 0;
+    font-family: var(--primary-font-family);
+    font-optical-sizing: auto;
+    color: var(--primary-color);
+  }
+
+  .display-flex {
+    display: flex;
+  }
+
+  .display-flex-start{
+    justify-content: flex-start;
+  }
+
+  .display-flex-end{
+    justify-content: flex-end;
+  }
+
+  .display-flex-center{
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .display-align-col{
+    flex-direction: column;
+  }
+
+  .display-align-row{
+    flex-direction: row;
+  }
+
+  #id {
+    display: none;
+  }
+
+  .home-landing-subtitle,
+  .home-landing-title{
+    width: 100%;
+
+    .wrapper-text-container{      
+      height: inherit;
+    }
+  }
+}
+
