@@ -52,6 +52,7 @@
 <style>
   .spline-background,
   .body {
+    overflow-x: hidden;
     position: fixed;
     z-index: -10;
     top: 0;
@@ -59,8 +60,12 @@
     height: 100vh;
     width: 100vw;
   }
+  .body::-webkit-scrollbar {
+    display: none;
+  }
   .body {
+    height: calc(100vh - var(--page-margin));
+    margin-top: var(--page-margin);
     z-index: 0;
-    margin-top: 100px;
   }
 </style>
