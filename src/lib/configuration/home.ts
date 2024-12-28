@@ -6,7 +6,7 @@ import {
   twitter,
   youtube,
 } from "$lib/constants/index.ts";
-import type { WrapperTextProps } from "vergins/src/lib/components/wrapperText/props.ts";
+import type { WrapperTextProps } from "vergins";
 
 export const secondSubtitles: string[] = [
   "Coding by Day",

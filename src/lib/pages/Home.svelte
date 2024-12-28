@@ -1,9 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import WrapperText from "vergins/src/lib/components/wrapperText/WrapperText.svelte";
-  import Avatar from "vergins/src/lib/components/avatar/Avatar.svelte";
-  import LazyLoader from "vergins/src/lib/components/lazyLoader/LazyLoader.svelte";
-  import type { LazyLoaderProps } from "vergins/src/lib/components/lazyLoader/props.ts";
+  import { WrapperText, Avatar, LazyLoader } from "vergins";
+  import type { LazyLoaderProps } from "vergins";
   import {
     contactLinks,
     glitchWrapperTextProps,

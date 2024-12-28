@@ -1,9 +1,7 @@
 <script lang="ts">
   import { events } from "$configuration/about.ts";
 
-  import Header from "vergins/src/lib/components/Header.svelte";
-  import LazyLoader from "vergins/src/lib/components/lazyLoader/LazyLoader.svelte";
-  import TimeLine from "vergins/src/lib/components/timeLine/TimeLine.svelte";
+  import { Header, LazyLoader, TimeLine } from "vergins";
 </script>
 
 <div class="about">
