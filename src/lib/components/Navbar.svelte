@@ -1,9 +1,6 @@
 <script lang="ts">
-  import Navbar from "vergins/src/lib/components/navbar/Navbar.svelte";
-  import type {
-    NavigationOptions,
-    NavbarProps,
-  } from "vergins/src/lib/components/navbar/props.ts";
+  import { Navbar } from "vergins";
+  import type { NavigationOptions, NavbarProps } from "vergins";
 
   const navigationOptions: NavigationOptions[] = [
     {

@@ -1,7 +1,4 @@
-import type {
-  TimeLineDetails,
-  TimeLineEventType,
-} from "vergins/src/lib/components/timeLine/props.ts";
+import type { TimeLineDetails, TimeLineEventType } from "vergins";
 
 export const events: TimeLineDetails[] = [
   {
