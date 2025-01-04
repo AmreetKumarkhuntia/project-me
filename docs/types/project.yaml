@@ -1,0 +1,8 @@
+info:
+  version: 1.0.0
+  title: Project Me
+groupedTypes:
+  APISchema:
+    $ref: "./docs/types/APISchema.yaml#/APISchema"
+  Projects:
+    $ref: "./docs/types/Projects.yaml#/Projects"

@@ -1,3 +1,10 @@
+import type {
+  Database,
+  Framework,
+  Language,
+  Tool,
+} from "$generated/types/Projects.ts";
+
 // SVGS
 export const twitter: string = `
 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 30 30">
@@ -30,5 +37,131 @@ export const work: string = `
 `;
 
 export const education: string = `
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="256px" height="256px" viewBox="-24.33 -24.33 352.73 352.73" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M239.156,184.149c0-13.929-11.329-25.265-25.259-25.265c-13.919,0-25.254,11.336-25.254,25.265 c0,13.919,11.335,25.249,25.254,25.249C227.827,209.388,239.156,198.068,239.156,184.149z"></path> <path d="M185.802,243.148c-0.602,2.725,0.398,3.236,2.257,1.15l8.233-9.279c1.854-2.087,3.873-1.585,4.521,1.139l3.351,14.157 c0.652,2.719,1.595,2.692,2.123-0.041l7.177-37.376c-0.187,0.01-0.362,0.031-0.554,0.031c-7.338,0-13.919-3.159-18.538-8.156 L185.802,243.148z"></path> <path d="M222.752,261.687l3.656-11.423c0.849-2.661,2.941-3.034,4.671-0.85l8.047,10.17c1.729,2.195,2.729,1.74,2.227-1.01 l-9.549-52.128c-4.401,4.116-10.284,6.67-16.746,6.778l5.582,48.255C220.95,264.239,221.903,264.338,222.752,261.687z"></path> <path d="M285.511,40.457H18.558C8.326,40.457,0,48.57,0,58.544v174.15c0,9.973,8.326,18.087,18.558,18.087h162.656l-1.108-1.253 c-1.869-2.319-2.403-5.339-1.601-8.948l1.274-5.706H18.558c-1.437,0-2.651-1.004-2.651-2.18V58.544c0-1.184,1.214-2.18,2.651-2.18 h266.953c1.435,0,2.651,0.997,2.651,2.18v174.15c0,1.186-1.217,2.18-2.651,2.18h-39.799l2.921,15.907h36.878 c10.232,0,18.559-8.108,18.559-18.087V58.544C304.069,48.57,295.743,40.457,285.511,40.457z"></path> <path d="M269.376,222.944c5.856,0,10.604-4.754,10.604-10.605V77.304c0-5.854-4.748-10.604-10.604-10.604H32.097 c-5.854,0-10.605,4.751-10.605,10.604v135.035c0,5.852,4.751,10.605,10.605,10.605h150.276l4.557-20.423 c-3.728-5.37-5.924-11.863-5.924-18.879c0-18.315,14.903-33.213,33.213-33.213s33.207,14.897,33.207,33.213 c0,7.933-2.801,15.218-7.462,20.935l3.355,18.361h26.057V222.944z M48.449,92.383h199.718c1.465,0,2.65,1.188,2.65,2.651 s-1.186,2.651-2.65,2.651H48.449c-1.463,0-2.651-1.188-2.651-2.651S46.986,92.383,48.449,92.383z M48.449,131.478 c-1.463,0-2.651-1.188-2.651-2.651s1.188-2.651,2.651-2.651h199.718c1.465,0,2.65,1.188,2.65,2.651s-1.186,2.651-2.65,2.651 H48.449z"></path> </g> </g> </g></svg>
+`;
 
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="256px" height="256px" viewBox="-24.33 -24.33 352.73 352.73" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M239.156,184.149c0-13.929-11.329-25.265-25.259-25.265c-13.919,0-25.254,11.336-25.254,25.265 c0,13.919,11.335,25.249,25.254,25.249C227.827,209.388,239.156,198.068,239.156,184.149z"></path> <path d="M185.802,243.148c-0.602,2.725,0.398,3.236,2.257,1.15l8.233-9.279c1.854-2.087,3.873-1.585,4.521,1.139l3.351,14.157 c0.652,2.719,1.595,2.692,2.123-0.041l7.177-37.376c-0.187,0.01-0.362,0.031-0.554,0.031c-7.338,0-13.919-3.159-18.538-8.156 L185.802,243.148z"></path> <path d="M222.752,261.687l3.656-11.423c0.849-2.661,2.941-3.034,4.671-0.85l8.047,10.17c1.729,2.195,2.729,1.74,2.227-1.01 l-9.549-52.128c-4.401,4.116-10.284,6.67-16.746,6.778l5.582,48.255C220.95,264.239,221.903,264.338,222.752,261.687z"></path> <path d="M285.511,40.457H18.558C8.326,40.457,0,48.57,0,58.544v174.15c0,9.973,8.326,18.087,18.558,18.087h162.656l-1.108-1.253 c-1.869-2.319-2.403-5.339-1.601-8.948l1.274-5.706H18.558c-1.437,0-2.651-1.004-2.651-2.18V58.544c0-1.184,1.214-2.18,2.651-2.18 h266.953c1.435,0,2.651,0.997,2.651,2.18v174.15c0,1.186-1.217,2.18-2.651,2.18h-39.799l2.921,15.907h36.878 c10.232,0,18.559-8.108,18.559-18.087V58.544C304.069,48.57,295.743,40.457,285.511,40.457z"></path> <path d="M269.376,222.944c5.856,0,10.604-4.754,10.604-10.605V77.304c0-5.854-4.748-10.604-10.604-10.604H32.097 c-5.854,0-10.605,4.751-10.605,10.604v135.035c0,5.852,4.751,10.605,10.605,10.605h150.276l4.557-20.423 c-3.728-5.37-5.924-11.863-5.924-18.879c0-18.315,14.903-33.213,33.213-33.213s33.207,14.897,33.207,33.213 c0,7.933-2.801,15.218-7.462,20.935l3.355,18.361h26.057V222.944z M48.449,92.383h199.718c1.465,0,2.65,1.188,2.65,2.651 s-1.186,2.651-2.65,2.651H48.449c-1.463,0-2.651-1.188-2.651-2.651S46.986,92.383,48.449,92.383z M48.449,131.478 c-1.463,0-2.651-1.188-2.651-2.651s1.188-2.651,2.651-2.651h199.718c1.465,0,2.65,1.188,2.65,2.651s-1.186,2.651-2.65,2.651 H48.449z"></path> </g> </g> </g></svg>`;
+// export languages here for devicon
+
+/*
+
+<link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+        
+Languages:
+Language: Java - devicon-java-plain
+Language: JavaScript - devicon-javascript-plain
+Language: Python - devicon-python-plain
+Language: C - devicon-c-plain
+Language: C++ - devicon-cplusplus-plain
+Language: Ruby - devicon-ruby-plain
+Language: PHP - devicon-php-plain
+Language: Go - devicon-go-plain
+Language: Swift - devicon-swift-plain
+Language: Kotlin - devicon-kotlin-plain
+Language: Rust - devicon-rust-plain
+Language: TypeScript - devicon-typescript-plain
+Language: HTML5 - devicon-html5-plain
+Language: CSS3 - devicon-css3-plain
+Language: Sass - devicon-sass-original
+Language: R - devicon-r-plain
+Language: Shell - devicon-shell-plain
+Language: Scala - devicon-scala-plain
+Language: Perl - devicon-perl-plain
+Language: Lua - devicon-lua-plain
+Language: Objective-C - devicon-objectivec-plain
+Language: Groovy - devicon-groovy-plain
+
+Frameworks & Tools:
+Framework: Node.js - devicon-nodejs-plain
+Framework: React - devicon-react-original
+Framework: Angular - devicon-angularjs-plain
+Framework: Vue.js - devicon-vuejs-plain
+Framework: Django - devicon-django-plain
+Framework: Spring - devicon-spring-plain
+Framework: Laravel - devicon-laravel-plain
+Framework: Ruby on Rails - devicon-rails-plain
+Framework: Bootstrap - devicon-bootstrap-plain
+Framework: JQuery - devicon-jquery-plain
+
+Tools:
+Tool: Git - devicon-git-plain
+Tool: Docker - devicon-docker-plain
+Tool: Kubernetes - devicon-kubernetes-plain
+Tool: AWS - devicon-aws-plain
+Tool: MongoDB - devicon-mongodb-plain
+Tool: MySQL - devicon-mysql-plain
+Tool: PostgreSQL - devicon-postgresql-plain
+Tool: Firebase - devicon-firebase-plain
+Tool: GraphQL - devicon-graphql-plain
+*/
+
+// Language and Framework Mapping to devicon classes
+export const techIconMap: Map<Language | Framework | Tool | Database, string> =
+  new Map([
+    // Languages
+    ["c#", "devicon-csharp-plain"],
+    ["java", "devicon-java-plain"],
+    ["javascript", "devicon-javascript-plain"],
+    ["python", "devicon-python-plain"],
+    ["c", "devicon-c-plain"],
+    ["cpp", "devicon-cplusplus-plain"],
+    ["ruby", "devicon-ruby-plain"],
+    ["php", "devicon-php-plain"],
+    ["go", "devicon-go-plain"],
+    ["swift", "devicon-swift-plain"],
+    ["kotlin", "devicon-kotlin-plain"],
+    ["rust", "devicon-rust-plain"],
+    ["typescript", "devicon-typescript-plain"],
+    ["html", "devicon-html5-plain"],
+    ["css", "devicon-css3-plain"],
+    ["sass", "devicon-sass-original"],
+    ["purescript", "devicon-purescript-plain"],
+    ["haskell", "devicon-haskell-plain"],
+    ["yaml", "devicon-yaml-plain"],
+
+    // Frameworks
+    ["react", "devicon-react-original"],
+    ["angular", "devicon-angularjs-plain"],
+    ["vue", "devicon-vuejs-plain"],
+    ["spring", "devicon-spring-plain"],
+    ["django", "devicon-django-plain"],
+    ["express", "devicon-express-original"],
+    ["ember", "devicon-ember-plain"],
+    ["flask", "devicon-flask-plain"],
+    ["ruby-on-rails", "devicon-rails-plain"],
+    ["laravel", "devicon-laravel-plain"],
+    ["next.js", "devicon-nextjs-plain"],
+    ["svelte", "devicon-svelte-plain"],
+    ["asp.net", "devicon-aspnet-plain"],
+    ["fastapi", "devicon-fastapi-plain"],
+    ["servant", "devicon-haskell-plain"],
+    ["yesod", "devicon-yesod-plain"],
+    ["snap", "devicon-snap-plain"],
+    ["spock", "devicon-spock-plain"],
+    ["play", "devicon-play-plain"],
+    ["hspec", "devicon-hspec-plain"],
+    ["jinja", "devicon-jinja-plain"],
+    ["bootstrap", "devicon-bootstrap-plain"],
+    ["tailwind", "devicon-tailwindcss-plain"],
+    ["material-ui", "devicon-materialui-plain"],
+    ["foundation", "devicon-foundation-plain"],
+    ["semantic-ui", "devicon-semanticui-plain"],
+    ["nuxt.js", "devicon-nuxtjs-plain"],
+    ["nuxt3", "devicon-nuxt3-plain"],
+    ["flask-admin", "devicon-flask-admin-plain"],
+    ["quasar", "devicon-quasar-plain"],
+    ["blazor", "devicon-blazor-plain"],
+    ["graphql", "devicon-graphql-plain"],
+
+    // Tools
+    ["git", "devicon-git-plain"],
+    ["docker", "devicon-docker-plain"],
+    ["kubernetes", "devicon-kubernetes-plain"],
+    ["aws", "devicon-amazonwebservices-plain-wordmark"],
+
+    // DB
+    ["mongodb", "devicon-mongodb-plain"],
+    ["mysql", "devicon-mysql-plain"],
+    ["postgresql", "devicon-postgresql-plain"],
+    ["firebase", "devicon-firebase-plain"],
+    ["redis", "devicon-redis-plain-wordmark"],
+  ]);

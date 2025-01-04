@@ -37,6 +37,11 @@
     type="module"
     src="https://unpkg.com/@splinetool/viewer@1.9.48/build/spline-viewer.js"
   ></script>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+  />
 </svelte:head>
 
 <div class="spline-background">

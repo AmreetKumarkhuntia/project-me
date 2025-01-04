@@ -18,5 +18,7 @@
     min-height: var(--page-height);
     width: var(--page-width);
     padding: var(--page-padding);
+
+    padding-bottom: 0;
   }
 </style>
