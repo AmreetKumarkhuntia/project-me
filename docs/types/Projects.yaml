@@ -1,0 +1,78 @@
+Projects:
+  Language:
+    type: string
+    enum:
+      - css
+      - sass
+      - javascript
+      - typescript
+      - java
+      - python
+      - ruby
+      - php
+      - go
+      - c#
+      - swift
+      - kotlin
+      - cpp
+      - c
+      - haskell
+      - rust
+      - html
+      - purescript
+      - yaml
+
+  # dont know if correct have to validate afterwards
+  Framework:
+    type: string
+    enum:
+      - react
+      - graphql
+      - angular
+      - vue
+      - spring
+      - django
+      - express
+      - ember
+      - flask
+      - ruby-on-rails
+      - laravel
+      - next.js
+      - svelte
+      - asp.net
+      - fastapi
+      - mustache
+      - servant
+      - yesod
+      - snap
+      - spock
+      - play
+      - hspec
+      - jinja
+      - bootstrap
+      - tailwind
+      - material-ui
+      - foundation
+      - semantic-ui
+      - nuxt.js
+      - nuxt3
+      - flask-admin
+      - quasar
+      - blazor
+
+  Tool:
+    type: string
+    enum:
+      - git
+      - docker
+      - kubernetes
+      - aws
+
+  Database:
+    type: string
+    enum:
+      - mongodb
+      - mysql
+      - postgresql
+      - firebase
+      - redis

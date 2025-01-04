@@ -18,6 +18,7 @@ const config = {
       $session: "src/lib/session",
       $types: "src/lib/types",
       $css: "src/css",
+      $generated: "src/generated",
     },
   },
 };
