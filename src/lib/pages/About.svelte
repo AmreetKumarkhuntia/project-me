@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { events } from "$configuration/about.ts";
+  import { events, timeLineProps } from "$configuration/about.ts";
 
   import { Header, LazyLoader, TimeLine } from "vergins";
 </script>
@@ -9,7 +9,7 @@
     <LazyLoader maxCount={1}>ABOUT ME</LazyLoader>
   </Header>
   <div class="about-timeline">
-    <TimeLine {events} />
+    <TimeLine {timeLineProps} {events} />
   </div>
 </div>
 

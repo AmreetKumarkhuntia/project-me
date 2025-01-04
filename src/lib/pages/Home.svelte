@@ -40,6 +40,7 @@
   }
 
   onMount(() => {
+    // * handled wrapping here
     setTimeout(() => {
       setInterval(() => {
         onceLoaded = true;
@@ -67,7 +68,6 @@
         text={"Amreet Khuntia"}
       />
     </div>
-    <!-- TODO: remove margin-bottom to add github/linkedin/some catchy info -->
     <div
       class="home-landing-subtitle display-flex display-flex-end {onceLoaded ===
       true
@@ -107,10 +107,12 @@
     width: var(--page-width);
     padding: var(--page-padding);
   }
+
   .home-landing {
     width: 70%;
     height: inherit;
   }
+
   .home-landing-subtitle {
     font-family: var(--tertiary-font-family);
     font-size: 52px;
@@ -148,6 +150,7 @@
     .home-landing-title {
       font-size: 135px;
     }
+
     .home-landing-subtitle {
       font-size: 45px;
     }
@@ -157,6 +160,7 @@
     .home-landing-title {
       font-size: 126px;
     }
+
     .home-landing-subtitle {
       font-size: 42px;
     }
@@ -172,6 +176,7 @@
     .home-landing-title {
       font-size: 108px;
     }
+
     .home-landing-subtitle {
       font-size: 36px;
     }
@@ -180,6 +185,7 @@
     .home-landing-title {
       font-size: 84px;
     }
+
     .home-landing-subtitle {
       font-size: 28px;
     }
@@ -190,6 +196,7 @@
       font-size: 63px;
       height: 100px;
     }
+
     .home-landing-subtitle {
       font-size: 21px;
       height: 30px;
@@ -204,6 +211,7 @@
       font-size: 48px;
       height: 100px;
     }
+
     .home-landing-subtitle {
       font-size: 16px;
       height: 30px;
@@ -215,6 +223,7 @@
       font-size: 42px;
       height: 100px;
     }
+
     .home-landing-subtitle {
       font-size: 14px;
       height: 30px;
