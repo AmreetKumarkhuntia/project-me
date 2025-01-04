@@ -8,6 +8,7 @@ export default defineConfig({
     alias: {
       $configuration: path.resolve("./src/lib/configuration"),
       $components: path.resolve("./src/lib/components"),
+      $constants: path.resolve("./src/lib/constants"),
       $pages: path.resolve("./src/lib/pages"),
       $utils: path.resolve("./src/lib/utils"),
       $server: path.resolve("./src/lib/server"),

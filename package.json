@@ -44,6 +44,6 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
-		"vergins": "3.3.1"
+		"vergins": "3.6.1"
 	}
 }

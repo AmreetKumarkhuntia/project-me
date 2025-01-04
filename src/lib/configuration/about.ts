@@ -1,4 +1,20 @@
-import type { TimeLineDetails, TimeLineEventType } from "vergins";
+import type {
+  TimeLineDetails,
+  TimeLineEventType,
+  TimeLineProps,
+} from "vergins";
+import { work, education } from "$constants/index.ts";
+
+const iconMaps: Map<string, string> = new Map([
+  ["work", work],
+  ["education", education],
+]);
+
+export const timeLineProps: TimeLineProps = {
+  icons: iconMaps,
+  delay: null,
+  duration: null,
+};
 
 export const events: TimeLineDetails[] = [
   {
@@ -12,6 +28,7 @@ export const events: TimeLineDetails[] = [
     location: "New York, USA",
     alignment: "left",
     link: null,
+    iconDataType: "svg",
   },
   {
     dateStart: "01-02-2024",
@@ -24,6 +41,7 @@ export const events: TimeLineDetails[] = [
     location: "San Francisco, USA",
     alignment: "left",
     link: "https://www.companyx.com",
+    iconDataType: "svg",
   },
   {
     dateStart: "02-02-2027",
@@ -36,5 +54,6 @@ export const events: TimeLineDetails[] = [
     location: "London, UK",
     alignment: "right",
     link: "https://www.companyy.com",
+    iconDataType: "svg",
   },
 ];
