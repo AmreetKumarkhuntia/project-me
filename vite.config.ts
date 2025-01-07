@@ -14,6 +14,7 @@ export default defineConfig({
       $server: path.resolve("./src/lib/server"),
       $client: path.resolve("./src/lib/client"),
       $session: path.resolve("./src/lib/session"),
+      $services: path.resolve("./src/lib/services"),
       $types: path.resolve("./src/lib/types"),
       $css: path.resolve("./src/css"),
       $generated: path.resolve("./src/generated"),
