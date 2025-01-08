@@ -1,0 +1,199 @@
+GitHub:
+  GitRepos:
+    type: object
+    required:
+      - archive_url
+      - assignees_url
+      - blobs_url
+      - branches_url
+      - collaborators_url
+      - comments_url
+      - commits_url
+      - compare_url
+      - contents_url
+      - contributors_url
+      - deployments_url
+      - description
+      - downloads_url
+      - events_url
+      - fork
+      - forks_url
+      - full_name
+      - git_commits_url
+      - git_refs_url
+      - git_tags_url
+      - hooks_url
+      - html_url
+      - id
+      - node_id
+      - issue_comment_url
+      - issue_events_url
+      - issues_url
+      - keys_url
+      - labels_url
+      - languages_url
+      - merges_url
+      - milestones_url
+      - name
+      - notifications_url
+      - owner
+      - private
+      - pulls_url
+      - releases_url
+      - stargazers_url
+      - statuses_url
+      - subscribers_url
+      - subscription_url
+      - tags_url
+      - teams_url
+      - trees_url
+      - url
+    properties:
+      id:
+        type: number
+        description: "Unique identifier for the repository."
+        example: 12345678
+      name:
+        type: string
+        description: "Name of the repository."
+        example: "example-repo"
+      full_name:
+        type: string
+        description: "Name of the repository."
+        example: "example-repo"
+      private:
+        type: boolean
+        description: "Indicates whether the repository is private."
+        example: false
+      html_url:
+        type: string
+        description: "URL to access the repository on GitHub."
+        example: "https://github.com/example/example-repo"
+      description:
+        type: string
+        description: "Description of the repository."
+        example: "This is an example repository."
+      url:
+        type: string
+        description: "API URL for the repository."
+        example: "https://api.github.com/repos/example/example-repo"
+      branches_url:
+        type: string
+        description: "API URL template for branches in the repository."
+        example: "https://api.github.com/repos/example/example-repo/branches{/branch}"
+      languages_url:
+        type: string
+        description: "API URL to fetch languages used in the repository."
+        example: "https://api.github.com/repos/example/example-repo/languages"
+      contributors:
+        type: string
+        description: "API URL to fetch contributors for the repository."
+        example: "https://api.github.com/repos/example/example-repo/contributors"
+      git_commits_url:
+        type: string
+        description: "API URL template for commits in the repository."
+        example: "https://api.github.com/repos/example/example-repo/commits{/sha}"
+      issues_url:
+        type: string
+        description: "API URL template for issues in the repository."
+        example: "https://api.github.com/repos/example/example-repo/issues{/number}"
+      contents_url:
+        type: string
+        description: "API URL template for contents in the repository."
+        example: "https://api.github.com/repos/example/example-repo/contents/{+path}"
+      git_url:
+        type: string
+        description: "Git URL for the repository."
+        example: "git://github.com/example/example-repo.git"
+      ssh_url:
+        type: string
+        description: "SSH URL for the repository."
+        example: "git@github.com:example/example-repo.git"
+      language:
+        type: string
+        description: "Primary language of the repository."
+        example: "Python"
+      topics:
+        type: array
+        description: "List of topics associated with the repository."
+        items:
+          type: string
+        example:
+          - "example"
+          - "repository"
+      license:
+        $ref: "./docs/types/GitHub.yaml#/GitHub/GitLicense"
+        description: "License information for the repository."
+      owner:
+        $ref: "./docs/types/GitHub.yaml#/GitHub/GitOwner"
+
+  GitLicense:
+    type: object
+    properties:
+      key:
+        type: string
+        description: "Key identifier for the license."
+        example: "mit"
+      name:
+        type: string
+        description: "Full name of the license."
+        example: "MIT License"
+      spdx_id:
+        type: string
+        description: "SPDX identifier for the license."
+        example: "MIT"
+      url:
+        type: string
+        description: "URL to the license details."
+        example: "https://api.github.com/licenses/mit"
+
+  GitOwner:
+    type: object
+    required:
+      - avatar_url
+      - events_url
+      - followers_url
+      - following_url
+      - gists_url
+      - gravatar_id
+      - html_url
+      - id
+      - node_id
+      - login
+      - organizations_url
+      - received_events_url
+      - repos_url
+      - site_admin
+      - starred_url
+      - subscriptions_url
+      - type
+      - url
+    properties:
+      login:
+        type: string
+        description: "Login username of the repository owner."
+        example: "example-user"
+      url:
+        type: string
+        description: "API URL for the owner's details."
+        example: "https://api.github.com/users/example-user"
+      followers_url:
+        type: string
+        description: "API URL to fetch followers of the owner."
+        example: "https://api.github.com/users/example-user/followers"
+      avatar_url:
+        type: string
+        description: "URL of the owner's avatar image."
+        example: "https://avatars.githubusercontent.com/u/1234567?v=4"
+      organizations_url:
+        type: string
+        description: "API URL to fetch organizations the owner belongs to."
+        example: "https://api.github.com/users/example-user/orgs"
+      following_url:
+        type: string
+        description: "API URL template for users the owner is following."
+        example: "https://api.github.com/users/example-user/following{/other_user}"
+      received_events_url:
+        type: string
+        description: "API URL to fetch events the owner has received."
+        example: "https://api.github.com/users/example-user/received_events"
