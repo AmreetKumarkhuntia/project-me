@@ -27,7 +27,7 @@
     }
   }
 
-  onMount(() => {
+  onMount(async () => {
     hideSpline();
   });
 </script>

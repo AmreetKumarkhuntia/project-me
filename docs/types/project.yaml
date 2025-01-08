@@ -6,3 +6,5 @@ groupedTypes:
     $ref: "./docs/types/APISchema.yaml#/APISchema"
   Projects:
     $ref: "./docs/types/Projects.yaml#/Projects"
+  GitHub:
+    $ref: "./docs/types/GitHub.yaml#/GitHub"

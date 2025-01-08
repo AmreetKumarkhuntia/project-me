@@ -69,7 +69,7 @@ export class APIResponseHandler {
     // Step 1: Check if the required properties are set
     if (!this.status || !this.message || !this.code) {
       throw new Error(
-        "Status, message, and code are required to build an ApiResponse."
+        "Status, message, and code are required to build an ApiResponse.",
       );
     }
 
@@ -102,7 +102,7 @@ export class APIResponseHandler {
   static successResponse(
     message: string,
     data: APIResponseData | null = null,
-    code: number = 200
+    code: number = 200,
   ) {
     // Step 1-4: Return a successfully formatted response
     return new APIResponseHandler()
@@ -130,7 +130,7 @@ export class APIResponseHandler {
   static unauthorizedResponse(
     message: string,
     data: APIResponseData | null = null,
-    code: number = 401
+    code: number = 401,
   ) {
     // Step 1-4: Return an unauthorized formatted response
     return new APIResponseHandler()
@@ -158,7 +158,7 @@ export class APIResponseHandler {
   static notFoundResponse(
     message: string,
     data: APIResponseData | null = null,
-    code: number = 404
+    code: number = 404,
   ) {
     // Step 1-4: Return a not found formatted response
     return new APIResponseHandler()
@@ -186,7 +186,7 @@ export class APIResponseHandler {
   static badRequestResponse(
     message: string,
     data: APIResponseData | null = null,
-    code: number = 400
+    code: number = 400,
   ) {
     // Step 1-4: Return a bad request formatted response
     return new APIResponseHandler()
@@ -214,7 +214,7 @@ export class APIResponseHandler {
   static internalServerErrorResponse(
     message: string,
     data: APIResponseData | null = null,
-    code: number = 500
+    code: number = 500,
   ) {
     // Step 1-4: Return an internal server error formatted response
     return new APIResponseHandler()

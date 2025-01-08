@@ -1,13 +1,10 @@
-import fetch from "node-fetch";
-import { Response as FetchResponse, Headers as FetchHeaders } from "node-fetch";
-
 /**
  * Interface for the API response structure, including status, headers, body, and error
  */
 export interface APICallerResponse<T> {
   status: number;
   statusText: string;
-  headers: FetchHeaders | null;
+  headers: Headers | null;
   body: T;
   error: string | null;
 }
@@ -74,8 +71,12 @@ export class APICaller<T> {
    * @param headers A Map containing the headers for the request.
    * @returns The APICaller instance for chaining.
    */
-  setHeaders(headers: Map<string, string>): this {
-    this.reqHeaders = headers;
+  setHeaders(headers: Map<string, string> | Record<string, string>): this {
+    if (headers instanceof Map) {
+      this.reqHeaders = headers;
+    } else {
+      this.reqHeaders = new Map(Object.entries(headers));
+    }
     return this;
   }
 
@@ -118,38 +119,34 @@ export class APICaller<T> {
    * @returns A Promise containing an APICallerResponse with the result of the API call.
    */
   async callApi(): Promise<APICallerResponse<T | null>> {
-    let result: T | null = null; // Default response result is null
-    let rawData: any = null; // Raw data from the response
-    let response: FetchResponse | null = null; // Fetch response object
-    let error = null; // Error handling
+    let result: T | null = null;
+    let rawData: any = null;
+    let response: Response | null = null;
+    let error = null;
 
-    // Step 1: Check if URL is provided before making the API call
     if (this.url !== null) {
-      let fullUrl = this.url; // Initialize the full URL with the base URL
+      let fullUrl = this.url;
 
-      // Step 2: If query parameters exist, append them to the URL
       if (this.queryParams) {
         const queryString = Array.from(this.queryParams.entries())
           .map(
             ([key, value]) =>
-              `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+              `${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
           )
           .join("&");
         fullUrl += `?${queryString}`;
       }
 
-      // Step 3: If headers are provided, use them, else use the default Content-Type
       const headers = this.reqHeaders
         ? Object.fromEntries(this.reqHeaders.entries())
         : { "Content-Type": "application/json" };
 
       try {
-        // Step 4: If the method is not GET or POST, include the body
-        const stringifiedBody = this.body
-          ? JSON.stringify(this.body)
-          : undefined;
+        const stringifiedBody =
+          this.body && !(this.body instanceof FormData)
+            ? JSON.stringify(this.body)
+            : this.body;
 
-        // Step 5: Make the API call using fetch
         response = await fetch(fullUrl, {
           method: this.method,
           headers,
@@ -159,23 +156,18 @@ export class APICaller<T> {
               : undefined,
         });
 
-        // Step 6: If the response is not ok, set an error
         if (!response.ok) {
           error = `Error: ${response.status} ${response.statusText}`;
         }
 
-        // Step 7: Parse the response JSON body
         rawData = await response.json();
       } catch (err) {
-        // Step 8: If an exception occurs during the fetch or parsing, set an error
         error = "Exception in Api Caller: " + String(err);
       }
     }
 
-    // Step 9: Use the decoder function to process the raw data
     result = this.decoder(rawData);
 
-    // Step 10: Return the response object with status, headers, body, and any errors
     if (response !== null) {
       return {
         status: response.status,
@@ -185,7 +177,6 @@ export class APICaller<T> {
         error: String(error),
       };
     } else {
-      // Step 11: If no response, return a failure response
       return {
         status: 500,
         statusText: "failure",
@@ -211,7 +202,7 @@ export class APICaller<T> {
     method: string = "POST",
     reqHeaders: Map<string, string> | null = null,
     queryParams: Map<string, string> | null = null,
-    decoder: (data: any) => T | null = (data) => null
+    decoder: (data: any) => T | null = (data) => null,
   ): void {
     this.setUrl(url);
     this.setBody(body);
