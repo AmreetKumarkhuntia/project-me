@@ -117,7 +117,6 @@
     font-family: var(--tertiary-font-family);
     font-size: 52px;
     height: 60px;
-    overflow: hidden;
     filter: drop-shadow(5px 5px 253px var(--highlight-color));
   }
 
