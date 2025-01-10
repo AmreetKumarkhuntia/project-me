@@ -1,9 +1,5 @@
 import { decodeGitRepos, type GitRepos } from "$generated/types/GitHub.ts";
-import {
-  initiateCallerResponse,
-  APICaller,
-  type APICallerResponse,
-} from "$services/apiCaller/index.ts";
+import { APICaller } from "$services/apiCaller/index.ts";
 import { logger } from "$services/logger/index.ts";
 
 const defaultGithubHeaders: Map<string, string> = new Map([
@@ -14,17 +10,17 @@ export async function getGithubRepos(
   githubApiUrl: string,
   githubApiVersion: string,
   userName: string,
-  page: string,
-): Promise<APICallerResponse<GitRepos[] | null>> {
-  let result: APICallerResponse<GitRepos[] | null> =
-    initiateCallerResponse(null);
+  page: number,
+  authToken: string
+): Promise<GitRepos[]> {
+  const allRepos: GitRepos[] = [];
   const apiUrl: string = githubApiUrl + "/users/" + userName + "/repos";
-  const queryParams: Map<string, string> = new Map([
+  const defaultQueryParams: Map<string, string> = new Map([
     ["per_page", "100"],
-    ["page", page],
   ]);
   const requestHeaders: Map<string, string> = new Map(defaultGithubHeaders);
   requestHeaders.set("X-GitHub-Api-Version", githubApiVersion);
+  requestHeaders.set("Authorization", authToken);
 
   const apiCaller = new APICaller<GitRepos[]>();
   apiCaller.buildApiCall(
@@ -32,7 +28,7 @@ export async function getGithubRepos(
     {},
     "GET",
     requestHeaders,
-    queryParams,
+    defaultQueryParams,
     (data) => {
       const result: GitRepos[] = [];
       if (Array.isArray(data)) {
@@ -44,23 +40,31 @@ export async function getGithubRepos(
         });
       }
       return result;
-    },
+    }
   );
+
   try {
-    logger.logExternalApiRequest("getGithubRepos", {
-      apiUrl,
-      requestHeaders,
-      queryParams,
-    });
-    result = await apiCaller.callApi();
-    logger.logExternalApiResponse("getGithubRepos", {
-      status: result.status,
-      error: result.error,
-      headers: result.headers,
-    });
+    for (let i = 1; i <= page; i++) {
+      const queryParams: Map<string, string> = new Map(defaultQueryParams);
+      queryParams.set("page", String(i));
+      apiCaller.setQueryParams(queryParams);
+      logger.logExternalApiRequest("getGithubRepos", {
+        apiUrl,
+        requestHeaders,
+        defaultQueryParams,
+      });
+      const result = await apiCaller.callApi();
+      const repos = result.body ?? [];
+      allRepos.push(...repos);
+      logger.logExternalApiResponse("getGithubRepos", {
+        status: result.status,
+        error: result.error,
+        headers: result.headers,
+      });
+    }
   } catch (err) {
     logger.logException("getGithubRepos", String(err));
   }
 
-  return result;
+  return allRepos;
 }
