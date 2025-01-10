@@ -51,7 +51,7 @@
   });
 </script>
 
-<div class="home">
+<div class="home display-flex">
   <div class="home-landing display-flex display-flex-center display-align-col">
     <div
       class="home-landing-subtitle"
@@ -103,9 +103,11 @@
 
 <style lang="scss">
   .home {
-    height: var(--page-height);
+    min-height: var(--page-height);
     width: var(--page-width);
     padding: var(--page-padding);
+
+    align-items: center;
   }
 
   .home-landing {

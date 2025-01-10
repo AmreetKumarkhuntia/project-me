@@ -50,7 +50,7 @@ export type GitRepos = {
    * @memberof GitRepos
    * @example This is an example repository.
    */
-  description: string;
+  description: string | null;
   /**
    * @description API URL for the repository.
    * @type { string }
@@ -64,28 +64,21 @@ export type GitRepos = {
    * @memberof GitRepos
    * @example https://api.github.com/repos/example/example-repo/branches{/branch}
    */
-  branches_url: string;
+  branches_url: string | null;
   /**
    * @description API URL to fetch languages used in the repository.
    * @type { string }
    * @memberof GitRepos
    * @example https://api.github.com/repos/example/example-repo/languages
    */
-  languages_url: string;
-  /**
-   * @description API URL to fetch contributors for the repository.
-   * @type { string }
-   * @memberof GitRepos
-   * @example https://api.github.com/repos/example/example-repo/contributors
-   */
-  contributors: string | null;
+  languages_url: string | null;
   /**
    * @description API URL template for commits in the repository.
    * @type { string }
    * @memberof GitRepos
    * @example https://api.github.com/repos/example/example-repo/commits{/sha}
    */
-  git_commits_url: string;
+  git_commits_url: string | null;
   /**
    * @description API URL template for issues in the repository.
    * @type { string }
@@ -99,7 +92,7 @@ export type GitRepos = {
    * @memberof GitRepos
    * @example https://api.github.com/repos/example/example-repo/contents/{+path}
    */
-  contents_url: string;
+  contents_url: string | null;
   /**
    * @description Git URL for the repository.
    * @type { string }
@@ -151,7 +144,6 @@ export function decodeGitRepos(rawInput: unknown): GitRepos | null {
     const decodedUrl = decodeString(rawInput["url"]);
     const decodedBranchesUrl = decodeString(rawInput["branches_url"]);
     const decodedLanguagesUrl = decodeString(rawInput["languages_url"]);
-    const decodedContributors = decodeString(rawInput["contributors"]);
     const decodedGitCommitsUrl = decodeString(rawInput["git_commits_url"]);
     const decodedIssuesUrl = decodeString(rawInput["issues_url"]);
     const decodedContentsUrl = decodeString(rawInput["contents_url"]);
@@ -168,13 +160,8 @@ export function decodeGitRepos(rawInput: unknown): GitRepos | null {
       decodedFullName === null ||
       decodedPrivate === null ||
       decodedHtmlUrl === null ||
-      decodedDescription === null ||
       decodedUrl === null ||
-      decodedBranchesUrl === null ||
-      decodedLanguagesUrl === null ||
-      decodedGitCommitsUrl === null ||
       decodedIssuesUrl === null ||
-      decodedContentsUrl === null ||
       decodedOwner === null
     ) {
       return null;
@@ -190,7 +177,6 @@ export function decodeGitRepos(rawInput: unknown): GitRepos | null {
       url: decodedUrl,
       branches_url: decodedBranchesUrl,
       languages_url: decodedLanguagesUrl,
-      contributors: decodedContributors,
       git_commits_url: decodedGitCommitsUrl,
       issues_url: decodedIssuesUrl,
       contents_url: decodedContentsUrl,

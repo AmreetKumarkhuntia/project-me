@@ -17,6 +17,7 @@ const config = {
       $client: "src/lib/client",
       $session: "src/lib/session",
       $services: "src/lib/services",
+      $stores: "src/lib/stores",
       $types: "src/lib/types",
       $css: "src/css",
       $generated: "src/generated",
