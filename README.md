@@ -1,6 +1,6 @@
 # Project-Me
 
-Welcome to Project-Me, your interactive portfolio where you can explore my gaming adventures, favorite music, personal insights, and creative projects all in one place. Discover my passions, experiences, and the stories that make me who I am. Whether you're here to connect or just curious, dive in and enjoy the journey!
+Welcome to Project-Me, my interactive portfolio where you can explore my gaming adventures, favorite music, personal insights, and creative projects all in one place. Discover my passions, experiences, and the stories that make me who I am. Whether you're here to connect or just curious, dive in and enjoy the journey!
 
 ## Creating a Project
 
