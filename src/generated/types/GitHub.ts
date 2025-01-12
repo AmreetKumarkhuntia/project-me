@@ -7,133 +7,139 @@ import {
 } from "type-decoder";
 
 /**
- * @type { GitRepos }
+ * @type { GitRepo }
  */
-export type GitRepos = {
+export type GitRepo = {
   /**
    * @description Unique identifier for the repository.
    * @type { number }
-   * @memberof GitRepos
+   * @memberof GitRepo
    * @example 12345678
    */
   id: number;
   /**
    * @description Name of the repository.
    * @type { string }
-   * @memberof GitRepos
+   * @memberof GitRepo
    * @example example-repo
    */
   name: string;
   /**
    * @description Name of the repository.
    * @type { string }
-   * @memberof GitRepos
+   * @memberof GitRepo
    * @example example-repo
    */
   full_name: string;
   /**
    * @description Indicates whether the repository is private.
    * @type { boolean }
-   * @memberof GitRepos
+   * @memberof GitRepo
    */
   private: boolean;
   /**
    * @description URL to access the repository on GitHub.
    * @type { string }
-   * @memberof GitRepos
+   * @memberof GitRepo
    * @example https://github.com/example/example-repo
    */
   html_url: string;
   /**
    * @description Description of the repository.
    * @type { string }
-   * @memberof GitRepos
+   * @memberof GitRepo
    * @example This is an example repository.
    */
   description: string | null;
   /**
    * @description API URL for the repository.
    * @type { string }
-   * @memberof GitRepos
+   * @memberof GitRepo
    * @example https://api.github.com/repos/example/example-repo
    */
   url: string;
   /**
    * @description API URL template for branches in the repository.
    * @type { string }
-   * @memberof GitRepos
+   * @memberof GitRepo
    * @example https://api.github.com/repos/example/example-repo/branches{/branch}
    */
   branches_url: string | null;
   /**
    * @description API URL to fetch languages used in the repository.
    * @type { string }
-   * @memberof GitRepos
+   * @memberof GitRepo
    * @example https://api.github.com/repos/example/example-repo/languages
    */
   languages_url: string | null;
   /**
    * @description API URL template for commits in the repository.
    * @type { string }
-   * @memberof GitRepos
+   * @memberof GitRepo
    * @example https://api.github.com/repos/example/example-repo/commits{/sha}
    */
   git_commits_url: string | null;
   /**
    * @description API URL template for issues in the repository.
    * @type { string }
-   * @memberof GitRepos
+   * @memberof GitRepo
    * @example https://api.github.com/repos/example/example-repo/issues{/number}
    */
   issues_url: string;
   /**
    * @description API URL template for contents in the repository.
    * @type { string }
-   * @memberof GitRepos
+   * @memberof GitRepo
    * @example https://api.github.com/repos/example/example-repo/contents/{+path}
    */
   contents_url: string | null;
   /**
    * @description Git URL for the repository.
    * @type { string }
-   * @memberof GitRepos
+   * @memberof GitRepo
    * @example git://github.com/example/example-repo.git
    */
   git_url: string | null;
   /**
    * @description SSH URL for the repository.
    * @type { string }
-   * @memberof GitRepos
+   * @memberof GitRepo
    * @example git@github.com:example/example-repo.git
    */
   ssh_url: string | null;
   /**
    * @description Primary language of the repository.
    * @type { string }
-   * @memberof GitRepos
+   * @memberof GitRepo
    * @example Python
    */
   language: string | null;
   /**
    * @description List of topics associated with the repository.
    * @type { string[] }
-   * @memberof GitRepos
+   * @memberof GitRepo
    */
   topics: string[] | null;
   /**
-   * @description License information for the repository.
    * @type { GitLicense }
-   * @memberof GitRepos
+   * @memberof GitRepo
    */
   license: GitLicense | null;
   /**
    * @type { GitOwner }
-   * @memberof GitRepos
+   * @memberof GitRepo
    */
   owner: GitOwner;
+  /**
+   * @description tells when a repo was created
+   * @type { string }
+   * @memberof GitRepo
+   * @example 2022-01-29T16:32:38
+   */
+  created_at: string;
 };
 
-export function decodeGitRepos(rawInput: unknown): GitRepos | null {
+export function decodeGitRepo(rawInput: unknown): GitRepo | null {
   if (isJSON(rawInput)) {
     const decodedId = decodeNumber(rawInput["id"]);
     const decodedName = decodeString(rawInput["name"]);
@@ -153,6 +159,7 @@ export function decodeGitRepos(rawInput: unknown): GitRepos | null {
     const decodedTopics = decodeArray(rawInput["topics"], decodeString);
     const decodedLicense = decodeGitLicense(rawInput["license"]);
     const decodedOwner = decodeGitOwner(rawInput["owner"]);
+    const decodedCreatedAt = decodeString(rawInput["created_at"]);
 
     if (
       decodedId === null ||
@@ -162,7 +169,8 @@ export function decodeGitRepos(rawInput: unknown): GitRepos | null {
       decodedHtmlUrl === null ||
       decodedUrl === null ||
       decodedIssuesUrl === null ||
-      decodedOwner === null
+      decodedOwner === null ||
+      decodedCreatedAt === null
     ) {
       return null;
     }
@@ -186,6 +194,7 @@ export function decodeGitRepos(rawInput: unknown): GitRepos | null {
       topics: decodedTopics,
       license: decodedLicense,
       owner: decodedOwner,
+      created_at: decodedCreatedAt,
     };
   }
   return null;
@@ -329,6 +338,58 @@ export function decodeGitOwner(rawInput: unknown): GitOwner | null {
       organizations_url: decodedOrganizationsUrl,
       following_url: decodedFollowingUrl,
       received_events_url: decodedReceivedEventsUrl,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { GitReadme }
+ */
+export type GitReadme = {
+  /**
+   * @type { string }
+   * @memberof GitReadme
+   */
+  download_url: string;
+  /**
+   * @type { string }
+   * @memberof GitReadme
+   */
+  content: string;
+  /**
+   * @type { string }
+   * @memberof GitReadme
+   */
+  encoding: string;
+  /**
+   * @type { string }
+   * @memberof GitReadme
+   */
+  file: string;
+};
+
+export function decodeGitReadme(rawInput: unknown): GitReadme | null {
+  if (isJSON(rawInput)) {
+    const decodedDownloadUrl = decodeString(rawInput["download_url"]);
+    const decodedContent = decodeString(rawInput["content"]);
+    const decodedEncoding = decodeString(rawInput["encoding"]);
+    const decodedFile = decodeString(rawInput["file"]);
+
+    if (
+      decodedDownloadUrl === null ||
+      decodedContent === null ||
+      decodedEncoding === null ||
+      decodedFile === null
+    ) {
+      return null;
+    }
+
+    return {
+      download_url: decodedDownloadUrl,
+      content: decodedContent,
+      encoding: decodedEncoding,
+      file: decodedFile,
     };
   }
   return null;

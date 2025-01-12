@@ -6,7 +6,7 @@
     Tool,
   } from "$generated/types/Projects.ts";
 
-  import { techIconMap } from "$constants/index.ts";
+  import { techIconMap } from "$constants";
   import { onMount } from "svelte";
 
   export let tech: Language | Database | Tool | Framework = "svelte";

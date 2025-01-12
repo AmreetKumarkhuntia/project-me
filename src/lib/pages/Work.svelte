@@ -8,6 +8,7 @@
     tools,
   } from "$configuration/work.ts";
   import TechIcon from "$components/TechIcon.svelte";
+  import Projects from "$components/Projects/Projects.svelte";
 </script>
 
 <div class="work">
@@ -65,6 +66,8 @@
       <TechIcon {tech} />
     {/each}
   </div>
+
+  <Projects />
 </div>
 
 <style lang="scss">

@@ -1,6 +1,6 @@
 import type { RequestEvent } from "@sveltejs/kit";
-import { APIResponseHandler } from "$server/apiSchema/index.ts";
-import { logger } from "$services/logger/index.ts";
+import { APIResponseHandler } from "$server/apiSchema";
+import { logger } from "$services/logger";
 import type { APIResponse } from "$generated/types/APISchema.ts";
 
 export async function GET({ url, request }: RequestEvent) {
@@ -9,7 +9,7 @@ export async function GET({ url, request }: RequestEvent) {
 
   let response: APIResponse = APIResponseHandler.successResponse(
     "App is up !!!",
-    {},
+    {}
   );
 
   logger.logServerResponse("GET /api/heartbeat", { response });

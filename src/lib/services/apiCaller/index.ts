@@ -1,3 +1,5 @@
+import { logger } from "$services/logger";
+
 /**
  * Interface for the API response structure, including status, headers, body, and error
  */
@@ -122,7 +124,8 @@ export class APICaller<T> {
     let result: T | null = null;
     let rawData: any = null;
     let response: Response | null = null;
-    let error = null;
+    let error: string | null = null;
+    let contentType: string | null = null;
 
     if (this.url !== null) {
       let fullUrl = this.url;
@@ -131,10 +134,12 @@ export class APICaller<T> {
         const queryString = Array.from(this.queryParams.entries())
           .map(
             ([key, value]) =>
-              `${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
+              `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
           )
           .join("&");
-        fullUrl += `?${queryString}`;
+        if (queryString !== null && queryString.length > 0) {
+          fullUrl += `?${queryString}`;
+        }
       }
 
       const headers = this.reqHeaders
@@ -156,11 +161,19 @@ export class APICaller<T> {
               : undefined,
         });
 
+        contentType = response.headers.get("Content-Type");
         if (!response.ok) {
           error = `Error: ${response.status} ${response.statusText}`;
         }
 
-        rawData = await response.json();
+        // TODO: handle other type of response headers
+        if (contentType && contentType.includes("text/html")) {
+          rawData = await response.text();
+        } else if (contentType && contentType.includes("text/plain")) {
+          rawData = await response.text();
+        } else {
+          rawData = await response.json();
+        }
       } catch (err) {
         error = "Exception in Api Caller: " + String(err);
       }
@@ -202,7 +215,7 @@ export class APICaller<T> {
     method: string = "POST",
     reqHeaders: Map<string, string> | null = null,
     queryParams: Map<string, string> | null = null,
-    decoder: (data: any) => T | null = (data) => null,
+    decoder: (data: any) => T | null = (data) => null
   ): void {
     this.setUrl(url);
     this.setBody(body);
@@ -211,4 +224,44 @@ export class APICaller<T> {
     this.setQueryParams(queryParams || new Map());
     this.setDecoder(decoder);
   }
+}
+// Implementations using caller to just get data etc.. with default headers and stuff
+export async function getInnerHTML(url: string): Promise<string | null> {
+  const tag = "getInnerHTML";
+  const apiCaller = new APICaller<string>();
+  const requestHeaders: Map<string, string> = new Map([
+    ["Content-Type", "text/html"],
+  ]);
+  const queryParams: Map<string, string> = new Map();
+  let result: string | null = null;
+
+  apiCaller.buildApiCall(
+    url,
+    {},
+    "GET",
+    requestHeaders,
+    queryParams,
+    (body) => body
+  );
+
+  try {
+    logger.logExternalApiRequest(tag, {
+      url,
+      requestHeaders,
+      queryParams,
+    });
+
+    const response = await apiCaller.callApi();
+    result = response.body;
+
+    logger.logExternalApiResponse(tag, {
+      status: response.status,
+      error: response.error,
+      headers: response.headers,
+    });
+  } catch (err) {
+    logger.logException(tag, String(err));
+  }
+
+  return result;
 }
