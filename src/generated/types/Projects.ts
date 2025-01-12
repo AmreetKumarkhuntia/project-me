@@ -1,6 +1,20 @@
 import { isJSON } from "type-decoder";
 
 /**
+ * @type { Source }
+ */
+export type Source = "github" | "spotify";
+
+export function decodeSource(rawInput: unknown): Source | null {
+  switch (rawInput) {
+    case "github":
+    case "spotify":
+      return rawInput;
+  }
+  return null;
+}
+
+/**
  * @type { Language }
  */
 export type Language =

@@ -1,5 +1,5 @@
 GitHub:
-  GitRepos:
+  GitRepo:
     type: object
     required:
       - full_name
@@ -10,6 +10,7 @@ GitHub:
       - owner
       - private
       - url
+      - created_at
     properties:
       id:
         type: number
@@ -81,9 +82,12 @@ GitHub:
           - "repository"
       license:
         $ref: "./docs/types/GitHub.yaml#/GitHub/GitLicense"
-        description: "License information for the repository."
       owner:
         $ref: "./docs/types/GitHub.yaml#/GitHub/GitOwner"
+      created_at:
+        type: string
+        description: tells when a repo was created
+        example: "2022-01-29T16:32:38"
 
   GitLicense:
     type: object
@@ -148,3 +152,20 @@ GitHub:
         type: string
         description: "API URL to fetch events the owner has received."
         example: "https://api.github.com/users/example-user/received_events"
+
+  GitReadme:
+    type: object
+    required:
+      - download_url
+      - content
+      - encoding
+      - file
+    properties:
+      download_url:
+        type: string
+      content:
+        type: string
+      encoding:
+        type: string
+      file:
+        type: string

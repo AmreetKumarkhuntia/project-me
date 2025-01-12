@@ -1,6 +1,6 @@
 {
   "name": "project-me",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "format:generated": "npx prettier --write ./src/generated/types/*",
@@ -40,8 +40,10 @@
     "vite": "^6.0.0"
   },
   "dependencies": {
+    "@types/marked": "^5.0.2",
     "dotenv": "^16.4.7",
     "lilac-typescript": "^1.3.1",
+    "marked": "^15.0.6",
     "type-decoder": "^2.0.1",
     "vergins": "3.6.2"
   }
