@@ -5,7 +5,7 @@ import {
   linkedIn,
   twitter,
   youtube,
-} from "$lib/constants/index.ts";
+} from "$lib/constants";
 import type { WrapperTextProps } from "vergins";
 
 export const secondSubtitles: string[] = [

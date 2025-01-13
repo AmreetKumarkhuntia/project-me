@@ -1,5 +1,5 @@
 import { type Handle } from "@sveltejs/kit";
-import { logger } from "$services/logger/index.ts";
+import { logger } from "$services/logger";
 
 export const handle: Handle = async ({ event, resolve }) => {
   logger.logFunctionCalled("serverHooks", { event });

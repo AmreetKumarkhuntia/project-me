@@ -3,7 +3,7 @@ import type {
   TimeLineEventType,
   TimeLineProps,
 } from "vergins";
-import { work, education } from "$constants/index.ts";
+import { work, education } from "$constants";
 
 const iconMaps: Map<string, string> = new Map([
   ["work", work],

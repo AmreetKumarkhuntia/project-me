@@ -12,3 +12,13 @@ export const githubApiUrl: string =
 
 export const githubApiVersion: string =
   process.env.GITHUB_API_VERSION ?? "2022-11-28";
+
+export function getGitUserReposToShow() {
+  const availableRepos: string = process.env.GITHUB_USER_REPOS ?? "";
+  const reposArray: string[] = availableRepos
+    .split(",")
+    .map((repo) => repo.trim())
+    .filter(Boolean);
+
+  return reposArray;
+}

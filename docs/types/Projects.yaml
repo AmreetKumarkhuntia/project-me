@@ -1,4 +1,10 @@
 Projects:
+  Source:
+    type: string
+    enum:
+      - github
+      - spotify
+
   Language:
     type: string
     enum:

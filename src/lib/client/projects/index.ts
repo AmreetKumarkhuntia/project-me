@@ -1,23 +1,24 @@
-import { githubPageIterations } from "$configuration/github.ts";
-import { decodeGitRepos, type GitRepos } from "$generated/types/GitHub.ts";
-import { APICaller } from "$services/apiCaller/index.ts";
+import {
+  decodeGitProjectDetails,
+  type GitProjectDetails,
+} from "$generated/types";
+import { APICaller } from "$services/apiCaller";
 import { updateGithubProjects } from "$stores/projects.ts";
-import { logger } from "$services/logger/index.ts";
+import { logger } from "$services/logger";
+import { getRawJsonData } from "$client";
 
 export async function getGitRepos() {
   const allRepos = await getReposFromBackend();
   updateGithubProjects(allRepos);
 }
-
-export async function getReposFromBackend(): Promise<GitRepos[]> {
+// move to frontend
+export async function getReposFromBackend(): Promise<GitProjectDetails[]> {
   const requestHeaders: Map<string, string> = new Map();
-  const apiUrl: string = window.location.href + "api/github/repos";
-  const queryParams: Map<string, string> = new Map([
-    ["pages", String(githubPageIterations)],
-  ]);
-  const apiCaller = new APICaller<GitRepos[]>();
+  const apiUrl: string = window.location.href + "api/projects";
+  const queryParams: Map<string, string> = new Map([["source", "github"]]);
+  const apiCaller = new APICaller<GitProjectDetails[]>();
 
-  const allRepos: GitRepos[] = [];
+  const allRepos: GitProjectDetails[] = [];
 
   apiCaller.buildApiCall(
     apiUrl,
@@ -26,11 +27,11 @@ export async function getReposFromBackend(): Promise<GitRepos[]> {
     requestHeaders,
     queryParams,
     (body) => {
-      const result: GitRepos[] = [];
+      const result: GitProjectDetails[] = [];
       const data = body?.data?.repos ?? [];
       if (Array.isArray(data)) {
         data.map((data) => {
-          const decodedData = decodeGitRepos(data);
+          const decodedData = decodeGitProjectDetails(data);
           if (decodedData) {
             result.push(decodedData);
           }
@@ -50,7 +51,11 @@ export async function getReposFromBackend(): Promise<GitRepos[]> {
     const result = await apiCaller.callApi();
     allRepos.push(...(result.body ?? []));
 
-    logger.logExternalApiResponse("getGithubRepos", { result });
+    logger.logExternalApiResponse("getGithubRepos", {
+      status: result.status,
+      error: result.error,
+      headers: result.headers,
+    });
   } catch (err) {
     logger.logException("getGithubRepos", String(err));
   }

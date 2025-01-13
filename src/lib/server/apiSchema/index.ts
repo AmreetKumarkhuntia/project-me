@@ -69,7 +69,7 @@ export class APIResponseHandler {
     // Step 1: Check if the required properties are set
     if (!this.status || !this.message || !this.code) {
       throw new Error(
-        "Status, message, and code are required to build an ApiResponse.",
+        "Status, message, and code are required to build an ApiResponse."
       );
     }
 
@@ -102,7 +102,7 @@ export class APIResponseHandler {
   static successResponse(
     message: string,
     data: APIResponseData | null = null,
-    code: number = 200,
+    code: number = 200
   ) {
     // Step 1-4: Return a successfully formatted response
     return new APIResponseHandler()
@@ -130,7 +130,7 @@ export class APIResponseHandler {
   static unauthorizedResponse(
     message: string,
     data: APIResponseData | null = null,
-    code: number = 401,
+    code: number = 401
   ) {
     // Step 1-4: Return an unauthorized formatted response
     return new APIResponseHandler()
@@ -158,7 +158,7 @@ export class APIResponseHandler {
   static notFoundResponse(
     message: string,
     data: APIResponseData | null = null,
-    code: number = 404,
+    code: number = 404
   ) {
     // Step 1-4: Return a not found formatted response
     return new APIResponseHandler()
@@ -186,7 +186,7 @@ export class APIResponseHandler {
   static badRequestResponse(
     message: string,
     data: APIResponseData | null = null,
-    code: number = 400,
+    code: number = 400
   ) {
     // Step 1-4: Return a bad request formatted response
     return new APIResponseHandler()
@@ -214,7 +214,7 @@ export class APIResponseHandler {
   static internalServerErrorResponse(
     message: string,
     data: APIResponseData | null = null,
-    code: number = 500,
+    code: number = 500
   ) {
     // Step 1-4: Return an internal server error formatted response
     return new APIResponseHandler()
@@ -231,14 +231,22 @@ export class APIResponseHandler {
    * Steps:
    * 1. Convert the APIResponse object to a JSON string.
    * 2. Return a new Response object with the JSON string as the body and the appropriate status code.
+   * 3. Attaches headers if none is provided adds default headers
    *
    * @param response The APIResponse to convert.
    * @returns A Response object.
+   * TODO: add redirects and other possible options here
    */
-  static toResponse(response: APIResponse) {
+  static toResponse(
+    response: APIResponse,
+    headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    }
+  ) {
     // Step 1-2: Return the Response object
     return new Response(JSON.stringify(response), {
       status: response.code,
+      headers: headers,
     });
   }
 }
