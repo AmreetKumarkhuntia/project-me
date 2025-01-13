@@ -1,14 +1,14 @@
 <script lang="ts">
   import { marked } from "marked";
-  import { decodeString } from "type-decoder";
-  import { Card, Header } from "vergins";
+  import { Card, flyAndFade } from "vergins";
 
-  import { getHtmlUsingProxy } from "$client";
-  import type { GitProjectDetails, GitRepo } from "$generated/types";
+  import type { GitProjectDetails } from "$generated/types";
   import type { Source } from "$generated/types/Projects.ts";
 
   export let source: Source = "github";
   export let project: GitProjectDetails | null;
+  export let comeFrom: "left" | "right" = "left";
+
   let innerHtml: string = ""; // Default to empty string
 
   $: if (project) {
@@ -24,7 +24,6 @@
 
           if (markDown) {
             innerHtml = await marked(markDown);
-            console.log(">>> markdown", markDown);
           } else {
             console.error("Markdown content is empty or failed to fetch.");
           }
@@ -36,8 +35,11 @@
   }
 </script>
 
-{#if project !== null}
-  <div class="project">
+<div
+  class="project"
+  in:flyAndFade={{ x: comeFrom === "left" ? 700 : -700, duration: 300 }}
+>
+  {#if project !== null}
     <Card>
       <div class="project-github-loader">
         {#if innerHtml !== ""}
@@ -45,8 +47,8 @@
         {/if}
       </div>
     </Card>
-  </div>
-{/if}
+  {/if}
+</div>
 
 <style lang="scss">
   .project {
