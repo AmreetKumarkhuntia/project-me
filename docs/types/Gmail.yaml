@@ -1,0 +1,17 @@
+Gmail:
+  SendGmailRequest:
+    type: object
+    required:
+      - subject
+      - description
+      - email
+    properties:
+      email:
+        type: string
+        description: "Contact person email"
+      subject:
+        type: string
+        description: "The subject of the email"
+      description:
+        type: string
+        description: "The content of the email body"

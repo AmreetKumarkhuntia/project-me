@@ -1,8 +1,4 @@
-import type {
-  StatusEnum,
-  APIResponseData,
-  APIResponse,
-} from "$generated/types/APISchema.ts";
+import type { StatusEnum, APIResponse } from "$generated/types";
 
 /**
  * Class for handling API responses, including status, message, data, and code.
@@ -11,11 +7,11 @@ import type {
 export class APIResponseHandler {
   private status: StatusEnum | null = null;
   private message: string | null = null;
-  private data: APIResponseData | null = null;
+  private data: unknown = null;
   private code: number | null = null;
 
   /**
-   * Sets the status for the API response.
+   * ^ Sets the status for the API response.
    * @param status The status of the response (e.g., "success", "unauthorized").
    * @returns The current instance for method chaining.
    */
@@ -25,7 +21,7 @@ export class APIResponseHandler {
   }
 
   /**
-   * Sets the message for the API response.
+   * ^ Sets the message for the API response.
    * @param message The message to be included in the response.
    * @returns The current instance for method chaining.
    */
@@ -35,17 +31,17 @@ export class APIResponseHandler {
   }
 
   /**
-   * Sets the data for the API response.
+   * ^ Sets the data for the API response.
    * @param data The data to be included in the response (can be null).
    * @returns The current instance for method chaining.
    */
-  setData(data: APIResponseData | null): this {
+  setData(data: unknown): this {
     this.data = data;
     return this;
   }
 
   /**
-   * Sets the HTTP code for the API response.
+   * ^ Sets the HTTP code for the API response.
    * @param code The HTTP status code to be included in the response (e.g., 200, 404).
    * @returns The current instance for method chaining.
    */
@@ -55,7 +51,7 @@ export class APIResponseHandler {
   }
 
   /**
-   * Builds the API response object using the provided properties.
+   * ^ Builds the API response object using the provided properties.
    *
    * Steps:
    * 1. Check if the required properties (status, message, and code) are set.
@@ -66,27 +62,24 @@ export class APIResponseHandler {
    * @returns The built APIResponse object.
    */
   build() {
-    // Step 1: Check if the required properties are set
     if (!this.status || !this.message || !this.code) {
       throw new Error(
         "Status, message, and code are required to build an ApiResponse."
       );
     }
 
-    // Step 3: Create the APIResponse object
     const response: APIResponse = {
       status: this.status,
       message: this.message,
       data: this.data,
-      code: this.code ?? 400, // Default code to 400 if not set
+      code: this.code ?? 400,
     };
 
-    // Step 4: Return the APIResponse object
     return response;
   }
 
   /**
-   * Builds a successful API response.
+   * ^ Builds a successful API response.
    *
    * Steps:
    * 1. Create a new instance of APIResponseHandler.
@@ -101,10 +94,9 @@ export class APIResponseHandler {
    */
   static successResponse(
     message: string,
-    data: APIResponseData | null = null,
+    data: unknown | null = null,
     code: number = 200
   ) {
-    // Step 1-4: Return a successfully formatted response
     return new APIResponseHandler()
       .setStatus("success")
       .setMessage(message)
@@ -114,7 +106,7 @@ export class APIResponseHandler {
   }
 
   /**
-   * Builds an unauthorized API response.
+   * ^ Builds an unauthorized API response.
    *
    * Steps:
    * 1. Create a new instance of APIResponseHandler.
@@ -129,7 +121,7 @@ export class APIResponseHandler {
    */
   static unauthorizedResponse(
     message: string,
-    data: APIResponseData | null = null,
+    data: unknown = null,
     code: number = 401
   ) {
     // Step 1-4: Return an unauthorized formatted response
@@ -142,7 +134,7 @@ export class APIResponseHandler {
   }
 
   /**
-   * Builds a not found API response.
+   * ^ Builds a not found API response.
    *
    * Steps:
    * 1. Create a new instance of APIResponseHandler.
@@ -157,7 +149,7 @@ export class APIResponseHandler {
    */
   static notFoundResponse(
     message: string,
-    data: APIResponseData | null = null,
+    data: unknown = null,
     code: number = 404
   ) {
     // Step 1-4: Return a not found formatted response
@@ -170,7 +162,7 @@ export class APIResponseHandler {
   }
 
   /**
-   * Builds a bad request API response.
+   * ^ Builds a bad request API response.
    *
    * Steps:
    * 1. Create a new instance of APIResponseHandler.
@@ -185,7 +177,7 @@ export class APIResponseHandler {
    */
   static badRequestResponse(
     message: string,
-    data: APIResponseData | null = null,
+    data: unknown = null,
     code: number = 400
   ) {
     // Step 1-4: Return a bad request formatted response
@@ -198,7 +190,7 @@ export class APIResponseHandler {
   }
 
   /**
-   * Builds an internal server error API response.
+   * ^ Builds an internal server error API response.
    *
    * Steps:
    * 1. Create a new instance of APIResponseHandler.
@@ -213,7 +205,7 @@ export class APIResponseHandler {
    */
   static internalServerErrorResponse(
     message: string,
-    data: APIResponseData | null = null,
+    data: unknown = null,
     code: number = 500
   ) {
     // Step 1-4: Return an internal server error formatted response
@@ -226,7 +218,7 @@ export class APIResponseHandler {
   }
 
   /**
-   * Converts the API response into a Response object for HTTP responses.
+   * ^ Converts the API response into a Response object for HTTP responses.
    *
    * Steps:
    * 1. Convert the APIResponse object to a JSON string.
@@ -235,7 +227,7 @@ export class APIResponseHandler {
    *
    * @param response The APIResponse to convert.
    * @returns A Response object.
-   * TODO: add redirects and other possible options here
+   * TODO : add redirects and other possible options here
    */
   static toResponse(
     response: APIResponse,
@@ -243,10 +235,17 @@ export class APIResponseHandler {
       "Content-Type": "application/json",
     }
   ) {
-    // Step 1-2: Return the Response object
-    return new Response(JSON.stringify(response), {
-      status: response.code,
-      headers: headers,
-    });
+    //TODO : add other response codes here
+    if (response.code === 200 || response.code === 201) {
+      return new Response(JSON.stringify(response.data ?? {}), {
+        status: response.code,
+        headers: headers,
+      });
+    } else {
+      return new Response(JSON.stringify(response), {
+        status: response.code,
+        headers: headers,
+      });
+    }
   }
 }

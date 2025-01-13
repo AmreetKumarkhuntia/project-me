@@ -5,7 +5,6 @@ import {
 import { APICaller } from "$services/apiCaller";
 import { updateGithubProjects } from "$stores/projects.ts";
 import { logger } from "$services/logger";
-import { getRawJsonData } from "$client";
 
 export async function getGitRepos() {
   const allRepos = await getReposFromBackend();
@@ -28,7 +27,7 @@ export async function getReposFromBackend(): Promise<GitProjectDetails[]> {
     queryParams,
     (body) => {
       const result: GitProjectDetails[] = [];
-      const data = body?.data?.repos ?? [];
+      const data = body?.repos ?? [];
       if (Array.isArray(data)) {
         data.map((data) => {
           const decodedData = decodeGitProjectDetails(data);

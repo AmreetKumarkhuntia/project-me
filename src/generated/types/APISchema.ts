@@ -25,11 +25,7 @@ export type APIResponse = {
    * @memberof APIResponse
    */
   code: number;
-  /**
-   * @type { APIResponseData }
-   * @memberof APIResponse
-   */
-  data: APIResponseData | null;
+  [keys: string]: unknown;
 };
 
 export function decodeAPIResponse(rawInput: unknown): APIResponse | null {
@@ -37,7 +33,6 @@ export function decodeAPIResponse(rawInput: unknown): APIResponse | null {
     const decodedStatus = decodeStatusEnum(rawInput["status"]);
     const decodedMessage = decodeString(rawInput["message"]);
     const decodedCode = decodeNumber(rawInput["code"]);
-    const decodedData = decodeAPIResponseData(rawInput["data"]);
 
     if (
       decodedStatus === null ||
@@ -48,25 +43,10 @@ export function decodeAPIResponse(rawInput: unknown): APIResponse | null {
     }
 
     return {
+      ...rawInput,
       status: decodedStatus,
       message: decodedMessage,
       code: decodedCode,
-      data: decodedData,
-    };
-  }
-  return null;
-}
-/**
- * @type { APIResponseData }
- */
-export type APIResponseData = Record<string, unknown>;
-
-export function decodeAPIResponseData(
-  rawInput: unknown,
-): APIResponseData | null {
-  if (isJSON(rawInput)) {
-    return {
-      ...rawInput,
     };
   }
   return null;
