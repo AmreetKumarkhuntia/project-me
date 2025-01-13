@@ -159,7 +159,6 @@ GitHub:
       - download_url
       - content
       - encoding
-      - file
     properties:
       download_url:
         type: string
@@ -169,3 +168,13 @@ GitHub:
         type: string
       file:
         type: string
+
+  GitProjectDetails:
+    type: object
+    required:
+      - repo
+    properties:
+      repo:
+        $ref: "./docs/types/GitHub.yaml#/GitHub/GitRepo"
+      readme:
+        $ref: "./docs/types/GitHub.yaml#/GitHub/GitReadme"

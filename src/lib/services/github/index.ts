@@ -1,6 +1,7 @@
 import {
   decodeGitReadme,
   decodeGitRepo,
+  type GitProjectDetails,
   type GitReadme,
   type GitRepo,
 } from "$generated/types";
@@ -14,7 +15,7 @@ const defaultGithubHeaders: Map<string, string> = new Map([
 //region: GITHUB API CALLERS
 
 /**
- * Fetches a list of GitHub repositories for a given user.
+ * & Fetches a list of GitHub repositories for a given user.
  *
  * @param githubApiUrl - The base URL of the GitHub API.
  * @param githubApiVersion - The version of the GitHub API to use.
@@ -87,7 +88,7 @@ export async function getGithubRepos(
 }
 
 /**
- * Fetches a specific GitHub repository.
+ * & Fetches a specific GitHub repository.
  *
  * @param githubApiUrl - The base URL of the GitHub API.
  * @param githubApiVersion - The version of the GitHub API to use.
@@ -104,8 +105,9 @@ export async function getGithubRepo(
   authToken: string
 ): Promise<GitRepo | null> {
   let gitRepo: GitRepo | null = null;
-  const apiUrl: string =
-    githubApiUrl + "/users/" + userName + `/${repoName}` + "/readme";
+
+  const tag = "getGithubRepo";
+  const apiUrl: string = githubApiUrl + "/repos/" + userName + `/${repoName}`;
   const queryParams: Map<string, string> = new Map();
   const requestHeaders: Map<string, string> = new Map(defaultGithubHeaders);
   const apiCaller = new APICaller<GitRepo>();
@@ -123,27 +125,27 @@ export async function getGithubRepo(
   );
 
   try {
-    logger.logExternalApiRequest("getGithubRepos", {
+    logger.logExternalApiRequest(tag, {
       apiUrl,
       requestHeaders,
       queryParams,
     });
     const result = await apiCaller.callApi();
     gitRepo = result.body;
-    logger.logExternalApiResponse("getGithubRepos", {
+    logger.logExternalApiResponse(tag, {
       status: result.status,
       error: result.error,
       headers: result.headers,
     });
   } catch (err) {
-    logger.logException("getGithubRepos", String(err));
+    logger.logException(tag, String(err));
   }
 
   return gitRepo;
 }
 
 /**
- * Fetches the README file of a specific GitHub repository.
+ * & Fetches the README file of a specific GitHub repository.
  *
  * @param githubApiUrl - The base URL of the GitHub API.
  * @param githubApiVersion - The version of the GitHub API to use.
@@ -160,8 +162,10 @@ export async function getGithubReadme(
   authToken: string
 ): Promise<GitReadme | null> {
   let readme: GitReadme | null = null;
+
+  const tag = "getGithubReadme";
   const apiUrl: string =
-    githubApiUrl + "/users/" + userName + `/${repoName}` + "/readme";
+    githubApiUrl + "/repos/" + userName + `/${repoName}` + "/readme";
   const queryParams: Map<string, string> = new Map();
   const requestHeaders: Map<string, string> = new Map(defaultGithubHeaders);
   const apiCaller = new APICaller<GitReadme>();
@@ -179,20 +183,20 @@ export async function getGithubReadme(
   );
 
   try {
-    logger.logExternalApiRequest("getGithubRepos", {
+    logger.logExternalApiRequest(tag, {
       apiUrl,
       requestHeaders,
       queryParams,
     });
     const result = await apiCaller.callApi();
     readme = result.body;
-    logger.logExternalApiResponse("getGithubRepos", {
+    logger.logExternalApiResponse(tag, {
       status: result.status,
       error: result.error,
       headers: result.headers,
     });
   } catch (err) {
-    logger.logException("getGithubRepos", String(err));
+    logger.logException(tag, String(err));
   }
 
   return readme;
@@ -202,4 +206,95 @@ export async function getGithubReadme(
 
 //region: AGGREGATORS
 
+/**
+ * & Compiles detailed information about a specific GitHub project.
+ *
+ * @param githubApiUrl - The base URL of the GitHub API.
+ * @param githubApiVersion - The version of the GitHub API to use.
+ * @param userName - The GitHub username.
+ * @param repoName - The name of the repository.
+ * @param authToken - The authentication token.
+ * @returns A Promise that resolves to a GitProjectDetails object or null.
+ */
+export async function getCompiledGitRepo(
+  githubApiUrl: string,
+  githubApiVersion: string,
+  userName: string,
+  repoName: string,
+  authToken: string
+): Promise<GitProjectDetails | null> {
+  let projectDetails: GitProjectDetails | null = null;
+
+  const tag = "getCompiledGitRepo";
+
+  logger.logFunctionCalled(tag, {
+    githubApiUrl,
+    githubApiVersion,
+    userName,
+    repoName,
+  });
+  try {
+    const repo = await getGithubRepo(
+      githubApiUrl,
+      githubApiVersion,
+      userName,
+      repoName,
+      authToken
+    );
+    if (repo !== null) {
+      const repoReadme = await getGithubReadme(
+        githubApiUrl,
+        githubApiVersion,
+        userName,
+        repoName,
+        authToken
+      );
+      projectDetails = {
+        repo,
+        readme: repoReadme,
+      };
+    }
+  } catch (err) {
+    logger.logException(tag, String(err));
+  }
+  logger.logFunctionCallResult(tag, {
+    name: projectDetails?.repo?.full_name ?? null,
+  });
+
+  return projectDetails;
+}
+
+/**
+ * & Compiles detailed information about multiple GitHub projects.
+ *
+ * @param githubApiUrl - The base URL of the GitHub API.
+ * @param githubApiVersion - The version of the GitHub API to use.
+ * @param userName - The GitHub username.
+ * @param repos - An array of repository names.
+ * @param authToken - The authentication token.
+ * @returns A Promise that resolves to an array of GitProjectDetails objects.
+ */
+export async function getCompiledGitRepos(
+  githubApiUrl: string,
+  githubApiVersion: string,
+  userName: string,
+  repos: string[],
+  authToken: string
+): Promise<GitProjectDetails[]> {
+  const result: GitProjectDetails[] = [];
+
+  for (let i = 0; i < repos.length; i++) {
+    const projectDetails = await getCompiledGitRepo(
+      githubApiUrl,
+      githubApiVersion,
+      userName,
+      repos[i],
+      authToken
+    );
+    if (projectDetails !== null) {
+      result.push(projectDetails);
+    }
+  }
+  return result;
+}
 //endregion

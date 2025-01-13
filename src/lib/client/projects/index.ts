@@ -1,5 +1,7 @@
-import { githubApiUrl, githubPageIterations } from "$configuration/github.ts";
-import { decodeGitRepo, type GitRepo } from "$generated/types";
+import {
+  decodeGitProjectDetails,
+  type GitProjectDetails,
+} from "$generated/types";
 import { APICaller } from "$services/apiCaller";
 import { updateGithubProjects } from "$stores/projects.ts";
 import { logger } from "$services/logger";
@@ -9,17 +11,14 @@ export async function getGitRepos() {
   const allRepos = await getReposFromBackend();
   updateGithubProjects(allRepos);
 }
-
-export async function getReposFromBackend(): Promise<GitRepo[]> {
+// move to frontend
+export async function getReposFromBackend(): Promise<GitProjectDetails[]> {
   const requestHeaders: Map<string, string> = new Map();
   const apiUrl: string = window.location.href + "api/projects";
-  const queryParams: Map<string, string> = new Map([
-    ["pages", String(githubPageIterations)],
-    ["source", "github"],
-  ]);
-  const apiCaller = new APICaller<GitRepo[]>();
+  const queryParams: Map<string, string> = new Map([["source", "github"]]);
+  const apiCaller = new APICaller<GitProjectDetails[]>();
 
-  const allRepos: GitRepo[] = [];
+  const allRepos: GitProjectDetails[] = [];
 
   apiCaller.buildApiCall(
     apiUrl,
@@ -28,11 +27,11 @@ export async function getReposFromBackend(): Promise<GitRepo[]> {
     requestHeaders,
     queryParams,
     (body) => {
-      const result: GitRepo[] = [];
+      const result: GitProjectDetails[] = [];
       const data = body?.data?.repos ?? [];
       if (Array.isArray(data)) {
         data.map((data) => {
-          const decodedData = decodeGitRepo(data);
+          const decodedData = decodeGitProjectDetails(data);
           if (decodedData) {
             result.push(decodedData);
           }
@@ -62,12 +61,4 @@ export async function getReposFromBackend(): Promise<GitRepo[]> {
   }
 
   return allRepos;
-}
-
-// TODO: add decoder for readme things
-export async function getReadme(project: GitRepo) {
-  const readMeJson = await getRawJsonData(
-    `${githubApiUrl}/repos/${project.full_name}/readme`
-  );
-  return readMeJson;
 }

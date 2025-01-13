@@ -2,7 +2,7 @@ import type { RequestEvent } from "@sveltejs/kit";
 import { APIResponseHandler } from "$server/apiSchema";
 import { logger } from "$services/logger";
 import type { APIResponse } from "$generated/types/APISchema.ts";
-import { getGithubRepos } from "$services/github";
+import { getCompiledGitRepos, getGithubRepos } from "$services/github";
 import {
   githubApiUrl,
   githubApiVersion,
@@ -22,25 +22,20 @@ export async function GET({ url, request }: RequestEvent) {
   logger.logServerRequest(tag, { request, params, userReposToShow });
 
   try {
-    const pages = Number(params.pages);
     const source = decodeSource(params?.source);
     switch (source) {
       case "spotify":
       case "github":
       default: {
-        const repos = await getGithubRepos(
+        const repos = await getCompiledGitRepos(
           githubApiUrl,
           githubApiVersion,
           githubUserName,
-          pages,
+          userReposToShow,
           githubAuthToken
         );
-        const sortedRepos = repos.sort((a, b) =>
-          b.created_at?.localeCompare(a.created_at)
-        );
         response = APIResponseHandler.successResponse("success", {
-          repos: sortedRepos,
-          length: repos.length,
+          repos,
         });
       }
     }
