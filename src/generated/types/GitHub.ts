@@ -366,7 +366,7 @@ export type GitReadme = {
    * @type { string }
    * @memberof GitReadme
    */
-  file: string;
+  file: string | null;
 };
 
 export function decodeGitReadme(rawInput: unknown): GitReadme | null {
@@ -379,8 +379,7 @@ export function decodeGitReadme(rawInput: unknown): GitReadme | null {
     if (
       decodedDownloadUrl === null ||
       decodedContent === null ||
-      decodedEncoding === null ||
-      decodedFile === null
+      decodedEncoding === null
     ) {
       return null;
     }
@@ -390,6 +389,41 @@ export function decodeGitReadme(rawInput: unknown): GitReadme | null {
       content: decodedContent,
       encoding: decodedEncoding,
       file: decodedFile,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { GitProjectDetails }
+ */
+export type GitProjectDetails = {
+  /**
+   * @type { GitRepo }
+   * @memberof GitProjectDetails
+   */
+  repo: GitRepo;
+  /**
+   * @type { GitReadme }
+   * @memberof GitProjectDetails
+   */
+  readme: GitReadme | null;
+};
+
+export function decodeGitProjectDetails(
+  rawInput: unknown,
+): GitProjectDetails | null {
+  if (isJSON(rawInput)) {
+    const decodedRepo = decodeGitRepo(rawInput["repo"]);
+    const decodedReadme = decodeGitReadme(rawInput["readme"]);
+
+    if (decodedRepo === null) {
+      return null;
+    }
+
+    return {
+      repo: decodedRepo,
+      readme: decodedReadme,
     };
   }
   return null;

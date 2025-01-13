@@ -20,9 +20,7 @@
     <LazyLoader maxCount={1}>PROJECTS</LazyLoader>
   </Header>
   {#each projects as project, index}
-    {#if index < 3}
-      <Project {source} {project} />
-    {/if}
+    <Project {source} {project} />
   {/each}
 </div>
 

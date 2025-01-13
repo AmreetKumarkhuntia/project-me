@@ -1,8 +1,8 @@
-import type { GitRepo } from "$generated/types";
+import type { GitProjectDetails, GitRepo } from "$generated/types";
 import { writable } from "svelte/store";
 
 export type ProjectsStore = {
-  githubProjects: GitRepo[];
+  githubProjects: GitProjectDetails[];
 };
 
 const initStore: ProjectsStore = {
@@ -11,7 +11,7 @@ const initStore: ProjectsStore = {
 
 export const projectStore = writable<ProjectsStore>(initStore);
 
-export function updateGithubProjects(projects: GitRepo[]) {
+export function updateGithubProjects(projects: GitProjectDetails[]) {
   projectStore.update((previousState) => ({
     ...previousState,
     githubProjects: projects,

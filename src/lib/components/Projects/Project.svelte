@@ -4,12 +4,11 @@
   import { Card, Header } from "vergins";
 
   import { getHtmlUsingProxy } from "$client";
-  import { getReadme } from "$client/projects";
-  import type { GitRepo } from "$generated/types";
+  import type { GitProjectDetails, GitRepo } from "$generated/types";
   import type { Source } from "$generated/types/Projects.ts";
 
   export let source: Source = "github";
-  export let project: GitRepo | null;
+  export let project: GitProjectDetails | null;
   let innerHtml: string = ""; // Default to empty string
 
   $: if (project) {
@@ -19,15 +18,13 @@
   async function loadInnerHtml() {
     if (project !== null) {
       try {
-        const readMeJson = await getReadme(project);
-        const downloadUrl = decodeString(readMeJson?.download_url);
-
-        if (downloadUrl) {
-          const markDown = await getHtmlUsingProxy(downloadUrl);
+        const readmeEncoded = project?.readme?.content ?? null;
+        if (readmeEncoded !== null) {
+          const markDown = atob(readmeEncoded);
 
           if (markDown) {
-            // Parse markdown to HTML
             innerHtml = await marked(markDown);
+            console.log(">>> markdown", markDown);
           } else {
             console.error("Markdown content is empty or failed to fetch.");
           }
