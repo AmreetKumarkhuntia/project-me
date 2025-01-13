@@ -20,6 +20,8 @@
   --avatar-border-color: var(--primary-color);
   --avatar-bg-color: transparent;
 
+  // Carousel
+
   // Header
   --header-one-font-color: var(--active-color);
   --header-two-font-color: var(--active-color);
@@ -120,6 +122,24 @@
   .card {
     backdrop-filter: blur(2px) !important;
     background: var(--light-background-color) !important;
+  }
+  
+  .carousel-dot-container {
+    width: 100%;
+
+    .carousel-dot-button{
+      height: 12px;
+      width: 12px;
+      border-radius: 100%;
+      border: 1px solid var(--primary-color);
+      margin: 0px 6px;
+      transition: all 500ms ease;
+      cursor: pointer;
+    }
+    .carousel-dot-button-active{
+      scale: 1.25;
+      background-color: var(--active-color);
+    }
   }
 
   .display-flex {
