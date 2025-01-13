@@ -1,14 +1,14 @@
 import { decodeAPIResponse } from "$generated/types";
 import { APICaller } from "$services/apiCaller";
 import { logger } from "$services/logger";
-import { decodeString } from "type-decoder";
+import { decodeString, isJSON } from "type-decoder";
 
 export async function getHtmlUsingProxy(url: string): Promise<string | null> {
   const tag = "getHtmlUsingProxy";
   const requestHeaders: Map<string, string> = new Map([["X-Proxy-Url", url]]);
   const apiUrl: string = window.location.href + "api/proxy";
   const queryParams: Map<string, string> = new Map();
-  const apiCaller = new APICaller<string>();
+  const apiCaller = new APICaller<unknown>();
 
   let plainText: string | null = null;
 
@@ -29,9 +29,9 @@ export async function getHtmlUsingProxy(url: string): Promise<string | null> {
     });
 
     const result = await apiCaller.callApi();
-    const decodedBody = decodeAPIResponse(result.body);
-    if (decodedBody && decodedBody.data !== null) {
-      plainText = decodeString(decodedBody.data["innerHTML"]);
+    const body = result.body;
+    if (isJSON(body)) {
+      plainText = decodeString(body["innerHTML"]);
     }
     logger.logExternalApiResponse(tag, {
       status: result.status,

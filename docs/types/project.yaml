@@ -8,3 +8,5 @@ groupedTypes:
     $ref: "./docs/types/Projects.yaml#/Projects"
   GitHub:
     $ref: "./docs/types/GitHub.yaml#/GitHub"
+  Gmail:
+    $ref: "./docs/types/Gmail.yaml#/Gmail"

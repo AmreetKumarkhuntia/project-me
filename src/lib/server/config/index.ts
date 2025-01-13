@@ -22,3 +22,9 @@ export function getGitUserReposToShow() {
 
   return reposArray;
 }
+
+export const senderGmail: string = process.env.GMAIL_SENDER_ADDRESS ?? "";
+
+export const receiverGmail: string = process.env.GMAIL_RECEIVER_ADDRESS ?? "";
+
+export const senderGmailPass: string = process.env.GMAIL_SENDER_PASSWORD ?? "";
