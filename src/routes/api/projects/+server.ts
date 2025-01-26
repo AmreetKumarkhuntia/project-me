@@ -32,7 +32,7 @@ export async function GET({ url, request }: RequestEvent) {
           githubApiVersion,
           githubUserName,
           userReposToShow,
-          githubAuthToken
+          githubAuthToken,
         );
         response = APIResponseHandler.successResponse("success", {
           repos,

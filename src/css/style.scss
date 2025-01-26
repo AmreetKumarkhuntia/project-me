@@ -26,10 +26,10 @@
   // Header
   --header-one-font-color: var(--active-color);
   --header-two-font-color: var(--active-color);
-  --header-three-font-color: var(--quaternary-color); 
-  --header-four-font-color: var(--quaternary-color); 
-  --header-five-font-color: var(--tertiary-color); 
-  --header-six-font-color: var(--secondary-color); 
+  --header-three-font-color: var(--quaternary-color);
+  --header-four-font-color: var(--quaternary-color);
+  --header-five-font-color: var(--tertiary-color);
+  --header-six-font-color: var(--secondary-color);
 
   // Navbar
   --navbar-height: 100px;
@@ -81,27 +81,27 @@
   h1 {
     color: var(--header-one-font-color);
   }
-  
+
   h2 {
     color: var(--header-two-font-color);
   }
-  
+
   h3 {
     color: var(--header-three-font-color);
   }
-  
+
   h4 {
     color: var(--header-four-font-color);
   }
-  
+
   h5 {
     color: var(--header-five-font-color);
   }
-  
+
   h6 {
     color: var(--header-six-font-color);
-  }  
-  
+  }
+
   #id {
     display: none;
   }
@@ -113,7 +113,7 @@
       fill: var(--primary-color);
       stroke: var(--secondary-color);
     }
-  }  
+  }
 
   .avatar-links {
     margin-right: 35px;
@@ -124,11 +124,11 @@
     backdrop-filter: blur(2px) !important;
     background: var(--light-background-color) !important;
   }
-  
+
   .carousel-dot-container {
     width: 100%;
 
-    .carousel-dot-button{
+    .carousel-dot-button {
       height: 12px;
       width: 12px;
       border-radius: 100%;
@@ -137,7 +137,7 @@
       transition: all 500ms ease;
       cursor: pointer;
     }
-    .carousel-dot-button-active{
+    .carousel-dot-button-active {
       scale: 1.25;
       background-color: var(--active-color);
     }
@@ -186,12 +186,12 @@
       color: var(--active-color-complementary) !important;
       text-decoration: none;
     }
-    code{
+    code {
       background-color: rgba(0, 0, 0, 0.637);
       padding: 8px;
       border-radius: 5px;
     }
-    pre{
+    pre {
       padding: 18px 8px;
       background-color: rgba(0, 0, 0, 0.637);
       border-radius: 5px;
@@ -207,7 +207,7 @@
       height: auto;
       border-radius: 5px;
     }
-  
+
     ol {
       li {
         line-height: 2;

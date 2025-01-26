@@ -15,7 +15,7 @@ const defaultGithubHeaders: Map<string, string> = new Map([
 //region: GITHUB API CALLERS
 
 /**
- * & Fetches a list of GitHub repositories for a given user.
+ * ^ Fetches a list of GitHub repositories for a given user.
  *
  * @param githubApiUrl - The base URL of the GitHub API.
  * @param githubApiVersion - The version of the GitHub API to use.
@@ -29,7 +29,7 @@ export async function getGithubRepos(
   githubApiVersion: string,
   userName: string,
   page: number,
-  authToken: string
+  authToken: string,
 ): Promise<GitRepo[]> {
   const allRepos: GitRepo[] = [];
   const apiUrl: string = githubApiUrl + "/users/" + userName + "/repos";
@@ -58,7 +58,7 @@ export async function getGithubRepos(
         });
       }
       return result;
-    }
+    },
   );
 
   try {
@@ -88,7 +88,7 @@ export async function getGithubRepos(
 }
 
 /**
- * & Fetches a specific GitHub repository.
+ * ^ Fetches a specific GitHub repository.
  *
  * @param githubApiUrl - The base URL of the GitHub API.
  * @param githubApiVersion - The version of the GitHub API to use.
@@ -102,7 +102,7 @@ export async function getGithubRepo(
   githubApiVersion: string,
   userName: string,
   repoName: string,
-  authToken: string
+  authToken: string,
 ): Promise<GitRepo | null> {
   let gitRepo: GitRepo | null = null;
 
@@ -121,7 +121,7 @@ export async function getGithubRepo(
     "GET",
     requestHeaders,
     queryParams,
-    decodeGitRepo
+    decodeGitRepo,
   );
 
   try {
@@ -145,7 +145,7 @@ export async function getGithubRepo(
 }
 
 /**
- * & Fetches the README file of a specific GitHub repository.
+ * ^ Fetches the README file of a specific GitHub repository.
  *
  * @param githubApiUrl - The base URL of the GitHub API.
  * @param githubApiVersion - The version of the GitHub API to use.
@@ -159,7 +159,7 @@ export async function getGithubReadme(
   githubApiVersion: string,
   userName: string,
   repoName: string,
-  authToken: string
+  authToken: string,
 ): Promise<GitReadme | null> {
   let readme: GitReadme | null = null;
 
@@ -179,7 +179,7 @@ export async function getGithubReadme(
     "GET",
     requestHeaders,
     queryParams,
-    decodeGitReadme
+    decodeGitReadme,
   );
 
   try {
@@ -207,7 +207,7 @@ export async function getGithubReadme(
 //region: AGGREGATORS
 
 /**
- * & Compiles detailed information about a specific GitHub project.
+ * ^ Compiles detailed information about a specific GitHub project.
  *
  * @param githubApiUrl - The base URL of the GitHub API.
  * @param githubApiVersion - The version of the GitHub API to use.
@@ -221,7 +221,7 @@ export async function getCompiledGitRepo(
   githubApiVersion: string,
   userName: string,
   repoName: string,
-  authToken: string
+  authToken: string,
 ): Promise<GitProjectDetails | null> {
   let projectDetails: GitProjectDetails | null = null;
 
@@ -239,7 +239,7 @@ export async function getCompiledGitRepo(
       githubApiVersion,
       userName,
       repoName,
-      authToken
+      authToken,
     );
     if (repo !== null) {
       const repoReadme = await getGithubReadme(
@@ -247,7 +247,7 @@ export async function getCompiledGitRepo(
         githubApiVersion,
         userName,
         repoName,
-        authToken
+        authToken,
       );
       projectDetails = {
         repo,
@@ -265,7 +265,7 @@ export async function getCompiledGitRepo(
 }
 
 /**
- * & Compiles detailed information about multiple GitHub projects.
+ * ^ Compiles detailed information about multiple GitHub projects.
  *
  * @param githubApiUrl - The base URL of the GitHub API.
  * @param githubApiVersion - The version of the GitHub API to use.
@@ -279,7 +279,7 @@ export async function getCompiledGitRepos(
   githubApiVersion: string,
   userName: string,
   repos: string[],
-  authToken: string
+  authToken: string,
 ): Promise<GitProjectDetails[]> {
   const result: GitProjectDetails[] = [];
 
@@ -289,7 +289,7 @@ export async function getCompiledGitRepos(
       githubApiVersion,
       userName,
       repos[i],
-      authToken
+      authToken,
     );
     if (projectDetails !== null) {
       result.push(projectDetails);
