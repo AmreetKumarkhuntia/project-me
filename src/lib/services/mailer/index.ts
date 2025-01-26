@@ -17,7 +17,7 @@ export async function sendMail(
   receiverGmail: string,
   senderGmail: string,
   senderPass: string,
-  emailContent: SendGmailRequest
+  emailContent: SendGmailRequest,
 ): Promise<SMTPTransport.SentMessageInfo | null> {
   let result: SMTPTransport.SentMessageInfo | null = null;
 

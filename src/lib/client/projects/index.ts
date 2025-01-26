@@ -3,12 +3,16 @@ import {
   type GitProjectDetails,
 } from "$generated/types";
 import { APICaller } from "$services/apiCaller";
-import { updateGithubProjects } from "$stores/projects.ts";
+import { updateGithubProjects, projectStore } from "$stores/projects.ts";
 import { logger } from "$services/logger";
+import { get } from "svelte/store";
 
 export async function getGitRepos() {
-  const allRepos = await getReposFromBackend();
-  updateGithubProjects(allRepos);
+  const store = get(projectStore);
+  if (store.githubProjects === null) {
+    const allRepos = await getReposFromBackend();
+    updateGithubProjects(allRepos);
+  }
 }
 // move to frontend
 export async function getReposFromBackend(): Promise<GitProjectDetails[]> {
@@ -37,7 +41,7 @@ export async function getReposFromBackend(): Promise<GitProjectDetails[]> {
         });
       }
       return result;
-    }
+    },
   );
 
   try {

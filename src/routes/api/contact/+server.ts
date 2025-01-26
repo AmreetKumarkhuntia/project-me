@@ -26,16 +26,16 @@ export async function POST({ url, request }: RequestEvent) {
         receiverGmail,
         senderGmail,
         senderGmailPass,
-        emailRequest
+        emailRequest,
       );
       if (sendEmailResult !== null) {
         response = APIResponseHandler.successResponse(
           "success",
-          sendEmailResult
+          sendEmailResult,
         );
       } else {
         response = APIResponseHandler.badRequestResponse(
-          "Something Went Wrong !!!. Unable To Send Mail."
+          "Something Went Wrong !!!. Unable To Send Mail.",
         );
       }
     } else {
