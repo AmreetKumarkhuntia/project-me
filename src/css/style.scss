@@ -32,12 +32,12 @@
   --header-six-font-color: var(--secondary-color);
 
   // Navbar
-  --navbar-height: 100px;
+  --navbar-height: 8vh;
   --navbar-item-active-color: var(--active-color);
   --navbar-underline-active-border: 1px solid var(--active-color);
 
   // Page
-  --page-padding: 7%;
+  --page-padding: 5vh;
   --page-margin: var(--navbar-height);
   --page-height: calc(100vh - var(--navbar-height) - 2 * var(--page-padding));
   --page-width: calc(100vw - 2 * var(--page-padding));
@@ -76,6 +76,8 @@
     font-optical-sizing: auto;
 
     color: var(--primary-color);
+
+    background-color: rgba(0, 0, 0, 0.918);
   }
 
   h1 {
@@ -160,6 +162,14 @@
     align-items: center;
   }
 
+  .display-justify-center {
+    justify-content: center;
+  }
+
+  .display-align-center {
+    align-items: center;
+  }
+
   .display-align-col {
     flex-direction: column;
   }
@@ -181,7 +191,8 @@
     }
   }
 
-  .project {
+  .project,
+  .project-page-github {
     a {
       color: var(--active-color-complementary) !important;
       text-decoration: none;
@@ -218,5 +229,9 @@
   .timeline-content {
     backdrop-filter: blur(2px);
     cursor: pointer;
+  }
+
+  @media only screen and (max-width: 650px) {
+    --page-padding: 3vh;
   }
 }

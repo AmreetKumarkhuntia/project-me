@@ -8,6 +8,9 @@
   export let source: Source = "github";
   export let project: GitProjectDetails | null;
   export let comeFrom: "left" | "right" = "left";
+  export let shouldRenderWithinCard: boolean = true;
+
+  export let onClick: (project: GitProjectDetails) => void = () => {};
 
   let innerHtml: string = ""; // Default to empty string
 
@@ -40,13 +43,26 @@
   in:flyAndFade={{ x: comeFrom === "left" ? 700 : -700, duration: 300 }}
 >
   {#if project !== null}
-    <Card>
-      <div class="project-github-loader">
-        {#if innerHtml !== ""}
-          {@html innerHtml}
-        {/if}
+    {#if shouldRenderWithinCard}
+      <Card>
+        <!-- svelte-ignore a11y_click_events_have_key_events -->
+        <!-- svelte-ignore a11y_no_static_element_interactions -->
+        <div
+          class="project-github-loader"
+          on:click={() => {
+            onClick(project);
+          }}
+        >
+          {#if innerHtml !== ""}
+            {@html innerHtml}
+          {/if}
+        </div>
+      </Card>
+    {:else if innerHtml !== ""}
+      <div class="project-details">
+        {@html innerHtml}
       </div>
-    </Card>
+    {/if}
   {/if}
 </div>
 
@@ -56,7 +72,7 @@
     width: 100%;
     padding: 2% 0%;
 
-    --card-width: 100%;
+    --card-width: auto;
     --card-height: 100%;
     --card-margin: 0;
     --card-text-color: var(--primary-color);

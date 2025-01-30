@@ -1,12 +1,17 @@
 <script lang="ts">
   import "vergins/css/improved-theme";
+  import { onMount } from "svelte";
+
   import "$css/style.scss";
   import Navbar from "$components/Navbar.svelte";
-  import { onMount } from "svelte";
+  import { projectStore } from "$stores/projects";
+  import Loader from "$components/Loaders/Loader.svelte";
 
   let splineViewer: HTMLDivElement | null = null;
   const splineUrl =
     "https://prod.spline.design/NOCuMB-Go49BrzoP/scene.splinecode";
+
+  $: showLoader = $projectStore.showLoader;
 
   function hideSpline() {
     while (splineViewer === null) {}
@@ -50,8 +55,17 @@
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div class="body" on:mousemove={handleMouseMove}>
-  <Navbar />
-  <slot />
+  {#if showLoader}
+    <div
+      class="loader-container display-flex display-flex-center display-align-col"
+    >
+      <Loader />
+    </div>
+  {/if}
+  <div style="display: {showLoader === true ? 'none' : 'block'};">
+    <Navbar />
+    <slot />
+  </div>
 </div>
 
 <style>
@@ -72,5 +86,14 @@
     height: calc(100vh - var(--page-margin));
     margin-top: var(--page-margin);
     z-index: 0;
+  }
+
+  .loader-container {
+    height: 100vh;
+    width: 100vw;
+
+    position: fixed;
+    top: 0;
+    left: 0;
   }
 </style>

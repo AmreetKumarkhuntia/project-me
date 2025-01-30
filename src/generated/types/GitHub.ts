@@ -408,6 +408,11 @@ export type GitProjectDetails = {
    * @memberof GitProjectDetails
    */
   readme: GitReadme | null;
+  /**
+   * @type { GitCommit[] }
+   * @memberof GitProjectDetails
+   */
+  commits: GitCommit[] | null;
 };
 
 export function decodeGitProjectDetails(
@@ -416,6 +421,7 @@ export function decodeGitProjectDetails(
   if (isJSON(rawInput)) {
     const decodedRepo = decodeGitRepo(rawInput["repo"]);
     const decodedReadme = decodeGitReadme(rawInput["readme"]);
+    const decodedCommits = decodeArray(rawInput["commits"], decodeGitCommit);
 
     if (decodedRepo === null) {
       return null;
@@ -424,6 +430,305 @@ export function decodeGitProjectDetails(
     return {
       repo: decodedRepo,
       readme: decodedReadme,
+      commits: decodedCommits,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { GitCommit }
+ */
+export type GitCommit = {
+  /**
+   * @type { string }
+   * @memberof GitCommit
+   */
+  node_id: string;
+  /**
+   * @type { GitCommitCommit }
+   * @memberof GitCommit
+   */
+  commit: GitCommitCommit;
+  /**
+   * @type { GitCommitAuthor }
+   * @memberof GitCommit
+   */
+  author: GitCommitAuthor | null;
+  /**
+   * @type { GitCommitCommitter }
+   * @memberof GitCommit
+   */
+  committer: GitCommitCommitter | null;
+};
+
+export function decodeGitCommit(rawInput: unknown): GitCommit | null {
+  if (isJSON(rawInput)) {
+    const decodedNodeId = decodeString(rawInput["node_id"]);
+    const decodedCommit = decodeGitCommitCommit(rawInput["commit"]);
+    const decodedAuthor = decodeGitCommitAuthor(rawInput["author"]);
+    const decodedCommitter = decodeGitCommitCommitter(rawInput["committer"]);
+
+    if (decodedNodeId === null || decodedCommit === null) {
+      return null;
+    }
+
+    return {
+      node_id: decodedNodeId,
+      commit: decodedCommit,
+      author: decodedAuthor,
+      committer: decodedCommitter,
+    };
+  }
+  return null;
+}
+/**
+ * @type { GitCommitCommit }
+ */
+export type GitCommitCommit = {
+  /**
+   * @type { GitCommitCommitAuthor }
+   * @memberof GitCommitCommit
+   */
+  author: GitCommitCommitAuthor;
+  /**
+   * @type { GitCommitCommitCommitter }
+   * @memberof GitCommitCommit
+   */
+  committer: GitCommitCommitCommitter;
+  /**
+   * @type { string }
+   * @memberof GitCommitCommit
+   */
+  message: string;
+};
+
+export function decodeGitCommitCommit(
+  rawInput: unknown,
+): GitCommitCommit | null {
+  if (isJSON(rawInput)) {
+    const decodedAuthor = decodeGitCommitCommitAuthor(rawInput["author"]);
+    const decodedCommitter = decodeGitCommitCommitCommitter(
+      rawInput["committer"],
+    );
+    const decodedMessage = decodeString(rawInput["message"]);
+
+    if (
+      decodedAuthor === null ||
+      decodedCommitter === null ||
+      decodedMessage === null
+    ) {
+      return null;
+    }
+
+    return {
+      author: decodedAuthor,
+      committer: decodedCommitter,
+      message: decodedMessage,
+    };
+  }
+  return null;
+}
+/**
+ * @type { GitCommitCommitAuthor }
+ */
+export type GitCommitCommitAuthor = {
+  /**
+   * @type { string }
+   * @memberof GitCommitCommitAuthor
+   */
+  name: string;
+  /**
+   * @type { string }
+   * @memberof GitCommitCommitAuthor
+   */
+  email: string | null;
+  /**
+   * @type { string }
+   * @memberof GitCommitCommitAuthor
+   */
+  date: string;
+};
+
+export function decodeGitCommitCommitAuthor(
+  rawInput: unknown,
+): GitCommitCommitAuthor | null {
+  if (isJSON(rawInput)) {
+    const decodedName = decodeString(rawInput["name"]);
+    const decodedEmail = decodeString(rawInput["email"]);
+    const decodedDate = decodeString(rawInput["date"]);
+
+    if (decodedName === null || decodedDate === null) {
+      return null;
+    }
+
+    return {
+      name: decodedName,
+      email: decodedEmail,
+      date: decodedDate,
+    };
+  }
+  return null;
+}
+/**
+ * @type { GitCommitCommitCommitter }
+ */
+export type GitCommitCommitCommitter = {
+  /**
+   * @type { string }
+   * @memberof GitCommitCommitCommitter
+   */
+  name: string;
+  /**
+   * @type { string }
+   * @memberof GitCommitCommitCommitter
+   */
+  email: string | null;
+  /**
+   * @type { string }
+   * @memberof GitCommitCommitCommitter
+   */
+  date: string;
+};
+
+export function decodeGitCommitCommitCommitter(
+  rawInput: unknown,
+): GitCommitCommitCommitter | null {
+  if (isJSON(rawInput)) {
+    const decodedName = decodeString(rawInput["name"]);
+    const decodedEmail = decodeString(rawInput["email"]);
+    const decodedDate = decodeString(rawInput["date"]);
+
+    if (decodedName === null || decodedDate === null) {
+      return null;
+    }
+
+    return {
+      name: decodedName,
+      email: decodedEmail,
+      date: decodedDate,
+    };
+  }
+  return null;
+}
+/**
+ * @type { GitCommitAuthor }
+ */
+export type GitCommitAuthor = {
+  /**
+   * @type { string }
+   * @memberof GitCommitAuthor
+   */
+  login: string;
+  /**
+   * @type { string }
+   * @memberof GitCommitAuthor
+   */
+  node_id: string;
+  /**
+   * @type { string }
+   * @memberof GitCommitAuthor
+   */
+  avatar_url: string;
+  /**
+   * @type { string }
+   * @memberof GitCommitAuthor
+   */
+  html_url: string;
+  /**
+   * @type { string }
+   * @memberof GitCommitAuthor
+   */
+  type: string;
+};
+
+export function decodeGitCommitAuthor(
+  rawInput: unknown,
+): GitCommitAuthor | null {
+  if (isJSON(rawInput)) {
+    const decodedLogin = decodeString(rawInput["login"]);
+    const decodedNodeId = decodeString(rawInput["node_id"]);
+    const decodedAvatarUrl = decodeString(rawInput["avatar_url"]);
+    const decodedHtmlUrl = decodeString(rawInput["html_url"]);
+    const decodedType = decodeString(rawInput["type"]);
+
+    if (
+      decodedLogin === null ||
+      decodedNodeId === null ||
+      decodedAvatarUrl === null ||
+      decodedHtmlUrl === null ||
+      decodedType === null
+    ) {
+      return null;
+    }
+
+    return {
+      login: decodedLogin,
+      node_id: decodedNodeId,
+      avatar_url: decodedAvatarUrl,
+      html_url: decodedHtmlUrl,
+      type: decodedType,
+    };
+  }
+  return null;
+}
+/**
+ * @type { GitCommitCommitter }
+ */
+export type GitCommitCommitter = {
+  /**
+   * @type { string }
+   * @memberof GitCommitCommitter
+   */
+  login: string;
+  /**
+   * @type { string }
+   * @memberof GitCommitCommitter
+   */
+  node_id: string;
+  /**
+   * @type { string }
+   * @memberof GitCommitCommitter
+   */
+  avatar_url: string;
+  /**
+   * @type { string }
+   * @memberof GitCommitCommitter
+   */
+  html_url: string;
+  /**
+   * @type { string }
+   * @memberof GitCommitCommitter
+   */
+  type: string;
+};
+
+export function decodeGitCommitCommitter(
+  rawInput: unknown,
+): GitCommitCommitter | null {
+  if (isJSON(rawInput)) {
+    const decodedLogin = decodeString(rawInput["login"]);
+    const decodedNodeId = decodeString(rawInput["node_id"]);
+    const decodedAvatarUrl = decodeString(rawInput["avatar_url"]);
+    const decodedHtmlUrl = decodeString(rawInput["html_url"]);
+    const decodedType = decodeString(rawInput["type"]);
+
+    if (
+      decodedLogin === null ||
+      decodedNodeId === null ||
+      decodedAvatarUrl === null ||
+      decodedHtmlUrl === null ||
+      decodedType === null
+    ) {
+      return null;
+    }
+
+    return {
+      login: decodedLogin,
+      node_id: decodedNodeId,
+      avatar_url: decodedAvatarUrl,
+      html_url: decodedHtmlUrl,
+      type: decodedType,
     };
   }
   return null;

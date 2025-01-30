@@ -3,10 +3,12 @@ import { writable } from "svelte/store";
 
 export type ProjectsStore = {
   githubProjects: GitProjectDetails[] | null;
+  showLoader: boolean;
 };
 
 const initStore: ProjectsStore = {
   githubProjects: null,
+  showLoader: true,
 };
 
 export const projectStore = writable<ProjectsStore>(initStore);
@@ -15,5 +17,12 @@ export function updateGithubProjects(projects: GitProjectDetails[]) {
   projectStore.update((previousState) => ({
     ...previousState,
     githubProjects: projects,
+  }));
+}
+
+export function setLoader(showLoader: boolean) {
+  projectStore.update((previousState) => ({
+    ...previousState,
+    showLoader: showLoader,
   }));
 }

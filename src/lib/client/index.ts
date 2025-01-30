@@ -1,6 +1,6 @@
-import { decodeAPIResponse } from "$generated/types";
 import { APICaller } from "$services/apiCaller";
 import { logger } from "$services/logger";
+import { marked } from "marked";
 import { decodeString, isJSON } from "type-decoder";
 
 export async function getHtmlUsingProxy(url: string): Promise<string | null> {
@@ -18,7 +18,7 @@ export async function getHtmlUsingProxy(url: string): Promise<string | null> {
     "GET",
     requestHeaders,
     queryParams,
-    (body) => body,
+    (body) => body
   );
 
   try {
@@ -59,7 +59,7 @@ export async function getRawJsonData(apiUrl: string): Promise<any> {
     "GET",
     requestHeaders,
     queryParams,
-    (body) => body,
+    (body) => body
   );
 
   try {
@@ -82,4 +82,37 @@ export async function getRawJsonData(apiUrl: string): Promise<any> {
   }
 
   return rawData;
+}
+
+// parsers of markdown
+export async function parseTextToHtml(
+  text: string | null
+): Promise<string | null> {
+  if (text === null) return null;
+  return await marked(text);
+}
+
+export async function parseTextsToHtml(text: string[]): Promise<string[]> {
+  let result: string[] = [];
+  let markdownText: string | null = null;
+
+  for (let i = 0; i < text.length; i++) {
+    markdownText = await parseTextToHtml(text[i]);
+
+    if (markdownText) {
+      result.push(markdownText);
+    }
+  }
+
+  return result;
+}
+
+export function formatDateToReadable(dateString: string): string {
+  const date = new Date(dateString);
+  const options: Intl.DateTimeFormatOptions = {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  };
+  return date.toLocaleDateString("en-GB", options).replace(",", "");
 }

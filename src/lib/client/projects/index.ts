@@ -17,7 +17,7 @@ export async function getGitRepos() {
 // move to frontend
 export async function getReposFromBackend(): Promise<GitProjectDetails[]> {
   const requestHeaders: Map<string, string> = new Map();
-  const apiUrl: string = window.location.href + "api/projects";
+  const apiUrl: string = window.location.origin + "/api/projects";
   const queryParams: Map<string, string> = new Map([["source", "github"]]);
   const apiCaller = new APICaller<GitProjectDetails[]>();
 
@@ -41,7 +41,7 @@ export async function getReposFromBackend(): Promise<GitProjectDetails[]> {
         });
       }
       return result;
-    },
+    }
   );
 
   try {
@@ -64,4 +64,52 @@ export async function getReposFromBackend(): Promise<GitProjectDetails[]> {
   }
 
   return allRepos;
+}
+
+export async function getGithubRepoWithCommits(
+  projectId: string,
+  page: string = "1",
+  perPage = "10"
+): Promise<GitProjectDetails | null> {
+  const tag = "getGithubRepoWithCommits";
+  const requestHeaders: Map<string, string> = new Map();
+  const apiUrl: string =
+    window.location.origin + `/api/project/github/${projectId}`;
+  const queryParams: Map<string, string> = new Map([
+    ["page", page],
+    ["per_page", perPage],
+  ]);
+  const apiCaller = new APICaller<GitProjectDetails>();
+
+  let repo: GitProjectDetails | null = null;
+
+  apiCaller.buildApiCall(
+    apiUrl,
+    {},
+    "GET",
+    requestHeaders,
+    queryParams,
+    decodeGitProjectDetails
+  );
+
+  try {
+    logger.logExternalApiRequest(tag, {
+      apiUrl,
+      requestHeaders,
+      queryParams,
+    });
+
+    const result = await apiCaller.callApi();
+    repo = result.body;
+
+    logger.logExternalApiResponse(tag, {
+      status: result.status,
+      error: result.error,
+      headers: result.headers,
+    });
+  } catch (err) {
+    logger.logException(tag, String(err));
+  }
+
+  return repo;
 }
