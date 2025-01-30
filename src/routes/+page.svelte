@@ -3,6 +3,17 @@
   import About from "$pages/About.svelte";
   import Work from "$pages/Work.svelte";
   import Contact from "$pages/Contact.svelte";
+  import { projectStore, setLoader } from "$stores/projects";
+
+  $: changeLoader(), $projectStore.githubProjects;
+
+  function changeLoader() {
+    const projects = $projectStore.githubProjects;
+
+    if (projects !== null && projects.length > 0) {
+      setLoader(false);
+    }
+  }
 </script>
 
 <Home />

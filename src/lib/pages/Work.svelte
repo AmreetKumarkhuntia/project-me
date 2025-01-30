@@ -75,7 +75,6 @@
     min-height: var(--page-height);
     width: var(--page-width);
     padding: var(--page-padding);
-    padding-top: 0;
   }
 
   .work-tech-icons {

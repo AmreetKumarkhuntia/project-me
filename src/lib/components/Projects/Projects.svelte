@@ -1,20 +1,30 @@
 <script lang="ts">
-  import { getGitRepos } from "$client/projects";
   import { onMount } from "svelte";
   import { Header, LazyLoader } from "vergins";
+  import { goto } from "$app/navigation";
+
+  import { getGitRepos } from "$client/projects";
   import Project from "./Project.svelte";
-  import type { Source } from "$generated/types/Projects.ts";
   import { projectStore } from "$stores/projects.ts";
+  import type { Source } from "$generated/types/Projects.ts";
+  import type { GitProjectDetails } from "$generated/types";
 
   let source: Source = "github";
   let activeIndex: number = 0;
   let prevIndex: number = 0;
+
   $: projects = $projectStore.githubProjects ?? [];
 
   onMount(async () => {
     // based on theme we fetch
     await getGitRepos();
   });
+
+  function handleClick(project: GitProjectDetails) {
+    const projectName = project.repo.name;
+
+    goto(`/project/github/${projectName}`);
+  }
 </script>
 
 <div class="github">
@@ -43,6 +53,7 @@
       <Project
         {source}
         {project}
+        onClick={handleClick}
         comeFrom={prevIndex > activeIndex ? "right" : "left"}
       />
     {/if}
