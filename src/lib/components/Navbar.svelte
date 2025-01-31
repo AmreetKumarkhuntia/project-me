@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
+  import { openInANewWindow } from "$client/navigation";
   import { Navbar } from "vergins";
   import type { NavigationOptions, NavbarProps } from "vergins";
 
@@ -14,19 +16,24 @@
       navigationURL: "/about",
     },
     {
-      id: "github",
-      title: "GITHUB",
-      navigationURL: "/github",
+      id: "work",
+      title: "WORK",
+      navigationURL: "/work",
+    },
+    {
+      id: "contact",
+      title: "CONTACT",
+      navigationURL: "/contact",
     },
     {
       id: "linkedin",
       title: "LINKEDIN",
-      navigationURL: "/github",
+      navigationURL: "https://www.linkedin.com/in/amreet-khuntia-15193220b/",
     },
     {
-      id: "dev-to",
-      title: "DEV.TO",
-      navigationURL: "/github",
+      id: "github",
+      title: "GITHUB",
+      navigationURL: "https://github.com/AmreetKumarkhuntia",
     },
   ];
 
@@ -37,10 +44,15 @@
     showRightImage: false,
     rightImageURL: null,
   };
+
+  function onClick(e: NavigationOptions) {
+    if (e.id !== "linkedin" && e.id !== "github") goto(e.navigationURL);
+    else openInANewWindow(e.navigationURL);
+  }
 </script>
 
 <div class="navbar">
-  <Navbar {navbarProps} />
+  <Navbar {navbarProps} {onClick} />
 </div>
 
 <style>

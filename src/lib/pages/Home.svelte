@@ -116,6 +116,7 @@
   }
 
   .home-landing-subtitle {
+    margin-top: 6%;
     font-family: var(--tertiary-font-family);
     font-size: 52px;
     height: 60px;
@@ -135,6 +136,7 @@
   .home-landing-links {
     width: 100%;
     margin: 100px;
+    margin-top: 0;
 
     font-size: 16px;
   }
