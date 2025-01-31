@@ -41,7 +41,7 @@ export async function getReposFromBackend(): Promise<GitProjectDetails[]> {
         });
       }
       return result;
-    }
+    },
   );
 
   try {
@@ -69,7 +69,7 @@ export async function getReposFromBackend(): Promise<GitProjectDetails[]> {
 export async function getGithubRepoWithCommits(
   projectId: string,
   page: string = "1",
-  perPage = "10"
+  perPage = "10",
 ): Promise<GitProjectDetails | null> {
   const tag = "getGithubRepoWithCommits";
   const requestHeaders: Map<string, string> = new Map();
@@ -89,7 +89,7 @@ export async function getGithubRepoWithCommits(
     "GET",
     requestHeaders,
     queryParams,
-    decodeGitProjectDetails
+    decodeGitProjectDetails,
   );
 
   try {

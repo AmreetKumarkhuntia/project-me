@@ -32,7 +32,7 @@ export async function GET({ url, request, params }: RequestEvent) {
             githubApiVersion,
             githubUserName,
             projectId,
-            githubAuthToken
+            githubAuthToken,
           );
           if (repo !== null) {
             const githubCommits = await getGithubCommits(
@@ -41,13 +41,13 @@ export async function GET({ url, request, params }: RequestEvent) {
               githubUserName,
               projectId,
               githubAuthToken,
-              searchParams
+              searchParams,
             );
             repo.commits = githubCommits;
             response = APIResponseHandler.successResponse("success", repo);
           } else {
             response = APIResponseHandler.badRequestResponse(
-              "Couldn't find details. Something Went Wrong."
+              "Couldn't find details. Something Went Wrong.",
             );
           }
         }

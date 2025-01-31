@@ -18,7 +18,7 @@ export async function getHtmlUsingProxy(url: string): Promise<string | null> {
     "GET",
     requestHeaders,
     queryParams,
-    (body) => body
+    (body) => body,
   );
 
   try {
@@ -59,7 +59,7 @@ export async function getRawJsonData(apiUrl: string): Promise<any> {
     "GET",
     requestHeaders,
     queryParams,
-    (body) => body
+    (body) => body,
   );
 
   try {
@@ -86,7 +86,7 @@ export async function getRawJsonData(apiUrl: string): Promise<any> {
 
 // parsers of markdown
 export async function parseTextToHtml(
-  text: string | null
+  text: string | null,
 ): Promise<string | null> {
   if (text === null) return null;
   return await marked(text);

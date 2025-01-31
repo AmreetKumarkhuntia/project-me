@@ -6,6 +6,8 @@
     font-family: monospace;
     font-size: 102px;
     font-weight: bold;
+
+    color: var(--primary-color);
   }
 
   .typing::after {

@@ -1,5 +1,6 @@
 import { type Handle } from "@sveltejs/kit";
 import { logger } from "$services/logger";
+import { APIResponseHandler } from "$server/apiSchema";
 
 export const handle: Handle = async ({ event, resolve }) => {
   logger.logFunctionCalled("serverHooks", { event });
@@ -18,11 +19,18 @@ export const handle: Handle = async ({ event, resolve }) => {
   }
 
   const response = await resolve(event);
+  const url: URL = event.url;
 
   logger.logSetValues.orderId = 0;
-  if (response.status === 404) {
-    const redirectUrl = event.url.origin + "/";
+
+  if (response.status === 404 && url.href.includes("/api") !== true) {
+    const redirectUrl = event.url.origin + "/not-found";
     return Response.redirect(redirectUrl, 302);
+  } else if (response.status === 404) {
+    const newResponse = APIResponseHandler.notFoundResponse(
+      "Oops !!! End of your search.",
+    );
+    return APIResponseHandler.toResponse(newResponse);
   }
   return response;
 };
