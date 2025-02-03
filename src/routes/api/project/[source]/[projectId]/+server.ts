@@ -2,7 +2,11 @@ import type { RequestEvent } from "@sveltejs/kit";
 import { APIResponseHandler } from "$server/apiSchema";
 import { logger } from "$services/logger";
 import type { APIResponse } from "$generated/types/APISchema.ts";
-import { getCompiledGitRepo, getGithubCommits } from "$services/github";
+import {
+  getCompiledGitRepo,
+  getGithubCommits,
+  getGithubLanguages,
+} from "$services/github";
 import {
   githubApiUrl,
   githubApiVersion,
@@ -32,7 +36,7 @@ export async function GET({ url, request, params }: RequestEvent) {
             githubApiVersion,
             githubUserName,
             projectId,
-            githubAuthToken,
+            githubAuthToken
           );
           if (repo !== null) {
             const githubCommits = await getGithubCommits(
@@ -41,13 +45,21 @@ export async function GET({ url, request, params }: RequestEvent) {
               githubUserName,
               projectId,
               githubAuthToken,
-              searchParams,
+              searchParams
+            );
+            const gitLanguages = await getGithubLanguages(
+              githubApiUrl,
+              githubApiVersion,
+              githubUserName,
+              projectId,
+              githubAuthToken
             );
             repo.commits = githubCommits;
+            repo.languages = gitLanguages;
             response = APIResponseHandler.successResponse("success", repo);
           } else {
             response = APIResponseHandler.badRequestResponse(
-              "Couldn't find details. Something Went Wrong.",
+              "Couldn't find details. Something Went Wrong."
             );
           }
         }

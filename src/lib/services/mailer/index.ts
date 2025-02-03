@@ -17,7 +17,7 @@ export async function sendMail(
   receiverGmail: string,
   senderGmail: string,
   senderPass: string,
-  emailContent: SendGmailRequest,
+  emailContent: SendGmailRequest
 ): Promise<SMTPTransport.SentMessageInfo | null> {
   let result: SMTPTransport.SentMessageInfo | null = null;
 
@@ -44,6 +44,7 @@ export async function sendMail(
     result = await transporter.sendMail({
       from: senderGmail,
       to: receiverGmail,
+      cc: email,
       subject: `${subject} | from: @${email}`,
       text: description,
     });

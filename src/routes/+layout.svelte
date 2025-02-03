@@ -6,6 +6,7 @@
   import Navbar from "$components/Navbar.svelte";
   import { projectStore } from "$stores/projects";
   import Loader from "$components/Loaders/Loader.svelte";
+  import Flyer from "$components/Flyer.svelte";
 
   let splineViewer: HTMLDivElement | null = null;
   const splineUrl =
@@ -64,6 +65,7 @@
   {/if}
   <div style="display: {showLoader === true ? 'none' : 'block'};">
     <Navbar />
+    <Flyer />
     <slot />
   </div>
 </div>

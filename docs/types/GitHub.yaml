@@ -178,6 +178,8 @@ GitHub:
         $ref: "./docs/types/GitHub.yaml#/GitHub/GitRepo"
       readme:
         $ref: "./docs/types/GitHub.yaml#/GitHub/GitReadme"
+      languages:
+        $ref: "./docs/types/GitHub.yaml#/GitHub/GitLanguages"
       commits:
         type: array
         items:
@@ -262,3 +264,7 @@ GitHub:
             type: string
           type:
             type: string
+
+  GitLanguages:
+    type: object
+    additionalProperties: true

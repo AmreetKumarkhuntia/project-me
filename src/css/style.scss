@@ -20,6 +20,10 @@
   --avatar-border-color: var(--primary-color);
   --avatar-bg-color: transparent;
 
+  // Button
+  --button-background-color: var(--secondary-color);
+  --button-hover-color: var(--primary-color);
+
   // Card
   --card-padding: 2.5%;
 
@@ -30,6 +34,13 @@
   --header-four-font-color: var(--quaternary-color);
   --header-five-font-color: var(--tertiary-color);
   --header-six-font-color: var(--secondary-color);
+
+  // Input
+  --input-border-color: var(--secondary-color);
+  --input-focus-color: var(--primary-color);
+  --input-font-color: var(--primary-color);
+
+  --input-height: 100%;
 
   // Navbar
   --navbar-height: 8vh;
@@ -191,6 +202,10 @@
     }
   }
 
+  .input-container {
+    height: inherit;
+  }
+
   .project,
   .project-page-github {
     a {
@@ -233,5 +248,25 @@
 
   @media only screen and (max-width: 650px) {
     --page-padding: 3vh;
+  }
+
+  @media only screen and (max-width: 420px) {
+    .timeline-description-card {
+      max-width: 200px;
+    }
+
+    .timeline-description-position {
+      max-width: 200px;
+    }
+  }
+
+  @media only screen and (max-width: 360px) {
+    .timeline-description-card {
+      max-width: 160px;
+    }
+
+    .timeline-description-position {
+      max-width: 160px;
+    }
   }
 }

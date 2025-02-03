@@ -10,3 +10,5 @@ groupedTypes:
     $ref: "./docs/types/GitHub.yaml#/GitHub"
   Gmail:
     $ref: "./docs/types/Gmail.yaml#/Gmail"
+  Client:
+    $ref: "./docs/types/Client.yaml#/Client"
