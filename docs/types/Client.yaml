@@ -1,0 +1,13 @@
+Client:
+  FlyerProperties:
+    type: object
+    required:
+      - showFlyer
+      - body
+    properties:
+      showFlyer:
+        type: boolean
+      body:
+        type: string
+      flyerType:
+        type: string

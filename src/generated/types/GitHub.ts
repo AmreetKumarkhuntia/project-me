@@ -409,6 +409,11 @@ export type GitProjectDetails = {
    */
   readme: GitReadme | null;
   /**
+   * @type { GitLanguages }
+   * @memberof GitProjectDetails
+   */
+  languages: GitLanguages | null;
+  /**
    * @type { GitCommit[] }
    * @memberof GitProjectDetails
    */
@@ -421,6 +426,7 @@ export function decodeGitProjectDetails(
   if (isJSON(rawInput)) {
     const decodedRepo = decodeGitRepo(rawInput["repo"]);
     const decodedReadme = decodeGitReadme(rawInput["readme"]);
+    const decodedLanguages = decodeGitLanguages(rawInput["languages"]);
     const decodedCommits = decodeArray(rawInput["commits"], decodeGitCommit);
 
     if (decodedRepo === null) {
@@ -430,6 +436,7 @@ export function decodeGitProjectDetails(
     return {
       repo: decodedRepo,
       readme: decodedReadme,
+      languages: decodedLanguages,
       commits: decodedCommits,
     };
   }
@@ -729,6 +736,20 @@ export function decodeGitCommitCommitter(
       avatar_url: decodedAvatarUrl,
       html_url: decodedHtmlUrl,
       type: decodedType,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { GitLanguages }
+ */
+export type GitLanguages = Record<string, unknown>;
+
+export function decodeGitLanguages(rawInput: unknown): GitLanguages | null {
+  if (isJSON(rawInput)) {
+    return {
+      ...rawInput,
     };
   }
   return null;

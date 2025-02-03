@@ -21,6 +21,7 @@ const config = {
       $types: "src/lib/types",
       $css: "src/css",
       $generated: "src/generated",
+      $models: "src/lib/models",
     },
   },
 };

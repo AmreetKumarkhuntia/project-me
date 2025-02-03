@@ -19,6 +19,7 @@ export default defineConfig({
       $types: path.resolve("./src/lib/types"),
       $css: path.resolve("./src/css"),
       $generated: path.resolve("./src/generated"),
+      $models: path.resolve("./src/lib/models"),
     },
   },
 });

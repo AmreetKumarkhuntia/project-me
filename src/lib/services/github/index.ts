@@ -1,8 +1,10 @@
 import {
   decodeGitCommit,
+  decodeGitLanguages,
   decodeGitReadme,
   decodeGitRepo,
   type GitCommit,
+  type GitLanguages,
   type GitProjectDetails,
   type GitReadme,
   type GitRepo,
@@ -32,7 +34,7 @@ export async function getGithubRepos(
   githubApiVersion: string,
   userName: string,
   page: number,
-  authToken: string,
+  authToken: string
 ): Promise<GitRepo[]> {
   const allRepos: GitRepo[] = [];
   const apiUrl: string = githubApiUrl + "/users/" + userName + "/repos";
@@ -61,7 +63,7 @@ export async function getGithubRepos(
         });
       }
       return result;
-    },
+    }
   );
 
   try {
@@ -105,7 +107,7 @@ export async function getGithubRepo(
   githubApiVersion: string,
   userName: string,
   repoName: string,
-  authToken: string,
+  authToken: string
 ): Promise<GitRepo | null> {
   let gitRepo: GitRepo | null = null;
 
@@ -124,7 +126,7 @@ export async function getGithubRepo(
     "GET",
     requestHeaders,
     queryParams,
-    decodeGitRepo,
+    decodeGitRepo
   );
 
   try {
@@ -162,7 +164,7 @@ export async function getGithubReadme(
   githubApiVersion: string,
   userName: string,
   repoName: string,
-  authToken: string,
+  authToken: string
 ): Promise<GitReadme | null> {
   let readme: GitReadme | null = null;
 
@@ -182,7 +184,7 @@ export async function getGithubReadme(
     "GET",
     requestHeaders,
     queryParams,
-    decodeGitReadme,
+    decodeGitReadme
   );
 
   try {
@@ -221,7 +223,7 @@ export async function getGithubCommits(
   userName: string,
   repoName: string,
   authToken: string,
-  queryParams: Map<string, string> = new Map(),
+  queryParams: Map<string, string> = new Map()
 ): Promise<GitCommit[] | null> {
   let commits: GitCommit[] | null = null;
 
@@ -242,7 +244,64 @@ export async function getGithubCommits(
     (rawData) => {
       const data = decodeArray(rawData, decodeGitCommit);
       return data;
-    },
+    }
+  );
+
+  try {
+    logger.logExternalApiRequest(tag, {
+      apiUrl,
+      requestHeaders,
+      queryParams,
+    });
+    const result = await apiCaller.callApi();
+    commits = result.body;
+    logger.logExternalApiResponse(tag, {
+      status: result.status,
+      error: result.error,
+      headers: result.headers,
+    });
+  } catch (err) {
+    logger.logException(tag, String(err));
+  }
+
+  return commits;
+}
+
+/**
+ * ^ Fetches all the languages used in a specific GitHub repository.
+ *
+ * @param githubApiUrl - The base URL of the GitHub API.
+ * @param githubApiVersion - The version of the GitHub API to use.
+ * @param userName - The GitHub username.
+ * @param repoName - The name of the repository.
+ * @param authToken - The authentication token.
+ * @returns A Promise that resolves to a GitReadme object or null.
+ */
+export async function getGithubLanguages(
+  githubApiUrl: string,
+  githubApiVersion: string,
+  userName: string,
+  repoName: string,
+  authToken: string,
+  queryParams: Map<string, string> = new Map()
+): Promise<GitLanguages | null> {
+  let commits: GitLanguages | null = null;
+
+  const tag = "getGithubLanguages";
+  const apiUrl: string = `${githubApiUrl}/repos/${userName}/${repoName}/languages`;
+  const requestHeaders: Map<string, string> = new Map(defaultGithubHeaders);
+  const apiCaller = new APICaller<GitLanguages>();
+
+  requestHeaders.set("X-GitHub-Api-Version", githubApiVersion);
+  requestHeaders.set("Authorization", authToken);
+
+  apiCaller.buildApiCall(
+    apiUrl,
+    {},
+    "GET",
+    requestHeaders,
+    queryParams,
+    decodeGitLanguages
   );
 
   try {
@@ -284,7 +343,7 @@ export async function getCompiledGitRepo(
   githubApiVersion: string,
   userName: string,
   repoName: string,
-  authToken: string,
+  authToken: string
 ): Promise<GitProjectDetails | null> {
   let projectDetails: GitProjectDetails | null = null;
 
@@ -302,7 +361,7 @@ export async function getCompiledGitRepo(
       githubApiVersion,
       userName,
       repoName,
-      authToken,
+      authToken
     );
     if (repo !== null) {
       const repoReadme = await getGithubReadme(
@@ -310,12 +369,13 @@ export async function getCompiledGitRepo(
         githubApiVersion,
         userName,
         repoName,
-        authToken,
+        authToken
       );
       projectDetails = {
         repo,
         readme: repoReadme,
         commits: null,
+        languages: null,
       };
     }
   } catch (err) {
@@ -343,7 +403,7 @@ export async function getCompiledGitRepos(
   githubApiVersion: string,
   userName: string,
   repos: string[],
-  authToken: string,
+  authToken: string
 ): Promise<GitProjectDetails[]> {
   const result: GitProjectDetails[] = [];
 
@@ -353,7 +413,7 @@ export async function getCompiledGitRepos(
       githubApiVersion,
       userName,
       repos[i],
-      authToken,
+      authToken
     );
     if (projectDetails !== null) {
       result.push(projectDetails);
