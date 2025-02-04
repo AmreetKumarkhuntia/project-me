@@ -10,6 +10,7 @@
     type TimeLineDetailsAlignment,
     type TimeLineProps,
   } from "vergins";
+  import type { TooltipItem } from "chart.js";
 
   import { getGithubRepoWithCommits } from "$client/projects";
   import type {
@@ -28,9 +29,6 @@
   import Loader from "$components/Loaders/Loader.svelte";
   import { techColorMap } from "$constants";
   import { decodeTech } from "$models/tech";
-  import TechIcon from "$components/TechIcon.svelte";
-  import { each } from "chart.js/helpers";
-  import type { TooltipItem } from "chart.js";
 
   let commits: GitCommit[] = [];
   let project: GitProjectDetails | null = null;
@@ -220,7 +218,7 @@
 
   .project-page-github-language {
     width: auto;
-    height: 60vh;
+    height: min(65vh, 100vw);
     max-height: 600px;
   }
 </style>

@@ -1,9 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
+@font-face {
+  font-family: "RoadRage";
+  src: url("/fonts/Road_Rage.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --primary-font-family: "Inter", sans-serif;
   --secondary-font-family: "Playfair Display", serif;
   --tertiary-font-family: "Roboto", serif;
+  --sign-font-family: "RoadRage", "Playfair Display", serif;
 
   --primary-color: #fdf5e2;
   --secondary-color: #fdf1cb;
@@ -11,6 +19,7 @@
   --quaternary-color: #fddcb4;
   --quinary-color: #ffd6a4;
   --light-background-color: #fdf5e215;
+  --dark-background-color: #000000a4;
 
   --active-color: #ffc57d;
   --active-color-complementary: #ff7b3e;
@@ -204,6 +213,19 @@
 
   .input-container {
     height: inherit;
+  }
+
+  .navbar {
+    svg {
+      fill: var(--primary-color);
+      stroke: var(--secondary-color);
+    }
+  }
+
+  .navbar-vertical-overlay {
+    .navbar-menu {
+      height: 80vh;
+    }
   }
 
   .project,

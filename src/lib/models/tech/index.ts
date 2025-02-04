@@ -10,7 +10,7 @@ import {
 } from "$generated/types";
 
 export function decodeTech(
-  tech: string
+  tech: string,
 ): Language | Framework | Tool | Database | null {
   const decodedLang = decodeLanguage(tech);
   const decodedFramework = decodeFramework(tech);

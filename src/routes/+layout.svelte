@@ -1,6 +1,7 @@
 <script lang="ts">
   import "vergins/css/improved-theme";
   import { onMount } from "svelte";
+  import { afterNavigate } from "$app/navigation";
 
   import "$css/style.scss";
   import Navbar from "$components/Navbar.svelte";
@@ -8,6 +9,7 @@
   import Loader from "$components/Loaders/Loader.svelte";
   import Flyer from "$components/Flyer.svelte";
 
+  let body: HTMLDivElement | null = null;
   let splineViewer: HTMLDivElement | null = null;
   const splineUrl =
     "https://prod.spline.design/NOCuMB-Go49BrzoP/scene.splinecode";
@@ -33,6 +35,12 @@
     }
   }
 
+  afterNavigate(() => {
+    if (body) {
+      body.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }
+  });
+
   onMount(async () => {
     hideSpline();
   });
@@ -55,7 +63,7 @@
 </div>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div class="body" on:mousemove={handleMouseMove}>
+<div class="body" on:mousemove={handleMouseMove} bind:this={body}>
   {#if showLoader}
     <div
       class="loader-container display-flex display-flex-center display-align-col"
