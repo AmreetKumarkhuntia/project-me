@@ -3,12 +3,13 @@
   import { WrapperText, Avatar, LazyLoader } from "vergins";
   import type { LazyLoaderProps } from "vergins";
   import {
-    contactLinks,
     glitchWrapperTextProps,
     linkSize,
     secondSubtitles,
     constantAvatarLazyLoaderDelay,
   } from "$configuration/home.ts";
+  import { contactLinks } from "$configuration";
+  import { openInANewWindow } from "$client/navigation";
 
   // TODO: move to common components
   let onceLoaded: boolean = false;
@@ -51,6 +52,8 @@
   });
 </script>
 
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<!-- svelte-ignore a11y_click_events_have_key_events -->
 <div class="home display-flex">
   <div class="home-landing display-flex display-flex-center display-align-col">
     <div
@@ -83,9 +86,13 @@
     <div class="home-landing-links">
       <div><WrapperText text={"Contact Here:"} /></div>
       <div>
-        <!-- implement click here -->
         {#each contactLinks as contactLink, index}
-          <span class="avatar-links">
+          <span
+            class="avatar-links"
+            on:click={() => {
+              openInANewWindow(contactLink.link);
+            }}
+          >
             <LazyLoader
               lazyLoaderProps={getAvatarLazyLoaderWithDelay(index)}
               maxCount={1}

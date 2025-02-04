@@ -12,7 +12,7 @@ export type SendSmsClientResult = {
 export async function sendContactMail(
   email: string,
   subject: string,
-  description: string
+  description: string,
 ): Promise<SendSmsClientResult> {
   const tag = "sendContactMail";
   const requestHeaders: Map<string, string> = new Map();
@@ -37,7 +37,7 @@ export async function sendContactMail(
     "POST",
     requestHeaders,
     queryParams,
-    (data) => data
+    (data) => data,
   );
 
   try {
