@@ -8,6 +8,7 @@
   import { projectStore } from "$stores/projects";
   import Loader from "$components/Loaders/Loader.svelte";
   import Flyer from "$components/Flyer.svelte";
+  import Noise from "$components/Svg/Noise.svelte";
 
   let body: HTMLDivElement | null = null;
   let splineViewer: HTMLDivElement | null = null;
@@ -89,9 +90,11 @@
     height: 100vh;
     width: 100vw;
   }
+
   .body::-webkit-scrollbar {
     display: none;
   }
+
   .body {
     height: calc(100vh - var(--page-margin));
     margin-top: var(--page-margin);
