@@ -15,6 +15,12 @@ export const githubLink = "https://github.com/AmreetKumarkhuntia";
 export const ytLink =
   "https://www.youtube.com/channel/UCzYq3173lifArHppAEEclgQ";
 
+export const instaLink = "https://www.instagram.com/akmaniac123/";
+
+export const twitterLink = "https://x.com/amreetsgto321";
+
+export const discordLink = "https://discord.gg/F76YrsB";
+
 export const contactLinks: { link: string; imgSrc: string; title: string }[] = [
   {
     link: linkedInLink,
@@ -27,7 +33,7 @@ export const contactLinks: { link: string; imgSrc: string; title: string }[] = [
     title: "Github",
   },
   {
-    link: "www.google.com",
+    link: discordLink,
     imgSrc: discord,
     title: "Discord",
   },
@@ -37,12 +43,12 @@ export const contactLinks: { link: string; imgSrc: string; title: string }[] = [
     title: "YouTube",
   },
   {
-    link: "www.google.com",
+    link: twitterLink,
     imgSrc: twitter,
-    title: "Twitter",
+    title: "X",
   },
   {
-    link: "www.google.com",
+    link: instaLink,
     imgSrc: instagram,
     title: "Instagram",
   },

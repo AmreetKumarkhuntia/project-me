@@ -7,6 +7,7 @@
   import { navigationOptions } from "$configuration/navigation";
   import MenuOption from "./Svg/MenuOption.svelte";
   import { slide } from "svelte/transition";
+  import { setLoader } from "$stores/projects";
 
   const navbarHorizontalProps: NavbarProps = {
     showLeftImage: false,
@@ -26,8 +27,11 @@
 
   function onClick(e: NavigationOptions) {
     closeMenuClick();
-    if (e.id !== "linkedin" && e.id !== "github") goto(e.navigationURL);
-    else openInANewWindow(e.navigationURL);
+    if (e.id !== "linkedin" && e.id !== "github") {
+      setLoader(true);
+
+      goto(e.navigationURL);
+    } else openInANewWindow(e.navigationURL);
   }
 
   function openMenuClick() {
