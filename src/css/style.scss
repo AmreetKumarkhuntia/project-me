@@ -100,7 +100,24 @@
     color: var(--primary-color);
 
     background-color: rgba(0, 0, 0, 0.918);
+    filter: sepia(21%);
   }
+
+  // body::after {
+  //   content: "";
+  //   position: fixed;
+  //   top: 0;
+  //   left: 0;
+  //   width: 100vw;
+  //   height: 100vh;
+  //   pointer-events: none;
+  //   background-image: url("/images/noise-background.jpg");
+  //   background-repeat: repeat;
+  //   background-size: contain;
+  //   opacity: 0.5;
+  //   z-index: 9999;
+  //   mix-blend-mode: multiply;
+  // }
 
   h1 {
     color: var(--header-one-font-color);
