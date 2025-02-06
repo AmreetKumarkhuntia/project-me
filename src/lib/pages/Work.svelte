@@ -82,7 +82,6 @@
     --tech-icon-size: 72px;
     --tech-icon-margin: 36px 36px 9px 36px;
     --tech-icon-hover-size: 90px;
-    --tech-icon-hover-filter: drop-shadow(0px 5px 20px var(--highlight-color));
 
     --tech-icon-transform: scale(1.25);
   }

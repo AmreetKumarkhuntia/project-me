@@ -1,20 +1,17 @@
-<script>
-  import Loader404 from "$components/Loaders/Loader404.svelte";
-  import { setLoader } from "$stores/site";
-
+<script lang="ts">
   import { onMount } from "svelte";
+
+  import { setLoader } from "$stores/site";
 
   onMount(() => {
     setLoader(false);
   });
 </script>
 
-<div class="not-found-page display-flex display-flex-center">
-  <Loader404 />
-</div>
+<div class="configure">HELLO WORLD</div>
 
 <style lang="scss">
-  .not-found-page {
+  .configure {
     min-height: var(--page-height);
     width: var(--page-width);
     padding: var(--page-padding);

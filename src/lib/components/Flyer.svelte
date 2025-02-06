@@ -1,6 +1,6 @@
 <script lang="ts">
   import { decodeFlyerType } from "$models/flyer";
-  import { projectStore } from "$stores/projects";
+  import { siteStore } from "$stores/site";
   import { Flyer, type FlyerProps, type FlyerType } from "vergins";
 
   let showAlertFlyer: boolean = false;
@@ -52,10 +52,10 @@
     outTransition: null,
   };
 
-  $: onFlyerChanged(), $projectStore.flyerProperties;
+  $: onFlyerChanged(), $siteStore.flyerProperties;
 
   function onFlyerChanged() {
-    const flyerProperties = $projectStore.flyerProperties;
+    const flyerProperties = $siteStore.flyerProperties;
 
     if (flyerProperties !== null) {
       if (flyerProperties.showFlyer) {

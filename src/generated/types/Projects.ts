@@ -36,7 +36,8 @@ export type Language =
   | "rust"
   | "html"
   | "purescript"
-  | "yaml";
+  | "yaml"
+  | "bash";
 
 export function decodeLanguage(rawInput: unknown): Language | null {
   switch (rawInput) {
@@ -59,6 +60,7 @@ export function decodeLanguage(rawInput: unknown): Language | null {
     case "html":
     case "purescript":
     case "yaml":
+    case "bash":
       return rawInput;
   }
   return null;

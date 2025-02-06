@@ -3,7 +3,8 @@
   import About from "$pages/About.svelte";
   import Work from "$pages/Work.svelte";
   import Contact from "$pages/Contact.svelte";
-  import { projectStore, setLoader } from "$stores/projects";
+  import { projectStore } from "$stores/projects";
+  import { setLoader } from "$stores/site";
 
   $: changeLoader(), $projectStore.githubProjects;
 

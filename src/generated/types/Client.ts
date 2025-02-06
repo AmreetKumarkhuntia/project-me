@@ -41,3 +41,19 @@ export function decodeFlyerProperties(
   }
   return null;
 }
+
+/**
+ * @type { Theme }
+ */
+export type Theme = "default" | "red" | "green" | "blue";
+
+export function decodeTheme(rawInput: unknown): Theme | null {
+  switch (rawInput) {
+    case "default":
+    case "red":
+    case "green":
+    case "blue":
+      return rawInput;
+  }
+  return null;
+}

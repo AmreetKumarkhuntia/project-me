@@ -27,6 +27,7 @@ Projects:
       - html
       - purescript
       - yaml
+      - bash
 
   # dont know if correct have to validate afterwards
   Framework:

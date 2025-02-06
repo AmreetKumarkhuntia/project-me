@@ -1,6 +1,7 @@
 <script>
   import Work from "$pages/Work.svelte";
-  import { projectStore, setLoader } from "$stores/projects";
+  import { projectStore } from "$stores/projects";
+  import { setLoader } from "$stores/site";
 
   $: changeLoader(), $projectStore.githubProjects;
 

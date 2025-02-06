@@ -26,7 +26,6 @@
 
 <style lang="scss">
   .tech-icon {
-    color: var(--tech-icon-color);
     font-size: var(--tech-icon-size);
     margin: var(--tech-icon-margin);
     cursor: pointer;
@@ -36,7 +35,7 @@
 
   .tech-icon:hover {
     transform: var(--tech-icon-transform);
-    filter: var(--tech-icon-hover-filter);
+    filter: drop-shadow(4px 4px 10px var(--highlight-color));
   }
 
   .tech-icon-font {
@@ -44,6 +43,6 @@
   }
 
   .tech-icon-font:hover {
-    filter: var(--tech-icon-hover-filter);
+    filter: drop-shadow(4px 4px 10px var(--highlight-color));
   }
 </style>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { extendInDirection, Navbar } from "vergins";
+  import { Navbar } from "vergins";
   import type { NavigationOptions, NavbarProps } from "vergins";
 
   import { goto } from "$app/navigation";
@@ -7,7 +7,7 @@
   import { navigationOptions } from "$configuration/navigation";
   import MenuOption from "./Svg/MenuOption.svelte";
   import { slide } from "svelte/transition";
-  import { setLoader } from "$stores/projects";
+  import { setLoader } from "$stores/site";
 
   const navbarHorizontalProps: NavbarProps = {
     showLeftImage: false,
@@ -90,6 +90,8 @@
 
   .navbar-horizontal {
     height: inherit;
+
+    --navbar-padding: 0;
   }
 
   .navbar-vertical {

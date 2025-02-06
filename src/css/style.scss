@@ -6,24 +6,14 @@
   font-weight: normal;
   font-style: normal;
 }
-
 :root {
+  --highlight-color: #ffffffb2;
+}
+body {
   --primary-font-family: "Inter", sans-serif;
   --secondary-font-family: "Playfair Display", serif;
   --tertiary-font-family: "Roboto", serif;
   --sign-font-family: "RoadRage", "Playfair Display", serif;
-
-  --primary-color: #fdf5e2;
-  --secondary-color: #fdf1cb;
-  --tertiary-color: #fbe5ba;
-  --quaternary-color: #fddcb4;
-  --quinary-color: #ffd6a4;
-  --light-background-color: #fdf5e215;
-  --dark-background-color: #000000a4;
-
-  --active-color: #ffc57d;
-  --active-color-complementary: #ff7b3e;
-  --highlight-color: #ffffffb2;
 
   // Avatar
   --avatar-border-color: var(--primary-color);
@@ -63,7 +53,6 @@
   --page-width: calc(100vw - 2 * var(--page-padding));
 
   // Default Tech
-  --tech-icon-color: var(--primary-color);
   --tech-icon-margin: 24px;
   --tech-icon-size: 48px;
 
@@ -87,21 +76,20 @@
   --wrapper-text-hover-color: var(--active-color);
   --wrapper-text-initial-animation-delay: 0.1s;
 
-  body {
-    padding: 0;
-    margin: 0;
+  // body css
+  padding: 0;
+  margin: 0;
 
-    cursor: url("/icons/circle.svg"), auto;
+  cursor: url("/icons/circle.svg"), auto;
 
-    font-family: var(--primary-font-family);
-    font-weight: 300;
-    font-optical-sizing: auto;
+  font-family: var(--primary-font-family);
+  font-weight: 300;
+  font-optical-sizing: auto;
 
-    color: var(--primary-color);
+  color: var(--primary-color);
 
-    background-color: rgba(0, 0, 0, 0.918);
-    filter: sepia(21%);
-  }
+  background-color: rgba(0, 0, 0, 0.918);
+  filter: sepia(21%);
 
   // body::after {
   //   content: "";
@@ -141,6 +129,11 @@
 
   h6 {
     color: var(--header-six-font-color);
+  }
+
+  svg {
+    fill: var(--primary-color);
+    stroke: var(--secondary-color);
   }
 
   #id {
@@ -232,13 +225,6 @@
 
   .input-container {
     height: inherit;
-  }
-
-  .navbar {
-    svg {
-      fill: var(--primary-color);
-      stroke: var(--secondary-color);
-    }
   }
 
   .navbar-vertical-overlay {
