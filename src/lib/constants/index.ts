@@ -119,6 +119,7 @@ export const techIconMap: Map<Language | Framework | Tool | Database, string> =
     ["purescript", "devicon-purescript-plain"],
     ["haskell", "devicon-haskell-plain"],
     ["yaml", "devicon-yaml-plain"],
+    ["bash", "devicon-bash-plain"],
 
     // Frameworks
     ["react", "devicon-react-original"],

@@ -1,21 +1,31 @@
 <script lang="ts">
   import "vergins/css/improved-theme";
+  import "$css/default-theme.css";
+  import "$css/style.scss";
+
   import { onMount } from "svelte";
   import { afterNavigate } from "$app/navigation";
+  import { browser } from "$app/environment";
 
-  import "$css/style.scss";
   import Navbar from "$components/Navbar.svelte";
-  import { projectStore } from "$stores/projects";
   import Loader from "$components/Loaders/Loader.svelte";
   import Flyer from "$components/Flyer.svelte";
-  import Noise from "$components/Svg/Noise.svelte";
+  import SiteSettings from "$components/SiteSettings.svelte";
+  import { siteStore } from "$stores/site";
 
   let body: HTMLDivElement | null = null;
   let splineViewer: HTMLDivElement | null = null;
   const splineUrl =
     "https://prod.spline.design/NOCuMB-Go49BrzoP/scene.splinecode";
 
-  $: showLoader = $projectStore.showLoader;
+  $: showLoader = $siteStore.showLoader;
+  $: setSiteTheme(), $siteStore.theme;
+
+  function setSiteTheme() {
+    if (browser) {
+      document.body.setAttribute("data-theme", $siteStore.theme);
+    }
+  }
 
   function hideSpline() {
     while (splineViewer === null) {}
@@ -73,6 +83,7 @@
     </div>
   {/if}
   <div style="display: {showLoader === true ? 'none' : 'block'};">
+    <SiteSettings />
     <Navbar />
     <Flyer />
     <slot />

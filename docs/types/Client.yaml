@@ -11,3 +11,11 @@ Client:
         type: string
       flyerType:
         type: string
+
+  Theme:
+    type: string
+    enum:
+      - default
+      - red
+      - green
+      - blue

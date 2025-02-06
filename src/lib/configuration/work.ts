@@ -14,6 +14,7 @@ export const languages: Array<Language> = [
   "haskell",
   "sass",
   "yaml",
+  "bash",
 ];
 
 export const frameworks: Array<Framework> = [

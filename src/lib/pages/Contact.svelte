@@ -2,7 +2,8 @@
   import { sendContactMail } from "$client/mailer";
   import { openInANewWindow } from "$client/navigation";
   import { contactLinks } from "$configuration";
-  import { setFlyer } from "$stores/projects";
+  import { setFlyer } from "$stores/site";
+
   import {
     Button,
     Header,

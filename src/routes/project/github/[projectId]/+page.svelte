@@ -24,11 +24,11 @@
   } from "$generated/types";
   import Project from "$components/Projects/Project.svelte";
   import { formatDateToReadable } from "$client";
-  import { setLoader } from "$stores/projects";
   import Doughnut from "$components/Charts/Doughnut.svelte";
   import Loader from "$components/Loaders/Loader.svelte";
   import { techColorMap } from "$constants";
   import { decodeTech } from "$models/tech";
+  import { setLoader } from "$stores/site";
 
   let commits: GitCommit[] = [];
   let project: GitProjectDetails | null = null;
