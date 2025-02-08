@@ -1,0 +1,118 @@
+Spotify:
+  SpotifyAlbum:
+    type: object
+    required:
+      - href
+    properties:
+      href:
+        type: string
+      items:
+        type: array
+        items:
+          $ref: "./docs/types/Spotify.yaml#/Spotify/SpotifyAlbumItem"
+
+  SpotifyAlbumItem:
+    type: object
+    required:
+      - album_type
+      - total_tracks
+      - external_urls
+      - href
+      - images
+      - name
+      - release_date
+      - artists
+    properties:
+      album_type:
+        type: string
+        example: "album"
+      total_tracks:
+        type: number
+        example: 8
+      external_urls:
+        $ref: "./docs/types/Spotify.yaml#/Spotify/SpotifyExternalUrls"
+      href:
+        type: string
+        example: "https://api.spotify.com/v1/albums/3y0qv885RtoliKdWZP912v"
+      id:
+        type: string
+        example: "3y0qv885RtoliKdWZP912v"
+      images:
+        type: array
+        items:
+          $ref: "./docs/types/Spotify.yaml#/Spotify/SpotifyImage"
+      name:
+        type: string
+        example: "ME"
+      release_date:
+        type: string
+        example: "2021-07-18"
+      uri:
+        type: string
+        example: "spotify:album:3y0qv885RtoliKdWZP912v"
+      artists:
+        type: array
+        items:
+          $ref: "./docs/types/Spotify.yaml#/Spotify/SpotifyArtists"
+
+  SpotifyExternalUrls:
+    type: object
+    required:
+      - spotify
+    properties:
+      spotify:
+        type: string
+        example: "https://open.spotify.com/artist/7o81QZ0hP1WgKj7N5DF4oM"
+
+  SpotifyArtists:
+    type: object
+    required:
+      - href
+      - name
+      - type
+      - external_urls
+    properties:
+      external_urls:
+        $ref: "./docs/types/Spotify.yaml#/Spotify/SpotifyExternalUrls"
+      href:
+        type: string
+        example: "https://api.spotify.com/v1/artists/7o81QZ0hP1WgKj7N5DF4oM"
+      id:
+        type: string
+        example: "7o81QZ0hP1WgKj7N5DF4oM"
+      name:
+        type: string
+        example: "Amreet K"
+      type:
+        type: string
+        example: "artist"
+
+  SpotifyImage:
+    type: object
+    required:
+      - url
+      - height
+      - width
+    properties:
+      url:
+        type: string
+        example: "https://i.scdn.co/image/ab67616d0000b273105a7fe3b112eb6cad9e908a"
+      height:
+        type: number
+        example: 640
+      width:
+        type: number
+        example: 640
+
+  SpotifyAuthToken:
+    type: object
+    required:
+      - access_token
+      - token_type
+    properties:
+      token_type:
+        type: string
+        example: "Bearer"
+      access_token:
+        type: string
+        exanmple: "BQAfXXXXXXXXXXlNyY"

@@ -11,6 +11,7 @@ import {
   githubUserName,
 } from "$server/config";
 import { decodeSource } from "$generated/types/Projects.ts";
+import { getAuthToken, getSpotifyAlbums } from "$services/spotify";
 
 export async function GET({ url, request }: RequestEvent) {
   let response: APIResponse;
@@ -24,7 +25,21 @@ export async function GET({ url, request }: RequestEvent) {
   try {
     const source = decodeSource(params?.source);
     switch (source) {
-      case "spotify":
+      case "spotify": {
+        const spotifyAuthToken = await getAuthToken();
+        if (spotifyAuthToken !== null) {
+          const authToken = `${spotifyAuthToken.token_type} ${spotifyAuthToken.access_token}`;
+
+          const allAlbums = await getSpotifyAlbums(authToken);
+
+          response = APIResponseHandler.successResponse("success", allAlbums);
+        } else {
+          response = APIResponseHandler.badRequestResponse(
+            "Something Went Wrong !!! Unable to get access token."
+          );
+        }
+        break;
+      }
       case "github":
       default: {
         const repos = await getCompiledGitRepos(
@@ -32,7 +47,7 @@ export async function GET({ url, request }: RequestEvent) {
           githubApiVersion,
           githubUserName,
           userReposToShow,
-          githubAuthToken,
+          githubAuthToken
         );
         response = APIResponseHandler.successResponse("success", {
           repos,

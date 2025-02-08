@@ -12,3 +12,5 @@ groupedTypes:
     $ref: "./docs/types/Gmail.yaml#/Gmail"
   Client:
     $ref: "./docs/types/Client.yaml#/Client"
+  Spotify:
+    $ref: "./docs/types/Spotify.yaml#/Spotify"

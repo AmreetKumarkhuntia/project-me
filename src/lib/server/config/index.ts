@@ -28,3 +28,15 @@ export const senderGmail: string = process.env.GMAIL_SENDER_ADDRESS ?? "";
 export const receiverGmail: string = process.env.GMAIL_RECEIVER_ADDRESS ?? "";
 
 export const senderGmailPass: string = process.env.GMAIL_SENDER_PASSWORD ?? "";
+
+export const spotifyCliToken: string = process.env.SPOTIFY_CLI_TOKEN ?? "";
+
+export const spotifyCliSecret: string = process.env.SPOTIFY_CLI_SECRET ?? "";
+
+export const spotifyArtistId: string = process.env.SPOTIFY_ARTIST_ID ?? "";
+
+export const spotifyApiUrl: string =
+  process.env.SPOTIFY_API_URL ?? "https://api.spotify.com/v1";
+
+export const spotifyAccountsApiUrl: string =
+  process.env.SPOTIFY_ACCOUNTS_URL ?? "https://accounts.spotify.com";
