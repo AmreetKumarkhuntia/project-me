@@ -1,6 +1,6 @@
 <script lang="ts">
   import "vergins/css/improved-theme";
-  import "$css/default-theme.css";
+  import "$css/theme.scss";
   import "$css/style.scss";
 
   import { onMount } from "svelte";
@@ -11,7 +11,8 @@
   import Loader from "$components/Loaders/Loader.svelte";
   import Flyer from "$components/Flyer.svelte";
   import SiteSettings from "$components/SiteSettings.svelte";
-  import { siteStore } from "$stores/site";
+  import { setTheme, siteStore } from "$stores/site";
+  import { decodeTheme } from "$generated/types";
 
   let body: HTMLDivElement | null = null;
   let splineViewer: HTMLDivElement | null = null;
@@ -53,6 +54,8 @@
   });
 
   onMount(async () => {
+    const savedTheme = decodeTheme(localStorage.getItem("x-theme"));
+    if (savedTheme !== null) setTheme(savedTheme);
     hideSpline();
   });
 </script>

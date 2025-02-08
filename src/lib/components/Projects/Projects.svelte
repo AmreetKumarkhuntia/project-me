@@ -29,7 +29,7 @@
 
 <div class="github">
   <Header hLevel={3}>
-    <LazyLoader maxCount={1}>PROJECTS</LazyLoader>
+    <LazyLoader maxCount={1}>Projects</LazyLoader>
   </Header>
   <div class="carousel-dot-container">
     <div class="display-flex display-flex-center">

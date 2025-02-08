@@ -13,7 +13,7 @@
 
 <div class="work">
   <Header hLevel={1}>
-    <LazyLoader maxCount={1}>WORK</LazyLoader>
+    <LazyLoader maxCount={1}>Work</LazyLoader>
   </Header>
   <div>
     <LazyLoader maxCount={1}>
@@ -23,7 +23,7 @@
   </div>
 
   <Header hLevel={4}>
-    <LazyLoader maxCount={1}>LANGUAGES</LazyLoader>
+    <LazyLoader maxCount={1}>Languages</LazyLoader>
   </Header>
   <div
     class="work-tech-icons display-flex-wrap display-flex display-flex-center"
@@ -34,7 +34,7 @@
     {/each}
   </div>
   <Header hLevel={4}>
-    <LazyLoader maxCount={1}>FRAMEWORKS/TEMPLATING</LazyLoader>
+    <LazyLoader maxCount={1}>Frameworks/Templating Tools</LazyLoader>
   </Header>
   <div
     class="work-tech-icons display-flex-wrap display-flex display-flex-center"
@@ -45,7 +45,7 @@
     {/each}
   </div>
   <Header hLevel={4}>
-    <LazyLoader maxCount={1}>TOOLS</LazyLoader>
+    <LazyLoader maxCount={1}>Tools</LazyLoader>
   </Header>
   <div
     class="work-tech-icons display-flex-wrap display-flex display-flex-center"
@@ -56,7 +56,7 @@
     {/each}
   </div>
   <Header hLevel={4}>
-    <LazyLoader maxCount={1}>DATABASES</LazyLoader>
+    <LazyLoader maxCount={1}>Databases</LazyLoader>
   </Header>
   <div
     class="work-tech-icons display-flex-wrap display-flex display-flex-center"

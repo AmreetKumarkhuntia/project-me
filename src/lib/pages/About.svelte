@@ -6,7 +6,7 @@
 
 <div class="about">
   <Header hLevel={1}>
-    <LazyLoader maxCount={1}>ABOUT ME</LazyLoader>
+    <LazyLoader maxCount={1}>About Me</LazyLoader>
   </Header>
   <div class="about-timeline">
     <TimeLine {timeLineProps} {events} />

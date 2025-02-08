@@ -26,6 +26,9 @@ body {
   // Card
   --card-padding: 2.5%;
 
+  //Configuration
+  --configuration-transition: all ease-in-out 500ms;
+
   // Header
   --header-one-font-color: var(--active-color);
   --header-two-font-color: var(--active-color);
@@ -177,6 +180,12 @@ body {
     }
   }
 
+  .configure {
+    .lazy-loader-content {
+      transition: var(--configuration-transition);
+    }
+  }
+
   .display-flex {
     display: flex;
   }
@@ -196,6 +205,10 @@ body {
 
   .display-justify-center {
     justify-content: center;
+  }
+
+  .display-justify-even {
+    justify-content: space-evenly;
   }
 
   .display-align-center {
@@ -271,6 +284,10 @@ body {
   .timeline-content {
     backdrop-filter: blur(2px);
     cursor: pointer;
+  }
+
+  .timeline-description-event {
+    text-transform: capitalize;
   }
 
   @media only screen and (max-width: 650px) {
