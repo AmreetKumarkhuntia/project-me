@@ -2,6 +2,7 @@ import type { RequestEvent } from "@sveltejs/kit";
 import { APIResponseHandler } from "$server/apiSchema";
 import { logger } from "$services/logger";
 import type { APIResponse } from "$generated/types/APISchema.ts";
+import { getAuthToken } from "$services/spotify";
 
 export async function GET({ url, request }: RequestEvent) {
   const params = Object.fromEntries(url.searchParams.entries());
@@ -9,9 +10,11 @@ export async function GET({ url, request }: RequestEvent) {
 
   let response: APIResponse = APIResponseHandler.successResponse(
     "App is up !!!",
-    {},
+    {}
   );
 
-  logger.logServerResponse("GET /api/heartbeat", { response });
+  const result = await getAuthToken();
+
+  logger.logServerResponse("GET /api/heartbeat", { response, result });
   return APIResponseHandler.toResponse(response);
 }

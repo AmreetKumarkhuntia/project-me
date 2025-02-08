@@ -103,6 +103,44 @@ export class APICaller<T> {
   }
 
   /**
+   * Parses the request body based on the provided Content-Type.
+   *
+   * @param requestContentType - The value of the Content-Type header.
+   * @returns The parsed body as a string, FormData, or other types as appropriate.
+   */
+
+  parseBody(
+    requestContentType: string | null
+  ): string | FormData | URLSearchParams | undefined {
+    let body = this.body;
+    if (requestContentType === "application/x-www-form-urlencoded") {
+      if (typeof body === "string") return body;
+      if (body instanceof URLSearchParams) return body.toString();
+      if (body && typeof body === "object") {
+        const urlParams = new URLSearchParams();
+        Object.entries(body as Record<string, unknown>).forEach(
+          ([key, value]) => {
+            urlParams.append(key, value != null ? String(value) : "");
+          }
+        );
+        return urlParams;
+      }
+      if (body !== null) return body as string;
+    } else {
+      if (body && typeof body === "object" && !(body instanceof FormData)) {
+        try {
+          return JSON.stringify(body);
+        } catch (error) {
+          logger.logException("parseBody", String(error));
+          return undefined;
+        }
+      }
+      return body as string | FormData;
+    }
+    return undefined;
+  }
+
+  /**
    * Makes the API call, processes the response, and returns the result.
    *
    * Steps:
@@ -126,6 +164,7 @@ export class APICaller<T> {
     let response: Response | null = null;
     let error: string | null = null;
     let contentType: string | null = null;
+    let requestContentType: string | null;
 
     if (this.url !== null) {
       let fullUrl = this.url;
@@ -134,7 +173,7 @@ export class APICaller<T> {
         const queryString = Array.from(this.queryParams.entries())
           .map(
             ([key, value]) =>
-              `${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
+              `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
           )
           .join("&");
         if (queryString !== null && queryString.length > 0) {
@@ -145,19 +184,20 @@ export class APICaller<T> {
       const headers = this.reqHeaders
         ? Object.fromEntries(this.reqHeaders.entries())
         : { "Content-Type": "application/json" };
+      requestContentType = headers["Content-Type"];
 
       try {
-        const stringifiedBody =
-          this.body && !(this.body instanceof FormData)
-            ? JSON.stringify(this.body)
-            : this.body;
+        const parsedBody = this.parseBody(requestContentType);
         response = await fetch(fullUrl, {
           method: this.method,
           headers,
-          body: this.method !== "GET" ? stringifiedBody : undefined,
+          body:
+            this.method !== "GET" && parsedBody !== null
+              ? parsedBody
+              : undefined,
         });
-
         contentType = response.headers.get("Content-Type");
+
         if (!response.ok) {
           error = `Error: ${response.status} ${response.statusText}`;
         }
@@ -211,7 +251,7 @@ export class APICaller<T> {
     method: string = "POST",
     reqHeaders: Map<string, string> | null = null,
     queryParams: Map<string, string> | null = null,
-    decoder: (data: any) => T | null = (data) => null,
+    decoder: (data: any) => T | null = (data) => null
   ): void {
     this.setUrl(url);
     this.setBody(body);
@@ -237,7 +277,7 @@ export async function getInnerHTML(url: string): Promise<string | null> {
     "GET",
     requestHeaders,
     queryParams,
-    (body) => body,
+    (body) => body
   );
 
   try {
