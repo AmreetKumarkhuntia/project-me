@@ -4,7 +4,7 @@
   import type { DropdownItem } from "vergins";
 
   import { setLoader, setSource, setTheme, siteStore } from "$stores/site";
-  import { decodeSource, type Source, type Theme } from "$generated/types";
+  import { type Theme } from "$generated/types";
   import { talentItems } from "$configuration";
 
   const availableThemes: Theme[] = ["default", "green", "red", "blue"];
