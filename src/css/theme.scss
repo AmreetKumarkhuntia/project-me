@@ -14,6 +14,21 @@
   --highlight-color: #ffffffb2;
 }
 
+[data-theme="default"] {
+  --primary-color: #fdf5e2;
+  --primary-complementary-dark: #181818;
+  --secondary-color: #fdf1cb;
+  --tertiary-color: #fbe5ba;
+  --quaternary-color: #fddcb4;
+  --quinary-color: #ffd6a4;
+  --light-background-color: #fdf5e215;
+  --dark-background-color: #000000a4;
+
+  --active-color: #ffc57d;
+  --active-color-complementary: #ff7b3e;
+  --highlight-color: #ffffffb2;
+}
+
 [data-theme="green"] {
   --primary-color: #f6fffc;
   --primary-complementary-dark: #181818;

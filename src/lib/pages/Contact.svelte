@@ -76,11 +76,11 @@
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <div class="contact">
   <Header hLevel={1}>
-    <LazyLoader maxCount={1}>CONTACT ME</LazyLoader>
+    <LazyLoader maxCount={1}>Contact Me</LazyLoader>
   </Header>
 
   <Header hLevel={3}>
-    <LazyLoader maxCount={1}>QUICK LINKS</LazyLoader>
+    <LazyLoader maxCount={1}>Quick Links</LazyLoader>
   </Header>
 
   <div class="contact-links display-flex">
@@ -105,7 +105,7 @@
   </div>
 
   <Header hLevel={3}>
-    <LazyLoader maxCount={1}>CONTACT FORM</LazyLoader>
+    <LazyLoader maxCount={1}>Contact Form</LazyLoader>
   </Header>
 
   <Header hLevel={5}>

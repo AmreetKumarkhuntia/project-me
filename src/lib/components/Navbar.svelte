@@ -28,7 +28,8 @@
   function onClick(e: NavigationOptions) {
     closeMenuClick();
     if (e.id !== "linkedin" && e.id !== "github") {
-      setLoader(true);
+      const pathname = window.location.pathname;
+      if (pathname !== e.navigationURL) setLoader(true);
 
       goto(e.navigationURL);
     } else openInANewWindow(e.navigationURL);
