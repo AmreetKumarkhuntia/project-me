@@ -1,11 +1,15 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { DropDown, Header, LazyLoader } from "vergins";
+  import type { DropdownItem } from "vergins";
 
-  import { setLoader, setTheme, siteStore } from "$stores/site";
-  import { Header, LazyLoader } from "vergins";
-  import type { Theme } from "$generated/types";
+  import { setLoader, setSource, setTheme, siteStore } from "$stores/site";
+  import { decodeSource, type Source, type Theme } from "$generated/types";
+  import { talentItems } from "$configuration";
 
   const availableThemes: Theme[] = ["default", "green", "red", "blue"];
+
+  let dropDownSelectorProps: DropdownItem[] = [];
 
   function handleThemeChange(changedTheme: Theme) {
     setTheme(changedTheme);
@@ -13,6 +17,20 @@
   }
 
   onMount(() => {
+    const activeSource = $siteStore.source;
+    const newItems: DropdownItem[] = [];
+
+    for (let i = 0; i < talentItems.length; i++) {
+      newItems.push({
+        ...talentItems[i],
+        action: () => {
+          setSource(talentItems[i].id);
+        },
+        active: talentItems[i].id === activeSource,
+      });
+    }
+
+    dropDownSelectorProps = newItems;
     setLoader(false);
   });
 </script>
@@ -20,7 +38,7 @@
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div class="configure">
-  <Header hLevel={1}>
+  <Header hLevel={2}>
     <LazyLoader>Change Theme</LazyLoader>
   </Header>
   <div class="display-flex display-justify-even display-flex-wrap">
@@ -37,6 +55,14 @@
         <div class="configure-theme-text">{theme}</div>
       </div>
     {/each}
+  </div>
+  <Header hLevel={2}>
+    <LazyLoader>Select Skill</LazyLoader>
+  </Header>
+  <div>
+    {#if dropDownSelectorProps.length > 0}
+      <DropDown items={dropDownSelectorProps} />
+    {/if}
   </div>
 </div>
 

@@ -5,7 +5,11 @@ import {
   type SpotifyAlbum,
 } from "$generated/types";
 import { APICaller } from "$services/apiCaller";
-import { updateGithubProjects, projectStore } from "$stores/projects.ts";
+import {
+  updateGithubProjects,
+  projectStore,
+  updateSpotifyAlbum,
+} from "$stores/projects.ts";
 import { logger } from "$services/logger";
 import { get } from "svelte/store";
 
@@ -17,6 +21,14 @@ export async function getGitRepos() {
   if (store.githubProjects === null) {
     const allRepos = await getReposFromBackend();
     updateGithubProjects(allRepos);
+  }
+}
+
+export async function getSpotifyAlbums() {
+  const store = get(projectStore);
+  if (store.spotifyAlbum === null) {
+    const spotifyAlbum = await getSpotifyAlbumsFromBackend();
+    if (spotifyAlbum !== null) updateSpotifyAlbum(spotifyAlbum);
   }
 }
 
@@ -166,11 +178,7 @@ export async function getSpotifyAlbumsFromBackend(): Promise<SpotifyAlbum | null
     const result = await apiCaller.callApi();
     allAlbums = result.body;
 
-    logger.logExternalApiResponse(tag, {
-      status: result.status,
-      error: result.error,
-      headers: result.headers,
-    });
+    logger.logExternalApiResponse(tag, { result });
   } catch (err) {
     logger.logException(tag, String(err));
   }
