@@ -9,65 +9,76 @@
   } from "$configuration/work.ts";
   import TechIcon from "$components/TechIcon.svelte";
   import Projects from "$components/Projects/Projects.svelte";
+  import { siteStore } from "$stores/site";
+
+  $: projectSource = $siteStore.source;
 </script>
 
 <div class="work">
   <Header hLevel={1}>
-    <LazyLoader maxCount={1}>Work</LazyLoader>
-  </Header>
-  <div>
     <LazyLoader maxCount={1}>
-      A collection of projects that push the envelope and get things done. From
-      clever solutions to real-world impact, it's all here.
+      {#if projectSource === "github"}
+        Work
+      {:else}
+        Albums
+      {/if}
     </LazyLoader>
-  </div>
+  </Header>
+  {#if projectSource === "github"}
+    <div>
+      <LazyLoader maxCount={1}>
+        A collection of projects that push the envelope and get things done.
+        From clever solutions to real-world impact, it's all here.
+      </LazyLoader>
+    </div>
 
-  <Header hLevel={4}>
-    <LazyLoader maxCount={1}>Languages</LazyLoader>
-  </Header>
-  <div
-    class="work-tech-icons display-flex-wrap display-flex display-flex-center"
-  >
-    {#each languages as tech}
-      <!-- {tech} -->
-      <TechIcon {tech} />
-    {/each}
-  </div>
-  <Header hLevel={4}>
-    <LazyLoader maxCount={1}>Frameworks/Templating Tools</LazyLoader>
-  </Header>
-  <div
-    class="work-tech-icons display-flex-wrap display-flex display-flex-center"
-  >
-    {#each frameworks as tech}
-      <!-- {tech} -->
-      <TechIcon {tech} />
-    {/each}
-  </div>
-  <Header hLevel={4}>
-    <LazyLoader maxCount={1}>Tools</LazyLoader>
-  </Header>
-  <div
-    class="work-tech-icons display-flex-wrap display-flex display-flex-center"
-  >
-    {#each tools as tech}
-      <!-- {tech} -->
-      <TechIcon {tech} />
-    {/each}
-  </div>
-  <Header hLevel={4}>
-    <LazyLoader maxCount={1}>Databases</LazyLoader>
-  </Header>
-  <div
-    class="work-tech-icons display-flex-wrap display-flex display-flex-center"
-  >
-    {#each databases as tech}
-      <!-- {tech} -->
-      <TechIcon {tech} />
-    {/each}
-  </div>
+    <Header hLevel={4}>
+      <LazyLoader maxCount={1}>Languages</LazyLoader>
+    </Header>
+    <div
+      class="work-tech-icons display-flex-wrap display-flex display-flex-center"
+    >
+      {#each languages as tech}
+        <!-- {tech} -->
+        <TechIcon {tech} />
+      {/each}
+    </div>
+    <Header hLevel={4}>
+      <LazyLoader maxCount={1}>Frameworks/Templating Tools</LazyLoader>
+    </Header>
+    <div
+      class="work-tech-icons display-flex-wrap display-flex display-flex-center"
+    >
+      {#each frameworks as tech}
+        <!-- {tech} -->
+        <TechIcon {tech} />
+      {/each}
+    </div>
+    <Header hLevel={4}>
+      <LazyLoader maxCount={1}>Tools</LazyLoader>
+    </Header>
+    <div
+      class="work-tech-icons display-flex-wrap display-flex display-flex-center"
+    >
+      {#each tools as tech}
+        <!-- {tech} -->
+        <TechIcon {tech} />
+      {/each}
+    </div>
+    <Header hLevel={4}>
+      <LazyLoader maxCount={1}>Databases</LazyLoader>
+    </Header>
+    <div
+      class="work-tech-icons display-flex-wrap display-flex display-flex-center"
+    >
+      {#each databases as tech}
+        <!-- {tech} -->
+        <TechIcon {tech} />
+      {/each}
+    </div>
+  {/if}
 
-  <Projects />
+  <Projects source={projectSource} />
 </div>
 
 <style lang="scss">

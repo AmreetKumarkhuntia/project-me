@@ -29,6 +29,30 @@ body {
   //Configuration
   --configuration-transition: all ease-in-out 500ms;
 
+  // DropDown
+  --dropdown-height: 64px;
+  --dropdown-width: 100%;
+  --dropdown-label-width: 70%;
+  --dropdown-transition-duration: var(--transition-mid);
+  --dropdown-arrow-rotate-closed: 90deg;
+  --dropdown-arrow-rotate-open: 270deg;
+  --dropdown-bg-color: var(--primary-complementary-dark);
+  --dropdown-border: 2px solid var(--primary-color);
+  --dropdown-border-radius: 4px;
+  --dropdown-shadow: 0 4px 10px var(--highlight-color);
+  --dropdown-text-color: var(--primary-color);
+  --dropdown-text-color-light: var(--primary-color);
+  --dropdown-item-hover-bg-color: var(--active-color);
+  --dropdown-item-padding: 16px;
+  --dropdown-item-margin: 6px;
+  --dropdown-error-color: var(--error-color);
+  --dropdown-success-color: var(--success-color-light);
+
+  --dropdown-label-item-height: 16px;
+  --dropdown-label-item-width: 142px;
+  --dropdown-label-item-margin: 4px;
+  --dropdown-label-item-padding: 8px;
+
   // Header
   --header-one-font-color: var(--active-color);
   --header-two-font-color: var(--active-color);
@@ -54,6 +78,9 @@ body {
   --page-margin: var(--navbar-height);
   --page-height: calc(100vh - var(--navbar-height) - 2 * var(--page-padding));
   --page-width: calc(100vw - 2 * var(--page-padding));
+
+  // Spotify
+  --spotify-album-size: 244px;
 
   // Default Tech
   --tech-icon-margin: 24px;
@@ -211,6 +238,10 @@ body {
     justify-content: space-evenly;
   }
 
+  .display-justify-between {
+    justify-content: space-between;
+  }
+
   .display-align-center {
     align-items: center;
   }
@@ -246,7 +277,7 @@ body {
     }
   }
 
-  .project,
+  .project-github,
   .project-page-github {
     a {
       color: var(--active-color-complementary) !important;
@@ -277,6 +308,41 @@ body {
     ol {
       li {
         line-height: 2;
+      }
+    }
+  }
+
+  .project-github {
+    --card-width: auto;
+    --card-height: 100%;
+    --card-margin: 0;
+    --card-text-color: var(--primary-color);
+    --card-hover-scale: 1;
+  }
+
+  .project-spotify {
+    --card-width: auto;
+    --card-height: 100%;
+    --card-margin: 42px 0;
+    --card-hover-scale: 1;
+
+    img {
+      width: auto;
+      height: auto;
+      border-radius: 5px;
+    }
+
+    .spotify-album-artists {
+      a {
+        text-decoration: none;
+        color: var(--active-color);
+      }
+    }
+
+    .spotify-album-profile {
+      a {
+        text-decoration: none;
+        color: var(--quaternary-color);
       }
     }
   }

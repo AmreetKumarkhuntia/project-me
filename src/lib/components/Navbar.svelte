@@ -4,25 +4,16 @@
 
   import { goto } from "$app/navigation";
   import { openInANewWindow } from "$client/navigation";
-  import { navigationOptions } from "$configuration/navigation";
+  import {
+    getHorizontalNavigation,
+    getVerticalNavigation,
+  } from "$configuration/navigation";
   import MenuOption from "./Svg/MenuOption.svelte";
   import { slide } from "svelte/transition";
-  import { setLoader } from "$stores/site";
+  import { setLoader, siteStore } from "$stores/site";
 
-  const navbarHorizontalProps: NavbarProps = {
-    showLeftImage: false,
-    leftImageURL: null,
-    navigationOptions: navigationOptions,
-    showRightImage: false,
-    rightImageURL: null,
-  };
-  const navbarVerticalProps: NavbarProps = {
-    showLeftImage: false,
-    leftImageURL: null,
-    navigationOptions: navigationOptions,
-    showRightImage: true,
-    rightImageURL: "/icons/cross.svg",
-  };
+  $: source = $siteStore.source;
+
   let showVerticalOverlay: boolean = false;
 
   function onClick(e: NavigationOptions) {
@@ -48,7 +39,7 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div class="navbar">
   <div class="navbar-horizontal">
-    <Navbar navbarProps={navbarHorizontalProps} {onClick} />
+    <Navbar navbarProps={getHorizontalNavigation(source)} {onClick} />
   </div>
   <div class="navbar-vertical">
     <div
@@ -70,7 +61,7 @@
       out:slide={{ duration: 300 }}
     >
       <Navbar
-        navbarProps={navbarVerticalProps}
+        navbarProps={getVerticalNavigation(source)}
         navbarAlignment={"vertical"}
         {onClick}
         rightImageClick={closeMenuClick}
