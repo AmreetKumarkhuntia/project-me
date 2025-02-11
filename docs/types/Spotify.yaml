@@ -11,6 +11,34 @@ Spotify:
         items:
           $ref: "./docs/types/Spotify.yaml#/Spotify/SpotifyAlbumItem"
 
+  SpotifyTrack:
+    type: object
+    required:
+      - artists
+      - disc_number
+      - duration_ms
+      - external_urls
+      - name
+      - type
+      - explicit
+    properties:
+      artists:
+        type: array
+        items:
+          $ref: "./docs/types/Spotify.yaml#/Spotify/SpotifyArtist"
+      disc_number:
+        type: number
+      duration_ms:
+        type: number
+      external_urls:
+        $ref: "./docs/types/Spotify.yaml#/Spotify/SpotifyExternalUrls"
+      name:
+        type: string
+      type:
+        type: string
+      explicit:
+        type: boolean
+
   SpotifyAlbumItem:
     type: object
     required:
@@ -53,7 +81,7 @@ Spotify:
       artists:
         type: array
         items:
-          $ref: "./docs/types/Spotify.yaml#/Spotify/SpotifyArtists"
+          $ref: "./docs/types/Spotify.yaml#/Spotify/SpotifyArtist"
 
   SpotifyExternalUrls:
     type: object
@@ -64,7 +92,7 @@ Spotify:
         type: string
         example: "https://open.spotify.com/artist/7o81QZ0hP1WgKj7N5DF4oM"
 
-  SpotifyArtists:
+  SpotifyArtist:
     type: object
     required:
       - href
