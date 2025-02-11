@@ -1,8 +1,11 @@
 import {
   decodeSpotifyAlbum,
   decodeSpotifyAuthToken,
+  decodeSpotifyTrack,
   type SpotifyAlbum,
+  type SpotifyArtist,
   type SpotifyAuthToken,
+  type SpotifyTrack,
 } from "$generated/types";
 import {
   spotifyAccountsApiUrl,
@@ -13,6 +16,59 @@ import {
 } from "$server/config";
 import { APICaller } from "$services/apiCaller";
 import { logger } from "$services/logger";
+import { decodeArray } from "type-decoder";
+
+/**
+ * Fetches the list of tracks for a specific Spotify album.
+ * @param authToken The authorization token for the Spotify API.
+ * @param albumId The album id for which the tracks are needed.
+
+ * @returns A promise resolving to a SpotifyAlbum object or null if the request fails.
+ */
+export async function getSpotifyTracks(
+  authToken: string,
+  albumId: string
+): Promise<SpotifyTrack[]> {
+  const apiUrl: string = spotifyApiUrl + "/albums/" + albumId + "/tracks";
+  const defaultQueryParams: Map<string, string> = new Map([["limit", "50"]]);
+  const requestHeaders: Map<string, string> = new Map([
+    ["Authorization", authToken],
+  ]);
+  const tag = "getSpotifyTracks";
+
+  let allTracks: SpotifyTrack[] = [];
+
+  const apiCaller = new APICaller<SpotifyTrack[]>();
+  apiCaller.buildApiCall(
+    apiUrl,
+    {},
+    "GET",
+    requestHeaders,
+    defaultQueryParams,
+    (data) => {
+      const items = data["items"] ?? null;
+      return decodeArray(items, decodeSpotifyTrack);
+    }
+  );
+
+  try {
+    logger.logExternalApiRequest(tag, {
+      apiUrl,
+      requestHeaders,
+      defaultQueryParams,
+    });
+    const result = await apiCaller.callApi();
+    allTracks = result.body ?? [];
+
+    logger.logExternalApiResponse(tag, {
+      result,
+    });
+  } catch (err) {
+    logger.logException(tag, String(err));
+  }
+
+  return allTracks;
+}
 
 /**
  * Fetches the list of albums for a specific Spotify artist.

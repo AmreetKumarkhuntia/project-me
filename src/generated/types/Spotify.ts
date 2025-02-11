@@ -1,4 +1,10 @@
-import { isJSON, decodeString, decodeNumber, decodeArray } from "type-decoder";
+import {
+  isJSON,
+  decodeString,
+  decodeNumber,
+  decodeArray,
+  decodeBoolean,
+} from "type-decoder";
 
 /**
  * @type { SpotifyAlbum }
@@ -28,6 +34,87 @@ export function decodeSpotifyAlbum(rawInput: unknown): SpotifyAlbum | null {
     return {
       href: decodedHref,
       items: decodedItems,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { SpotifyTrack }
+ */
+export type SpotifyTrack = {
+  /**
+   * @type { SpotifyArtist[] }
+   * @memberof SpotifyTrack
+   */
+  artists: SpotifyArtist[];
+  /**
+   * @type { number }
+   * @memberof SpotifyTrack
+   */
+  disc_number: number;
+  /**
+   * @type { number }
+   * @memberof SpotifyTrack
+   */
+  duration_ms: number;
+  /**
+   * @type { SpotifyExternalUrls }
+   * @memberof SpotifyTrack
+   */
+  external_urls: SpotifyExternalUrls;
+  /**
+   * @type { string }
+   * @memberof SpotifyTrack
+   */
+  name: string;
+  /**
+   * @type { string }
+   * @memberof SpotifyTrack
+   */
+  type: string;
+  /**
+   * @type { boolean }
+   * @memberof SpotifyTrack
+   */
+  explicit: boolean;
+};
+
+export function decodeSpotifyTrack(rawInput: unknown): SpotifyTrack | null {
+  if (isJSON(rawInput)) {
+    const decodedArtists = decodeArray(
+      rawInput["artists"],
+      decodeSpotifyArtist,
+    );
+    const decodedDiscNumber = decodeNumber(rawInput["disc_number"]);
+    const decodedDurationMs = decodeNumber(rawInput["duration_ms"]);
+    const decodedExternalUrls = decodeSpotifyExternalUrls(
+      rawInput["external_urls"],
+    );
+    const decodedName = decodeString(rawInput["name"]);
+    const decodedType = decodeString(rawInput["type"]);
+    const decodedExplicit = decodeBoolean(rawInput["explicit"]);
+
+    if (
+      decodedArtists === null ||
+      decodedDiscNumber === null ||
+      decodedDurationMs === null ||
+      decodedExternalUrls === null ||
+      decodedName === null ||
+      decodedType === null ||
+      decodedExplicit === null
+    ) {
+      return null;
+    }
+
+    return {
+      artists: decodedArtists,
+      disc_number: decodedDiscNumber,
+      duration_ms: decodedDurationMs,
+      external_urls: decodedExternalUrls,
+      name: decodedName,
+      type: decodedType,
+      explicit: decodedExplicit,
     };
   }
   return null;
@@ -90,10 +177,10 @@ export type SpotifyAlbumItem = {
    */
   uri: string | null;
   /**
-   * @type { SpotifyArtists[] }
+   * @type { SpotifyArtist[] }
    * @memberof SpotifyAlbumItem
    */
-  artists: SpotifyArtists[];
+  artists: SpotifyArtist[];
 };
 
 export function decodeSpotifyAlbumItem(
@@ -113,7 +200,7 @@ export function decodeSpotifyAlbumItem(
     const decodedUri = decodeString(rawInput["uri"]);
     const decodedArtists = decodeArray(
       rawInput["artists"],
-      decodeSpotifyArtists,
+      decodeSpotifyArtist,
     );
 
     if (
@@ -175,41 +262,41 @@ export function decodeSpotifyExternalUrls(
 }
 
 /**
- * @type { SpotifyArtists }
+ * @type { SpotifyArtist }
  */
-export type SpotifyArtists = {
+export type SpotifyArtist = {
   /**
    * @type { SpotifyExternalUrls }
-   * @memberof SpotifyArtists
+   * @memberof SpotifyArtist
    */
   external_urls: SpotifyExternalUrls;
   /**
    * @type { string }
-   * @memberof SpotifyArtists
+   * @memberof SpotifyArtist
    * @example https://api.spotify.com/v1/artists/7o81QZ0hP1WgKj7N5DF4oM
    */
   href: string;
   /**
    * @type { string }
-   * @memberof SpotifyArtists
+   * @memberof SpotifyArtist
    * @example 7o81QZ0hP1WgKj7N5DF4oM
    */
   id: string | null;
   /**
    * @type { string }
-   * @memberof SpotifyArtists
+   * @memberof SpotifyArtist
    * @example Amreet K
    */
   name: string;
   /**
    * @type { string }
-   * @memberof SpotifyArtists
+   * @memberof SpotifyArtist
    * @example artist
    */
   type: string;
 };
 
-export function decodeSpotifyArtists(rawInput: unknown): SpotifyArtists | null {
+export function decodeSpotifyArtist(rawInput: unknown): SpotifyArtist | null {
   if (isJSON(rawInput)) {
     const decodedExternalUrls = decodeSpotifyExternalUrls(
       rawInput["external_urls"],

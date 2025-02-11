@@ -14,6 +14,7 @@ import {
   githubUserName,
 } from "$server/config";
 import { decodeSource } from "$generated/types/Projects.ts";
+import { getAuthToken, getSpotifyTracks } from "$services/spotify";
 
 export async function GET({ url, request, params }: RequestEvent) {
   let response: APIResponse;
@@ -28,7 +29,20 @@ export async function GET({ url, request, params }: RequestEvent) {
   try {
     if (projectId !== null) {
       switch (source) {
-        case "spotify":
+        case "spotify": {
+          const spotifyAuthToken = await getAuthToken();
+          if (spotifyAuthToken) {
+            const authToken = `${spotifyAuthToken.token_type} ${spotifyAuthToken.access_token}`;
+
+            const albums = await getSpotifyTracks(authToken, projectId);
+            response = APIResponseHandler.successResponse("success", albums);
+          } else {
+            response = APIResponseHandler.badRequestResponse(
+              "Something Went Wrong !!!. Unable to generate token."
+            );
+          }
+          break;
+        }
         case "github":
         default: {
           const repo = await getCompiledGitRepo(
@@ -36,7 +50,7 @@ export async function GET({ url, request, params }: RequestEvent) {
             githubApiVersion,
             githubUserName,
             projectId,
-            githubAuthToken,
+            githubAuthToken
           );
           if (repo !== null) {
             const githubCommits = await getGithubCommits(
@@ -45,21 +59,21 @@ export async function GET({ url, request, params }: RequestEvent) {
               githubUserName,
               projectId,
               githubAuthToken,
-              searchParams,
+              searchParams
             );
             const gitLanguages = await getGithubLanguages(
               githubApiUrl,
               githubApiVersion,
               githubUserName,
               projectId,
-              githubAuthToken,
+              githubAuthToken
             );
             repo.commits = githubCommits;
             repo.languages = gitLanguages;
             response = APIResponseHandler.successResponse("success", repo);
           } else {
             response = APIResponseHandler.badRequestResponse(
-              "Couldn't find details. Something Went Wrong.",
+              "Couldn't find details. Something Went Wrong."
             );
           }
         }
