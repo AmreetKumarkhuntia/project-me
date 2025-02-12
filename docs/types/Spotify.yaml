@@ -21,7 +21,10 @@ Spotify:
       - name
       - type
       - explicit
+      - id
     properties:
+      id:
+        type: string
       artists:
         type: array
         items:
