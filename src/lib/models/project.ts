@@ -1,13 +1,20 @@
-import type { GitProjectDetails, SpotifyAlbum } from "$generated/types";
+import {
+  decodeGitProjectDetails,
+  decodeSpotifyAlbum,
+  decodeSpotifyAlbumItem,
+  type GitProjectDetails,
+  type SpotifyAlbum,
+  type SpotifyAlbumItem,
+} from "$generated/types";
 
-export function isGitProjectDetails(
-  proj: GitProjectDetails | SpotifyAlbum | null
-): proj is GitProjectDetails {
-  return proj !== null;
+export function isGitProjectDetails(proj: unknown): proj is GitProjectDetails {
+  return decodeGitProjectDetails(proj) !== null;
 }
 
-export function isSpotifyAlbum(
-  proj: GitProjectDetails | SpotifyAlbum | null
-): proj is SpotifyAlbum {
-  return proj !== null;
+export function isSpotifyAlbum(proj: unknown): proj is SpotifyAlbum {
+  return decodeSpotifyAlbum(proj) !== null;
+}
+
+export function isSpotifyAlbumItem(proj: unknown): proj is SpotifyAlbumItem {
+  return decodeSpotifyAlbumItem(proj) !== null;
 }

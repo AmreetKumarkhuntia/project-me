@@ -121,3 +121,15 @@ export function formatDateToString(dateStr: string): string {
   const date = new Date("2021-07-18");
   return date.toDateString();
 }
+
+export function msToMinutesAndSeconds(ms: number): string {
+  const totalSeconds: number = Math.floor(ms / 1000);
+
+  const minutes: number = Math.floor(totalSeconds / 60);
+  const seconds: number = totalSeconds % 60;
+
+  const formattedSeconds: string =
+    seconds < 10 ? `0${seconds}` : seconds.toString();
+
+  return `${minutes}:${formattedSeconds}`;
+}

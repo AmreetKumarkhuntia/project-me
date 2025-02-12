@@ -2,7 +2,11 @@
   import { marked } from "marked";
   import { Card, flyAndFade } from "vergins";
 
-  import type { GitProjectDetails, SpotifyAlbum } from "$generated/types";
+  import type {
+    GitProjectDetails,
+    SpotifyAlbum,
+    SpotifyAlbumItem,
+  } from "$generated/types";
   import type { Source } from "$generated/types/Projects.ts";
   import { isGitProjectDetails, isSpotifyAlbum } from "$models/project";
   import { formatDateToString } from "$client";
@@ -12,7 +16,9 @@
   export let comeFrom: "left" | "right" = "left";
   export let shouldRenderWithinCard: boolean = true;
 
-  export let onClick: (project: GitProjectDetails) => void = () => {};
+  export let onClick: (
+    project: GitProjectDetails | SpotifyAlbumItem
+  ) => void = () => {};
 
   let innerHtml: string = "";
 
@@ -69,7 +75,12 @@
     <div class="project-spotify">
       {#each project.items as item}
         <Card>
-          <div class="spotify-album display-flex">
+          <div
+            class="spotify-album display-flex"
+            on:click={() => {
+              onClick(item);
+            }}
+          >
             <div
               class="spotify-album-image display-flex display-flex-center display-align-col"
             >

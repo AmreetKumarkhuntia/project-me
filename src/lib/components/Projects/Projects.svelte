@@ -4,18 +4,23 @@
   import { goto } from "$app/navigation";
 
   import type { Source } from "$generated/types/Projects.ts";
-  import type { GitProjectDetails } from "$generated/types";
+  import type { GitProjectDetails, SpotifyAlbumItem } from "$generated/types";
   import Project from "./Project.svelte";
   import { getGitRepos, getSpotifyAlbums } from "$client/projects";
   import { projectStore } from "$stores/projects.ts";
   import { setLoader } from "$stores/site";
+  import {
+    isGitProjectDetails,
+    isSpotifyAlbum,
+    isSpotifyAlbumItem,
+  } from "$models/project";
 
   export let source: Source = "github";
   let activeIndex: number = 0;
   let prevIndex: number = 0;
 
   $: githubProjects = $projectStore.githubProjects ?? [];
-  $: SpotifyAlbum = $projectStore.spotifyAlbum;
+  $: SpotifyAlbumProject = $projectStore.spotifyAlbum;
   $: changeLoader(), $projectStore.githubProjects;
   $: changeLoader(), $projectStore.spotifyAlbum;
 
@@ -29,10 +34,17 @@
     }
   }
 
-  function handleGithubProjectClick(project: GitProjectDetails) {
-    const projectName = project.repo.name;
+  function handleProjectClick(project: GitProjectDetails | SpotifyAlbumItem) {
+    console.log(">>", project, isGitProjectDetails(project));
+    if (isGitProjectDetails(project)) {
+      const projectName = project.repo.name;
 
-    goto(`/project/github/${projectName}`);
+      goto(`/project/github/${projectName}`);
+    } else if (isSpotifyAlbumItem(project)) {
+      const albumId = project.id;
+
+      goto(`/project/spotify/${albumId}`);
+    }
   }
 
   onMount(async () => {
@@ -73,13 +85,17 @@
         <Project
           {source}
           {project}
-          onClick={handleGithubProjectClick}
+          onClick={handleProjectClick}
           comeFrom={prevIndex > activeIndex ? "right" : "left"}
         />
       {/if}
     {/each}
   {:else}
-    <Project {source} project={SpotifyAlbum} />
+    <Project
+      {source}
+      project={SpotifyAlbumProject}
+      onClick={handleProjectClick}
+    />
   {/if}
 </div>
 

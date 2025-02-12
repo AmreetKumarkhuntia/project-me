@@ -28,7 +28,7 @@
   import Loader from "$components/Loaders/Loader.svelte";
   import { techColorMap } from "$constants";
   import { decodeTech } from "$models/tech";
-  import { setLoader } from "$stores/site";
+  import { setLoader, setSource } from "$stores/site";
 
   let commits: GitCommit[] = [];
   let project: GitProjectDetails | null = null;
@@ -162,14 +162,15 @@
   onMount(async () => {
     try {
       setLoader(true);
+      setSource("github");
       const data = page.data;
       const projectId = decodeString(data.projectId);
 
       await loadProjectData(projectId);
-      setLoader(false);
     } catch (err) {
       console.log("Exception:", String(err));
     }
+    setLoader(false);
   });
 </script>
 

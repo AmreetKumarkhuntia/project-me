@@ -1,8 +1,10 @@
 import {
   decodeGitProjectDetails,
   decodeSpotifyAlbum,
+  decodeSpotifyTrack,
   type GitProjectDetails,
   type SpotifyAlbum,
+  type SpotifyTrack,
 } from "$generated/types";
 import { APICaller } from "$services/apiCaller";
 import {
@@ -12,6 +14,7 @@ import {
 } from "$stores/projects.ts";
 import { logger } from "$services/logger";
 import { get } from "svelte/store";
+import { decodeArray } from "type-decoder";
 
 /**
  * Retrieves GitHub repositories and updates the store if not already populated.
@@ -177,6 +180,50 @@ export async function getSpotifyAlbumsFromBackend(): Promise<SpotifyAlbum | null
 
     const result = await apiCaller.callApi();
     allAlbums = result.body;
+
+    logger.logExternalApiResponse(tag, { result });
+  } catch (err) {
+    logger.logException(tag, String(err));
+  }
+
+  return allAlbums;
+}
+
+/**
+ * Fetches SpotifyAlbums from the backend.
+ * @param projectId The ID of the spotify album.
+ * @returns A promise resolving to SpotifyAlbum
+ */
+export async function getSpotifyTracksFromBackend(
+  projectId: string
+): Promise<SpotifyTrack[]> {
+  const requestHeaders: Map<string, string> = new Map();
+  const apiUrl: string =
+    window.location.origin + "/api/project/spotify/" + projectId;
+  const queryParams: Map<string, string> = new Map([["source", "spotify"]]);
+  const apiCaller = new APICaller<SpotifyTrack[]>();
+  const tag = "getSpotifyAlbumsFromBackend";
+
+  let allAlbums: SpotifyTrack[] = [];
+
+  apiCaller.buildApiCall(
+    apiUrl,
+    {},
+    "GET",
+    requestHeaders,
+    queryParams,
+    (data) => decodeArray(data, decodeSpotifyTrack)
+  );
+
+  try {
+    logger.logExternalApiRequest(tag, {
+      apiUrl,
+      requestHeaders,
+      queryParams,
+    });
+
+    const result = await apiCaller.callApi();
+    allAlbums = result.body ?? [];
 
     logger.logExternalApiResponse(tag, { result });
   } catch (err) {
