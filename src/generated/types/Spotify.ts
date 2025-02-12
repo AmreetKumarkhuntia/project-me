@@ -44,6 +44,11 @@ export function decodeSpotifyAlbum(rawInput: unknown): SpotifyAlbum | null {
  */
 export type SpotifyTrack = {
   /**
+   * @type { string }
+   * @memberof SpotifyTrack
+   */
+  id: string;
+  /**
    * @type { SpotifyArtist[] }
    * @memberof SpotifyTrack
    */
@@ -82,6 +87,7 @@ export type SpotifyTrack = {
 
 export function decodeSpotifyTrack(rawInput: unknown): SpotifyTrack | null {
   if (isJSON(rawInput)) {
+    const decodedId = decodeString(rawInput["id"]);
     const decodedArtists = decodeArray(
       rawInput["artists"],
       decodeSpotifyArtist,
@@ -96,6 +102,7 @@ export function decodeSpotifyTrack(rawInput: unknown): SpotifyTrack | null {
     const decodedExplicit = decodeBoolean(rawInput["explicit"]);
 
     if (
+      decodedId === null ||
       decodedArtists === null ||
       decodedDiscNumber === null ||
       decodedDurationMs === null ||
@@ -108,6 +115,7 @@ export function decodeSpotifyTrack(rawInput: unknown): SpotifyTrack | null {
     }
 
     return {
+      id: decodedId,
       artists: decodedArtists,
       disc_number: decodedDiscNumber,
       duration_ms: decodedDurationMs,
