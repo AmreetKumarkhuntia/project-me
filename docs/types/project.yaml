@@ -14,3 +14,7 @@ groupedTypes:
     $ref: "./docs/types/Client.yaml#/Client"
   Spotify:
     $ref: "./docs/types/Spotify.yaml#/Spotify"
+  Games:
+    $ref: "./docs/types/Games.yaml#/Games"
+  Steam:
+    $ref: "./docs/types/Steam.yaml#/Steam"

@@ -1,0 +1,51 @@
+Steam:
+  SteamGame:
+    type: object
+    required:
+      - appid
+      - name
+      - playtime_forever
+      - img_icon_url
+      - rtime_last_played
+    properties:
+      appid:
+        type: number
+      name:
+        type: string
+      playtime_forever:
+        type: number
+      img_icon_url:
+        type: string
+      rtime_last_played:
+        type: number
+
+  SteamAchievementSchema:
+    type: object
+    required:
+      - name
+      - displayName
+      - description
+      - icon
+      - icongray
+    properties:
+      name:
+        type: string
+      displayName:
+        type: string
+      description:
+        type: string
+      icon:
+        type: string
+      icongray:
+        type: string
+
+  SteamAchievement:
+    type: object
+    required:
+      - name
+      - percent
+    properties:
+      name:
+        type: string
+      percent:
+        type: string

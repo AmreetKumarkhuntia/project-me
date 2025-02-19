@@ -1,0 +1,44 @@
+Games:
+  Game:
+    type: object
+    required:
+      - name
+      - id
+      - hours
+      - achievements
+      - iconUrl
+    properties:
+      name:
+        type: string
+      id:
+        type: string
+      hours:
+        type: number
+      achievements:
+        type: array
+        items:
+          $ref: "./docs/types/Games.yaml#/Games/Achievement"
+
+  Achievement:
+    type: object
+    required:
+      - name
+      - number
+      - statEnum
+    properties:
+      iconUrl:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      number:
+        type: number
+      statEnum:
+        $ref: "./docs/types/Games.yaml#/Games/StatEnum"
+
+  StatEnum:
+    type: string
+    enum:
+      - PERCENT
+      - DIRECT

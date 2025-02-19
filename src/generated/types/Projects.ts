@@ -3,12 +3,13 @@ import { isJSON } from "type-decoder";
 /**
  * @type { Source }
  */
-export type Source = "github" | "spotify";
+export type Source = "github" | "spotify" | "games";
 
 export function decodeSource(rawInput: unknown): Source | null {
   switch (rawInput) {
     case "github":
     case "spotify":
+    case "games":
       return rawInput;
   }
   return null;

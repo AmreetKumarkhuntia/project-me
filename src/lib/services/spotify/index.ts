@@ -3,7 +3,6 @@ import {
   decodeSpotifyAuthToken,
   decodeSpotifyTrack,
   type SpotifyAlbum,
-  type SpotifyArtist,
   type SpotifyAuthToken,
   type SpotifyTrack,
 } from "$generated/types";

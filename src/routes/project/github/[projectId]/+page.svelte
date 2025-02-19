@@ -12,7 +12,7 @@
   } from "vergins";
   import type { TooltipItem } from "chart.js";
 
-  import { getGithubRepoWithCommits } from "$client/projects";
+  import { getGithubRepoWithCommits } from "$client/info";
   import type {
     Database,
     Framework,
