@@ -12,11 +12,13 @@ import {
 } from "$server/config";
 import { decodeSource } from "$generated/types/Projects.ts";
 import { getAuthToken, getSpotifyAlbums } from "$services/spotify";
+import { getSteamOwnedGames } from "$services/steam";
+import type { SteamGame } from "$generated/types";
 
 export async function GET({ url, request }: RequestEvent) {
   let response: APIResponse;
 
-  const tag = "GET /api/projects";
+  const tag = "GET /api/infos";
   const params = Object.fromEntries(url.searchParams.entries());
   const userReposToShow = getGitUserReposToShow();
 
@@ -38,6 +40,31 @@ export async function GET({ url, request }: RequestEvent) {
             "Something Went Wrong !!! Unable to get access token."
           );
         }
+        break;
+      }
+      case "games": {
+        const games = await getSteamOwnedGames();
+        /**
+         * image url
+         * https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/apps/{appid}/{img_icon_url}.jpg
+         */
+        const modifiedGames = games.map((game) => {
+          const appId = game.appid;
+          const imgIconUrl = game.img_icon_url;
+          const imageUrl = `https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/apps/${appId}/${imgIconUrl}.jpg`;
+
+          const newGame: SteamGame = {
+            ...game,
+            img_icon_url: imageUrl,
+          };
+          return newGame;
+        });
+        const sortedGames = modifiedGames.sort(
+          (a, b) => b.playtime_forever - a.playtime_forever
+        );
+        response = APIResponseHandler.successResponse("success", {
+          games: sortedGames,
+        });
         break;
       }
       case "github":

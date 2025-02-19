@@ -43,7 +43,7 @@ export async function getSpotifyAlbums() {
  */
 export async function getReposFromBackend(): Promise<GitProjectDetails[]> {
   const requestHeaders: Map<string, string> = new Map();
-  const apiUrl: string = window.location.origin + "/api/projects";
+  const apiUrl: string = window.location.origin + "/api/infos";
   const queryParams: Map<string, string> = new Map([["source", "github"]]);
   const apiCaller = new APICaller<GitProjectDetails[]>();
 
@@ -107,7 +107,7 @@ export async function getGithubRepoWithCommits(
   const tag = "getGithubRepoWithCommits";
   const requestHeaders: Map<string, string> = new Map();
   const apiUrl: string =
-    window.location.origin + `/api/project/github/${projectId}`;
+    window.location.origin + `/api/info/github/${projectId}`;
   const queryParams: Map<string, string> = new Map([
     ["page", page],
     ["per_page", perPage],
@@ -155,7 +155,7 @@ export async function getGithubRepoWithCommits(
  */
 export async function getSpotifyAlbumsFromBackend(): Promise<SpotifyAlbum | null> {
   const requestHeaders: Map<string, string> = new Map();
-  const apiUrl: string = window.location.origin + "/api/projects";
+  const apiUrl: string = window.location.origin + "/api/infos";
   const queryParams: Map<string, string> = new Map([["source", "spotify"]]);
   const apiCaller = new APICaller<SpotifyAlbum>();
   const tag = "getSpotifyAlbumsFromBackend";
@@ -199,7 +199,7 @@ export async function getSpotifyTracksFromBackend(
 ): Promise<SpotifyTrack[]> {
   const requestHeaders: Map<string, string> = new Map();
   const apiUrl: string =
-    window.location.origin + "/api/project/spotify/" + projectId;
+    window.location.origin + "/api/info/spotify/" + projectId;
   const queryParams: Map<string, string> = new Map([["source", "spotify"]]);
   const apiCaller = new APICaller<SpotifyTrack[]>();
   const tag = "getSpotifyAlbumsFromBackend";

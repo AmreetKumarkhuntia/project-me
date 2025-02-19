@@ -4,6 +4,7 @@ Projects:
     enum:
       - github
       - spotify
+      - games
 
   Language:
     type: string

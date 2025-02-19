@@ -7,10 +7,7 @@
 
   import type { SpotifyAlbumItem, SpotifyTrack } from "$generated/types";
   import { setLoader, setSource } from "$stores/site";
-  import {
-    getSpotifyAlbums,
-    getSpotifyTracksFromBackend,
-  } from "$client/projects";
+  import { getSpotifyAlbums, getSpotifyTracksFromBackend } from "$client/info";
   import { projectStore, updateSpotifyTracks } from "$stores/projects";
   import { formatDateToString } from "$client";
   import { openInANewWindow } from "$client/navigation";

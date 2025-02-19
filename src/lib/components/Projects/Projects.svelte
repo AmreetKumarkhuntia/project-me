@@ -6,7 +6,7 @@
   import type { Source } from "$generated/types/Projects.ts";
   import type { GitProjectDetails, SpotifyAlbumItem } from "$generated/types";
   import Project from "./Project.svelte";
-  import { getGitRepos, getSpotifyAlbums } from "$client/projects";
+  import { getGitRepos, getSpotifyAlbums } from "$client/info";
   import { projectStore } from "$stores/projects.ts";
   import { setLoader } from "$stores/site";
   import {
@@ -35,7 +35,6 @@
   }
 
   function handleProjectClick(project: GitProjectDetails | SpotifyAlbumItem) {
-    console.log(">>", project, isGitProjectDetails(project));
     if (isGitProjectDetails(project)) {
       const projectName = project.repo.name;
 

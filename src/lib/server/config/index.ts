@@ -40,3 +40,10 @@ export const spotifyApiUrl: string =
 
 export const spotifyAccountsApiUrl: string =
   process.env.SPOTIFY_ACCOUNTS_URL ?? "https://accounts.spotify.com";
+
+export const steamApiUrl: string =
+  process.env.STEAM_API_URL ?? "https://api.steampowered.com";
+
+export const steamKey: string = process.env.STEAM_KEY ?? "";
+
+export const steamId: string = process.env.STEAM_ID ?? "";
