@@ -1,7 +1,9 @@
 import {
+  decodeGame,
   decodeGitProjectDetails,
   decodeSpotifyAlbum,
   decodeSpotifyTrack,
+  type Game,
   type GitProjectDetails,
   type SpotifyAlbum,
   type SpotifyTrack,
@@ -11,6 +13,7 @@ import {
   updateGithubProjects,
   skillStore,
   updateSpotifyAlbum,
+  updateGames,
 } from "$stores/skills";
 import { logger } from "$services/logger";
 import { get } from "svelte/store";
@@ -32,6 +35,15 @@ export async function getSpotifyAlbums() {
   if (store.spotifyAlbum === null) {
     const spotifyAlbum = await getSpotifyAlbumsFromBackend();
     if (spotifyAlbum !== null) updateSpotifyAlbum(spotifyAlbum);
+  }
+}
+
+export async function getGames() {
+  const store = get(skillStore);
+  if (store.games === null) {
+    const games = await getGamesFromBackend();
+    console.log(">>>", games);
+    updateGames(games);
   }
 }
 
@@ -67,7 +79,7 @@ export async function getReposFromBackend(): Promise<GitProjectDetails[]> {
         });
       }
       return result;
-    },
+    }
   );
 
   try {
@@ -102,7 +114,7 @@ export async function getReposFromBackend(): Promise<GitProjectDetails[]> {
 export async function getGithubRepoWithCommits(
   projectId: string,
   page: string = "1",
-  perPage = "10",
+  perPage = "10"
 ): Promise<GitProjectDetails | null> {
   const tag = "getGithubRepoWithCommits";
   const requestHeaders: Map<string, string> = new Map();
@@ -122,7 +134,7 @@ export async function getGithubRepoWithCommits(
     "GET",
     requestHeaders,
     queryParams,
-    decodeGitProjectDetails,
+    decodeGitProjectDetails
   );
 
   try {
@@ -168,7 +180,7 @@ export async function getSpotifyAlbumsFromBackend(): Promise<SpotifyAlbum | null
     "GET",
     requestHeaders,
     queryParams,
-    decodeSpotifyAlbum,
+    decodeSpotifyAlbum
   );
 
   try {
@@ -195,7 +207,7 @@ export async function getSpotifyAlbumsFromBackend(): Promise<SpotifyAlbum | null
  * @returns A promise resolving to SpotifyAlbum
  */
 export async function getSpotifyTracksFromBackend(
-  projectId: string,
+  projectId: string
 ): Promise<SpotifyTrack[]> {
   const requestHeaders: Map<string, string> = new Map();
   const apiUrl: string =
@@ -212,7 +224,7 @@ export async function getSpotifyTracksFromBackend(
     "GET",
     requestHeaders,
     queryParams,
-    (data) => decodeArray(data, decodeSpotifyTrack),
+    (data) => decodeArray(data, decodeSpotifyTrack)
   );
 
   try {
@@ -231,6 +243,49 @@ export async function getSpotifyTracksFromBackend(
   }
 
   return allAlbums;
+}
+
+//endregion
+//region GAME API CLIENT CALLERS
+
+/**
+ * Fetches Games played from the backend.
+ * @returns A promise resolving to Game
+ */
+export async function getGamesFromBackend(): Promise<Game[]> {
+  const requestHeaders: Map<string, string> = new Map();
+  const apiUrl: string = window.location.origin + "/api/infos";
+  const queryParams: Map<string, string> = new Map([["source", "games"]]);
+  const apiCaller = new APICaller<Game[]>();
+  const tag = "getGamesFromBackend";
+
+  let allGames: Game[] = [];
+
+  apiCaller.buildApiCall(
+    apiUrl,
+    {},
+    "GET",
+    requestHeaders,
+    queryParams,
+    (data) => decodeArray(data, decodeGame)
+  );
+
+  try {
+    logger.logExternalApiRequest(tag, {
+      apiUrl,
+      requestHeaders,
+      queryParams,
+    });
+
+    const result = await apiCaller.callApi();
+    allGames = result.body ?? [];
+
+    logger.logExternalApiResponse(tag, { result });
+  } catch (err) {
+    logger.logException(tag, String(err));
+  }
+
+  return allGames;
 }
 
 //endregion

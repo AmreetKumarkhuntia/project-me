@@ -7,15 +7,18 @@ Games:
       - hours
       - achievements
       - iconUrl
+      - lastPlayed
     properties:
       name:
         type: string
       id:
         type: string
-      hours:
+      playTime:
+        type: number
+      lastPlayed:
         type: number
       iconUrl:
-        type: number
+        type: string
       achievements:
         type: array
         items:
