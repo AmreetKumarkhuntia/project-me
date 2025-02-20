@@ -7,26 +7,22 @@
   import type { GitProjectDetails, SpotifyAlbumItem } from "$generated/types";
   import Project from "./Project.svelte";
   import { getGitRepos, getSpotifyAlbums } from "$client/info";
-  import { projectStore } from "$stores/projects.ts";
+  import { skillStore } from "$stores/skills";
   import { setLoader } from "$stores/site";
-  import {
-    isGitProjectDetails,
-    isSpotifyAlbum,
-    isSpotifyAlbumItem,
-  } from "$models/project";
+  import { isGitProjectDetails, isSpotifyAlbumItem } from "$models/project";
 
   export let source: Source = "github";
   let activeIndex: number = 0;
   let prevIndex: number = 0;
 
-  $: githubProjects = $projectStore.githubProjects ?? [];
-  $: SpotifyAlbumProject = $projectStore.spotifyAlbum;
-  $: changeLoader(), $projectStore.githubProjects;
-  $: changeLoader(), $projectStore.spotifyAlbum;
+  $: githubProjects = $skillStore.githubProjects ?? [];
+  $: SpotifyAlbumProject = $skillStore.spotifyAlbum;
+  $: changeLoader(), $skillStore.githubProjects;
+  $: changeLoader(), $skillStore.spotifyAlbum;
 
   function changeLoader() {
-    const projects = $projectStore.githubProjects;
-    const album = $projectStore.spotifyAlbum;
+    const projects = $skillStore.githubProjects;
+    const album = $skillStore.spotifyAlbum;
     if (source === "github" && projects !== null && projects.length > 0) {
       setLoader(false);
     } else if (source === "spotify" && album !== null) {
@@ -38,11 +34,11 @@
     if (isGitProjectDetails(project)) {
       const projectName = project.repo.name;
 
-      goto(`/project/github/${projectName}`);
+      goto(`/skill/github/${projectName}`);
     } else if (isSpotifyAlbumItem(project)) {
       const albumId = project.id;
 
-      goto(`/project/spotify/${albumId}`);
+      goto(`/skill/spotify/${albumId}`);
     }
   }
 

@@ -12,7 +12,7 @@ import {
   spotifyArtistId,
   spotifyCliSecret,
   spotifyCliToken,
-} from "$server/config";
+} from "$configuration/config";
 import { APICaller } from "$services/apiCaller";
 import { logger } from "$services/logger";
 import { decodeArray } from "type-decoder";
@@ -26,7 +26,7 @@ import { decodeArray } from "type-decoder";
  */
 export async function getSpotifyTracks(
   authToken: string,
-  albumId: string
+  albumId: string,
 ): Promise<SpotifyTrack[]> {
   const apiUrl: string = spotifyApiUrl + "/albums/" + albumId + "/tracks";
   const defaultQueryParams: Map<string, string> = new Map([["limit", "50"]]);
@@ -47,7 +47,7 @@ export async function getSpotifyTracks(
     (data) => {
       const items = data["items"] ?? null;
       return decodeArray(items, decodeSpotifyTrack);
-    }
+    },
   );
 
   try {
@@ -75,7 +75,7 @@ export async function getSpotifyTracks(
  * @returns A promise resolving to a SpotifyAlbum object or null if the request fails.
  */
 export async function getSpotifyAlbums(
-  authToken: string
+  authToken: string,
 ): Promise<SpotifyAlbum | null> {
   const apiUrl: string =
     spotifyApiUrl + "/artists/" + spotifyArtistId + "/albums";
@@ -94,7 +94,7 @@ export async function getSpotifyAlbums(
     "GET",
     requestHeaders,
     defaultQueryParams,
-    decodeSpotifyAlbum
+    decodeSpotifyAlbum,
   );
 
   try {
@@ -145,7 +145,7 @@ export async function getAuthToken(): Promise<SpotifyAuthToken | null> {
     "POST",
     requestHeaders,
     defaultQueryParams,
-    decodeSpotifyAuthToken
+    decodeSpotifyAuthToken,
   );
 
   try {

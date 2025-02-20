@@ -110,7 +110,7 @@ export class APICaller<T> {
    */
 
   parseBody(
-    requestContentType: string | null
+    requestContentType: string | null,
   ): string | FormData | URLSearchParams | undefined {
     let body = this.body;
     if (requestContentType === "application/x-www-form-urlencoded") {
@@ -121,7 +121,7 @@ export class APICaller<T> {
         Object.entries(body as Record<string, unknown>).forEach(
           ([key, value]) => {
             urlParams.append(key, value != null ? String(value) : "");
-          }
+          },
         );
         return urlParams;
       }
@@ -173,7 +173,7 @@ export class APICaller<T> {
         const queryString = Array.from(this.queryParams.entries())
           .map(
             ([key, value]) =>
-              `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+              `${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
           )
           .join("&");
         if (queryString !== null && queryString.length > 0) {
@@ -251,7 +251,7 @@ export class APICaller<T> {
     method: string = "POST",
     reqHeaders: Map<string, string> | null = null,
     queryParams: Map<string, string> | null = null,
-    decoder: (data: any) => T | null = (data) => null
+    decoder: (data: any) => T | null = (data) => null,
   ): void {
     this.setUrl(url);
     this.setBody(body);
@@ -277,7 +277,7 @@ export async function getInnerHTML(url: string): Promise<string | null> {
     "GET",
     requestHeaders,
     queryParams,
-    (body) => body
+    (body) => body,
   );
 
   try {

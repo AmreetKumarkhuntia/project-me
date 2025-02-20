@@ -62,6 +62,10 @@ export const talentItems: { id: Source; label: string }[] = [
   },
   {
     id: "github",
-    label: "Tech Skill",
+    label: "Tech Skills",
+  },
+  {
+    id: "games",
+    label: "Gaming Skills",
   },
 ];

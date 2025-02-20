@@ -15,7 +15,7 @@ export const githubNavigationOptions: NavigationOptions[] = [
   {
     id: "work",
     title: "WORK",
-    navigationURL: "/work",
+    navigationURL: "/skills",
   },
   {
     id: "contact",
@@ -43,7 +43,35 @@ export const spotifyNavigationOptions: NavigationOptions[] = [
   {
     id: "albums",
     title: "ALBUMS",
-    navigationURL: "/work",
+    navigationURL: "/skills",
+  },
+  {
+    id: "contact",
+    title: "CONTACT",
+    navigationURL: "/contact",
+  },
+  {
+    id: "configureSite",
+    title: "CONFIGURE",
+    navigationURL: "/configure",
+  },
+];
+
+export const gamingNavigationOptions: NavigationOptions[] = [
+  {
+    id: "home",
+    title: "HOME",
+    navigationURL: "/",
+  },
+  {
+    id: "about",
+    title: "ABOUT",
+    navigationURL: "/about",
+  },
+  {
+    id: "games",
+    title: "GAMES",
+    navigationURL: "/skills",
   },
   {
     id: "contact",
@@ -68,6 +96,16 @@ export function getHorizontalNavigation(source: Source): NavbarProps {
     };
   }
 
+  if (source === "games") {
+    return {
+      showLeftImage: false,
+      leftImageURL: null,
+      navigationOptions: gamingNavigationOptions,
+      showRightImage: true,
+      rightImageURL: null,
+    };
+  }
+
   return {
     showLeftImage: false,
     leftImageURL: null,
@@ -83,6 +121,16 @@ export function getVerticalNavigation(source: Source): NavbarProps {
       showLeftImage: false,
       leftImageURL: null,
       navigationOptions: spotifyNavigationOptions,
+      showRightImage: true,
+      rightImageURL: "/icons/cross.svg",
+    };
+  }
+
+  if (source === "games") {
+    return {
+      showLeftImage: false,
+      leftImageURL: null,
+      navigationOptions: gamingNavigationOptions,
       showRightImage: true,
       rightImageURL: "/icons/cross.svg",
     };

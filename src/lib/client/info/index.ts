@@ -9,9 +9,9 @@ import {
 import { APICaller } from "$services/apiCaller";
 import {
   updateGithubProjects,
-  projectStore,
+  skillStore,
   updateSpotifyAlbum,
-} from "$stores/projects.ts";
+} from "$stores/skills";
 import { logger } from "$services/logger";
 import { get } from "svelte/store";
 import { decodeArray } from "type-decoder";
@@ -20,7 +20,7 @@ import { decodeArray } from "type-decoder";
  * Retrieves GitHub repositories and updates the store if not already populated.
  */
 export async function getGitRepos() {
-  const store = get(projectStore);
+  const store = get(skillStore);
   if (store.githubProjects === null) {
     const allRepos = await getReposFromBackend();
     updateGithubProjects(allRepos);
@@ -28,7 +28,7 @@ export async function getGitRepos() {
 }
 
 export async function getSpotifyAlbums() {
-  const store = get(projectStore);
+  const store = get(skillStore);
   if (store.spotifyAlbum === null) {
     const spotifyAlbum = await getSpotifyAlbumsFromBackend();
     if (spotifyAlbum !== null) updateSpotifyAlbum(spotifyAlbum);
@@ -67,7 +67,7 @@ export async function getReposFromBackend(): Promise<GitProjectDetails[]> {
         });
       }
       return result;
-    }
+    },
   );
 
   try {
@@ -102,7 +102,7 @@ export async function getReposFromBackend(): Promise<GitProjectDetails[]> {
 export async function getGithubRepoWithCommits(
   projectId: string,
   page: string = "1",
-  perPage = "10"
+  perPage = "10",
 ): Promise<GitProjectDetails | null> {
   const tag = "getGithubRepoWithCommits";
   const requestHeaders: Map<string, string> = new Map();
@@ -122,7 +122,7 @@ export async function getGithubRepoWithCommits(
     "GET",
     requestHeaders,
     queryParams,
-    decodeGitProjectDetails
+    decodeGitProjectDetails,
   );
 
   try {
@@ -168,7 +168,7 @@ export async function getSpotifyAlbumsFromBackend(): Promise<SpotifyAlbum | null
     "GET",
     requestHeaders,
     queryParams,
-    decodeSpotifyAlbum
+    decodeSpotifyAlbum,
   );
 
   try {
@@ -195,7 +195,7 @@ export async function getSpotifyAlbumsFromBackend(): Promise<SpotifyAlbum | null
  * @returns A promise resolving to SpotifyAlbum
  */
 export async function getSpotifyTracksFromBackend(
-  projectId: string
+  projectId: string,
 ): Promise<SpotifyTrack[]> {
   const requestHeaders: Map<string, string> = new Map();
   const apiUrl: string =
@@ -212,7 +212,7 @@ export async function getSpotifyTracksFromBackend(
     "GET",
     requestHeaders,
     queryParams,
-    (data) => decodeArray(data, decodeSpotifyTrack)
+    (data) => decodeArray(data, decodeSpotifyTrack),
   );
 
   try {

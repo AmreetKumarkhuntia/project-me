@@ -1,7 +1,7 @@
 import { decodeArray } from "type-decoder";
 
 import { decodeSteamGame, type SteamGame } from "$generated/types";
-import { steamApiUrl, steamId, steamKey } from "$server/config";
+import { steamApiUrl, steamId, steamKey } from "$configuration/config";
 import { APICaller } from "$services/apiCaller";
 import { logger } from "$services/logger";
 
@@ -34,7 +34,7 @@ export async function getSteamOwnedGames(): Promise<SteamGame[]> {
       const response = data["response"];
       const games = response["games"];
       return decodeArray(games, decodeSteamGame);
-    }
+    },
   );
 
   try {
