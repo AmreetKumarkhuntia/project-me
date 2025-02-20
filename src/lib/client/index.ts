@@ -18,7 +18,7 @@ export async function getHtmlUsingProxy(url: string): Promise<string | null> {
     "GET",
     requestHeaders,
     queryParams,
-    (body) => body,
+    (body) => body
   );
 
   try {
@@ -59,7 +59,7 @@ export async function getRawJsonData(apiUrl: string): Promise<any> {
     "GET",
     requestHeaders,
     queryParams,
-    (body) => body,
+    (body) => body
   );
 
   try {
@@ -86,7 +86,7 @@ export async function getRawJsonData(apiUrl: string): Promise<any> {
 
 // parsers of markdown
 export async function parseTextToHtml(
-  text: string | null,
+  text: string | null
 ): Promise<string | null> {
   if (text === null) return null;
   return await marked(text);
@@ -118,7 +118,7 @@ export function formatDateToReadable(dateString: string): string {
 }
 
 export function formatDateToString(dateStr: string): string {
-  const date = new Date("2021-07-18");
+  const date = new Date(dateStr);
   return date.toDateString();
 }
 
@@ -132,4 +132,9 @@ export function msToMinutesAndSeconds(ms: number): string {
     seconds < 10 ? `0${seconds}` : seconds.toString();
 
   return `${minutes}:${formattedSeconds}`;
+}
+
+export function formatTimeStampToDateStamp(timestamp: number): string {
+  const date = new Date(timestamp * 1000);
+  return date.toUTCString();
 }

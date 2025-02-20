@@ -14,6 +14,7 @@ import { decodeSource } from "$generated/types/Projects.ts";
 import { getAuthToken, getSpotifyAlbums } from "$services/spotify";
 import { getSteamOwnedGames } from "$services/steam";
 import type { SteamGame } from "$generated/types";
+import { castToGameFromSteamGame } from "$server/games";
 
 export async function GET({ url, request }: RequestEvent) {
   let response: APIResponse;
@@ -37,7 +38,7 @@ export async function GET({ url, request }: RequestEvent) {
           response = APIResponseHandler.successResponse("success", allAlbums);
         } else {
           response = APIResponseHandler.badRequestResponse(
-            "Something Went Wrong !!! Unable to get access token.",
+            "Something Went Wrong !!! Unable to get access token."
           );
         }
         break;
@@ -59,12 +60,13 @@ export async function GET({ url, request }: RequestEvent) {
           };
           return newGame;
         });
-        const sortedGames = modifiedGames.sort(
-          (a, b) => b.playtime_forever - a.playtime_forever,
+        const sortedGames = modifiedGames
+          .sort((a, b) => b.playtime_forever - a.playtime_forever)
+          .slice(0, 10);
+        response = APIResponseHandler.successResponse(
+          "success",
+          castToGameFromSteamGame(sortedGames)
         );
-        response = APIResponseHandler.successResponse("success", {
-          games: sortedGames,
-        });
         break;
       }
       case "github":
@@ -74,7 +76,7 @@ export async function GET({ url, request }: RequestEvent) {
           githubApiVersion,
           githubUserName,
           userReposToShow,
-          githubAuthToken,
+          githubAuthToken
         );
         response = APIResponseHandler.successResponse("success", {
           repos,

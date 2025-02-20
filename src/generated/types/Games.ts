@@ -18,7 +18,17 @@ export type Game = {
    * @type { number }
    * @memberof Game
    */
-  hours: number;
+  playTime: number | null;
+  /**
+   * @type { number }
+   * @memberof Game
+   */
+  lastPlayed: number;
+  /**
+   * @type { string }
+   * @memberof Game
+   */
+  iconUrl: string;
   /**
    * @type { Achievement[] }
    * @memberof Game
@@ -30,7 +40,9 @@ export function decodeGame(rawInput: unknown): Game | null {
   if (isJSON(rawInput)) {
     const decodedName = decodeString(rawInput["name"]);
     const decodedId = decodeString(rawInput["id"]);
-    const decodedHours = decodeNumber(rawInput["hours"]);
+    const decodedPlayTime = decodeNumber(rawInput["playTime"]);
+    const decodedLastPlayed = decodeNumber(rawInput["lastPlayed"]);
+    const decodedIconUrl = decodeString(rawInput["iconUrl"]);
     const decodedAchievements = decodeArray(
       rawInput["achievements"],
       decodeAchievement,
@@ -39,7 +51,8 @@ export function decodeGame(rawInput: unknown): Game | null {
     if (
       decodedName === null ||
       decodedId === null ||
-      decodedHours === null ||
+      decodedLastPlayed === null ||
+      decodedIconUrl === null ||
       decodedAchievements === null
     ) {
       return null;
@@ -48,7 +61,9 @@ export function decodeGame(rawInput: unknown): Game | null {
     return {
       name: decodedName,
       id: decodedId,
-      hours: decodedHours,
+      playTime: decodedPlayTime,
+      lastPlayed: decodedLastPlayed,
+      iconUrl: decodedIconUrl,
       achievements: decodedAchievements,
     };
   }
