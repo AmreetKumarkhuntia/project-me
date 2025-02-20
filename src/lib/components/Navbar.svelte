@@ -3,7 +3,6 @@
   import type { NavigationOptions, NavbarProps } from "vergins";
 
   import { goto } from "$app/navigation";
-  import { openInANewWindow } from "$client/navigation";
   import {
     getHorizontalNavigation,
     getVerticalNavigation,
@@ -18,12 +17,10 @@
 
   function onClick(e: NavigationOptions) {
     closeMenuClick();
-    if (e.id !== "linkedin" && e.id !== "github") {
-      const pathname = window.location.pathname;
-      if (pathname !== e.navigationURL) setLoader(true);
+    const pathname = window.location.pathname;
+    if (pathname !== e.navigationURL) setLoader(true);
 
-      goto(e.navigationURL);
-    } else openInANewWindow(e.navigationURL);
+    goto(e.navigationURL);
   }
 
   function openMenuClick() {

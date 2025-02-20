@@ -2,14 +2,14 @@ import type { RequestEvent } from "@sveltejs/kit";
 import { APIResponseHandler } from "$server/apiSchema";
 import { logger } from "$services/logger";
 import type { APIResponse } from "$generated/types/APISchema.ts";
-import { getCompiledGitRepos, getGithubRepos } from "$services/github";
+import { getCompiledGitRepos } from "$services/github";
 import {
   githubApiUrl,
   githubApiVersion,
   githubAuthToken,
   getGitUserReposToShow,
   githubUserName,
-} from "$server/config";
+} from "$configuration/config";
 import { decodeSource } from "$generated/types/Projects.ts";
 import { getAuthToken, getSpotifyAlbums } from "$services/spotify";
 import { getSteamOwnedGames } from "$services/steam";
@@ -37,7 +37,7 @@ export async function GET({ url, request }: RequestEvent) {
           response = APIResponseHandler.successResponse("success", allAlbums);
         } else {
           response = APIResponseHandler.badRequestResponse(
-            "Something Went Wrong !!! Unable to get access token."
+            "Something Went Wrong !!! Unable to get access token.",
           );
         }
         break;
@@ -60,7 +60,7 @@ export async function GET({ url, request }: RequestEvent) {
           return newGame;
         });
         const sortedGames = modifiedGames.sort(
-          (a, b) => b.playtime_forever - a.playtime_forever
+          (a, b) => b.playtime_forever - a.playtime_forever,
         );
         response = APIResponseHandler.successResponse("success", {
           games: sortedGames,
@@ -74,7 +74,7 @@ export async function GET({ url, request }: RequestEvent) {
           githubApiVersion,
           githubUserName,
           userReposToShow,
-          githubAuthToken
+          githubAuthToken,
         );
         response = APIResponseHandler.successResponse("success", {
           repos,

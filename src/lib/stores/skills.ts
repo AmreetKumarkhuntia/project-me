@@ -3,39 +3,42 @@ import type {
   GitProjectDetails,
   SpotifyAlbum,
   SpotifyTrack,
+  SteamGame,
 } from "$generated/types";
 import { writable } from "svelte/store";
 
-export type ProjectsStore = {
+export type SkillStore = {
   githubProjects: GitProjectDetails[] | null;
   spotifyAlbum: SpotifyAlbum | null;
   spotifyTracks: SpotifyTrack[] | null;
+  gamesArray: SteamGame[] | null;
 };
 
-const initStore: ProjectsStore = {
+const initStore: SkillStore = {
   githubProjects: null,
   spotifyAlbum: null,
   spotifyTracks: null,
+  gamesArray: null,
 };
 
-export const projectStore = writable<ProjectsStore>(initStore);
+export const skillStore = writable<SkillStore>(initStore);
 
 export function updateGithubProjects(githubProjects: GitProjectDetails[]) {
-  projectStore.update((previousState) => ({
+  skillStore.update((previousState) => ({
     ...previousState,
     githubProjects,
   }));
 }
 
 export function updateSpotifyAlbum(spotifyAlbum: SpotifyAlbum) {
-  projectStore.update((previousState) => ({
+  skillStore.update((previousState) => ({
     ...previousState,
     spotifyAlbum,
   }));
 }
 
 export function updateSpotifyTracks(spotifyTracks: SpotifyTrack[]) {
-  projectStore.update((previousState) => ({
+  skillStore.update((previousState) => ({
     ...previousState,
     spotifyTracks,
   }));

@@ -12,14 +12,14 @@ import {
   githubApiVersion,
   githubAuthToken,
   githubUserName,
-} from "$server/config";
+} from "$configuration/config";
 import { decodeSource } from "$generated/types/Projects.ts";
 import { getAuthToken, getSpotifyTracks } from "$services/spotify";
 
 export async function GET({ url, request, params }: RequestEvent) {
   let response: APIResponse;
 
-  const tag = `GET /api/project/${params.source}/${params.projectId}`;
+  const tag = `GET /api/info/${params.source}/${params.projectId}`;
   const searchParams = new Map<string, string>(url.searchParams.entries());
   const source = decodeSource(params?.source);
   const projectId = params?.projectId ?? null;
@@ -38,7 +38,7 @@ export async function GET({ url, request, params }: RequestEvent) {
             response = APIResponseHandler.successResponse("success", albums);
           } else {
             response = APIResponseHandler.badRequestResponse(
-              "Something Went Wrong !!!. Unable to generate token."
+              "Something Went Wrong !!!. Unable to generate token.",
             );
           }
           break;
@@ -50,7 +50,7 @@ export async function GET({ url, request, params }: RequestEvent) {
             githubApiVersion,
             githubUserName,
             projectId,
-            githubAuthToken
+            githubAuthToken,
           );
           if (repo !== null) {
             const githubCommits = await getGithubCommits(
@@ -59,21 +59,21 @@ export async function GET({ url, request, params }: RequestEvent) {
               githubUserName,
               projectId,
               githubAuthToken,
-              searchParams
+              searchParams,
             );
             const gitLanguages = await getGithubLanguages(
               githubApiUrl,
               githubApiVersion,
               githubUserName,
               projectId,
-              githubAuthToken
+              githubAuthToken,
             );
             repo.commits = githubCommits;
             repo.languages = gitLanguages;
             response = APIResponseHandler.successResponse("success", repo);
           } else {
             response = APIResponseHandler.badRequestResponse(
-              "Couldn't find details. Something Went Wrong."
+              "Couldn't find details. Something Went Wrong.",
             );
           }
         }

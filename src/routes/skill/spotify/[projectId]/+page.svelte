@@ -8,7 +8,7 @@
   import type { SpotifyAlbumItem, SpotifyTrack } from "$generated/types";
   import { setLoader, setSource } from "$stores/site";
   import { getSpotifyAlbums, getSpotifyTracksFromBackend } from "$client/info";
-  import { projectStore, updateSpotifyTracks } from "$stores/projects";
+  import { skillStore, updateSpotifyTracks } from "$stores/skills";
   import { formatDateToString } from "$client";
   import { openInANewWindow } from "$client/navigation";
 
@@ -34,11 +34,11 @@
       const data = page.data;
       const projectId = decodeString(data.projectId);
       if (
-        $projectStore.spotifyAlbum !== null &&
-        $projectStore.spotifyAlbum.items !== null
+        $skillStore.spotifyAlbum !== null &&
+        $skillStore.spotifyAlbum.items !== null
       ) {
-        for (let i = 0; i < $projectStore.spotifyAlbum.items.length; i++) {
-          const spotifyAlbumItem = $projectStore.spotifyAlbum.items[i];
+        for (let i = 0; i < $skillStore.spotifyAlbum.items.length; i++) {
+          const spotifyAlbumItem = $skillStore.spotifyAlbum.items[i];
           if (spotifyAlbumItem.id === projectId) {
             spotifyAlbum = spotifyAlbumItem;
           }

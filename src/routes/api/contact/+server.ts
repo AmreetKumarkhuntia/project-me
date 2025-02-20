@@ -4,7 +4,11 @@ import type SMTPTransport from "nodemailer/lib/smtp-transport";
 import type { APIResponse } from "$generated/types/APISchema.ts";
 import { APIResponseHandler } from "$server/apiSchema";
 import { logger } from "$services/logger";
-import { receiverGmail, senderGmail, senderGmailPass } from "$server/config";
+import {
+  receiverGmail,
+  senderGmail,
+  senderGmailPass,
+} from "$configuration/config";
 import { decodeSendGmailRequest } from "$generated/types";
 import { sendMail } from "$services/mailer";
 

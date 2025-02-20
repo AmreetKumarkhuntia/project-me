@@ -10,7 +10,7 @@ export async function GET({ url, request }: RequestEvent) {
 
   let response: APIResponse = APIResponseHandler.successResponse(
     "App is up !!!",
-    {}
+    {},
   );
 
   const result = await getAuthToken();
