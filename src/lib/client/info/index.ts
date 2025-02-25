@@ -1,14 +1,18 @@
 import {
+  decodeAchievement,
   decodeGame,
   decodeGitProjectDetails,
   decodeSpotifyAlbum,
   decodeSpotifyTrack,
+  decodeSteamGameDetails,
+  type Achievement,
   type Game,
   type GitProjectDetails,
   type SpotifyAlbum,
   type SpotifyTrack,
+  type SteamGameDetails,
 } from "$generated/types";
-import { APICaller } from "$services/apiCaller";
+import { APICaller, getInnerHTML } from "$services/apiCaller";
 import {
   updateGithubProjects,
   skillStore,
@@ -17,7 +21,9 @@ import {
 } from "$stores/skills";
 import { logger } from "$services/logger";
 import { get } from "svelte/store";
-import { decodeArray } from "type-decoder";
+import { decodeArray, isJSON, type JSONObject } from "type-decoder";
+import { getSteamGameDetails } from "$services/steam/client";
+import { getDataUsingProxy } from "$client";
 
 /**
  * Retrieves GitHub repositories and updates the store if not already populated.
@@ -42,7 +48,6 @@ export async function getGames() {
   const store = get(skillStore);
   if (store.games === null) {
     const games = await getGamesFromBackend();
-    console.log(">>>", games);
     updateGames(games);
   }
 }
@@ -79,7 +84,7 @@ export async function getReposFromBackend(): Promise<GitProjectDetails[]> {
         });
       }
       return result;
-    }
+    },
   );
 
   try {
@@ -114,7 +119,7 @@ export async function getReposFromBackend(): Promise<GitProjectDetails[]> {
 export async function getGithubRepoWithCommits(
   projectId: string,
   page: string = "1",
-  perPage = "10"
+  perPage = "10",
 ): Promise<GitProjectDetails | null> {
   const tag = "getGithubRepoWithCommits";
   const requestHeaders: Map<string, string> = new Map();
@@ -134,7 +139,7 @@ export async function getGithubRepoWithCommits(
     "GET",
     requestHeaders,
     queryParams,
-    decodeGitProjectDetails
+    decodeGitProjectDetails,
   );
 
   try {
@@ -180,7 +185,7 @@ export async function getSpotifyAlbumsFromBackend(): Promise<SpotifyAlbum | null
     "GET",
     requestHeaders,
     queryParams,
-    decodeSpotifyAlbum
+    decodeSpotifyAlbum,
   );
 
   try {
@@ -207,7 +212,7 @@ export async function getSpotifyAlbumsFromBackend(): Promise<SpotifyAlbum | null
  * @returns A promise resolving to SpotifyAlbum
  */
 export async function getSpotifyTracksFromBackend(
-  projectId: string
+  projectId: string,
 ): Promise<SpotifyTrack[]> {
   const requestHeaders: Map<string, string> = new Map();
   const apiUrl: string =
@@ -224,7 +229,7 @@ export async function getSpotifyTracksFromBackend(
     "GET",
     requestHeaders,
     queryParams,
-    (data) => decodeArray(data, decodeSpotifyTrack)
+    (data) => decodeArray(data, decodeSpotifyTrack),
   );
 
   try {
@@ -267,7 +272,7 @@ export async function getGamesFromBackend(): Promise<Game[]> {
     "GET",
     requestHeaders,
     queryParams,
-    (data) => decodeArray(data, decodeGame)
+    (data) => decodeArray(data, decodeGame),
   );
 
   try {
@@ -286,6 +291,84 @@ export async function getGamesFromBackend(): Promise<Game[]> {
   }
 
   return allGames;
+}
+
+/**
+ * Fetches Game achievements from backend
+ *
+ * @param gameId The gameId for which we need to fetch achievements
+ * @returns A promise resolving to Game
+ */
+export async function getGameAchievements(
+  gameId: string,
+): Promise<Achievement[]> {
+  const requestHeaders: Map<string, string> = new Map();
+  const apiUrl: string = window.location.origin + "/api/info/game/achievement";
+  const queryParams: Map<string, string> = new Map([["gameId", gameId]]);
+  const apiCaller = new APICaller<Achievement[]>();
+  const tag = "getGameAchievements";
+
+  let allAchievements: Achievement[] = [];
+
+  apiCaller.buildApiCall(
+    apiUrl,
+    {},
+    "GET",
+    requestHeaders,
+    queryParams,
+    (data) => decodeArray(data, decodeAchievement),
+  );
+
+  try {
+    logger.logExternalApiRequest(tag, {
+      apiUrl,
+      requestHeaders,
+      queryParams,
+    });
+
+    const result = await apiCaller.callApi();
+    allAchievements = result.body ?? [];
+
+    logger.logExternalApiResponse(tag, { result });
+  } catch (err) {
+    logger.logException(tag, String(err));
+  }
+
+  return allAchievements;
+}
+//endregion
+
+//region GAME CALLERS
+
+/**
+ * Fetches Game Details from steam
+ *
+ * @param gameId The gameId for which we need details
+ * @returns A promise resolving to Game Details
+ */
+
+export async function getGameDetails(
+  gameId: string,
+): Promise<SteamGameDetails | null> {
+  const url = `https://store.steampowered.com/api/appdetails?appids=${gameId}`;
+  const tag = "getGameDetails";
+  let result: SteamGameDetails | null = null;
+  try {
+    const response: string | JSONObject | null = await getDataUsingProxy(
+      url,
+      "json",
+    );
+    if (isJSON(response) && response !== null) {
+      const game = response[gameId];
+      if (isJSON(game)) {
+        const gameData = game["data"];
+        result = decodeSteamGameDetails(gameData);
+      }
+    }
+  } catch (err) {
+    logger.logException(tag, String(err));
+  }
+  return result;
 }
 
 //endregion

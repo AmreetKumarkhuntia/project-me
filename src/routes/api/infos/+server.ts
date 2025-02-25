@@ -38,7 +38,7 @@ export async function GET({ url, request }: RequestEvent) {
           response = APIResponseHandler.successResponse("success", allAlbums);
         } else {
           response = APIResponseHandler.badRequestResponse(
-            "Something Went Wrong !!! Unable to get access token."
+            "Something Went Wrong !!! Unable to get access token.",
           );
         }
         break;
@@ -65,7 +65,7 @@ export async function GET({ url, request }: RequestEvent) {
           .slice(0, 10);
         response = APIResponseHandler.successResponse(
           "success",
-          castToGameFromSteamGame(sortedGames)
+          castToGameFromSteamGame(sortedGames),
         );
         break;
       }
@@ -76,7 +76,7 @@ export async function GET({ url, request }: RequestEvent) {
           githubApiVersion,
           githubUserName,
           userReposToShow,
-          githubAuthToken
+          githubAuthToken,
         );
         response = APIResponseHandler.successResponse("success", {
           repos,

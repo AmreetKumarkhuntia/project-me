@@ -17,7 +17,7 @@ export async function GET({ request }: RequestEvent) {
       const result = await getInnerHTML(url);
 
       response = APIResponseHandler.successResponse("Success", {
-        innerHTML: result,
+        finalData: result,
       });
     } else {
       response = APIResponseHandler.notFoundResponse("Url Absent");

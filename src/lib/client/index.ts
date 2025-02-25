@@ -1,16 +1,19 @@
 import { APICaller } from "$services/apiCaller";
 import { logger } from "$services/logger";
 import { marked } from "marked";
-import { decodeString, isJSON } from "type-decoder";
+import { decodeString, isJSON, type JSONObject } from "type-decoder";
 
-export async function getHtmlUsingProxy(url: string): Promise<string | null> {
-  const tag = "getHtmlUsingProxy";
+export async function getDataUsingProxy(
+  url: string,
+  expectedDataType: "string" | "json" = "string",
+): Promise<string | JSONObject | null> {
+  const tag = "getDataUsingProxy";
   const requestHeaders: Map<string, string> = new Map([["X-Proxy-Url", url]]);
-  const apiUrl: string = window.location.href + "api/proxy";
+  const apiUrl: string = window.location.origin + "/api/proxy";
   const queryParams: Map<string, string> = new Map();
   const apiCaller = new APICaller<unknown>();
 
-  let plainText: string | null = null;
+  let finalData: string | JSONObject | null = null;
 
   apiCaller.buildApiCall(
     apiUrl,
@@ -18,7 +21,7 @@ export async function getHtmlUsingProxy(url: string): Promise<string | null> {
     "GET",
     requestHeaders,
     queryParams,
-    (body) => body
+    (body) => body,
   );
 
   try {
@@ -31,18 +34,18 @@ export async function getHtmlUsingProxy(url: string): Promise<string | null> {
     const result = await apiCaller.callApi();
     const body = result.body;
     if (isJSON(body)) {
-      plainText = decodeString(body["innerHTML"]);
+      if (expectedDataType === "string") {
+        finalData = decodeString(body["finalData"]);
+      } else if (isJSON(body["finalData"]) && expectedDataType === "json") {
+        finalData = body["finalData"];
+      }
     }
-    logger.logExternalApiResponse(tag, {
-      status: result.status,
-      error: result.error,
-      headers: result.headers,
-    });
+    logger.logExternalApiResponse(tag, { finalData });
   } catch (err) {
     logger.logException(tag, String(err));
   }
 
-  return plainText;
+  return finalData;
 }
 
 export async function getRawJsonData(apiUrl: string): Promise<any> {
@@ -59,7 +62,7 @@ export async function getRawJsonData(apiUrl: string): Promise<any> {
     "GET",
     requestHeaders,
     queryParams,
-    (body) => body
+    (body) => body,
   );
 
   try {
@@ -86,7 +89,7 @@ export async function getRawJsonData(apiUrl: string): Promise<any> {
 
 // parsers of markdown
 export async function parseTextToHtml(
-  text: string | null
+  text: string | null,
 ): Promise<string | null> {
   if (text === null) return null;
   return await marked(text);
