@@ -78,7 +78,7 @@ export type SteamAchievementSchema = {
    * @type { string }
    * @memberof SteamAchievementSchema
    */
-  description: string;
+  description: string | null;
   /**
    * @type { string }
    * @memberof SteamAchievementSchema
@@ -104,7 +104,6 @@ export function decodeSteamAchievementSchema(
     if (
       decodedName === null ||
       decodedDisplayName === null ||
-      decodedDescription === null ||
       decodedIcon === null ||
       decodedIcongray === null
     ) {
@@ -152,6 +151,121 @@ export function decodeSteamAchievement(
     return {
       name: decodedName,
       percent: decodedPercent,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { SteamGameDetails }
+ */
+export type SteamGameDetails = {
+  /**
+   * @type { string }
+   * @memberof SteamGameDetails
+   */
+  name: string;
+  /**
+   * @type { string }
+   * @memberof SteamGameDetails
+   */
+  detailed_description: string | null;
+  /**
+   * @type { string }
+   * @memberof SteamGameDetails
+   */
+  about_the_game: string;
+  /**
+   * @type { string }
+   * @memberof SteamGameDetails
+   */
+  short_description: string | null;
+  /**
+   * @type { string }
+   * @memberof SteamGameDetails
+   */
+  header_image: string;
+  /**
+   * @type { string }
+   * @memberof SteamGameDetails
+   */
+  website: string;
+  /**
+   * @type { SteamPCRequirements }
+   * @memberof SteamGameDetails
+   */
+  pc_requirements: SteamPCRequirements;
+};
+
+export function decodeSteamGameDetails(
+  rawInput: unknown,
+): SteamGameDetails | null {
+  if (isJSON(rawInput)) {
+    const decodedName = decodeString(rawInput["name"]);
+    const decodedDetailedDescription = decodeString(
+      rawInput["detailed_description"],
+    );
+    const decodedAboutTheGame = decodeString(rawInput["about_the_game"]);
+    const decodedShortDescription = decodeString(rawInput["short_description"]);
+    const decodedHeaderImage = decodeString(rawInput["header_image"]);
+    const decodedWebsite = decodeString(rawInput["website"]);
+    const decodedPcRequirements = decodeSteamPCRequirements(
+      rawInput["pc_requirements"],
+    );
+
+    if (
+      decodedName === null ||
+      decodedAboutTheGame === null ||
+      decodedHeaderImage === null ||
+      decodedWebsite === null ||
+      decodedPcRequirements === null
+    ) {
+      return null;
+    }
+
+    return {
+      name: decodedName,
+      detailed_description: decodedDetailedDescription,
+      about_the_game: decodedAboutTheGame,
+      short_description: decodedShortDescription,
+      header_image: decodedHeaderImage,
+      website: decodedWebsite,
+      pc_requirements: decodedPcRequirements,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { SteamPCRequirements }
+ */
+export type SteamPCRequirements = {
+  /**
+   * @type { string }
+   * @memberof SteamPCRequirements
+   */
+  minimum: string;
+  /**
+   * @type { string }
+   * @memberof SteamPCRequirements
+   */
+  recommended: string;
+};
+
+export function decodeSteamPCRequirements(
+  rawInput: unknown,
+): SteamPCRequirements | null {
+  if (isJSON(rawInput)) {
+    const decodedMinimum = decodeString(rawInput["minimum"]);
+    const decodedRecommended = decodeString(rawInput["recommended"]);
+
+    if (decodedMinimum === null || decodedRecommended === null) {
+      return null;
+    }
+
+    return {
+      minimum: decodedMinimum,
+      recommended: decodedRecommended,
     };
   }
   return null;

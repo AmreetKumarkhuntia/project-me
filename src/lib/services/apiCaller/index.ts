@@ -34,6 +34,7 @@ export class APICaller<T> {
   private url: string | null = null;
   private body: object | null = null;
   private method: string = "POST"; // Default HTTP method is POST
+  private mode: RequestMode = "cors";
   private reqHeaders: Map<string, string> | null = null;
   private queryParams: Map<string, string> | null = null;
   private decoder: (data: any) => T | null = (data) => null; // Default no-op decoder
@@ -65,6 +66,11 @@ export class APICaller<T> {
    */
   setMethod(method: string): this {
     this.method = method;
+    return this;
+  }
+
+  setMode(mode: RequestMode = "cors"): this {
+    this.mode = mode;
     return this;
   }
 
@@ -195,6 +201,7 @@ export class APICaller<T> {
             this.method !== "GET" && parsedBody !== null
               ? parsedBody
               : undefined,
+          mode: this.mode,
         });
         contentType = response.headers.get("Content-Type");
 
@@ -252,6 +259,7 @@ export class APICaller<T> {
     reqHeaders: Map<string, string> | null = null,
     queryParams: Map<string, string> | null = null,
     decoder: (data: any) => T | null = (data) => null,
+    mode: RequestMode = "cors",
   ): void {
     this.setUrl(url);
     this.setBody(body);
@@ -259,6 +267,7 @@ export class APICaller<T> {
     this.setHeaders(reqHeaders || new Map());
     this.setQueryParams(queryParams || new Map());
     this.setDecoder(decoder);
+    this.setMode(mode);
   }
 }
 // Implementations using caller to just get data etc.. with default headers and stuff

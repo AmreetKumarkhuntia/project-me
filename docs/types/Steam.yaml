@@ -24,7 +24,6 @@ Steam:
     required:
       - name
       - displayName
-      - description
       - icon
       - icongray
     properties:
@@ -48,4 +47,39 @@ Steam:
       name:
         type: string
       percent:
+        type: string
+
+  SteamGameDetails:
+    type: object
+    required:
+      - name
+      - about_the_game
+      - header_image
+      - website
+      - pc_requirements
+    properties:
+      name:
+        type: string
+      detailed_description:
+        type: string
+      about_the_game:
+        type: string
+      short_description:
+        type: string
+      header_image:
+        type: string
+      website:
+        type: string
+      pc_requirements:
+        $ref: "./docs/types/Steam.yaml#/Steam/SteamPCRequirements"
+
+  SteamPCRequirements:
+    type: object
+    required:
+      - minimum
+      - recommended
+    properties:
+      minimum:
+        type: string
+      recommended:
         type: string

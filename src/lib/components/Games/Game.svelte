@@ -4,9 +4,12 @@
   import type { Game } from "$generated/types";
 
   export let game: Game | null = null;
+  export let onClick: () => void = () => {};
 </script>
 
-<div class="game-card">
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div class="game-card" on:click={onClick}>
   {#if game !== null}
     <Card>
       <div class="game-card-container display-flex display-flex-center">
