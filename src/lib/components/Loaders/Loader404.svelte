@@ -1,6 +1,6 @@
 <div class="typing">404</div>
 
-<style lang="scss">
+<style>
   .typing {
     display: inline-block;
     font-family: monospace;

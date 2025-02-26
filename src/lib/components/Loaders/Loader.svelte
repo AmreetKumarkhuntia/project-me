@@ -1,6 +1,6 @@
 <div class="loader"></div>
 
-<style lang="scss">
+<style>
   .loader {
     width: 80px;
     aspect-ratio: 1;

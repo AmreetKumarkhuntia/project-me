@@ -207,7 +207,7 @@
   {/if}
 </div>
 
-<style lang="scss">
+<style>
   .project-page-github {
     min-height: var(--page-height);
 

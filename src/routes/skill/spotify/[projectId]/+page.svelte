@@ -132,7 +132,7 @@
   {/if}
 </div>
 
-<style lang="scss">
+<style>
   .project-page-spotify {
     height: calc(100vh - var(--navbar-height));
     padding: 100px;
@@ -143,23 +143,23 @@
   .project-page-spotify-album {
     width: 60%;
     max-width: 640px;
+  }
 
-    img {
-      border-radius: 12px;
-      width: 100%;
-      height: auto;
-      cursor: pointer;
-    }
+  .project-page-spotify-album img {
+    border-radius: 12px;
+    width: 100%;
+    height: auto;
+    cursor: pointer;
   }
 
   .project-page-spotify-album-artist {
     font-size: 12px;
     padding: 4px 0;
+  }
 
-    a {
-      color: var(--primary-color);
-      text-decoration: none;
-    }
+  .project-page-spotify-album-artist a {
+    color: var(--primary-color);
+    text-decoration: none;
   }
 
   .project-page-spotify-album-artist-title {
@@ -192,11 +192,11 @@
 
   .project-page-spotify-song {
     cursor: pointer;
+  }
 
-    iframe {
-      width: 100%;
-      height: 230px;
-    }
+  .project-page-spotify-song iframe {
+    width: 100%;
+    height: 230px;
   }
 
   @media only screen and (max-width: 900px) {

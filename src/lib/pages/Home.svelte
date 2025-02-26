@@ -108,7 +108,7 @@
   </div>
 </div>
 
-<style lang="scss">
+<style>
   .home {
     min-height: var(--page-height);
     width: var(--page-width);

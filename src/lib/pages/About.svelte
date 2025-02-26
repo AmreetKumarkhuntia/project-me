@@ -13,7 +13,7 @@
   </div>
 </div>
 
-<style lang="scss">
+<style>
   .about {
     min-height: var(--page-height);
     width: var(--page-width);

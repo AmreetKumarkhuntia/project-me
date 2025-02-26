@@ -34,7 +34,7 @@
   </div>
 {/if}
 
-<style lang="scss">
+<style>
   .game-achievement {
     --card-margin: 20px;
     --card-padding: 12px;
@@ -52,11 +52,12 @@
 
   .game-achievement-image {
     margin-right: 16px;
-    img {
-      border-radius: 12px;
-      width: auto;
-      max-width: var(--image-width);
-    }
+  }
+
+  .game-achievement-image img {
+    border-radius: 12px;
+    width: auto;
+    max-width: var(--image-width);
   }
 
   .game-achievement-name {

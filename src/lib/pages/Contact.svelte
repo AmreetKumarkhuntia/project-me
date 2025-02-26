@@ -136,7 +136,7 @@
   </div>
 </div>
 
-<style lang="scss">
+<style>
   .contact {
     min-height: var(--page-height);
     width: var(--page-width);
