@@ -21,9 +21,9 @@
       {#if skillSource === "github"}
         Tech
       {:else if skillSource === "spotify"}
-        Albums
+        Albums I Make
       {:else}
-        Games
+        Games I Play
       {/if}
     </LazyLoader>
   </Header>

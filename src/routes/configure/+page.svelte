@@ -4,7 +4,7 @@
   import type { DropdownItem } from "vergins";
 
   import { setLoader, setSource, setTheme, siteStore } from "$stores/site";
-  import { type Theme } from "$generated/types";
+  import { type Source, type Theme } from "$generated/types";
   import { talentItems } from "$configuration";
 
   const availableThemes: Theme[] = ["default", "green", "red", "blue"];
@@ -16,6 +16,11 @@
     localStorage.setItem("x-theme", changedTheme);
   }
 
+  function handleSkillChange(source: Source) {
+    setSource(source);
+    localStorage.setItem("x-skill", source);
+  }
+
   onMount(() => {
     const activeSource = $siteStore.source;
     const newItems: DropdownItem[] = [];
@@ -24,7 +29,7 @@
       newItems.push({
         ...talentItems[i],
         action: () => {
-          setSource(talentItems[i].id);
+          handleSkillChange(talentItems[i].id);
         },
         active: talentItems[i].id === activeSource,
       });

@@ -11,8 +11,8 @@
   import Loader from "$components/Loaders/Loader.svelte";
   import Flyer from "$components/Flyer.svelte";
   import SiteSettings from "$components/SiteSettings.svelte";
-  import { setTheme, siteStore } from "$stores/site";
-  import { decodeTheme } from "$generated/types";
+  import { setSource, setTheme, siteStore } from "$stores/site";
+  import { decodeSource, decodeTheme } from "$generated/types";
 
   let body: HTMLDivElement | null = null;
   let splineViewer: HTMLDivElement | null = null;
@@ -55,7 +55,17 @@
 
   onMount(async () => {
     const savedTheme = decodeTheme(localStorage.getItem("x-theme"));
-    if (savedTheme !== null) setTheme(savedTheme);
+    const savedSkill = decodeSource(localStorage.getItem("x-skill"));
+
+    if (savedTheme !== null) {
+      setTheme(savedTheme);
+    }
+    if (savedSkill !== null) {
+      setSource(savedSkill);
+    } else {
+      setSource("github");
+    }
+
     hideSpline();
   });
 </script>

@@ -6,14 +6,14 @@ export type ThemeStore = {
   showLoader: boolean;
   flyerProperties: FlyerProperties | null;
   theme: Theme;
-  source: Source;
+  source: Source | null;
 };
 
 const initStore: ThemeStore = {
   showLoader: true,
   flyerProperties: null,
   theme: "default",
-  source: "github",
+  source: null,
 };
 
 export const siteStore = writable<ThemeStore>(initStore);

@@ -26,6 +26,18 @@ body {
   // Card
   --card-padding: 2.5%;
 
+  //Carousel
+  --carousel-width: 80vw;
+  --carousel-height: auto;
+
+  --carousel-container-border: none;
+  --carousel-container-shadow: none;
+  --carousel-container-shadow-hover-color: 255, 255, 255;
+
+  --carousel-slides-bg-color: none;
+  --carousel-slide-width: 80vw;
+  --carousel-slide-padding: 0;
+
   //Configuration
   --configuration-transition: all ease-in-out 500ms;
 
@@ -286,6 +298,7 @@ body {
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
     }
 
     ul {
@@ -384,6 +397,12 @@ body {
 
   .timeline-description-event {
     text-transform: capitalize;
+  }
+
+  @media only screen and (max-width: 900px) {
+    --carousel-width: 65vw;
+
+    --carousel-slide-width: 65vw;
   }
 
   @media only screen and (max-width: 650px) {

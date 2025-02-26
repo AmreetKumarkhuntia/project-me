@@ -36,7 +36,10 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div class="navbar">
   <div class="navbar-horizontal">
-    <Navbar navbarProps={getHorizontalNavigation(source)} {onClick} />
+    <Navbar
+      navbarProps={getHorizontalNavigation(source ?? "github")}
+      {onClick}
+    />
   </div>
   <div class="navbar-vertical">
     <div
@@ -58,7 +61,7 @@
       out:slide={{ duration: 300 }}
     >
       <Navbar
-        navbarProps={getVerticalNavigation(source)}
+        navbarProps={getVerticalNavigation(source ?? "github")}
         navbarAlignment={"vertical"}
         {onClick}
         rightImageClick={closeMenuClick}
