@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<style lang="scss">
+<style>
   .tech-icon {
     font-size: var(--tech-icon-size);
     margin: var(--tech-icon-margin);

@@ -13,7 +13,7 @@
   <Loader404 />
 </div>
 
-<style lang="scss">
+<style>
   .not-found-page {
     min-height: var(--page-height);
     width: var(--page-width);

@@ -124,7 +124,7 @@
   {/if}
 </div>
 
-<style lang="scss">
+<style>
   .project {
     align-items: center;
     width: 100%;
@@ -147,11 +147,11 @@
   .spotify-album-image {
     height: auto;
     width: var(--spotify-album-size);
+  }
 
-    img {
-      width: inherit;
-      height: inherit;
-    }
+  .spotify-album-image img {
+    width: inherit;
+    height: inherit;
   }
 
   .spotify-album-type {

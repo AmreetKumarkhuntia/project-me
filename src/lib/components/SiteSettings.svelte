@@ -18,7 +18,7 @@
   <div class="site-settings-menu">CONFIG CHANGE</div>
 </div>
 
-<style lang="scss">
+<style>
   .site-settings {
     position: fixed;
     top: 50vh;

@@ -81,7 +81,7 @@
   {/if}
 </div>
 
-<style lang="scss">
+<style>
   .skills {
     min-height: var(--page-height);
     width: var(--page-width);

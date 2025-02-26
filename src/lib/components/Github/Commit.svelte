@@ -42,7 +42,7 @@
   </div>
 {/if}
 
-<style lang="scss">
+<style>
   .github-commit {
     --card-height: 100%;
     --card-width: auto;

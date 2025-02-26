@@ -99,9 +99,7 @@
   {/if}
 </div>
 
-<style lang="scss">
-  $animationSpeed: 60s;
-
+<style>
   @keyframes scroll {
     0% {
       transform: translateX(0);
@@ -122,7 +120,7 @@
     --game-slide-width: 300px;
 
     .game-slide-track {
-      animation: scroll $animationSpeed linear infinite;
+      animation: scroll 60s linear infinite;
       display: flex;
       width: calc(var(--game-slide-width) * 2 * var(--game-slide-count));
     }

@@ -71,7 +71,7 @@
   </div>
 </div>
 
-<style lang="scss">
+<style>
   .configure {
     min-height: var(--page-height);
     width: var(--page-width);
