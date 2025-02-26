@@ -167,11 +167,6 @@
     font-weight: 600;
     color: var(--quaternary-color);
     padding: 12px 0;
-
-    a {
-      color: var(--primary-color);
-      text-decoration: none;
-    }
   }
 
   .project-page-spotify-album-date {
@@ -189,10 +184,6 @@
     height: 100%;
     min-height: 320px;
     overflow: scroll;
-
-    h3 {
-      margin-top: 0;
-    }
   }
 
   .project-page-spotify-songs::-webkit-scrollbar {
@@ -200,43 +191,13 @@
   }
 
   .project-page-spotify-song {
-    // margin-bottom: 5px;
     cursor: pointer;
 
     iframe {
       width: 100%;
       height: 230px;
     }
-
-    // .project-page-spotify-album-artist-title {
-    //   font-size: 12px;
-    //   padding: 8px 0;
-    //   a {
-    //     margin-left: 4px;
-    //   }
-    // }
   }
-
-  // .project-page-spotify-song-image {
-  //   width: 24%;
-  //   margin-right: 4%;
-
-  //   img {
-  //     border-radius: 5px;
-  //     width: 100%;
-  //     height: auto;
-  //   }
-  // }
-
-  // .project-page-spotify-song-title {
-  //   font-size: 18px;
-  //   font-weight: 600;
-  //   color: var(--active-color);
-  // }
-
-  // .project-page-spotify-album-artist-duration {
-  //   font-size: 12px;
-  // }
 
   @media only screen and (max-width: 900px) {
     .project-page-spotify {
