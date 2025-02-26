@@ -1,4 +1,4 @@
-import { isJSON, decodeNumber, decodeString } from "type-decoder";
+import { isJSON, decodeNumber, decodeString, decodeArray } from "type-decoder";
 
 /**
  * @type { SteamGame }
@@ -191,6 +191,11 @@ export type SteamGameDetails = {
    */
   website: string;
   /**
+   * @type { SteamScreenshots[] }
+   * @memberof SteamGameDetails
+   */
+  screenshots: SteamScreenshots[];
+  /**
    * @type { SteamPCRequirements }
    * @memberof SteamGameDetails
    */
@@ -209,6 +214,10 @@ export function decodeSteamGameDetails(
     const decodedShortDescription = decodeString(rawInput["short_description"]);
     const decodedHeaderImage = decodeString(rawInput["header_image"]);
     const decodedWebsite = decodeString(rawInput["website"]);
+    const decodedScreenshots = decodeArray(
+      rawInput["screenshots"],
+      decodeSteamScreenshots,
+    );
     const decodedPcRequirements = decodeSteamPCRequirements(
       rawInput["pc_requirements"],
     );
@@ -218,6 +227,7 @@ export function decodeSteamGameDetails(
       decodedAboutTheGame === null ||
       decodedHeaderImage === null ||
       decodedWebsite === null ||
+      decodedScreenshots === null ||
       decodedPcRequirements === null
     ) {
       return null;
@@ -230,6 +240,7 @@ export function decodeSteamGameDetails(
       short_description: decodedShortDescription,
       header_image: decodedHeaderImage,
       website: decodedWebsite,
+      screenshots: decodedScreenshots,
       pc_requirements: decodedPcRequirements,
     };
   }
@@ -266,6 +277,41 @@ export function decodeSteamPCRequirements(
     return {
       minimum: decodedMinimum,
       recommended: decodedRecommended,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { SteamScreenshots }
+ */
+export type SteamScreenshots = {
+  /**
+   * @type { number }
+   * @memberof SteamScreenshots
+   */
+  id: number;
+  /**
+   * @type { string }
+   * @memberof SteamScreenshots
+   */
+  path_full: string;
+};
+
+export function decodeSteamScreenshots(
+  rawInput: unknown,
+): SteamScreenshots | null {
+  if (isJSON(rawInput)) {
+    const decodedId = decodeNumber(rawInput["id"]);
+    const decodedPathFull = decodeString(rawInput["path_full"]);
+
+    if (decodedId === null || decodedPathFull === null) {
+      return null;
+    }
+
+    return {
+      id: decodedId,
+      path_full: decodedPathFull,
     };
   }
   return null;

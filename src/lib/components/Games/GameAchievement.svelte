@@ -12,7 +12,7 @@
         <div class="game-achievement-image">
           <img src={achievement.iconUrl} alt="game-achievement" />
         </div>
-        <div>
+        <div class="game-achievement-text-container">
           <div class="game-achievement-name">
             {achievement.name}
           </div>
@@ -42,6 +42,12 @@
     --card-height: auto;
     --card-text-color: var(--primary-color);
     --card-hover-scale: 1.03;
+
+    --image-width: 120px;
+  }
+
+  .game-achievement-text-container {
+    width: calc(var(--card-width) - var(--image-width) - 10px);
   }
 
   .game-achievement-image {
@@ -49,7 +55,7 @@
     img {
       border-radius: 12px;
       width: auto;
-      max-width: 120px;
+      max-width: var(--image-width);
     }
   }
 
@@ -64,6 +70,7 @@
     font-size: 10px;
     font-weight: 500;
     margin-bottom: 6px;
+    word-wrap: break-word;
   }
 
   .game-achievement-stats {

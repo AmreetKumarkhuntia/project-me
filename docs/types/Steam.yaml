@@ -57,6 +57,7 @@ Steam:
       - header_image
       - website
       - pc_requirements
+      - screenshots
     properties:
       name:
         type: string
@@ -70,6 +71,10 @@ Steam:
         type: string
       website:
         type: string
+      screenshots:
+        type: array
+        items:
+          $ref: "./docs/types/Steam.yaml#/Steam/SteamScreenshots"
       pc_requirements:
         $ref: "./docs/types/Steam.yaml#/Steam/SteamPCRequirements"
 
@@ -82,4 +87,15 @@ Steam:
       minimum:
         type: string
       recommended:
+        type: string
+
+  SteamScreenshots:
+    type: object
+    required:
+      - id
+      - path_full
+    properties:
+      id:
+        type: number
+      path_full:
         type: string

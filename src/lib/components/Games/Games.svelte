@@ -7,7 +7,7 @@
   import GameComponent from "./Game.svelte";
   import type { Achievement, Game, SteamGameDetails } from "$generated/types";
   import { logger } from "$services/logger";
-  import { Header } from "vergins";
+  import { Carousal, Header } from "vergins";
   import GameAchievement from "./GameAchievement.svelte";
 
   let allGames: Game[] = [];
@@ -20,16 +20,6 @@
   $: allGames = $skillStore.games ?? [];
   $: duplicatedGames = [...allGames, ...allGames];
   $: loadGameDetails(), activeGame;
-
-  async function getCurrentGameAchievements() {
-    try {
-      if (activeGame) {
-        currentGamesAchievements = await getGameAchievements(activeGame.id);
-      }
-    } catch (err) {
-      logger.logException("getCurrentGameAchievements", String(err));
-    }
-  }
 
   async function handleGameClick(game: Game) {
     try {
@@ -51,9 +41,12 @@
     await getGames();
 
     for (let i = 0; i < allGames.length; i++) {
-      activeGame = allGames[i];
-      await getCurrentGameAchievements();
-      if (currentGamesAchievements.length > 0) {
+      const currGame = allGames[i];
+      const gameAchievements = await getGameAchievements(currGame.id);
+
+      if (gameAchievements.length > 0) {
+        activeGame = currGame;
+        currentGamesAchievements = gameAchievements;
         break;
       }
     }
@@ -77,8 +70,14 @@
   </div>
   {#if activeGameDetails}
     <Header hLevel={4}>{activeGameDetails.name}</Header>
-    <div class="game-image display-flex display-flex-center">
-      <img src={activeGameDetails.header_image} alt="game-data" />
+    <div class="game-carousel">
+      <Carousal length={activeGameDetails.screenshots.length}>
+        {#each activeGameDetails.screenshots as screenshot}
+          <div class="carousel-slide">
+            <img src={screenshot.path_full} alt="game-carousel" />
+          </div>
+        {/each}
+      </Carousal>
     </div>
     <div class="game-details-container">
       {@html activeGameDetails.detailed_description}
@@ -135,12 +134,10 @@
     }
   }
 
-  .game-image {
+  .game-carousel {
     margin: 32px 0;
     img {
-      border-radius: 8px;
-      width: 100%;
-      max-width: 480px;
+      width: inherit;
       height: auto;
     }
   }
