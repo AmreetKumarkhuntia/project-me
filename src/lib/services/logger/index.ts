@@ -1,3 +1,8 @@
-import { ProcessLogger } from "lilac-typescript";
+import { defaultSeparator, ProcessLogger } from "lilac-typescript";
 
-export const logger = new ProcessLogger();
+import { environment } from "$configuration/config/client";
+
+export const logger = new ProcessLogger({
+  printSeparator: environment === "production" ? "|" : defaultSeparator,
+  skipFormatting: environment === "production",
+});
