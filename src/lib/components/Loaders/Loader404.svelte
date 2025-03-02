@@ -4,7 +4,7 @@
   .typing {
     display: inline-block;
     font-family: monospace;
-    font-size: 102px;
+    font-size: var(--error-font-size);
     font-weight: bold;
 
     color: var(--primary-color);

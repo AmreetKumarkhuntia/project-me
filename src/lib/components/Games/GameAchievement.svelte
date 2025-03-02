@@ -43,7 +43,7 @@
     --card-text-color: var(--primary-color);
     --card-hover-scale: 1.03;
 
-    --image-width: 120px;
+    --image-width: 90px;
   }
 
   .game-achievement-text-container {
@@ -61,20 +61,26 @@
   }
 
   .game-achievement-name {
-    font-size: 14px;
+    font-size: var(--font-sm);
     color: var(--tertiary-color);
     font-weight: 700;
     margin-bottom: 10px;
   }
 
   .game-achievement-description {
-    font-size: 10px;
+    font-size: var(--font-xxs);
     font-weight: 500;
     margin-bottom: 6px;
     word-wrap: break-word;
   }
 
   .game-achievement-stats {
-    font-size: 10px;
+    font-size: var(--font-xxs);
+  }
+
+  @media only screen and (max-width: 500px) {
+    .game-achievement {
+      --card-width: 250px;
+    }
   }
 </style>

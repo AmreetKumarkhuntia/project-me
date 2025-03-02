@@ -50,17 +50,17 @@
   }
 
   .game-name {
-    font-size: 12px;
+    font-size: var(--font-xs);
     font-weight: bold;
     margin-bottom: 5px;
   }
 
   .game-info {
-    font-size: 9px;
+    font-size: calc(var(--font-xxs) - 1px);
     margin-bottom: 10px;
   }
 
   .last-played {
-    font-size: 7px;
+    font-size: calc(var(--font-xxxs) - 1px);
   }
 </style>

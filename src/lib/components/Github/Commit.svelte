@@ -51,6 +51,6 @@
 
   .github-commit-profile-name {
     padding: 12px;
-    font-size: 10px;
+    font-size: var(--font-xxs);
   }
 </style>

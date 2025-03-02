@@ -8,7 +8,73 @@
 }
 :root {
   --highlight-color: #ffffffb2;
+
+  // Error Page
+  --error-font-size: 102px;
+
+  //Font Sizes
+  --font-xxxxl: 52px;
+  --font-xxxl: 48px;
+  --font-xxl: 36px;
+  --font-xl: 28px;
+  --font-lg: 24px;
+  --font-md: 20px;
+  --font-md2: 18px;
+  --font-base: 16px;
+  --font-sm: 14px;
+  --font-xs: 12px;
+  --font-xxs: 10px;
+  --font-xxxs: 8px;
+
+  @media only screen and (max-width: 900px) {
+    //Font Sizes
+    --font-xxxxl: 48px;
+    --font-xxxl: 40px;
+    --font-xxl: 32px;
+    --font-xl: 24px;
+    --font-lg: 20px;
+    --font-md: 18px;
+    --font-md2: 16px;
+    --font-base: 14px;
+    --font-sm: 12px;
+    --font-xs: 10px;
+    --font-xxs: 9px;
+    --font-xxxs: 8px;
+  }
+
+  @media only screen and (max-width: 650px) {
+    //Font Sizes
+    --font-xxxxl: 36px;
+    --font-xxxl: 30px;
+    --font-xxl: 26px;
+    --font-xl: 20px;
+    --font-lg: 18px;
+    --font-md: 16px;
+    --font-md2: 14px;
+    --font-base: 13px;
+    --font-sm: 12px;
+    --font-xs: 10px;
+    --font-xxs: 9px;
+    --font-xxxs: 8px;
+  }
+
+  @media only screen and (max-width: 420px) {
+    //Font Sizes
+    --font-xxxxl: 30px;
+    --font-xxxl: 26px;
+    --font-xxl: 20px;
+    --font-xl: 18px;
+    --font-lg: 16px;
+    --font-md: 14px;
+    --font-md2: 12px;
+    --font-base: 10px;
+    --font-sm: 9px;
+    --font-xs: 9px;
+    --font-xxs: 9px;
+    --font-xxxs: 8px;
+  }
 }
+
 body {
   --primary-font-family: "Inter", sans-serif;
   --secondary-font-family: "Playfair Display", serif;
@@ -29,6 +95,7 @@ body {
   //Carousel
   --carousel-width: 80vw;
   --carousel-height: auto;
+  --carousel-border-radius: 4px;
 
   --carousel-container-border: none;
   --carousel-container-shadow: none;
@@ -127,6 +194,7 @@ body {
   font-family: var(--primary-font-family);
   font-weight: 300;
   font-optical-sizing: auto;
+  font-size: var(--font-base);
 
   color: var(--primary-color);
 
@@ -291,7 +359,7 @@ body {
     img {
       width: auto;
       height: auto;
-      max-width: 720px;
+      max-width: min(720px, 100%);
     }
 
     p {
@@ -400,12 +468,17 @@ body {
   }
 
   @media only screen and (max-width: 900px) {
-    --carousel-width: 65vw;
+    //Carousel
+    --carousel-width: 70vw;
 
-    --carousel-slide-width: 65vw;
+    --carousel-slide-width: 70vw;
+
+    --carousel-button-width: 22px;
+    --carousel-button-height: 22px;
   }
 
   @media only screen and (max-width: 650px) {
+    //Page Settings
     --page-padding: 3vh;
   }
 

@@ -118,18 +118,18 @@
     position: relative;
 
     --game-slide-width: 300px;
+  }
 
-    .game-slide-track {
-      animation: scroll 60s linear infinite;
-      display: flex;
-      width: calc(var(--game-slide-width) * 2 * var(--game-slide-count));
-    }
+  .game-slide-track {
+    animation: scroll 60s linear infinite;
+    display: flex;
+    width: calc(var(--game-slide-width) * 2 * var(--game-slide-count));
+  }
 
-    .game-slide {
-      height: auto;
-      width: var(--game-slide-width);
-      flex-shrink: 0;
-    }
+  .game-slide {
+    height: auto;
+    width: var(--game-slide-width);
+    flex-shrink: 0;
   }
 
   .game-carousel {
