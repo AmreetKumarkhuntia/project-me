@@ -25,7 +25,7 @@
     left: 2vw;
     z-index: 100;
 
-    font-size: 12px;
+    font-size: var(--font-xs);
 
     writing-mode: vertical-rl;
     text-orientation: upright;

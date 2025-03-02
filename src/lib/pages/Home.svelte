@@ -145,7 +145,7 @@
     margin: 100px;
     margin-top: 0;
 
-    font-size: 16px;
+    font-size: var(--font-base);
   }
 
   .home-landing-once-loaded {

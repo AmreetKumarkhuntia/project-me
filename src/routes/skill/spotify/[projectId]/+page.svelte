@@ -153,7 +153,7 @@
   }
 
   .project-page-spotify-album-artist {
-    font-size: 12px;
+    font-size: var(--font-xs);
     padding: 4px 0;
   }
 
@@ -163,14 +163,14 @@
   }
 
   .project-page-spotify-album-artist-title {
-    font-size: 18px;
+    font-size: var(--font-md2);
     font-weight: 600;
     color: var(--quaternary-color);
     padding: 12px 0;
   }
 
   .project-page-spotify-album-date {
-    font-size: 12px;
+    font-size: var(--font-xs);
   }
 
   .project-page-spotify-album-description {

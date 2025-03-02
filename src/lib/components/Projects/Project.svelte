@@ -156,7 +156,7 @@
 
   .spotify-album-type {
     font-weight: 400;
-    font-size: 12px;
+    font-size: var(--font-xs);
     color: var(--tertiary-color);
 
     text-transform: capitalize;
@@ -164,7 +164,7 @@
 
   .spotify-album-name {
     font-weight: 700;
-    font-size: 52px;
+    font-size: var(--font-xxxxl);
     color: var(--active-color);
 
     margin: 8px 0;
@@ -174,7 +174,7 @@
 
   .spotify-album-tracks {
     font-weight: 400;
-    font-size: 12px;
+    font-size: var(--font-xs);
     color: var(--quinary-color);
 
     margin: 8px 0;
@@ -184,7 +184,7 @@
 
   .spotify-album-artists {
     font-weight: 500;
-    font-size: 16px;
+    font-size: var(--font-base);
     color: var(--secondary-color);
 
     margin: 6px 0;
@@ -194,7 +194,7 @@
 
   .spotify-album-artist {
     font-weight: 400;
-    font-size: 9px;
+    font-size: calc(var(--font-xxs) - 1px);
     color: var(--quinary-color);
 
     margin: 8px 0;
@@ -207,7 +207,7 @@
 
     color: var(--secondary-color);
 
-    font-size: 14px;
+    font-size: var(--font-sm);
 
     margin-bottom: 18px;
   }
