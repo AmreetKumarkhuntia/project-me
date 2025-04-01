@@ -8,6 +8,8 @@
 }
 :root {
   --highlight-color: #ffffffb2;
+  --code-background-color: rgba(32, 32, 32, 0.637);
+  --code-background-color-light: rgba(32, 32, 32, 0.352);
 
   // Error Page
   --error-font-size: 102px;
@@ -389,19 +391,20 @@ body {
       text-decoration: none;
     }
     code {
-      background-color: rgba(0, 0, 0, 0.637);
+      background-color: var(--code-background-color);
       padding: 8px;
       border-radius: 5px;
     }
     pre {
       padding: 18px 8px;
-      background-color: rgba(0, 0, 0, 0.637);
+      background-color: var(--code-background-color);
       border-radius: 5px;
       border: 1px dashed var(--highlight-color);
       text-wrap: auto;
 
       code {
         display: block;
+        background-color: transparent;
       }
     }
     img {
@@ -421,7 +424,7 @@ body {
 
       th,
       td {
-        background-color: rgba(0, 0, 0, 0.352);
+        background-color: var(--code-background-color-light);
 
         padding: 5px;
         height: auto;

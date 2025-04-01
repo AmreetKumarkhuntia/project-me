@@ -1,6 +1,8 @@
 <script lang="ts">
-  import { marked } from "marked";
-  import { Card, flyAndFade } from "vergins";
+  import { Marked, type MarkedOptions } from "marked";
+  import { Card, flyAndFade, Code } from "vergins";
+  import { markedHighlight } from "marked-highlight";
+  import hljs from "highlight.js";
 
   import type {
     GitProjectDetails,
@@ -22,6 +24,17 @@
 
   let innerHtml: string = "";
 
+  const marked = new Marked(
+    markedHighlight({
+      langPrefix: "language-",
+      highlight(code, lang) {
+        console.log(">>>>");
+        const language = hljs.getLanguage(lang) ? lang : "plaintext";
+        return hljs.highlight(code, { language }).value;
+      },
+    })
+  );
+
   $: if (project && isGitProjectDetails(project)) {
     loadInnerHtml(project);
   }
@@ -33,7 +46,7 @@
         const markDown = atob(readmeEncoded);
 
         if (markDown) {
-          innerHtml = await marked(markDown);
+          innerHtml = await marked.parse(markDown);
         } else {
           console.error("Markdown content is empty or failed to fetch.");
         }
