@@ -28,7 +28,6 @@
     markedHighlight({
       langPrefix: "language-",
       highlight(code, lang) {
-        console.log(">>>>");
         const language = hljs.getLanguage(lang) ? lang : "plaintext";
         return hljs.highlight(code, { language }).value;
       },
