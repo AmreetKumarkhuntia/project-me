@@ -18,6 +18,8 @@
   let splineViewer: HTMLDivElement | null = null;
   const splineUrl =
     "https://prod.spline.design/NOCuMB-Go49BrzoP/scene.splinecode";
+  const splineViewerJsUrl =
+    "https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js";
 
   $: showLoader = $siteStore.showLoader;
   $: setSiteTheme(), $siteStore.theme;
@@ -71,15 +73,24 @@
 </script>
 
 <svelte:head>
-  <script
-    type="module"
-    src="https://unpkg.com/@splinetool/viewer@1.9.48/build/spline-viewer.js"
-  ></script>
+  <script type="module" src={splineViewerJsUrl}></script>
   <link
     rel="stylesheet"
     type="text/css"
     href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
   />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/monokai.min.css"
+  />
+  <!-- <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"
+  /> -->
+  <!-- <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/night-owl.min.css"
+  /> -->
 </svelte:head>
 
 <div class="spline-background">
