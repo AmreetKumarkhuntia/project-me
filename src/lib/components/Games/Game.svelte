@@ -12,7 +12,7 @@
 <div class="game-card" on:click={onClick}>
   {#if game !== null}
     <Card>
-      <div class="game-card-container display-flex display-flex-center">
+      <div class="game-card-container display-flex">
         <img class="game-icon" src={game.iconUrl} alt="{game.name} Icon" />
         <div class="game-description">
           <div class="game-name">{game.name}</div>
@@ -31,22 +31,25 @@
 <style>
   .game-card {
     --card-margin: 20px;
-    --card-padding: 10px 20px;
+    --card-padding: 0px;
     --card-width: auto;
     --card-height: 70px;
     --card-text-color: var(--primary-color);
+    --card-border-radius: 5px;
   }
 
   .game-card-container {
     height: inherit;
+
+    justify-content: space-evenly;
+    align-items: center;
   }
 
   .game-icon {
-    width: 40px;
+    width: 45px;
     height: auto;
     border-radius: 20%;
     align-self: center;
-    margin-right: 20px;
   }
 
   .game-name {

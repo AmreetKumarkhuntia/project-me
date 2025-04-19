@@ -189,7 +189,7 @@ export type SteamGameDetails = {
    * @type { string }
    * @memberof SteamGameDetails
    */
-  website: string;
+  website: string | null;
   /**
    * @type { SteamScreenshots[] }
    * @memberof SteamGameDetails
@@ -226,7 +226,6 @@ export function decodeSteamGameDetails(
       decodedName === null ||
       decodedAboutTheGame === null ||
       decodedHeaderImage === null ||
-      decodedWebsite === null ||
       decodedScreenshots === null ||
       decodedPcRequirements === null
     ) {
@@ -255,12 +254,12 @@ export type SteamPCRequirements = {
    * @type { string }
    * @memberof SteamPCRequirements
    */
-  minimum: string;
+  minimum: string | null;
   /**
    * @type { string }
    * @memberof SteamPCRequirements
    */
-  recommended: string;
+  recommended: string | null;
 };
 
 export function decodeSteamPCRequirements(
@@ -269,10 +268,6 @@ export function decodeSteamPCRequirements(
   if (isJSON(rawInput)) {
     const decodedMinimum = decodeString(rawInput["minimum"]);
     const decodedRecommended = decodeString(rawInput["recommended"]);
-
-    if (decodedMinimum === null || decodedRecommended === null) {
-      return null;
-    }
 
     return {
       minimum: decodedMinimum,
