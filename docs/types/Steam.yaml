@@ -55,7 +55,6 @@ Steam:
       - name
       - about_the_game
       - header_image
-      - website
       - pc_requirements
       - screenshots
     properties:
@@ -80,9 +79,6 @@ Steam:
 
   SteamPCRequirements:
     type: object
-    required:
-      - minimum
-      - recommended
     properties:
       minimum:
         type: string
