@@ -13,8 +13,6 @@ const config = {
       $configuration: "src/lib/configuration",
       $components: "src/lib/components",
       $constants: "src/lib/constants",
-      $pages: "src/lib/pages",
-      $utils: "src/lib/utils",
       $server: "src/lib/server",
       $client: "src/lib/client",
       $session: "src/lib/session",

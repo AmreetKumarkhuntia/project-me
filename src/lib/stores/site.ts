@@ -10,7 +10,7 @@ export type ThemeStore = {
 };
 
 const initStore: ThemeStore = {
-  showLoader: true,
+  showLoader: false,
   flyerProperties: null,
   theme: "default",
   source: null,

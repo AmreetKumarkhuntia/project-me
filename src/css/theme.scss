@@ -1,78 +1,75 @@
-/* Default Theme */
-:root {
-  --primary-color: #fdf5e2;
-  --primary-complementary-dark: #181818;
-  --secondary-color: #fdf1cb;
-  --tertiary-color: #fbe5ba;
-  --quaternary-color: #fddcb4;
-  --quinary-color: #ffd6a4;
-  --light-background-color: #fdf5e215;
-  --dark-background-color: #000000a4;
+/* ============================================
+   THEME - Color Variables & Design Tokens
+   ============================================ */
 
-  --active-color: #ffc57d;
-  --active-color-complementary: #ff7b3e;
-  --highlight-color: #ffffffb2;
+/* Default Theme - Yellow/Black System */
+:root {
+  /* Brand Colors */
+  --color-primary: #ffd700; /* Gold/Yellow */
+  --color-primary-light: #ffe44d;
+  --color-primary-dark: #ffc700;
+
+  /* Background Colors */
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #0a0a0a;
+  --color-bg-tertiary: #141414;
+
+  /* Text Colors */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
+  --color-text-tertiary: rgba(255, 255, 255, 0.5);
+
+  /* Border & Divider Colors */
+  --color-border-primary: rgba(255, 215, 0, 0.3);
+  --color-border-secondary: rgba(255, 255, 255, 0.1);
+
+  /* State Colors */
+  --color-hover: rgba(255, 215, 0, 0.1);
+  --color-active: #ffc700;
+  --color-focus: #ffd700;
+
+  /* Shadow Colors */
+  --shadow-primary: 0 8px 20px rgba(255, 215, 0, 0.3);
+  --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
+/* Alternative Themes (if needed later) */
 [data-theme="default"] {
-  --primary-color: #fdf5e2;
-  --primary-complementary-dark: #181818;
-  --secondary-color: #fdf1cb;
-  --tertiary-color: #fbe5ba;
-  --quaternary-color: #fddcb4;
-  --quinary-color: #ffd6a4;
-  --light-background-color: #fdf5e215;
-  --dark-background-color: #000000a4;
-
-  --active-color: #ffc57d;
-  --active-color-complementary: #ff7b3e;
-  --highlight-color: #ffffffb2;
+  --color-primary: #ffd700;
+  --color-primary-light: #ffe44d;
+  --color-primary-dark: #ffc700;
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #0a0a0a;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
 }
 
 [data-theme="green"] {
-  --primary-color: #f6fffc;
-  --primary-complementary-dark: #181818;
-  --secondary-color: #d4ffe4;
-  --tertiary-color: #aafcc4;
-  --quaternary-color: #5fea94;
-  --quinary-color: #1ed760;
-
-  --light-background-color: #e2fde215;
-  --dark-background-color: #000000a4;
-
-  --active-color: #1ed760;
-  --active-color-complementary: #0faa4b;
-  --highlight-color: #ffffffb2;
-}
-
-[data-theme="red"] {
-  --primary-color: #fff6f6;
-  --primary-complementary-dark: #181818;
-  --secondary-color: #ffd4d4;
-  --tertiary-color: #ffaaaa;
-  --quaternary-color: #ff5e5e;
-  --quinary-color: #d60000;
-
-  --light-background-color: #fde2e215;
-  --dark-background-color: #000000a4;
-
-  --active-color: #d60000;
-  --active-color-complementary: #a50000;
-  --highlight-color: #ffffffb2;
+  --color-primary: #1ed760;
+  --color-primary-light: #5fea94;
+  --color-primary-dark: #0faa4b;
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #0a0a0a;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
 }
 
 [data-theme="blue"] {
-  --primary-color: #f6fbff;
-  --primary-complementary-dark: #181818;
-  --secondary-color: #ecf8ff;
-  --tertiary-color: #d6efff;
-  --quaternary-color: #b8e3ff;
-  --quinary-color: #8fcfff;
+  --color-primary: #5fb0ff;
+  --color-primary-light: #8fcfff;
+  --color-primary-dark: #3a8fd6;
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #0a0a0a;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
+}
 
-  --light-background-color: #e2f1fd15;
-  --dark-background-color: #000000a4;
-
-  --active-color: #8fcfff;
-  --active-color-complementary: #5fb0ff;
-  --highlight-color: #ffffffb2;
+[data-theme="red"] {
+  --color-primary: #ff5e5e;
+  --color-primary-light: #ff8888;
+  --color-primary-dark: #d60000;
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #0a0a0a;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
 }
