@@ -5,6 +5,7 @@
   import AnimatedSystemNode from "$components/icons/AnimatedSystemNode.svelte";
   import Badge from "$components/ui/Badge.svelte";
   import Button from "$components/ui/Button.svelte";
+  import OutcomeDrivenEngineering from "$components/sections/OutcomeDrivenEngineering.svelte";
 </script>
 
 <div class="landing-container">
@@ -57,6 +58,8 @@
       <AnimatedSystemNode />
     </div>
   </div>
+
+  <OutcomeDrivenEngineering />
 </div>
 
 <style>
@@ -64,6 +67,7 @@
     min-height: 100vh;
     color: var(--color-text-primary);
     display: flex;
+    flex-direction: column;
     align-items: center;
     font-family: var(--font-primary);
   }
