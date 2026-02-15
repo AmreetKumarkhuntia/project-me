@@ -5,7 +5,8 @@
 /* Default Theme - Yellow/Black System */
 :root {
   /* Brand Colors */
-  --color-primary: #ffd700; /* Gold/Yellow */
+  --color-primary: #ffd700;
+  /* Gold/Yellow */
   --color-primary-light: #ffe44d;
   --color-primary-dark: #ffc700;
 
@@ -13,6 +14,7 @@
   --color-bg-primary: #000000;
   --color-bg-secondary: #0a0a0a;
   --color-bg-tertiary: #141414;
+  --color-bg-quaternary: #ffe44d12;
 
   /* Text Colors */
   --color-text-primary: #ffffff;
@@ -22,6 +24,12 @@
   /* Border & Divider Colors */
   --color-border-primary: rgba(255, 215, 0, 0.3);
   --color-border-secondary: rgba(255, 255, 255, 0.1);
+  --color-border-subtle: rgba(255, 255, 255, 0.1);
+
+  /* Element Specific Colors */
+  --color-bg-tag: rgba(255, 255, 255, 0.071);
+  --color-border-tag: rgba(255, 255, 255, 0.05);
+  --color-bg-surface-light: rgba(255, 255, 255, 0.02);
 
   /* State Colors */
   --color-hover: rgba(255, 215, 0, 0.1);

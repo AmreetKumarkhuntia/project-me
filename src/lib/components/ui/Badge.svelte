@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let variant: "default" | "status" = "default";
+  export let variant: "default" | "status" | "tech" = "default";
   export let customClass: string = "";
 </script>
 
@@ -32,5 +32,18 @@
     font-size: 0.7rem;
     letter-spacing: 1.5px;
     font-weight: var(--font-weight-semibold);
+  }
+
+  /* Tech Badge (Projects) */
+  .badge.tech {
+    font-size: var(--font-size-xs);
+    background: var(--color-bg-tag);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border-tag);
+    text-transform: none; /* Ensure it doesn't inherit uppercase if set elsewhere */
+    letter-spacing: normal;
+    font-weight: normal;
   }
 </style>

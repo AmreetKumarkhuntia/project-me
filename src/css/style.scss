@@ -33,19 +33,32 @@
     "Helvetica Neue", Arial, sans-serif;
 
   /* Font Sizes */
-  --font-size-xs: 0.75rem; /* 12px */
-  --font-size-sm: 0.875rem; /* 14px */
-  --font-size-base: 1rem; /* 16px */
-  --font-size-md: 1.125rem; /* 18px */
-  --font-size-lg: 1.25rem; /* 20px */
-  --font-size-xl: 1.5rem; /* 24px */
-  --font-size-2xl: 2rem; /* 32px */
-  --font-size-3xl: 2.5rem; /* 40px */
-  --font-size-4xl: 3rem; /* 48px */
-  --font-size-5xl: 4rem; /* 64px */
-  --font-size-6xl: 5rem; /* 80px */
-  --font-size-7xl: 5.5rem; /* 96px */
-  --font-size-8xl: 6rem; /* 112px */
+  --font-size-xs: 0.75rem;
+  /* 12px */
+  --font-size-sm: 0.875rem;
+  /* 14px */
+  --font-size-base: 1rem;
+  /* 16px */
+  --font-size-md: 1.125rem;
+  /* 18px */
+  --font-size-lg: 1.25rem;
+  /* 20px */
+  --font-size-xl: 1.5rem;
+  /* 24px */
+  --font-size-2xl: 2rem;
+  /* 32px */
+  --font-size-3xl: 2.5rem;
+  /* 40px */
+  --font-size-4xl: 3rem;
+  /* 48px */
+  --font-size-5xl: 4rem;
+  /* 64px */
+  --font-size-6xl: 5rem;
+  /* 80px */
+  --font-size-7xl: 5.5rem;
+  /* 96px */
+  --font-size-8xl: 6rem;
+  /* 112px */
 
   /* Font Weights */
   --font-weight-light: 300;
@@ -70,28 +83,51 @@
   --letter-spacing-widest: 0.1em;
 
   /* Spacing Scale */
-  --space-1: 0.25rem; /* 4px */
-  --space-2: 0.5rem; /* 8px */
-  --space-3: 0.75rem; /* 12px */
-  --space-4: 1rem; /* 16px */
-  --space-5: 1.25rem; /* 20px */
-  --space-6: 1.5rem; /* 24px */
-  --space-8: 2rem; /* 32px */
-  --space-10: 2.5rem; /* 40px */
-  --space-12: 3rem; /* 48px */
-  --space-16: 4rem; /* 64px */
-  --space-20: 5rem; /* 80px */
-  --space-24: 6rem; /* 96px */
-  --space-28: 7rem; /* 112px */
-  --space-32: 8rem; /* 128px */
-  --space-36: 9rem; /* 144px */
-  --space-40: 10rem; /* 160px */
-  --space-44: 11rem; /* 176px */
-  --space-48: 12rem; /* 192px */
-  --space-52: 13rem; /* 208px */
-  --space-56: 14rem; /* 224px */
-  --space-60: 15rem; /* 240px */
-  --space-64: 16rem; /* 256px */
+  --space-0-5: 0.05rem;
+  --space-1: 0.25rem;
+  /* 4px */
+  --space-2: 0.5rem;
+  /* 8px */
+  --space-3: 0.75rem;
+  /* 12px */
+  --space-4: 1rem;
+  /* 16px */
+  --space-5: 1.25rem;
+  /* 20px */
+  --space-6: 1.5rem;
+  /* 24px */
+  --space-8: 2rem;
+  /* 32px */
+  --space-10: 2.5rem;
+  /* 40px */
+  --space-12: 3rem;
+  /* 48px */
+  --space-16: 4rem;
+  /* 64px */
+  --space-20: 5rem;
+  /* 80px */
+  --space-24: 6rem;
+  /* 96px */
+  --space-28: 7rem;
+  /* 112px */
+  --space-32: 8rem;
+  /* 128px */
+  --space-36: 9rem;
+  /* 144px */
+  --space-40: 10rem;
+  /* 160px */
+  --space-44: 11rem;
+  /* 176px */
+  --space-48: 12rem;
+  /* 192px */
+  --space-52: 13rem;
+  /* 208px */
+  --space-56: 14rem;
+  /* 224px */
+  --space-60: 15rem;
+  /* 240px */
+  --space-64: 16rem;
+  /* 256px */
 
   /* Border Radius */
   --radius-sm: 4px;
@@ -136,25 +172,34 @@
 
 @media (max-width: 1024px) {
   :root {
-    --font-size-5xl: 3.5rem; /* 56px */
-    --font-size-6xl: 4rem; /* 64px */
+    --font-size-5xl: 3.5rem;
+    /* 56px */
+    --font-size-6xl: 4rem;
+    /* 64px */
   }
 }
 
 @media (max-width: 768px) {
   :root {
-    --font-size-4xl: 2.5rem; /* 40px */
-    --font-size-5xl: 3rem; /* 48px */
-    --font-size-6xl: 3.5rem; /* 56px */
+    --font-size-4xl: 2.5rem;
+    /* 40px */
+    --font-size-5xl: 3rem;
+    /* 48px */
+    --font-size-6xl: 3.5rem;
+    /* 56px */
   }
 }
 
 @media (max-width: 640px) {
   :root {
-    --font-size-3xl: 2rem; /* 32px */
-    --font-size-4xl: 2.25rem; /* 36px */
-    --font-size-5xl: 2.5rem; /* 40px */
-    --font-size-6xl: 3rem; /* 48px */
+    --font-size-3xl: 2rem;
+    /* 32px */
+    --font-size-4xl: 2.25rem;
+    /* 36px */
+    --font-size-5xl: 2.5rem;
+    /* 40px */
+    --font-size-6xl: 3rem;
+    /* 48px */
   }
 }
 
@@ -238,6 +283,30 @@ button {
 }
 
 /* ============================================
+   GLOBAL COMPONENTS
+   ============================================ */
+
+.label {
+  display: block;
+  color: var(--color-primary);
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.15em;
+  margin-bottom: var(--space-6);
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: 1.1;
+}
+
+/* ============================================
    UTILITY CLASSES
    ============================================ */
 
@@ -302,18 +371,23 @@ button {
 .gap-1 {
   gap: var(--space-1);
 }
+
 .gap-2 {
   gap: var(--space-2);
 }
+
 .gap-3 {
   gap: var(--space-3);
 }
+
 .gap-4 {
   gap: var(--space-4);
 }
+
 .gap-6 {
   gap: var(--space-6);
 }
+
 .gap-8 {
   gap: var(--space-8);
 }

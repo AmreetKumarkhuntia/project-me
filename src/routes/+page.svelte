@@ -5,7 +5,8 @@
   import AnimatedSystemNode from "$components/icons/AnimatedSystemNode.svelte";
   import Badge from "$components/ui/Badge.svelte";
   import Button from "$components/ui/Button.svelte";
-  import OutcomeDrivenEngineering from "$components/sections/OutcomeDrivenEngineering.svelte";
+  import Collaborations from "$components/sections/Collaborations.svelte";
+  import Projects from "$components/sections/Projects.svelte";
 </script>
 
 <div class="landing-container">
@@ -59,7 +60,8 @@
     </div>
   </div>
 
-  <OutcomeDrivenEngineering />
+  <Collaborations />
+  <Projects />
 </div>
 
 <style>
