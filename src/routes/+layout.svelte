@@ -7,6 +7,7 @@
   import { browser } from "$app/environment";
 
   import Loader from "$components/Loaders/Loader.svelte";
+  import Footer from "$components/layout/Footer.svelte";
   import { setSource, setTheme, siteStore } from "$stores/site";
   import { decodeSource, decodeTheme } from "$generated/types";
 
@@ -65,6 +66,7 @@
   {/if}
   <div style="display: {showLoader === true ? 'none' : 'block'};">
     <slot />
+    <Footer />
   </div>
 </div>
 
