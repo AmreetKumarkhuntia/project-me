@@ -745,3 +745,137 @@ export function decodeContactConfig(rawInput: unknown): ContactConfig | null {
   }
   return null;
 }
+
+/**
+ * @type { MetricsItem }
+ */
+export type MetricsItem = {
+  /**
+   * @type { string }
+   * @memberof MetricsItem
+   */
+  label: string;
+  /**
+   * @type { string }
+   * @memberof MetricsItem
+   */
+  value: string;
+};
+
+export function decodeMetricsItem(rawInput: unknown): MetricsItem | null {
+  if (isJSON(rawInput)) {
+    const decodedLabel = decodeString(rawInput["label"]);
+    const decodedValue = decodeString(rawInput["value"]);
+
+    if (decodedLabel === null || decodedValue === null) {
+      return null;
+    }
+
+    return {
+      label: decodedLabel,
+      value: decodedValue,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { FooterConfig }
+ */
+export type FooterConfig = {
+  /**
+   * @type { FooterConfigBrand }
+   * @memberof FooterConfig
+   */
+  brand: FooterConfigBrand;
+  /**
+   * @type { SocialsItem[] }
+   * @memberof FooterConfig
+   */
+  navLinks: SocialsItem[];
+  /**
+   * @type { SocialsItem[] }
+   * @memberof FooterConfig
+   */
+  connectLinks: SocialsItem[];
+  /**
+   * @type { MetricsItem[] }
+   * @memberof FooterConfig
+   */
+  metrics: MetricsItem[];
+  /**
+   * @type { string }
+   * @memberof FooterConfig
+   */
+  copyright: string;
+};
+
+export function decodeFooterConfig(rawInput: unknown): FooterConfig | null {
+  if (isJSON(rawInput)) {
+    const decodedBrand = decodeFooterConfigBrand(rawInput["brand"]);
+    const decodedNavLinks = decodeArray(
+      rawInput["navLinks"],
+      decodeSocialsItem,
+    );
+    const decodedConnectLinks = decodeArray(
+      rawInput["connectLinks"],
+      decodeSocialsItem,
+    );
+    const decodedMetrics = decodeArray(rawInput["metrics"], decodeMetricsItem);
+    const decodedCopyright = decodeString(rawInput["copyright"]);
+
+    if (
+      decodedBrand === null ||
+      decodedNavLinks === null ||
+      decodedConnectLinks === null ||
+      decodedMetrics === null ||
+      decodedCopyright === null
+    ) {
+      return null;
+    }
+
+    return {
+      brand: decodedBrand,
+      navLinks: decodedNavLinks,
+      connectLinks: decodedConnectLinks,
+      metrics: decodedMetrics,
+      copyright: decodedCopyright,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { FooterConfigBrand }
+ */
+export type FooterConfigBrand = {
+  /**
+   * @type { string }
+   * @memberof FooterConfigBrand
+   */
+  title: string;
+  /**
+   * @type { string }
+   * @memberof FooterConfigBrand
+   */
+  description: string;
+};
+
+export function decodeFooterConfigBrand(
+  rawInput: unknown,
+): FooterConfigBrand | null {
+  if (isJSON(rawInput)) {
+    const decodedTitle = decodeString(rawInput["title"]);
+    const decodedDescription = decodeString(rawInput["description"]);
+
+    if (decodedTitle === null || decodedDescription === null) {
+      return null;
+    }
+
+    return {
+      title: decodedTitle,
+      description: decodedDescription,
+    };
+  }
+  return null;
+}

@@ -202,3 +202,34 @@ Configuration:
         items:
           $ref: "./docs/types/Configuration.yaml#/Configuration/SocialsItem"
     required: [subtitle, title, highlight, description, ctaText, socials]
+
+  MetricsItem:
+    type: object
+    properties:
+      label: { type: string }
+      value: { type: string }
+    required: [label, value]
+
+  FooterConfig:
+    type: object
+    properties:
+      brand:
+        type: object
+        properties:
+          title: { type: string }
+          description: { type: string }
+        required: [title, description]
+      navLinks:
+        type: array
+        items:
+          $ref: "./docs/types/Configuration.yaml#/Configuration/SocialsItem"
+      connectLinks:
+        type: array
+        items:
+          $ref: "./docs/types/Configuration.yaml#/Configuration/SocialsItem"
+      metrics:
+        type: array
+        items:
+          $ref: "./docs/types/Configuration.yaml#/Configuration/MetricsItem"
+      copyright: { type: string }
+    required: [brand, navLinks, connectLinks, metrics, copyright]
