@@ -160,3 +160,45 @@ Configuration:
       - period
       - description
       - scaleImpact
+
+  PhilosophyIcon:
+    type: string
+    enum:
+      - bolt
+      - pulse
+      - shield
+
+  PhilosophyItem:
+    type: object
+    properties:
+      title:
+        type: string
+      quote:
+        type: string
+      icon:
+        $ref: "./docs/types/Configuration.yaml#/Configuration/PhilosophyIcon"
+    required:
+      - title
+      - quote
+      - icon
+
+  SocialsItem:
+    type: object
+    properties:
+      label: { type: string }
+      url: { type: string }
+    required: [label, url]
+
+  ContactConfig:
+    type: object
+    properties:
+      subtitle: { type: string }
+      title: { type: string }
+      highlight: { type: string }
+      description: { type: string }
+      ctaText: { type: string }
+      socials:
+        type: array
+        items:
+          $ref: "./docs/types/Configuration.yaml#/Configuration/SocialsItem"
+    required: [subtitle, title, highlight, description, ctaText, socials]

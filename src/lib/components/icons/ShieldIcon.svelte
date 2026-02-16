@@ -1,22 +1,22 @@
-<script lang="ts">
-    export let size = 24;
-    export let color = "currentColor";
-    export let strokeWidth = 2;
+<script>
+  let {
+    size = 24,
+    class: className = "",
+    color: color = "currentColor",
+  } = $props();
 </script>
 
 <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...$$restProps}
+  xmlns="http://www.w3.org/2000/svg"
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke={color}
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class={className}
 >
-    <path
-        d="M12 22S4 18 4 12V5L12 2L20 5V12C20 18 12 22 12 22Z"
-        stroke={color}
-        stroke-width={strokeWidth}
-        stroke-linecap="round"
-        stroke-linejoin="round"
-    />
+  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
 </svg>

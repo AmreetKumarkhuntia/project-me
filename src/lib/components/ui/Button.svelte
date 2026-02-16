@@ -2,6 +2,7 @@
   export let variant: "primary" | "secondary" | "link" = "primary";
   export let href: string | undefined = undefined;
   export let type: "button" | "submit" | "reset" = "button";
+  export let size: "sm" | "md" | "lg" = "md";
   export let onClick: (() => void) | undefined = undefined;
 
   function handleClick() {
@@ -10,11 +11,11 @@
 </script>
 
 {#if href}
-  <a {href} class="btn btn-{variant}" on:click={handleClick}>
+  <a {href} class="btn btn-{variant} btn-{size}" on:click={handleClick}>
     <slot />
   </a>
 {:else}
-  <button {type} class="btn btn-{variant}" on:click={handleClick}>
+  <button {type} class="btn btn-{variant} btn-{size}" on:click={handleClick}>
     <slot />
   </button>
 {/if}
@@ -36,10 +37,24 @@
     background: var(--color-primary);
     color: var(--color-bg-primary);
     border: none;
-    padding: 0.875rem 1.75rem;
     border-radius: var(--radius-sm);
-    font-size: var(--font-size-base);
     font-weight: var(--font-weight-semibold);
+  }
+
+  /* Sizes */
+  .btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: var(--font-size-sm);
+  }
+
+  .btn-md {
+    padding: 0.875rem 1.75rem;
+    font-size: var(--font-size-base);
+  }
+
+  .btn-lg {
+    padding: 1.25rem 2.5rem;
+    font-size: var(--font-size-lg);
   }
 
   .btn-primary:hover {
@@ -53,9 +68,7 @@
     background: transparent;
     color: var(--color-text-primary);
     border: 1.5px solid var(--color-border-secondary);
-    padding: 0.875rem 1.5rem;
     border-radius: var(--radius-sm);
-    font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
   }
 

@@ -573,3 +573,175 @@ export function decodeExperienceItem(rawInput: unknown): ExperienceItem | null {
   }
   return null;
 }
+
+/**
+ * @type { PhilosophyIcon }
+ */
+export type PhilosophyIcon = "bolt" | "pulse" | "shield";
+
+export function decodePhilosophyIcon(rawInput: unknown): PhilosophyIcon | null {
+  switch (rawInput) {
+    case "bolt":
+    case "pulse":
+    case "shield":
+      return rawInput;
+  }
+  return null;
+}
+
+export function _decodePhilosophyIcon(
+  rawInput: unknown,
+): PhilosophyIcon | undefined {
+  switch (rawInput) {
+    case "bolt":
+    case "pulse":
+    case "shield":
+      return rawInput;
+  }
+  return;
+}
+
+/**
+ * @type { PhilosophyItem }
+ */
+export type PhilosophyItem = {
+  /**
+   * @type { string }
+   * @memberof PhilosophyItem
+   */
+  title: string;
+  /**
+   * @type { string }
+   * @memberof PhilosophyItem
+   */
+  quote: string;
+  /**
+   * @type { PhilosophyIcon }
+   * @memberof PhilosophyItem
+   */
+  icon: PhilosophyIcon;
+};
+
+export function decodePhilosophyItem(rawInput: unknown): PhilosophyItem | null {
+  if (isJSON(rawInput)) {
+    const decodedTitle = decodeString(rawInput["title"]);
+    const decodedQuote = decodeString(rawInput["quote"]);
+    const decodedIcon = decodePhilosophyIcon(rawInput["icon"]);
+
+    if (
+      decodedTitle === null ||
+      decodedQuote === null ||
+      decodedIcon === null
+    ) {
+      return null;
+    }
+
+    return {
+      title: decodedTitle,
+      quote: decodedQuote,
+      icon: decodedIcon,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { SocialsItem }
+ */
+export type SocialsItem = {
+  /**
+   * @type { string }
+   * @memberof SocialsItem
+   */
+  label: string;
+  /**
+   * @type { string }
+   * @memberof SocialsItem
+   */
+  url: string;
+};
+
+export function decodeSocialsItem(rawInput: unknown): SocialsItem | null {
+  if (isJSON(rawInput)) {
+    const decodedLabel = decodeString(rawInput["label"]);
+    const decodedUrl = decodeString(rawInput["url"]);
+
+    if (decodedLabel === null || decodedUrl === null) {
+      return null;
+    }
+
+    return {
+      label: decodedLabel,
+      url: decodedUrl,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { ContactConfig }
+ */
+export type ContactConfig = {
+  /**
+   * @type { string }
+   * @memberof ContactConfig
+   */
+  subtitle: string;
+  /**
+   * @type { string }
+   * @memberof ContactConfig
+   */
+  title: string;
+  /**
+   * @type { string }
+   * @memberof ContactConfig
+   */
+  highlight: string;
+  /**
+   * @type { string }
+   * @memberof ContactConfig
+   */
+  description: string;
+  /**
+   * @type { string }
+   * @memberof ContactConfig
+   */
+  ctaText: string;
+  /**
+   * @type { SocialsItem[] }
+   * @memberof ContactConfig
+   */
+  socials: SocialsItem[];
+};
+
+export function decodeContactConfig(rawInput: unknown): ContactConfig | null {
+  if (isJSON(rawInput)) {
+    const decodedSubtitle = decodeString(rawInput["subtitle"]);
+    const decodedTitle = decodeString(rawInput["title"]);
+    const decodedHighlight = decodeString(rawInput["highlight"]);
+    const decodedDescription = decodeString(rawInput["description"]);
+    const decodedCtaText = decodeString(rawInput["ctaText"]);
+    const decodedSocials = decodeArray(rawInput["socials"], decodeSocialsItem);
+
+    if (
+      decodedSubtitle === null ||
+      decodedTitle === null ||
+      decodedHighlight === null ||
+      decodedDescription === null ||
+      decodedCtaText === null ||
+      decodedSocials === null
+    ) {
+      return null;
+    }
+
+    return {
+      subtitle: decodedSubtitle,
+      title: decodedTitle,
+      highlight: decodedHighlight,
+      description: decodedDescription,
+      ctaText: decodedCtaText,
+      socials: decodedSocials,
+    };
+  }
+  return null;
+}
