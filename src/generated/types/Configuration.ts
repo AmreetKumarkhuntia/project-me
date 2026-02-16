@@ -477,22 +477,22 @@ export type GitHubConfig = {
    * @type { string }
    * @memberof GitHubConfig
    */
-  githubApiUrl: string;
+  githubApiUrl: string | null;
   /**
    * @type { string }
    * @memberof GitHubConfig
    */
-  githubApiVersion: string;
+  githubApiVersion: string | null;
   /**
    * @type { string }
    * @memberof GitHubConfig
    */
-  githubUserName: string;
+  githubUserName: string | null;
   /**
    * @type { number }
    * @memberof GitHubConfig
    */
-  githubPageIterations: number;
+  githubPageIterations: number | null;
 };
 
 export function decodeGitHubConfig(rawInput: unknown): GitHubConfig | null {
@@ -504,20 +504,71 @@ export function decodeGitHubConfig(rawInput: unknown): GitHubConfig | null {
       rawInput["githubPageIterations"],
     );
 
-    if (
-      decodedGithubApiUrl === null ||
-      decodedGithubApiVersion === null ||
-      decodedGithubUserName === null ||
-      decodedGithubPageIterations === null
-    ) {
-      return null;
-    }
-
     return {
       githubApiUrl: decodedGithubApiUrl,
       githubApiVersion: decodedGithubApiVersion,
       githubUserName: decodedGithubUserName,
       githubPageIterations: decodedGithubPageIterations,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { ExperienceItem }
+ */
+export type ExperienceItem = {
+  /**
+   * @type { string }
+   * @memberof ExperienceItem
+   */
+  role: string;
+  /**
+   * @type { string }
+   * @memberof ExperienceItem
+   */
+  company: string;
+  /**
+   * @type { string }
+   * @memberof ExperienceItem
+   */
+  period: string;
+  /**
+   * @type { string }
+   * @memberof ExperienceItem
+   */
+  description: string;
+  /**
+   * @type { string }
+   * @memberof ExperienceItem
+   */
+  scaleImpact: string;
+};
+
+export function decodeExperienceItem(rawInput: unknown): ExperienceItem | null {
+  if (isJSON(rawInput)) {
+    const decodedRole = decodeString(rawInput["role"]);
+    const decodedCompany = decodeString(rawInput["company"]);
+    const decodedPeriod = decodeString(rawInput["period"]);
+    const decodedDescription = decodeString(rawInput["description"]);
+    const decodedScaleImpact = decodeString(rawInput["scaleImpact"]);
+
+    if (
+      decodedRole === null ||
+      decodedCompany === null ||
+      decodedPeriod === null ||
+      decodedDescription === null ||
+      decodedScaleImpact === null
+    ) {
+      return null;
+    }
+
+    return {
+      role: decodedRole,
+      company: decodedCompany,
+      period: decodedPeriod,
+      description: decodedDescription,
+      scaleImpact: decodedScaleImpact,
     };
   }
   return null;

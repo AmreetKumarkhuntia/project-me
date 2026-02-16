@@ -7,8 +7,8 @@ import {
   decodeBoolean,
   _decodeBoolean,
   decodeArray,
-  _decodeArray,
   decodeUnknown,
+  _decodeArray,
 } from "type-decoder";
 
 /**
