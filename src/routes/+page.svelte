@@ -8,6 +8,7 @@
   import Collaborations from "$components/sections/Collaborations.svelte";
   import Projects from "$components/sections/Projects.svelte";
   import Technical from "$components/sections/Technical.svelte";
+  import Timeline from "$components/sections/Timeline.svelte";
 </script>
 
 <div class="landing-container">
@@ -64,6 +65,7 @@
   <Collaborations />
   <Projects />
   <Technical />
+  <Timeline />
 </div>
 
 <style>

@@ -140,8 +140,23 @@ Configuration:
         type: string
       githubPageIterations:
         type: number
+
+  ExperienceItem:
+    type: object
+    properties:
+      role:
+        type: string
+      company:
+        type: string
+      period:
+        type: string
+      description:
+        type: string
+      scaleImpact:
+        type: string
     required:
-      - githubApiUrl
-      - githubApiVersion
-      - githubUserName
-      - githubPageIterations
+      - role
+      - company
+      - period
+      - description
+      - scaleImpact
