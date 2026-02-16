@@ -1,9 +1,14 @@
 import {
   isJSON,
   decodeNumber,
+  _decodeNumber,
   decodeString,
+  _decodeString,
   decodeBoolean,
+  _decodeBoolean,
   decodeArray,
+  _decodeArray,
+  decodeUnknown,
 } from "type-decoder";
 
 /**
@@ -489,6 +494,7 @@ export function decodeGitCommit(rawInput: unknown): GitCommit | null {
   }
   return null;
 }
+
 /**
  * @type { GitCommitCommit }
  */
@@ -536,6 +542,7 @@ export function decodeGitCommitCommit(
   }
   return null;
 }
+
 /**
  * @type { GitCommitCommitAuthor }
  */
@@ -577,6 +584,7 @@ export function decodeGitCommitCommitAuthor(
   }
   return null;
 }
+
 /**
  * @type { GitCommitCommitCommitter }
  */
@@ -618,6 +626,7 @@ export function decodeGitCommitCommitCommitter(
   }
   return null;
 }
+
 /**
  * @type { GitCommitAuthor }
  */
@@ -679,6 +688,7 @@ export function decodeGitCommitAuthor(
   }
   return null;
 }
+
 /**
  * @type { GitCommitCommitter }
  */
@@ -748,9 +758,15 @@ export type GitLanguages = Record<string, unknown>;
 
 export function decodeGitLanguages(rawInput: unknown): GitLanguages | null {
   if (isJSON(rawInput)) {
-    return {
-      ...rawInput,
-    };
+    const decodedAdditionalProperties: GitLanguages = {};
+    for (const key in rawInput) {
+      const decodedValue = decodeUnknown(rawInput[key]);
+      if (decodedValue === null) {
+        return null;
+      }
+      decodedAdditionalProperties[key] = decodedValue;
+    }
+    return decodedAdditionalProperties;
   }
   return null;
 }

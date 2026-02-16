@@ -1,4 +1,12 @@
-import { isJSON, decodeString, decodeNumber, decodeArray } from "type-decoder";
+import {
+  isJSON,
+  decodeString,
+  _decodeString,
+  decodeNumber,
+  _decodeNumber,
+  decodeArray,
+  _decodeArray,
+} from "type-decoder";
 
 /**
  * @type { Game }
@@ -140,4 +148,13 @@ export function decodeStatEnum(rawInput: unknown): StatEnum | null {
       return rawInput;
   }
   return null;
+}
+
+export function _decodeStatEnum(rawInput: unknown): StatEnum | undefined {
+  switch (rawInput) {
+    case "PERCENT":
+    case "DIRECT":
+      return rawInput;
+  }
+  return;
 }

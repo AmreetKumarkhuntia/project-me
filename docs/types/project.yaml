@@ -18,3 +18,5 @@ groupedTypes:
     $ref: "./docs/types/Games.yaml#/Games"
   Steam:
     $ref: "./docs/types/Steam.yaml#/Steam"
+  Configuration:
+    $ref: "./docs/types/Configuration.yaml#/Configuration"

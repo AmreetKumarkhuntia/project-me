@@ -6,3 +6,4 @@ export * from "./Client";
 export * from "./Spotify";
 export * from "./Games";
 export * from "./Steam";
+export * from "./Configuration";

@@ -1,9 +1,13 @@
 import {
   isJSON,
   decodeString,
+  _decodeString,
   decodeNumber,
+  _decodeNumber,
   decodeArray,
+  _decodeArray,
   decodeBoolean,
+  _decodeBoolean,
 } from "type-decoder";
 
 /**
