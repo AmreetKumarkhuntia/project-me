@@ -15,6 +15,16 @@ export function decodeSource(rawInput: unknown): Source | null {
   return null;
 }
 
+export function _decodeSource(rawInput: unknown): Source | undefined {
+  switch (rawInput) {
+    case "github":
+    case "spotify":
+    case "games":
+      return rawInput;
+  }
+  return;
+}
+
 /**
  * @type { Language }
  */
@@ -65,6 +75,33 @@ export function decodeLanguage(rawInput: unknown): Language | null {
       return rawInput;
   }
   return null;
+}
+
+export function _decodeLanguage(rawInput: unknown): Language | undefined {
+  switch (rawInput) {
+    case "css":
+    case "sass":
+    case "javascript":
+    case "typescript":
+    case "java":
+    case "python":
+    case "ruby":
+    case "php":
+    case "go":
+    case "c#":
+    case "swift":
+    case "kotlin":
+    case "cpp":
+    case "c":
+    case "haskell":
+    case "rust":
+    case "html":
+    case "purescript":
+    case "yaml":
+    case "bash":
+      return rawInput;
+  }
+  return;
 }
 
 /**
@@ -145,6 +182,46 @@ export function decodeFramework(rawInput: unknown): Framework | null {
   return null;
 }
 
+export function _decodeFramework(rawInput: unknown): Framework | undefined {
+  switch (rawInput) {
+    case "react":
+    case "graphql":
+    case "angular":
+    case "vue":
+    case "spring":
+    case "django":
+    case "express":
+    case "ember":
+    case "flask":
+    case "ruby-on-rails":
+    case "laravel":
+    case "next.js":
+    case "svelte":
+    case "asp.net":
+    case "fastapi":
+    case "mustache":
+    case "servant":
+    case "yesod":
+    case "snap":
+    case "spock":
+    case "play":
+    case "hspec":
+    case "jinja":
+    case "bootstrap":
+    case "tailwind":
+    case "material-ui":
+    case "foundation":
+    case "semantic-ui":
+    case "nuxt.js":
+    case "nuxt3":
+    case "flask-admin":
+    case "quasar":
+    case "blazor":
+      return rawInput;
+  }
+  return;
+}
+
 /**
  * @type { Tool }
  */
@@ -159,6 +236,17 @@ export function decodeTool(rawInput: unknown): Tool | null {
       return rawInput;
   }
   return null;
+}
+
+export function _decodeTool(rawInput: unknown): Tool | undefined {
+  switch (rawInput) {
+    case "git":
+    case "docker":
+    case "kubernetes":
+    case "aws":
+      return rawInput;
+  }
+  return;
 }
 
 /**
@@ -181,4 +269,16 @@ export function decodeDatabase(rawInput: unknown): Database | null {
       return rawInput;
   }
   return null;
+}
+
+export function _decodeDatabase(rawInput: unknown): Database | undefined {
+  switch (rawInput) {
+    case "mongodb":
+    case "mysql":
+    case "postgresql":
+    case "firebase":
+    case "redis":
+      return rawInput;
+  }
+  return;
 }

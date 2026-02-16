@@ -1,4 +1,4 @@
-import { isJSON, decodeString } from "type-decoder";
+import { isJSON, decodeString, _decodeString } from "type-decoder";
 
 /**
  * @type { SendGmailRequest }

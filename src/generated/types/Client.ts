@@ -1,4 +1,10 @@
-import { isJSON, decodeBoolean, decodeString } from "type-decoder";
+import {
+  isJSON,
+  decodeBoolean,
+  _decodeBoolean,
+  decodeString,
+  _decodeString,
+} from "type-decoder";
 
 /**
  * @type { FlyerProperties }
@@ -56,4 +62,15 @@ export function decodeTheme(rawInput: unknown): Theme | null {
       return rawInput;
   }
   return null;
+}
+
+export function _decodeTheme(rawInput: unknown): Theme | undefined {
+  switch (rawInput) {
+    case "default":
+    case "red":
+    case "green":
+    case "blue":
+      return rawInput;
+  }
+  return;
 }

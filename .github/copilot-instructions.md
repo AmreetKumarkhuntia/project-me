@@ -8,11 +8,11 @@ Interactive SvelteKit 5 portfolio app integrating GitHub, Spotify, and Steam API
 
 ### Schema-First Types
 
-Types are defined in YAML (`docs/types/*.yaml`) and code-generated into `src/generated/types/` via **type-crafter**. Each generated file exports a TypeScript type **and** a runtime decoder function (e.g., `decodeSource`, `decodeGitRepo`). Never hand-write types in `src/generated/` — regenerate with:
+Types are defined in YAML (`docs/types/*.yaml`) and code-generated into `src/generated/types/` via **type-crafter**.
 
-```bash
-npm run generate
-```
+- **Rule**: ALL shared types and configuration schemas must be defined in YAML.
+- **Workflow**: Edit YAML -> `pnpm generate` -> Use generated types.
+- **Never** hand-write types in `src/generated/` or manually type configuration files without a backing schema.
 
 ### Source-Based Polymorphism
 
@@ -23,6 +23,13 @@ The `Source` union (`"github" | "spotify" | "games"`) from `src/generated/types/
 - **`src/lib/services/`** — Server-side services that call external APIs (GitHub, Spotify, Steam, mailer). Each uses `APICaller` with generated decoders.
 - **`src/lib/client/`** — Browser-side fetchers that call internal SvelteKit API routes. Check store state (`null` = unfetched) before fetching.
 - **`src/lib/server/`** — Server-only utilities: `APIResponseHandler` (builder pattern for standardized responses) and domain mappers.
+
+### Component Architecture
+
+- **Modular Design**: Break down complex UIs into small, single-purpose components (e.g., `Badge`, `Button`, `Card`).
+- **Data-Driven**: Components should receive data via props, typically sourced from typed configuration files.
+- **Icons**: Use dedicated Svelte components for icons (e.g., `src/lib/components/icons/CpuIcon.svelte`). **Do not** use inline SVGs in main components.
+- **Composition**: Build "Section" components (e.g., `Technical.svelte`) by composing smaller UI atoms.
 
 ### Writing CSS and assigning class names
 
@@ -60,19 +67,19 @@ Svelte `writable` stores with typed state objects and dedicated updater function
 
 Defined in both `svelte.config.js` and `vite.config.ts`. Always use these in imports:
 
-| Alias | Path |
-|-------|------|
-| `$generated` | `src/generated` |
-| `$services` | `src/lib/services` |
-| `$stores` | `src/lib/stores` |
+| Alias            | Path                    |
+| ---------------- | ----------------------- |
+| `$generated`     | `src/generated`         |
+| `$services`      | `src/lib/services`      |
+| `$stores`        | `src/lib/stores`        |
 | `$configuration` | `src/lib/configuration` |
-| `$components` | `src/lib/components` |
-| `$pages` | `src/lib/pages` |
-| `$constants` | `src/lib/constants` |
-| `$server` | `src/lib/server` |
-| `$client` | `src/lib/client` |
-| `$models` | `src/lib/models` |
-| `$css` | `src/css` |
+| `$components`    | `src/lib/components`    |
+| `$pages`         | `src/lib/pages`         |
+| `$constants`     | `src/lib/constants`     |
+| `$server`        | `src/lib/server`        |
+| `$client`        | `src/lib/client`        |
+| `$models`        | `src/lib/models`        |
+| `$css`           | `src/css`               |
 
 ## Key Libraries
 
@@ -87,21 +94,24 @@ Defined in both `svelte.config.js` and `vite.config.ts`. Always use these in imp
 
 - **Server secrets** (`src/lib/configuration/config/index.ts`): API keys via `process.env` + `dotenv`
 - **Client config** (`src/lib/configuration/config/client/index.ts`): Public values via `import.meta.env.VITE_*`
-- **Page content** (`src/lib/configuration/{home,about,skills,navigation,github}.ts`): Static data arrays for UI rendering
+- **Page content** (`src/lib/configuration/{home,about,skills,navigation,github}.ts`): Static data arrays for UI rendering.
+  - **Rule**: These files must be typed using generated types (e.g., `TechnicalCategory[]`, `HomeConfig`).
+  - **Pattern**: `export const myConfig: GeneratedType = [...]`
 
 ## Commands
 
-| Command | Purpose |
-|---------|---------|
-| `pnpm dev` | Dev server on port 4366 |
-| `pnpm build` | Production build + package |
+| Command         | Purpose                            |
+| --------------- | ---------------------------------- |
+| `pnpm dev`      | Dev server on port 4366            |
+| `pnpm build`    | Production build + package         |
 | `pnpm generate` | Regenerate types from YAML schemas |
-| `pnpm check` | TypeScript + Svelte type checking |
+| `pnpm check`    | TypeScript + Svelte type checking  |
 
 ## Conventions
 
 - Components use **Svelte 5** runes syntax
-- SCSS for styling (`src/css/style.scss`, `src/css/theme.scss`) with CSS custom properties for theming (4 variants: default, red, green, blue)
+- SCSS for styling (`src/css/style.scss`, `src/css/theme.scss`) using **CSS custom properties** (`var(--color-primary)`, `var(--space-4)`). Avoid hardcoded values.
+- **Strictly** follow the design system tokens found in `theme.scss`.
 - Structured logging wraps every service call and API route — always include a `tag` string
 - `APICaller` uses a **builder pattern** with a generic decoder callback — follow existing services as templates
 - The `hooks.server.ts` handles CORS preflight and 404 redirects (pages → `/not-found`, API → structured error response)

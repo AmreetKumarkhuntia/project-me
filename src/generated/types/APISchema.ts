@@ -1,9 +1,14 @@
 import {
   isJSON,
   decodeString,
+  _decodeString,
   decodeNumber,
+  _decodeNumber,
   decodeBoolean,
+  _decodeBoolean,
   decodeArray,
+  decodeUnknown,
+  _decodeArray,
 } from "type-decoder";
 
 /**
@@ -42,8 +47,19 @@ export function decodeAPIResponse(rawInput: unknown): APIResponse | null {
       return null;
     }
 
+    const decodedAdditionalProperties: Record<string, unknown> = {};
+    const knownKeys = new Set(["status", "message", "code"]);
+    for (const key in rawInput) {
+      if (!knownKeys.has(key)) {
+        const decodedValue = decodeUnknown(rawInput[key]);
+        if (decodedValue === null) {
+          return null;
+        }
+        decodedAdditionalProperties[key] = decodedValue;
+      }
+    }
     return {
-      ...rawInput,
+      ...decodedAdditionalProperties,
       status: decodedStatus,
       message: decodedMessage,
       code: decodedCode,
@@ -51,6 +67,7 @@ export function decodeAPIResponse(rawInput: unknown): APIResponse | null {
   }
   return null;
 }
+
 /**
  * @type { StatusEnum }
  */
@@ -73,6 +90,19 @@ export function decodeStatusEnum(rawInput: unknown): StatusEnum | null {
       return rawInput;
   }
   return null;
+}
+
+export function _decodeStatusEnum(rawInput: unknown): StatusEnum | undefined {
+  switch (rawInput) {
+    case "success":
+    case "error":
+    case "unauthorized":
+    case "not_found":
+    case "bad_request":
+    case "internal_server_error":
+      return rawInput;
+  }
+  return;
 }
 
 /**
@@ -116,6 +146,7 @@ export function decodeToken(rawInput: unknown): Token | null {
   }
   return null;
 }
+
 /**
  * @type { TokenDecodedToken }
  */
@@ -125,9 +156,15 @@ export function decodeTokenDecodedToken(
   rawInput: unknown,
 ): TokenDecodedToken | null {
   if (isJSON(rawInput)) {
-    return {
-      ...rawInput,
-    };
+    const decodedAdditionalProperties: TokenDecodedToken = {};
+    for (const key in rawInput) {
+      const decodedValue = decodeUnknown(rawInput[key]);
+      if (decodedValue === null) {
+        return null;
+      }
+      decodedAdditionalProperties[key] = decodedValue;
+    }
+    return decodedAdditionalProperties;
   }
   return null;
 }
@@ -177,6 +214,7 @@ export function decodeServerAccess(rawInput: unknown): ServerAccess | null {
   }
   return null;
 }
+
 /**
  * @type { ServerAPIAccessEnum }
  */
@@ -192,6 +230,18 @@ export function decodeServerAPIAccessEnum(
       return rawInput;
   }
   return null;
+}
+
+export function _decodeServerAPIAccessEnum(
+  rawInput: unknown,
+): ServerAPIAccessEnum | undefined {
+  switch (rawInput) {
+    case "READ":
+    case "WRITE":
+    case "ANY":
+      return rawInput;
+  }
+  return;
 }
 
 /**
@@ -259,6 +309,7 @@ export function decodeVerifyTokenBody(
   }
   return null;
 }
+
 /**
  * @type { CheckForEnum }
  */
@@ -271,4 +322,15 @@ export function decodeCheckForEnum(rawInput: unknown): CheckForEnum | null {
       return rawInput;
   }
   return null;
+}
+
+export function _decodeCheckForEnum(
+  rawInput: unknown,
+): CheckForEnum | undefined {
+  switch (rawInput) {
+    case "RSA":
+    case "JWT":
+      return rawInput;
+  }
+  return;
 }

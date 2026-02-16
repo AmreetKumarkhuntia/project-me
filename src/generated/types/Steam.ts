@@ -1,4 +1,12 @@
-import { isJSON, decodeNumber, decodeString, decodeArray } from "type-decoder";
+import {
+  isJSON,
+  decodeNumber,
+  _decodeNumber,
+  decodeString,
+  _decodeString,
+  decodeArray,
+  _decodeArray,
+} from "type-decoder";
 
 /**
  * @type { SteamGame }

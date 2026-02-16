@@ -1,0 +1,147 @@
+Configuration:
+  TechnicalCategory:
+    type: object
+    properties:
+      title:
+        type: string
+      icon:
+        type: string
+        enum:
+          - cpu
+          - database
+          - cloud
+      items:
+        type: array
+        items:
+          $ref: "./docs/types/Configuration.yaml#/Configuration/TechnicalItem"
+    required:
+      - title
+      - icon
+      - items
+
+  TechnicalItem:
+    type: object
+    properties:
+      title:
+        type: string
+      badge:
+        type: string
+      desc:
+        type: string
+    required:
+      - title
+      - badge
+      - desc
+
+  HomeConfig:
+    type: object
+    properties:
+      secondSubtitles:
+        type: array
+        items:
+          type: string
+      linkSize:
+        type: string
+      constantAvatarLazyLoaderDelay:
+        type: number
+    required:
+      - secondSubtitles
+      - linkSize
+      - constantAvatarLazyLoaderDelay
+
+  ProjectItem:
+    type: object
+    properties:
+      title:
+        type: string
+      tags:
+        type: array
+        items:
+          type: string
+      problem:
+        type: object
+        properties:
+          title:
+            type: string
+          description:
+            type: string
+        required:
+          - title
+          - description
+      engineering:
+        type: object
+        properties:
+          title:
+            type: string
+          description:
+            type: string
+        required:
+          - title
+          - description
+      impact:
+        type: object
+        properties:
+          value:
+            type: string
+          description:
+            type: string
+        required:
+          - value
+          - description
+      architecture:
+        type: object
+        properties:
+          title:
+            type: string
+          controlPlane:
+            type: object
+            properties:
+              label:
+                type: string
+              items:
+                type: array
+                items:
+                  type: string
+            required:
+              - label
+              - items
+          dataPlane:
+            type: object
+            properties:
+              label:
+                type: string
+              nodes:
+                type: array
+                items:
+                  type: string
+            required:
+              - label
+              - nodes
+        required:
+          - title
+          - controlPlane
+          - dataPlane
+    required:
+      - title
+      - tags
+      - problem
+      - engineering
+      - impact
+      - architecture
+
+  GitHubConfig:
+    type: object
+    properties:
+      githubApiUrl:
+        type: string
+      githubApiVersion:
+        type: string
+      githubUserName:
+        type: string
+      githubPageIterations:
+        type: number
+    required:
+      - githubApiUrl
+      - githubApiVersion
+      - githubUserName
+      - githubPageIterations

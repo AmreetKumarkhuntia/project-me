@@ -7,6 +7,7 @@
   import Button from "$components/ui/Button.svelte";
   import Collaborations from "$components/sections/Collaborations.svelte";
   import Projects from "$components/sections/Projects.svelte";
+  import Technical from "$components/sections/Technical.svelte";
 </script>
 
 <div class="landing-container">
@@ -62,6 +63,7 @@
 
   <Collaborations />
   <Projects />
+  <Technical />
 </div>
 
 <style>
