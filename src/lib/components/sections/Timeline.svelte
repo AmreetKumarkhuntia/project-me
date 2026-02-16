@@ -186,11 +186,6 @@
     color: var(--color-primary);
   }
 
-  .metric-text {
-    font-size: var(--font-size-sm);
-    font-family: var(--font-mono);
-  }
-
   .label {
     color: var(--color-primary);
     font-weight: var(--font-weight-bold);
