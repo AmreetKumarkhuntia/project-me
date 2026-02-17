@@ -21,4 +21,9 @@ export const navbarLinks: NavigationOptions[] = [
     title: "Philosophy",
     navigationURL: "/philosophy",
   },
+  {
+    id: "resume",
+    title: "Resume",
+    navigationURL: "/resume.pdf",
+  },
 ];
