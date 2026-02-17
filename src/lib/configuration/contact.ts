@@ -11,11 +11,11 @@ export const contact: ContactConfig = {
   socials: [
     {
       label: "LINKEDIN",
-      url: "https://linkedin.com",
+      url: "https://www.linkedin.com/in/amreet-khuntia-15193220b/",
     },
     {
       label: "TWITTER / X",
-      url: "https://twitter.com",
+      url: "http://x.com/amreetsgto321",
     },
     {
       label: "ENGINEERING BLOG",

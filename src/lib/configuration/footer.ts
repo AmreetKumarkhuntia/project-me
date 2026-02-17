@@ -14,8 +14,11 @@ export const footer: FooterConfig = {
   ],
   connectLinks: [
     { label: "GitHub", url: "https://github.com/AmreetKumarkhuntia" },
-    { label: "LinkedIn", url: "https://linkedin.com/in/amreet-kumar-khuntia" },
-    { label: "Twitter / X", url: "https://twitter.com/amreet_khuntia" },
+    {
+      label: "LinkedIn",
+      url: "https://www.linkedin.com/in/amreet-khuntia-15193220b/",
+    },
+    { label: "Twitter / X", url: "http://x.com/amreetsgto321" },
     { label: "Technical Blog", url: "/blog" },
   ],
   metrics: [
