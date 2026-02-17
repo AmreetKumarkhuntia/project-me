@@ -2,7 +2,7 @@ import type { FooterConfig } from "$generated/types/Configuration";
 
 export const footer: FooterConfig = {
   brand: {
-    title: "Amreet Kumar Khuntia",
+    title: "Amreet K",
     description:
       "Engineering robust distributed systems that prioritize reliability, observability, and cost-efficiency. Available for strategic consulting and high-impact technical leadership.",
   },

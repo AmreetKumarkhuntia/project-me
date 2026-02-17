@@ -7,6 +7,7 @@
   import { browser } from "$app/environment";
 
   import Loader from "$components/Loaders/Loader.svelte";
+  import Navbar from "$components/layout/Navbar.svelte";
   import Footer from "$components/layout/Footer.svelte";
   import { setSource, setTheme, siteStore } from "$stores/site";
   import { decodeSource, decodeTheme } from "$generated/types";
@@ -64,9 +65,13 @@
       <Loader />
     </div>
   {/if}
+
   <div style="display: {showLoader === true ? 'none' : 'block'};">
-    <slot />
-    <Footer />
+    <Navbar />
+    <main class="content">
+      <slot />
+      <Footer />
+    </main>
   </div>
 </div>
 
@@ -79,16 +84,25 @@
     height: 100vh;
     width: 100vw;
     z-index: 0;
-    padding: 0 var(--space-24) 0 var(--space-24);
+    padding: 0; /* Removed padding to allow full-width navbar */
     background: linear-gradient(
       180deg,
       var(--color-bg-primary) 0%,
       var(--color-bg-secondary) 100%
     );
+    overflow-y: auto; /* Explicitly allow scrolling */
   }
 
   .body::-webkit-scrollbar {
     display: none;
+  }
+
+  /* New content wrapper style */
+  .content {
+    padding: 0 var(--space-24) 0 var(--space-24);
+    min-height: calc(100vh - 72px); /* Ensure footer pushes down if needed */
+    display: flex;
+    flex-direction: column;
   }
 
   .loader-container {
