@@ -11,6 +11,7 @@
   import Timeline from "$components/sections/Timeline.svelte";
   import Philosophy from "$components/sections/Philosophy.svelte";
   import Contact from "$components/sections/Contact.svelte";
+  import { resumeLink } from "$configuration/index";
 </script>
 
 <div class="landing-container">
@@ -49,7 +50,7 @@
         </Button>
       </div>
 
-      <Button variant="link">
+      <Button variant="link" href={resumeLink} target="_blank">
         <DocumentIcon />
         Resume
       </Button>

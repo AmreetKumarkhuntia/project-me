@@ -1,5 +1,6 @@
 <script lang="ts">
   import { footer } from "$configuration/footer";
+  import { resumeLink } from "$configuration/index";
   import Button from "$components/ui/Button.svelte";
   import BoltIcon from "$components/icons/BoltIcon.svelte";
 </script>
@@ -17,8 +18,11 @@
           <Button variant="secondary" size="sm" href="mailto:contact@amreet.io"
             >Email me</Button
           >
-          <Button variant="secondary" size="sm" href="/cv.pdf"
-            >Download CV</Button
+          <Button
+            variant="secondary"
+            size="sm"
+            href={resumeLink}
+            target="_blank">Download CV</Button
           >
         </div>
       </div>

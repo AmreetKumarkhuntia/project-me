@@ -11,7 +11,12 @@
 </script>
 
 {#if href}
-  <a {href} class="btn btn-{variant} btn-{size}" on:click={handleClick}>
+  <a
+    {href}
+    class="btn btn-{variant} btn-{size}"
+    on:click={handleClick}
+    {...$$restProps}
+  >
     <slot />
   </a>
 {:else}

@@ -21,6 +21,8 @@ export const twitterLink = "https://x.com/amreetsgto321";
 
 export const discordLink = "https://discord.gg/F76YrsB";
 
+export const resumeLink = "/resume.pdf";
+
 export const contactLinks: { link: string; imgSrc: string; title: string }[] = [
   {
     link: linkedInLink,
