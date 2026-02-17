@@ -10,8 +10,7 @@
       <!-- Brand Column -->
       <div class="brand-col">
         <div class="brand-header">
-          <BoltIcon size={24} color="var(--color-primary)" />
-          <h3 class="brand-title">{footer.brand.title}</h3>
+          <span class="amreet-logo-text">{footer.brand.title}</span>
         </div>
         <p class="brand-desc">{footer.brand.description}</p>
         <div class="cta-buttons">
