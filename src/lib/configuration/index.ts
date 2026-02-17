@@ -1,4 +1,3 @@
-import type { Source } from "$generated/types";
 import {
   discord,
   github,
@@ -52,20 +51,5 @@ export const contactLinks: { link: string; imgSrc: string; title: string }[] = [
     link: instaLink,
     imgSrc: instagram,
     title: "Instagram",
-  },
-];
-
-export const talentItems: { id: Source; label: string }[] = [
-  {
-    id: "spotify",
-    label: "Production Skills",
-  },
-  {
-    id: "github",
-    label: "Tech Skills",
-  },
-  {
-    id: "games",
-    label: "Gaming Skills",
   },
 ];

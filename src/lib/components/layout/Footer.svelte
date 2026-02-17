@@ -101,14 +101,6 @@
     gap: var(--space-3);
   }
 
-  .brand-title {
-    font-family: var(--font-secondary);
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-primary);
-    margin: 0;
-  }
-
   .brand-desc {
     font-family: var(--font-primary);
     font-size: var(--font-size-sm);
