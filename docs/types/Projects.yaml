@@ -29,6 +29,8 @@ Projects:
       - purescript
       - yaml
       - bash
+      - groovy
+      - sql
 
   # dont know if correct have to validate afterwards
   Framework:
@@ -67,6 +69,7 @@ Projects:
       - flask-admin
       - quasar
       - blazor
+      - nodejs
 
   Tool:
     type: string
@@ -75,6 +78,14 @@ Projects:
       - docker
       - kubernetes
       - aws
+      - gcp
+      - prometheus
+      - grafana
+      - kibana
+      - vector
+      - openobserve
+      - envoy
+      - squid
 
   Database:
     type: string
@@ -84,3 +95,4 @@ Projects:
       - postgresql
       - firebase
       - redis
+      - clickhouse

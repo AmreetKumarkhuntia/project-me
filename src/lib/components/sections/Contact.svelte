@@ -15,7 +15,9 @@
     </p>
 
     <div class="cta-wrapper">
-      <Button variant="primary" size="lg">{contact.ctaText}</Button>
+      <Button variant="primary" size="lg" href="mailto:amreetleo123@gmail.com"
+        >{contact.ctaText}</Button
+      >
     </div>
 
     <footer class="footer">

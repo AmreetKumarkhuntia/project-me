@@ -7,33 +7,44 @@ import type {
 import type { TechnicalCategory } from "$generated/types/Configuration.ts";
 
 export const languages: Array<Language> = [
+  "haskell",
+  "typescript",
+  "javascript",
   "c",
   "cpp",
+  "sql",
+  "groovy",
   "html",
-  "javascript",
-  "typescript",
-  "haskell",
-  "sass",
-  "yaml",
-  "bash",
+  "css",
 ];
 
 export const frameworks: Array<Framework> = [
-  "express",
   "react",
   "svelte",
-  "tailwind",
+  "express",
   "servant",
-  "next.js",
-  "material-ui",
-  "mustache",
+  "nodejs",
 ];
 
-export const tools: Array<Tool> = ["git", "docker", "kubernetes", "aws"];
+export const tools: Array<Tool> = [
+  "git",
+  "docker",
+  "kubernetes",
+  "aws",
+  "gcp",
+  "prometheus",
+  "grafana",
+  "kibana",
+  "vector",
+  "openobserve",
+  "envoy",
+  "squid",
+];
 
 export const databases: Array<Database> = [
-  "mongodb",
   "postgresql",
+  "clickhouse",
+  "mongodb",
   "mysql",
   "redis",
 ];
@@ -44,14 +55,14 @@ export const technicalInventory: Array<TechnicalCategory> = [
     icon: "cpu",
     items: [
       {
-        title: "Golang / Rust",
-        badge: "Primary",
-        desc: "Used for high-performance microservices and CLI tooling.",
+        title: "Haskell / Purescript",
+        badge: "Functional",
+        desc: "Strongly typed functional programming for reliable systems.",
       },
       {
-        title: "Node.js (TS)",
+        title: "TypeScript / Node.js",
         badge: "API Layer",
-        desc: "Rapid prototyping and I/O intensive BFF layers.",
+        desc: "Versatile language for both frontend and backend development.",
       },
     ],
   },
@@ -62,12 +73,12 @@ export const technicalInventory: Array<TechnicalCategory> = [
       {
         title: "PostgreSQL",
         badge: "Relational",
-        desc: "Optimized for high-concurrency write-heavy workloads.",
+        desc: "Primary relational database for structured data.",
       },
       {
-        title: "Redis / Scylla",
-        badge: "Distributed",
-        desc: "Caching and highly-available partitioned storage.",
+        title: "ClickHouse",
+        badge: "Analytics",
+        desc: "High-performance columnar database for real-time analytics.",
       },
     ],
   },
@@ -76,14 +87,14 @@ export const technicalInventory: Array<TechnicalCategory> = [
     icon: "cloud",
     items: [
       {
-        title: "K8s / Terraform",
-        badge: "Automation",
-        desc: "Declarative infrastructure and orchestration as standard.",
+        title: "Kubernetes / Docker",
+        badge: "Containerization",
+        desc: "Orchestration and containerization for scalable deployments.",
       },
       {
         title: "AWS / GCP",
-        badge: "Cloud Native",
-        desc: "Multi-cloud deployments with strict IAM and VPC isolation.",
+        badge: "Cloud",
+        desc: "Experience with major cloud providers for hosting and services.",
       },
     ],
   },
