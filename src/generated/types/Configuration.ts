@@ -27,6 +27,11 @@ export type TechnicalCategory = {
    * @memberof TechnicalCategory
    */
   items: TechnicalItem[];
+  /**
+   * @type { string[] }
+   * @memberof TechnicalCategory
+   */
+  chips: string[] | null;
 };
 
 export function decodeTechnicalCategory(
@@ -36,6 +41,7 @@ export function decodeTechnicalCategory(
     const decodedTitle = decodeString(rawInput["title"]);
     const decodedIcon = decodeIconEnum(rawInput["icon"]);
     const decodedItems = decodeArray(rawInput["items"], decodeTechnicalItem);
+    const decodedChips = decodeArray(rawInput["chips"], decodeString);
 
     if (
       decodedTitle === null ||
@@ -49,6 +55,7 @@ export function decodeTechnicalCategory(
       title: decodedTitle,
       icon: decodedIcon,
       items: decodedItems,
+      chips: decodedChips,
     };
   }
   return null;
@@ -57,13 +64,22 @@ export function decodeTechnicalCategory(
 /**
  * @type { IconEnum }
  */
-export type IconEnum = "cpu" | "database" | "cloud";
+export type IconEnum =
+  | "cpu"
+  | "database"
+  | "cloud"
+  | "network"
+  | "testing"
+  | "cicd";
 
 export function decodeIconEnum(rawInput: unknown): IconEnum | null {
   switch (rawInput) {
     case "cpu":
     case "database":
     case "cloud":
+    case "network":
+    case "testing":
+    case "cicd":
       return rawInput;
   }
   return null;
@@ -74,6 +90,9 @@ export function _decodeIconEnum(rawInput: unknown): IconEnum | undefined {
     case "cpu":
     case "database":
     case "cloud":
+    case "network":
+    case "testing":
+    case "cicd":
       return rawInput;
   }
   return;
