@@ -24,7 +24,7 @@ export const footer: FooterConfig = {
   metrics: [
     { label: "LATENCY", value: "14MS" },
     { label: "UPTIME", value: "99.99%" },
-    { label: "LOCATION", value: "GLOBAL / REMOTE" },
+    { label: "LOCATION", value: "BENGALURU, INDIA" },
   ],
   copyright: "MADE BY AMREET KUMAR KHUNTIA. © 2026",
 };

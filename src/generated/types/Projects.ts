@@ -48,7 +48,9 @@ export type Language =
   | "html"
   | "purescript"
   | "yaml"
-  | "bash";
+  | "bash"
+  | "groovy"
+  | "sql";
 
 export function decodeLanguage(rawInput: unknown): Language | null {
   switch (rawInput) {
@@ -72,6 +74,8 @@ export function decodeLanguage(rawInput: unknown): Language | null {
     case "purescript":
     case "yaml":
     case "bash":
+    case "groovy":
+    case "sql":
       return rawInput;
   }
   return null;
@@ -99,6 +103,8 @@ export function _decodeLanguage(rawInput: unknown): Language | undefined {
     case "purescript":
     case "yaml":
     case "bash":
+    case "groovy":
+    case "sql":
       return rawInput;
   }
   return;
@@ -140,7 +146,8 @@ export type Framework =
   | "nuxt3"
   | "flask-admin"
   | "quasar"
-  | "blazor";
+  | "blazor"
+  | "nodejs";
 
 export function decodeFramework(rawInput: unknown): Framework | null {
   switch (rawInput) {
@@ -177,6 +184,7 @@ export function decodeFramework(rawInput: unknown): Framework | null {
     case "flask-admin":
     case "quasar":
     case "blazor":
+    case "nodejs":
       return rawInput;
   }
   return null;
@@ -217,6 +225,7 @@ export function _decodeFramework(rawInput: unknown): Framework | undefined {
     case "flask-admin":
     case "quasar":
     case "blazor":
+    case "nodejs":
       return rawInput;
   }
   return;
@@ -225,7 +234,19 @@ export function _decodeFramework(rawInput: unknown): Framework | undefined {
 /**
  * @type { Tool }
  */
-export type Tool = "git" | "docker" | "kubernetes" | "aws";
+export type Tool =
+  | "git"
+  | "docker"
+  | "kubernetes"
+  | "aws"
+  | "gcp"
+  | "prometheus"
+  | "grafana"
+  | "kibana"
+  | "vector"
+  | "openobserve"
+  | "envoy"
+  | "squid";
 
 export function decodeTool(rawInput: unknown): Tool | null {
   switch (rawInput) {
@@ -233,6 +254,14 @@ export function decodeTool(rawInput: unknown): Tool | null {
     case "docker":
     case "kubernetes":
     case "aws":
+    case "gcp":
+    case "prometheus":
+    case "grafana":
+    case "kibana":
+    case "vector":
+    case "openobserve":
+    case "envoy":
+    case "squid":
       return rawInput;
   }
   return null;
@@ -244,6 +273,14 @@ export function _decodeTool(rawInput: unknown): Tool | undefined {
     case "docker":
     case "kubernetes":
     case "aws":
+    case "gcp":
+    case "prometheus":
+    case "grafana":
+    case "kibana":
+    case "vector":
+    case "openobserve":
+    case "envoy":
+    case "squid":
       return rawInput;
   }
   return;
@@ -257,7 +294,8 @@ export type Database =
   | "mysql"
   | "postgresql"
   | "firebase"
-  | "redis";
+  | "redis"
+  | "clickhouse";
 
 export function decodeDatabase(rawInput: unknown): Database | null {
   switch (rawInput) {
@@ -266,6 +304,7 @@ export function decodeDatabase(rawInput: unknown): Database | null {
     case "postgresql":
     case "firebase":
     case "redis":
+    case "clickhouse":
       return rawInput;
   }
   return null;
@@ -278,6 +317,7 @@ export function _decodeDatabase(rawInput: unknown): Database | undefined {
     case "postgresql":
     case "firebase":
     case "redis":
+    case "clickhouse":
       return rawInput;
   }
   return;

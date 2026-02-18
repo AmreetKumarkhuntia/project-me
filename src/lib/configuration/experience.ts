@@ -2,27 +2,19 @@ import type { ExperienceItem } from "$generated/types/Configuration";
 
 export const experience: ExperienceItem[] = [
   {
-    role: "Staff Systems Engineer",
-    company: "Verity Cloud Solutions",
-    period: "2021 — PRESENT",
+    role: "Software Engineer",
+    company: "Juspay",
+    period: "Aug 2024 - Current",
     description:
-      "Leading the core infrastructure team in migrating from monolithic EC2 instances to a fully managed EKS environment. Championing observability initiatives that reduced MTTD by 60%.",
-    scaleImpact: "Reduced cloud spend by 40% through ARM64 migration",
+      "Led migration of 11 services from AWS EKS to GCP GKE, cutting costs by 20% and improving uptime to 99.99%. Designed centralized monitoring reducing MTTR by 40%. Engineered logging system for 1M+ daily logs.",
+    scaleImpact: "Mentored 10 junior engineers, automated CI/CD",
   },
   {
-    role: "Senior Backend Engineer",
-    company: "DataPulse Analytics",
-    period: "2018 — 2021",
+    role: "Software Engineer Intern",
+    company: "Juspay",
+    period: "Jan 2024 - Jul 2024",
     description:
-      "Designed and maintained high-throughput data ingestion pipelines. Optimized PostgreSQL queries to handle 100TB+ datasets with sub-second response times.",
-    scaleImpact: "Handled 50k req/s during data ingestion peaks",
-  },
-  {
-    role: "Distributed Systems Engineer",
-    company: "ProtoScale",
-    period: "2015 — 2018",
-    description:
-      "Contributed to the development of a custom real-time messaging protocol. Focused on consensus algorithms and failure recovery strategies.",
-    scaleImpact: "Built system supporting 10M concurrent users",
+      "Drove 75% reduction in RTO for 30k+ monthly orders via address validation service. Set up AWS anomaly detection cutting alert fatigue by 30%.",
+    scaleImpact: "Boosted address accuracy by 60%",
   },
 ];

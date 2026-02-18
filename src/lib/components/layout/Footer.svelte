@@ -15,8 +15,10 @@
         </div>
         <p class="brand-desc">{footer.brand.description}</p>
         <div class="cta-buttons">
-          <Button variant="secondary" size="sm" href="mailto:contact@amreet.io"
-            >Email me</Button
+          <Button
+            variant="secondary"
+            size="sm"
+            href="mailto:amreetleo123@gmail.com">Email me</Button
           >
           <Button
             variant="secondary"
