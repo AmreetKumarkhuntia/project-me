@@ -10,10 +10,17 @@ Configuration:
           - cpu
           - database
           - cloud
+          - network
+          - testing
+          - cicd
       items:
         type: array
         items:
           $ref: "./docs/types/Configuration.yaml#/Configuration/TechnicalItem"
+      chips:
+        type: array
+        items:
+          type: string
     required:
       - title
       - icon

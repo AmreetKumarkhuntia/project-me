@@ -65,6 +65,14 @@ export const technicalInventory: Array<TechnicalCategory> = [
         desc: "Versatile language for both frontend and backend development.",
       },
     ],
+    chips: [
+      "Haskell",
+      "PureScript",
+      "TypeScript",
+      "Node.js",
+      "Express",
+      "Servant",
+    ],
   },
   {
     title: "PERSISTENCE",
@@ -81,6 +89,7 @@ export const technicalInventory: Array<TechnicalCategory> = [
         desc: "High-performance columnar database for real-time analytics.",
       },
     ],
+    chips: ["PostgreSQL", "ClickHouse", "MongoDB", "MySQL", "Redis"],
   },
   {
     title: "INFRASTRUCTURE",
@@ -97,5 +106,32 @@ export const technicalInventory: Array<TechnicalCategory> = [
         desc: "Experience with major cloud providers for hosting and services.",
       },
     ],
+    chips: [
+      "Kubernetes",
+      "Docker",
+      "AWS",
+      "GCP",
+      "Prometheus",
+      "Grafana",
+      "Envoy",
+    ],
+  },
+  {
+    title: "NETWORK",
+    icon: "network",
+    items: [],
+    chips: ["Envoy", "Squid", "gRPC", "Istio", "eBPF", "OpenTelemetry"],
+  },
+  {
+    title: "OBSERVABILITY",
+    icon: "testing",
+    items: [],
+    chips: ["Prometheus", "Grafana", "Kibana", "Vector", "OpenObserve", "K6"],
+  },
+  {
+    title: "CI / CD",
+    icon: "cicd",
+    items: [],
+    chips: ["GitHub Actions", "ArgoCD", "Helm", "Kaniko", "Docker Compose"],
   },
 ];

@@ -45,5 +45,14 @@
     text-transform: none; /* Ensure it doesn't inherit uppercase if set elsewhere */
     letter-spacing: normal;
     font-weight: normal;
+    transition:
+      border-color 0.2s ease,
+      color 0.2s ease;
+    cursor: default;
+  }
+
+  .badge.tech:hover {
+    border-color: var(--color-border-primary);
+    color: var(--color-text-primary);
   }
 </style>
