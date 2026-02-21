@@ -192,9 +192,97 @@ export function decodeHomeConfig(rawInput: unknown): HomeConfig | null {
 }
 
 /**
+ * @type { DetailedSection }
+ */
+export type DetailedSection = {
+  /**
+   * @type { string }
+   * @memberof DetailedSection
+   */
+  id: string;
+  /**
+   * @type { string }
+   * @memberof DetailedSection
+   */
+  title: string;
+  /**
+   * @type { string }
+   * @memberof DetailedSection
+   */
+  content: string;
+  /**
+   * @type { string }
+   * @memberof DetailedSection
+   */
+  keyContribution: string | null;
+};
+
+export function decodeDetailedSection(
+  rawInput: unknown,
+): DetailedSection | null {
+  if (isJSON(rawInput)) {
+    const decodedId = decodeString(rawInput["id"]);
+    const decodedTitle = decodeString(rawInput["title"]);
+    const decodedContent = decodeString(rawInput["content"]);
+    const decodedKeyContribution = decodeString(rawInput["keyContribution"]);
+
+    if (
+      decodedId === null ||
+      decodedTitle === null ||
+      decodedContent === null
+    ) {
+      return null;
+    }
+
+    return {
+      id: decodedId,
+      title: decodedTitle,
+      content: decodedContent,
+      keyContribution: decodedKeyContribution,
+    };
+  }
+  return null;
+}
+
+/**
  * @type { ProjectItem }
  */
 export type ProjectItem = {
+  /**
+   * @type { string }
+   * @memberof ProjectItem
+   */
+  id: string;
+  /**
+   * @type { string }
+   * @memberof ProjectItem
+   */
+  subTitle: string | null;
+  /**
+   * @type { string }
+   * @memberof ProjectItem
+   */
+  category: string | null;
+  /**
+   * @type { string }
+   * @memberof ProjectItem
+   */
+  fullDescription: string | null;
+  /**
+   * @type { SocialsItem[] }
+   * @memberof ProjectItem
+   */
+  links: SocialsItem[] | null;
+  /**
+   * @type { MetricsItem[] }
+   * @memberof ProjectItem
+   */
+  stats: MetricsItem[] | null;
+  /**
+   * @type { DetailedSection[] }
+   * @memberof ProjectItem
+   */
+  detailedSections: DetailedSection[] | null;
   /**
    * @type { string }
    * @memberof ProjectItem
@@ -229,6 +317,16 @@ export type ProjectItem = {
 
 export function decodeProjectItem(rawInput: unknown): ProjectItem | null {
   if (isJSON(rawInput)) {
+    const decodedId = decodeString(rawInput["id"]);
+    const decodedSubTitle = decodeString(rawInput["subTitle"]);
+    const decodedCategory = decodeString(rawInput["category"]);
+    const decodedFullDescription = decodeString(rawInput["fullDescription"]);
+    const decodedLinks = decodeArray(rawInput["links"], decodeSocialsItem);
+    const decodedStats = decodeArray(rawInput["stats"], decodeMetricsItem);
+    const decodedDetailedSections = decodeArray(
+      rawInput["detailedSections"],
+      decodeDetailedSection,
+    );
     const decodedTitle = decodeString(rawInput["title"]);
     const decodedTags = decodeArray(rawInput["tags"], decodeString);
     const decodedProblem = decodeProjectItemProblem(rawInput["problem"]);
@@ -241,6 +339,7 @@ export function decodeProjectItem(rawInput: unknown): ProjectItem | null {
     );
 
     if (
+      decodedId === null ||
       decodedTitle === null ||
       decodedTags === null ||
       decodedProblem === null ||
@@ -252,6 +351,13 @@ export function decodeProjectItem(rawInput: unknown): ProjectItem | null {
     }
 
     return {
+      id: decodedId,
+      subTitle: decodedSubTitle,
+      category: decodedCategory,
+      fullDescription: decodedFullDescription,
+      links: decodedLinks,
+      stats: decodedStats,
+      detailedSections: decodedDetailedSections,
       title: decodedTitle,
       tags: decodedTags,
       problem: decodedProblem,

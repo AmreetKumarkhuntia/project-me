@@ -120,18 +120,25 @@ export const technicalInventory: Array<TechnicalCategory> = [
     title: "NETWORK",
     icon: "network",
     items: [],
-    chips: ["Envoy", "Squid", "gRPC", "Istio", "eBPF", "OpenTelemetry"],
+    chips: ["Envoy", "Squid", "gRPC", "Istio", "OpenTelemetry"],
   },
   {
     title: "OBSERVABILITY",
     icon: "testing",
     items: [],
-    chips: ["Prometheus", "Grafana", "Kibana", "Vector", "OpenObserve", "K6"],
+    chips: [
+      "Prometheus",
+      "Grafana",
+      "Kibana",
+      "Vector",
+      "OpenObserve",
+      "Kiali",
+    ],
   },
   {
     title: "CI / CD",
     icon: "cicd",
     items: [],
-    chips: ["GitHub Actions", "ArgoCD", "Helm", "Kaniko", "Docker Compose"],
+    chips: ["GitHub Actions", "ArgoCD", "Helm", "Docker Compose"],
   },
 ];

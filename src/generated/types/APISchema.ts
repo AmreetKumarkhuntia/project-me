@@ -4,11 +4,11 @@ import {
   _decodeString,
   decodeNumber,
   _decodeNumber,
+  decodeUnknown,
   decodeBoolean,
   _decodeBoolean,
   decodeArray,
   _decodeArray,
-  decodeUnknown,
 } from "type-decoder";
 
 /**

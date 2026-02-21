@@ -56,9 +56,45 @@ Configuration:
       - linkSize
       - constantAvatarLazyLoaderDelay
 
+  DetailedSection:
+    type: object
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      content:
+        type: string
+      keyContribution:
+        type: string
+    required:
+      - id
+      - title
+      - content
+
   ProjectItem:
     type: object
     properties:
+      id:
+        type: string
+      subTitle:
+        type: string
+      category:
+        type: string
+      fullDescription:
+        type: string
+      links:
+        type: array
+        items:
+          $ref: "./docs/types/Configuration.yaml#/Configuration/SocialsItem"
+      stats:
+        type: array
+        items:
+          $ref: "./docs/types/Configuration.yaml#/Configuration/MetricsItem"
+      detailedSections:
+        type: array
+        items:
+          $ref: "./docs/types/Configuration.yaml#/Configuration/DetailedSection"
       title:
         type: string
       tags:
@@ -129,6 +165,7 @@ Configuration:
           - controlPlane
           - dataPlane
     required:
+      - id
       - title
       - tags
       - problem
