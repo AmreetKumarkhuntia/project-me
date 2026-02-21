@@ -58,7 +58,7 @@
     "marked": "^15.0.7",
     "marked-highlight": "^2.2.1",
     "nodemailer": "^6.9.16",
-    "type-decoder": "^2.0.1",
+    "type-decoder": "^2.3.0",
     "vergins": "3.6.10"
   }
 }
