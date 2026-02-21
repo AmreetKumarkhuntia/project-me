@@ -6,7 +6,77 @@ import {
   _decodeArray,
   decodeNumber,
   _decodeNumber,
+  decodeBoolean,
+  _decodeBoolean,
 } from "type-decoder";
+
+/**
+ * @type { StackGroup }
+ */
+export type StackGroup = {
+  /**
+   * @type { string }
+   * @memberof StackGroup
+   */
+  label: string;
+  /**
+   * @type { string[] }
+   * @memberof StackGroup
+   */
+  items: string[];
+};
+
+export function decodeStackGroup(rawInput: unknown): StackGroup | null {
+  if (isJSON(rawInput)) {
+    const decodedLabel = decodeString(rawInput["label"]);
+    const decodedItems = decodeArray(rawInput["items"], decodeString);
+
+    if (decodedLabel === null || decodedItems === null) {
+      return null;
+    }
+
+    return {
+      label: decodedLabel,
+      items: decodedItems,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { EngineeringStack }
+ */
+export type EngineeringStack = {
+  /**
+   * @type { string }
+   * @memberof EngineeringStack
+   */
+  subtitle: string;
+  /**
+   * @type { StackGroup[] }
+   * @memberof EngineeringStack
+   */
+  groups: StackGroup[];
+};
+
+export function decodeEngineeringStack(
+  rawInput: unknown,
+): EngineeringStack | null {
+  if (isJSON(rawInput)) {
+    const decodedSubtitle = decodeString(rawInput["subtitle"]);
+    const decodedGroups = decodeArray(rawInput["groups"], decodeStackGroup);
+
+    if (decodedSubtitle === null || decodedGroups === null) {
+      return null;
+    }
+
+    return {
+      subtitle: decodedSubtitle,
+      groups: decodedGroups,
+    };
+  }
+  return null;
+}
 
 /**
  * @type { TechnicalCategory }
@@ -299,6 +369,11 @@ export type ProjectItem = {
    */
   problem: ProjectItemProblem;
   /**
+   * @type { TechnicalDecision[] }
+   * @memberof ProjectItem
+   */
+  technicalDecisions: TechnicalDecision[] | null;
+  /**
    * @type { ProjectItemEngineering }
    * @memberof ProjectItem
    */
@@ -313,6 +388,11 @@ export type ProjectItem = {
    * @memberof ProjectItem
    */
   architecture: ProjectItemArchitecture;
+  /**
+   * @type { EngineeringStack }
+   * @memberof ProjectItem
+   */
+  engineeringStack: EngineeringStack | null;
 };
 
 export function decodeProjectItem(rawInput: unknown): ProjectItem | null {
@@ -330,12 +410,19 @@ export function decodeProjectItem(rawInput: unknown): ProjectItem | null {
     const decodedTitle = decodeString(rawInput["title"]);
     const decodedTags = decodeArray(rawInput["tags"], decodeString);
     const decodedProblem = decodeProjectItemProblem(rawInput["problem"]);
+    const decodedTechnicalDecisions = decodeArray(
+      rawInput["technicalDecisions"],
+      decodeTechnicalDecision,
+    );
     const decodedEngineering = decodeProjectItemEngineering(
       rawInput["engineering"],
     );
     const decodedImpact = decodeProjectItemImpact(rawInput["impact"]);
     const decodedArchitecture = decodeProjectItemArchitecture(
       rawInput["architecture"],
+    );
+    const decodedEngineeringStack = decodeEngineeringStack(
+      rawInput["engineeringStack"],
     );
 
     if (
@@ -361,9 +448,11 @@ export function decodeProjectItem(rawInput: unknown): ProjectItem | null {
       title: decodedTitle,
       tags: decodedTags,
       problem: decodedProblem,
+      technicalDecisions: decodedTechnicalDecisions,
       engineering: decodedEngineering,
       impact: decodedImpact,
       architecture: decodedArchitecture,
+      engineeringStack: decodedEngineeringStack,
     };
   }
   return null;
@@ -1000,6 +1089,90 @@ export function decodeFooterConfigBrand(
     return {
       title: decodedTitle,
       description: decodedDescription,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { TechnicalDecisionOption }
+ */
+export type TechnicalDecisionOption = {
+  /**
+   * @type { string }
+   * @memberof TechnicalDecisionOption
+   */
+  label: string;
+  /**
+   * @type { boolean }
+   * @memberof TechnicalDecisionOption
+   */
+  isChosen: boolean;
+};
+
+export function decodeTechnicalDecisionOption(
+  rawInput: unknown,
+): TechnicalDecisionOption | null {
+  if (isJSON(rawInput)) {
+    const decodedLabel = decodeString(rawInput["label"]);
+    const decodedIsChosen = decodeBoolean(rawInput["isChosen"]);
+
+    if (decodedLabel === null || decodedIsChosen === null) {
+      return null;
+    }
+
+    return {
+      label: decodedLabel,
+      isChosen: decodedIsChosen,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { TechnicalDecision }
+ */
+export type TechnicalDecision = {
+  /**
+   * @type { string }
+   * @memberof TechnicalDecision
+   */
+  title: string;
+  /**
+   * @type { TechnicalDecisionOption[] }
+   * @memberof TechnicalDecision
+   */
+  options: TechnicalDecisionOption[];
+  /**
+   * @type { string }
+   * @memberof TechnicalDecision
+   */
+  rationale: string;
+};
+
+export function decodeTechnicalDecision(
+  rawInput: unknown,
+): TechnicalDecision | null {
+  if (isJSON(rawInput)) {
+    const decodedTitle = decodeString(rawInput["title"]);
+    const decodedOptions = decodeArray(
+      rawInput["options"],
+      decodeTechnicalDecisionOption,
+    );
+    const decodedRationale = decodeString(rawInput["rationale"]);
+
+    if (
+      decodedTitle === null ||
+      decodedOptions === null ||
+      decodedRationale === null
+    ) {
+      return null;
+    }
+
+    return {
+      title: decodedTitle,
+      options: decodedOptions,
+      rationale: decodedRationale,
     };
   }
   return null;
