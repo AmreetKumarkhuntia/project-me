@@ -36,6 +36,8 @@ export const projects: ProjectItem[] = [
         nodes: ["Kokoro TTS", "Local Tools"],
       },
     },
+    technicalDecisions: null,
+    engineeringStack: null,
   },
   {
     id: "lilac",
@@ -72,6 +74,8 @@ export const projects: ProjectItem[] = [
         nodes: ["Console", "File", "Remote"],
       },
     },
+    technicalDecisions: null,
+    engineeringStack: null,
   },
   {
     id: "vernix",
@@ -108,6 +112,8 @@ export const projects: ProjectItem[] = [
         nodes: ["SvelteKit", "Vite"],
       },
     },
+    technicalDecisions: null,
+    engineeringStack: null,
   },
   {
     id: "hospital-api",
@@ -144,6 +150,8 @@ export const projects: ProjectItem[] = [
         nodes: ["Database", "Cache"],
       },
     },
+    technicalDecisions: null,
+    engineeringStack: null,
   },
   {
     id: "aegis-mesh",
@@ -151,6 +159,17 @@ export const projects: ProjectItem[] = [
     subTitle: "Global Edge Architecture.",
     category: "INFRASTRUCTURE & DISTRIBUTED SYSTEMS",
     tags: ["Rust", "CDN", "Edge"],
+    engineeringStack: {
+      subtitle: "Core technologies selected for performance, safety, and reliability.",
+      groups: [
+        { label: "THE ENGINE", items: ["Rust", "Go", "Tokio", "gRPC", "WebAssembly"] },
+        { label: "DATA & STORAGE", items: ["Redis", "PostgreSQL", "ScyllaDB", "S3", "RocksDB"] },
+        { label: "INFRA & OPS", items: ["Kubernetes", "Terraform", "Istio", "Prometheus", "Datadog"] },
+        { label: "NETWORK", items: ["eBPF", "Envoy", "QUIC", "TLS 1.3", "Anycast"] },
+        { label: "TESTING", items: ["K6", "Jepsen", "Chaos Mesh", "Unit Testing"] },
+        { label: "CI/CD", items: ["GitHub Actions", "ArgoCD", "Helm", "Kaniko"] },
+      ],
+    },
     fullDescription:
       "Replacing legacy CDN infrastructure with a custom-built, Rust-powered edge-caching layer that reduced cold-start latency by 64% for 12M global users.",
     links: [
@@ -229,5 +248,34 @@ export const projects: ProjectItem[] = [
         nodes: ["Edge Nodes", "Cache"],
       },
     },
+    technicalDecisions: [
+      {
+        title: "Core Runtime Language",
+        options: [
+          { label: "Go (Standard)", isChosen: false },
+          { label: "Rust (Aegis-Core)", isChosen: true },
+        ],
+        rationale:
+          "We required zero-garbage-collection to maintain consistent P99 latency. Rust's memory safety and performance at the network level were non-negotiable for the Edge nodes.",
+      },
+      {
+        title: "Global State Store",
+        options: [
+          { label: "Etcd", isChosen: false },
+          { label: "ScyllaDB", isChosen: true },
+        ],
+        rationale:
+          "For metadata propagation across 40+ regions, ScyllaDB provided superior throughput and lower cross-region replication lag compared to the consensus-heavy nature of Etcd.",
+      },
+      {
+        title: "Inter-service Communication",
+        options: [
+          { label: "JSON / REST", isChosen: false },
+          { label: "Protobuf / gRPC", isChosen: true },
+        ],
+        rationale:
+          "Internal bandwidth costs and parsing overhead necessitated a binary protocol. gRPC reduced our payload sizes by 45% and enabled streaming telemetry.",
+      },
+    ],
   },
 ];

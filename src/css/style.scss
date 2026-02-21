@@ -168,6 +168,7 @@
   --container-lg: 1024px;
   --container-xl: 1280px;
   --container-2xl: 1536px;
+  --layout-max-width: 1400px;
 
   /* Responsive Breakpoints (for reference) */
   /* sm: 640px */
@@ -508,9 +509,12 @@ button {
 
 .amreet-logo-text {
   font-family: var(--font-logo), "Road Rage", cursive;
-  font-weight: var(--font-weight-regular); /* Font seems thick by default */
-  font-size: var(--font-size-xl); /* Make it slightly larger */
-  color: var(--color-primary); /* Yellow */
+  font-weight: var(--font-weight-regular);
+  /* Font seems thick by default */
+  font-size: var(--font-size-xl);
+  /* Make it slightly larger */
+  color: var(--color-primary);
+  /* Yellow */
   letter-spacing: 0.02em;
   text-transform: capitalize;
 }

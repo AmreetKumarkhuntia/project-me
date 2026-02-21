@@ -1,4 +1,23 @@
 Configuration:
+  StackGroup:
+    type: object
+    properties:
+      label: { type: string }
+      items:
+        type: array
+        items: { type: string }
+    required: [label, items]
+
+  EngineeringStack:
+    type: object
+    properties:
+      subtitle: { type: string }
+      groups:
+        type: array
+        items:
+          $ref: "./docs/types/Configuration.yaml#/Configuration/StackGroup"
+    required: [subtitle, groups]
+
   TechnicalCategory:
     type: object
     properties:
@@ -111,6 +130,10 @@ Configuration:
         required:
           - title
           - description
+      technicalDecisions:
+        type: array
+        items:
+          $ref: "./docs/types/Configuration.yaml#/Configuration/TechnicalDecision"
       engineering:
         type: object
         properties:
@@ -164,6 +187,8 @@ Configuration:
           - title
           - controlPlane
           - dataPlane
+      engineeringStack:
+        $ref: "./docs/types/Configuration.yaml#/Configuration/EngineeringStack"
     required:
       - id
       - title
@@ -277,3 +302,21 @@ Configuration:
           $ref: "./docs/types/Configuration.yaml#/Configuration/MetricsItem"
       copyright: { type: string }
     required: [brand, navLinks, connectLinks, metrics, copyright]
+
+  TechnicalDecisionOption:
+    type: object
+    properties:
+      label: { type: string }
+      isChosen: { type: boolean }
+    required: [label, isChosen]
+
+  TechnicalDecision:
+    type: object
+    properties:
+      title: { type: string }
+      options:
+        type: array
+        items:
+          $ref: "./docs/types/Configuration.yaml#/Configuration/TechnicalDecisionOption"
+      rationale: { type: string }
+    required: [title, options, rationale]

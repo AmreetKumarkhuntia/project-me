@@ -55,8 +55,8 @@
               <span class="impact-value">{project.impact.value}</span>
               <span class="impact-desc">{project.impact.description}</span>
             </div>
-            <button class="view-project-btn"
-              >View Full Project <span class="btn-arrow">→</span></button
+            <a href="/project/{project.id}" class="view-project-btn"
+              >View Full Project <span class="btn-arrow">→</span></a
             >
           </div>
         </div>
@@ -226,6 +226,7 @@
     align-items: center;
     gap: var(--space-2);
     transition: all 0.2s;
+    text-decoration: none;
   }
 
   .view-project-btn:hover {
