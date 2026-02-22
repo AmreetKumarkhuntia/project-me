@@ -189,6 +189,10 @@ Configuration:
           - dataPlane
       engineeringStack:
         $ref: "./docs/types/Configuration.yaml#/Configuration/EngineeringStack"
+      measurableImpact:
+        $ref: "./docs/types/Configuration.yaml#/Configuration/MeasurableImpact"
+      postmortem:
+        $ref: "./docs/types/Configuration.yaml#/Configuration/Postmortem"
     required:
       - id
       - title
@@ -320,3 +324,39 @@ Configuration:
           $ref: "./docs/types/Configuration.yaml#/Configuration/TechnicalDecisionOption"
       rationale: { type: string }
     required: [title, options, rationale]
+
+  MeasurableImpactItem:
+    type: object
+    properties:
+      label: { type: string }
+      value: { type: string }
+      subValue: { type: string }
+      trend: { type: string }
+    required: [label, value, trend]
+
+  MeasurableImpact:
+    type: object
+    properties:
+      subtitle: { type: string }
+      items:
+        type: array
+        items:
+          $ref: "./docs/types/Configuration.yaml#/Configuration/MeasurableImpactItem"
+    required: [subtitle, items]
+
+  PostmortemItem:
+    type: object
+    properties:
+      title: { type: string }
+      content: { type: string }
+    required: [title, content]
+
+  Postmortem:
+    type: object
+    properties:
+      subtitle: { type: string }
+      items:
+        type: array
+        items:
+          $ref: "./docs/types/Configuration.yaml#/Configuration/PostmortemItem"
+    required: [subtitle, items]

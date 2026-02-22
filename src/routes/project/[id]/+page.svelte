@@ -3,8 +3,17 @@
   import LightningIcon from "$components/icons/LightningIcon.svelte";
   import ArrowUpRight from "$components/icons/ArrowUpRight.svelte";
   import CpuIcon from "$components/icons/CpuIcon.svelte";
-  import ShieldIcon from "$components/icons/ShieldIcon.svelte";
+  import ShieldCheckIcon from "$components/icons/ShieldCheckIcon.svelte";
+  import DocumentIcon from "$components/icons/DocumentIcon.svelte";
+  import ServerIcon from "$components/icons/ServerIcon.svelte";
+  import BarChartIcon from "$components/icons/BarChartIcon.svelte";
+  import LifebuoyIcon from "$components/icons/LifebuoyIcon.svelte";
   import TechnicalDecisions from "$components/sections/project/TechnicalDecisions.svelte";
+  import SystemArchitecture from "$components/sections/project/SystemArchitecture.svelte";
+  import MeasurableImpact from "$components/sections/project/MeasurableImpact.svelte";
+  import Postmortem from "$components/sections/project/Postmortem.svelte";
+  import EngineeringStack from "$components/sections/project/EngineeringStack.svelte";
+  import GenericSection from "$components/sections/project/GenericSection.svelte";
   import "$css/pages/project.scss";
 
   let { data }: { data: PageData } = $props();
@@ -64,7 +73,21 @@
               {#each project.detailedSections as section, i}
                 <li>
                   <a href="#{section.id}" class="index-link">
-                    <LightningIcon size={14} color="currentColor" />
+                    {#if section.id === "executive-summary"}
+                      <DocumentIcon size={14} color="currentColor" />
+                    {:else if section.id === "system-architecture"}
+                      <ServerIcon size={14} color="currentColor" />
+                    {:else if section.id === "engineering-stack"}
+                      <CpuIcon size={14} color="currentColor" />
+                    {:else if section.id === "technical-decisions"}
+                      <ShieldCheckIcon size={14} color="currentColor" />
+                    {:else if section.id === "measurable-impact"}
+                      <BarChartIcon size={14} color="currentColor" />
+                    {:else if section.id === "postmortem"}
+                      <LifebuoyIcon size={14} color="currentColor" />
+                    {:else}
+                      <LightningIcon size={14} color="currentColor" />
+                    {/if}
                     {section.title}
                   </a>
                 </li>
@@ -91,47 +114,23 @@
       {#if project.detailedSections}
         {#each project.detailedSections as section}
           <section id={section.id} class="detail-section">
-            {#if section.id !== "technical-decisions"}
-              <div class="section-header-wrapper">
-                {#if section.id === "engineering-stack"}
-                  <CpuIcon size={22} color="var(--color-primary)" />
-                {:else}
-                  <LightningIcon size={22} color="var(--color-primary)" />
-                {/if}
-                <h2>{section.title}</h2>
-              </div>
-            {/if}
-
             {#if section.id === "engineering-stack" && project.engineeringStack}
-              <p class="stack-subtitle">{project.engineeringStack.subtitle}</p>
-              <div class="stack-subtitle-line"></div>
-              <div class="stack-grid">
-                {#each project.engineeringStack.groups as group}
-                  <div class="stack-group">
-                    <p class="stack-group-label">{group.label}</p>
-                    <div class="stack-pills">
-                      {#each group.items as item}
-                        <span class="stack-pill">{item}</span>
-                      {/each}
-                    </div>
-                  </div>
-                {/each}
-              </div>
+              <EngineeringStack
+                title={section.title}
+                stack={project.engineeringStack}
+              />
             {:else if section.id === "technical-decisions" && project.technicalDecisions}
               <TechnicalDecisions
                 technicalDecisions={project.technicalDecisions}
               />
+            {:else if section.id === "system-architecture" && project.architecture}
+              <SystemArchitecture architecture={project.architecture} />
+            {:else if section.id === "measurable-impact" && project.measurableImpact}
+              <MeasurableImpact measurableImpact={project.measurableImpact} />
+            {:else if section.id === "postmortem" && project.postmortem}
+              <Postmortem postmortem={project.postmortem} />
             {:else}
-              <div class="section-content">
-                <p>{section.content}</p>
-              </div>
-
-              {#if section.keyContribution}
-                <div class="key-contribution-card">
-                  <span class="contribution-label">KEY CONTRIBUTION</span>
-                  <p class="contribution-text">{section.keyContribution}</p>
-                </div>
-              {/if}
+              <GenericSection {section} />
             {/if}
           </section>
         {/each}
