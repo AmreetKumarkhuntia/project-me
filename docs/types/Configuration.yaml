@@ -183,10 +183,12 @@ Configuration:
             required:
               - label
               - nodes
+          layers:
+            type: array
+            items:
+              $ref: "./docs/types/Configuration.yaml#/Configuration/ProjectItemArchitectureLayer"
         required:
           - title
-          - controlPlane
-          - dataPlane
       engineeringStack:
         $ref: "./docs/types/Configuration.yaml#/Configuration/EngineeringStack"
       measurableImpact:
@@ -201,6 +203,24 @@ Configuration:
       - engineering
       - impact
       - architecture
+
+  ProjectItemArchitectureLayerNode:
+    type: object
+    properties:
+      icon: { type: string }
+      label: { type: string }
+      description: { type: string }
+    required: [icon, label, description]
+
+  ProjectItemArchitectureLayer:
+    type: object
+    properties:
+      label: { type: string }
+      nodes:
+        type: array
+        items:
+          $ref: "./docs/types/Configuration.yaml#/Configuration/ProjectItemArchitectureLayerNode"
+    required: [label, nodes]
 
   GitHubConfig:
     type: object

@@ -26,6 +26,15 @@
   --color-border-secondary: rgba(255, 255, 255, 0.1);
   --color-border-subtle: rgba(255, 255, 255, 0.1);
 
+  /* System Architecture Specific Dark Themes */
+  --color-bg-panel-dark: #111111;
+  --color-bg-card-dark: #1a1a1a;
+  --color-bg-card-darker: #000000;
+  --color-border-subtle-white: rgba(255, 255, 255, 0.05);
+  --color-border-subtle-dashed: rgba(255, 255, 255, 0.1);
+  --color-text-huge-outline: #4a4a4a;
+  --color-text-muted-dark: #a0a0a0;
+
   /* Element Specific Colors */
   --color-bg-tag: rgba(255, 255, 255, 0.071);
   --color-border-tag: rgba(255, 255, 255, 0.05);

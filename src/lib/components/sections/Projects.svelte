@@ -1,5 +1,6 @@
 <script lang="ts">
-  import ArrowUpRight from "$components/icons/ArrowUpRight.svelte"; // Assuming this icon exists or I'll use a generic one/text for now if not
+  import ArrowRight from "$components/icons/ArrowRight.svelte";
+  import PackageIcon from "$components/icons/PackageIcon.svelte"; // Assuming this icon exists or I'll use a generic one/text for now if not
   import Badge from "$components/ui/Badge.svelte";
   import { projects } from "$lib/configuration/projects";
 
@@ -69,27 +70,54 @@
             </div>
 
             <div class="arch-diagram">
-              <div class="arch-box control-plane">
-                <div class="box-label">
-                  {project.architecture.controlPlane.label}
-                </div>
-                {#each project.architecture.controlPlane.items as item}
-                  <div class="box-item">
-                    ▶ {item}
-                  </div>
-                {/each}
-              </div>
-
-              <div class="arch-box data-plane">
-                <div class="box-label">
-                  {project.architecture.dataPlane.label}
-                </div>
-                <div class="nodes-container">
-                  {#each project.architecture.dataPlane.nodes as node}
-                    <div class="node">{node}</div>
+              {#if project.architecture.layers}
+                <div class="layers-container">
+                  {#each project.architecture.layers as layer, i}
+                    <div class="layer-section">
+                      <div class="layer-label">{layer.label}</div>
+                      <div class="layer-nodes">
+                        {#each layer.nodes as node}
+                          <div class="layer-node-card">
+                            <div class="node-header">
+                              <span class="node-icon-placeholder">
+                                <!-- simple SVG placeholder or mapped icon, using a generic box for now -->
+                                <PackageIcon size={16} />
+                              </span>
+                              <span class="node-title">{node.label}</span>
+                            </div>
+                            <span class="node-desc">{node.description}</span>
+                          </div>
+                        {/each}
+                      </div>
+                    </div>
+                    {#if i < project.architecture.layers.length - 1}
+                      <div class="layer-connector"></div>
+                    {/if}
                   {/each}
                 </div>
-              </div>
+              {:else if project.architecture.controlPlane && project.architecture.dataPlane}
+                <div class="arch-box control-plane">
+                  <div class="box-label">
+                    {project.architecture.controlPlane.label}
+                  </div>
+                  {#each project.architecture.controlPlane.items as item}
+                    <div class="box-item">
+                      ▶ {item}
+                    </div>
+                  {/each}
+                </div>
+
+                <div class="arch-box data-plane">
+                  <div class="box-label">
+                    {project.architecture.dataPlane.label}
+                  </div>
+                  <div class="nodes-container">
+                    {#each project.architecture.dataPlane.nodes as node}
+                      <div class="node">{node}</div>
+                    {/each}
+                  </div>
+                </div>
+              {/if}
             </div>
           </div>
         </div>
@@ -265,21 +293,25 @@
   }
 
   .arch-box {
-    border: 1px solid var(--color-border-subtle); /* Dark grey border */
+    border: 1px dashed var(--color-border-subtle-dashed);
     border-radius: var(--radius-lg);
     padding: var(--space-4);
-    background: var(--color-bg-surface-light);
-    border: 1px dashed var(--color-bg-tertiary);
+    background: var(--color-bg-panel-dark);
   }
 
   .box-label {
-    color: var(--color-primary);
+    color: var(--color-text-secondary);
     font-size: var(--font-size-xs);
     margin-bottom: var(--space-3);
+    font-family: monospace;
+  }
+
+  .box-label::before {
+    content: "// ";
   }
 
   .box-item {
-    color: var(--color-text-secondary);
+    color: var(--color-text-primary);
     font-size: var(--font-size-xs);
     margin-bottom: var(--space-1);
     display: flex;
@@ -293,18 +325,104 @@
   }
 
   .node {
-    border: 2px solid var(--color-bg-secondary);
+    border: 1px solid var(--color-border-subtle-white);
+    background: var(--color-bg-card-darker);
     padding: var(--space-2) var(--space-4);
-    border-radius: var(--radius-sm);
+    border-radius: 4px;
     font-size: var(--font-size-xs);
-    color: var(--color-text-secondary);
-    font-family: monospace;
+    color: var(--color-text-primary);
+    font-weight: 500;
     text-align: center;
     flex: 1;
   }
 
-  .data-plane {
-    background-color: var(--color-bg-quaternary);
+  /* Layered Architecture Styles */
+  .layers-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+  }
+
+  .layer-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    position: relative;
+    padding-left: var(--space-8);
+    border-left: 2px solid var(--color-primary-accent); /* Yellow line on the left */
+  }
+
+  .layer-label {
+    color: var(--color-primary);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .layer-nodes {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .layer-node-card {
+    background: var(--color-bg-card-dark); /* Darker card background */
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    min-width: 180px;
+    flex: 1;
+    border: 1px solid var(--color-border-subtle-white); /* Extremely subtle border */
+    transition:
+      background 0.2s,
+      box-shadow 0.2s,
+      border-color 0.2s;
+  }
+
+  .layer-node-card:hover {
+    background: #1e1e1e;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .node-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .node-icon-placeholder {
+    color: var(--color-primary-accent); /* yellow icon */
+    background: rgba(255, 204, 0, 0.08); /* subtle yellow background */
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .node-title {
+    color: var(--color-text-primary); /* white text for title */
+    font-weight: 700;
+    font-size: 0.95rem; /* slightly larger */
+    letter-spacing: -0.01em;
+  }
+
+  .node-desc {
+    color: var(--color-text-muted-dark); /* lighter grey */
+    font-size: var(--font-size-xs);
+    line-height: 1.4;
+  }
+
+  .layer-connector {
+    width: 2px;
+    height: 32px;
+    background-color: var(--color-primary-accent);
+    opacity: 0.15;
+    margin-left: -2px; /* align with the border-left of the section */
   }
 
   /* Responsive */

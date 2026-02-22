@@ -38,18 +38,25 @@
 }
 
 .project-title {
-  font-size: clamp(3rem, 6vw, 5.5rem);
-  line-height: var(--line-height-tight);
+  font-size: clamp(4rem, 8vw, 7rem); /* Even larger base font */
+  line-height: 0.95; /* Very tight line height */
   margin: 0 0 var(--space-6) 0;
-  font-weight: var(--font-weight-black);
-  letter-spacing: var(--letter-spacing-tight);
-  max-width: 1000px;
+  font-weight: 900; /* Black/Heaviest weight */
+  letter-spacing: -0.03em;
+  max-width: 1200px;
+  color: var(--color-text-primary); /* Explicitly white */
+  text-transform: uppercase;
 }
 
 .project-subtitle {
   display: block;
-  color: var(--color-text-muted);
-  font-weight: var(--font-weight-extrabold);
+  color: var(--color-text-huge-outline); /* Dark distinct grey */
+  font-weight: 800; /* Heavy, but slightly less than title */
+  font-size: clamp(4rem, 8vw, 7rem); /* Match title size */
+  line-height: 0.95;
+  text-transform: none; /* Subtitle has standard casing in design */
+  letter-spacing: -0.03em;
+  /* Optional: we can add structural margin if needed here */
 }
 
 .project-description {
