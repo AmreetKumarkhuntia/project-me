@@ -393,6 +393,16 @@ export type ProjectItem = {
    * @memberof ProjectItem
    */
   engineeringStack: EngineeringStack | null;
+  /**
+   * @type { MeasurableImpact }
+   * @memberof ProjectItem
+   */
+  measurableImpact: MeasurableImpact | null;
+  /**
+   * @type { Postmortem }
+   * @memberof ProjectItem
+   */
+  postmortem: Postmortem | null;
 };
 
 export function decodeProjectItem(rawInput: unknown): ProjectItem | null {
@@ -424,6 +434,10 @@ export function decodeProjectItem(rawInput: unknown): ProjectItem | null {
     const decodedEngineeringStack = decodeEngineeringStack(
       rawInput["engineeringStack"],
     );
+    const decodedMeasurableImpact = decodeMeasurableImpact(
+      rawInput["measurableImpact"],
+    );
+    const decodedPostmortem = decodePostmortem(rawInput["postmortem"]);
 
     if (
       decodedId === null ||
@@ -453,6 +467,8 @@ export function decodeProjectItem(rawInput: unknown): ProjectItem | null {
       impact: decodedImpact,
       architecture: decodedArchitecture,
       engineeringStack: decodedEngineeringStack,
+      measurableImpact: decodedMeasurableImpact,
+      postmortem: decodedPostmortem,
     };
   }
   return null;
@@ -1173,6 +1189,163 @@ export function decodeTechnicalDecision(
       title: decodedTitle,
       options: decodedOptions,
       rationale: decodedRationale,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { MeasurableImpactItem }
+ */
+export type MeasurableImpactItem = {
+  /**
+   * @type { string }
+   * @memberof MeasurableImpactItem
+   */
+  label: string;
+  /**
+   * @type { string }
+   * @memberof MeasurableImpactItem
+   */
+  value: string;
+  /**
+   * @type { string }
+   * @memberof MeasurableImpactItem
+   */
+  subValue: string | null;
+  /**
+   * @type { string }
+   * @memberof MeasurableImpactItem
+   */
+  trend: string;
+};
+
+export function decodeMeasurableImpactItem(
+  rawInput: unknown,
+): MeasurableImpactItem | null {
+  if (isJSON(rawInput)) {
+    const decodedLabel = decodeString(rawInput["label"]);
+    const decodedValue = decodeString(rawInput["value"]);
+    const decodedSubValue = decodeString(rawInput["subValue"]);
+    const decodedTrend = decodeString(rawInput["trend"]);
+
+    if (
+      decodedLabel === null ||
+      decodedValue === null ||
+      decodedTrend === null
+    ) {
+      return null;
+    }
+
+    return {
+      label: decodedLabel,
+      value: decodedValue,
+      subValue: decodedSubValue,
+      trend: decodedTrend,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { MeasurableImpact }
+ */
+export type MeasurableImpact = {
+  /**
+   * @type { string }
+   * @memberof MeasurableImpact
+   */
+  subtitle: string;
+  /**
+   * @type { MeasurableImpactItem[] }
+   * @memberof MeasurableImpact
+   */
+  items: MeasurableImpactItem[];
+};
+
+export function decodeMeasurableImpact(
+  rawInput: unknown,
+): MeasurableImpact | null {
+  if (isJSON(rawInput)) {
+    const decodedSubtitle = decodeString(rawInput["subtitle"]);
+    const decodedItems = decodeArray(
+      rawInput["items"],
+      decodeMeasurableImpactItem,
+    );
+
+    if (decodedSubtitle === null || decodedItems === null) {
+      return null;
+    }
+
+    return {
+      subtitle: decodedSubtitle,
+      items: decodedItems,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { PostmortemItem }
+ */
+export type PostmortemItem = {
+  /**
+   * @type { string }
+   * @memberof PostmortemItem
+   */
+  title: string;
+  /**
+   * @type { string }
+   * @memberof PostmortemItem
+   */
+  content: string;
+};
+
+export function decodePostmortemItem(rawInput: unknown): PostmortemItem | null {
+  if (isJSON(rawInput)) {
+    const decodedTitle = decodeString(rawInput["title"]);
+    const decodedContent = decodeString(rawInput["content"]);
+
+    if (decodedTitle === null || decodedContent === null) {
+      return null;
+    }
+
+    return {
+      title: decodedTitle,
+      content: decodedContent,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { Postmortem }
+ */
+export type Postmortem = {
+  /**
+   * @type { string }
+   * @memberof Postmortem
+   */
+  subtitle: string;
+  /**
+   * @type { PostmortemItem[] }
+   * @memberof Postmortem
+   */
+  items: PostmortemItem[];
+};
+
+export function decodePostmortem(rawInput: unknown): Postmortem | null {
+  if (isJSON(rawInput)) {
+    const decodedSubtitle = decodeString(rawInput["subtitle"]);
+    const decodedItems = decodeArray(rawInput["items"], decodePostmortemItem);
+
+    if (decodedSubtitle === null || decodedItems === null) {
+      return null;
+    }
+
+    return {
+      subtitle: decodedSubtitle,
+      items: decodedItems,
     };
   }
   return null;

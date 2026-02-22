@@ -38,6 +38,8 @@ export const projects: ProjectItem[] = [
     },
     technicalDecisions: null,
     engineeringStack: null,
+    measurableImpact: null,
+    postmortem: null,
   },
   {
     id: "lilac",
@@ -76,6 +78,8 @@ export const projects: ProjectItem[] = [
     },
     technicalDecisions: null,
     engineeringStack: null,
+    measurableImpact: null,
+    postmortem: null,
   },
   {
     id: "vernix",
@@ -114,6 +118,8 @@ export const projects: ProjectItem[] = [
     },
     technicalDecisions: null,
     engineeringStack: null,
+    measurableImpact: null,
+    postmortem: null,
   },
   {
     id: "hospital-api",
@@ -152,6 +158,8 @@ export const projects: ProjectItem[] = [
     },
     technicalDecisions: null,
     engineeringStack: null,
+    measurableImpact: null,
+    postmortem: null,
   },
   {
     id: "aegis-mesh",
@@ -160,14 +168,33 @@ export const projects: ProjectItem[] = [
     category: "INFRASTRUCTURE & DISTRIBUTED SYSTEMS",
     tags: ["Rust", "CDN", "Edge"],
     engineeringStack: {
-      subtitle: "Core technologies selected for performance, safety, and reliability.",
+      subtitle:
+        "Core technologies selected for performance, safety, and reliability.",
       groups: [
-        { label: "THE ENGINE", items: ["Rust", "Go", "Tokio", "gRPC", "WebAssembly"] },
-        { label: "DATA & STORAGE", items: ["Redis", "PostgreSQL", "ScyllaDB", "S3", "RocksDB"] },
-        { label: "INFRA & OPS", items: ["Kubernetes", "Terraform", "Istio", "Prometheus", "Datadog"] },
-        { label: "NETWORK", items: ["eBPF", "Envoy", "QUIC", "TLS 1.3", "Anycast"] },
-        { label: "TESTING", items: ["K6", "Jepsen", "Chaos Mesh", "Unit Testing"] },
-        { label: "CI/CD", items: ["GitHub Actions", "ArgoCD", "Helm", "Kaniko"] },
+        {
+          label: "THE ENGINE",
+          items: ["Rust", "Go", "Tokio", "gRPC", "WebAssembly"],
+        },
+        {
+          label: "DATA & STORAGE",
+          items: ["Redis", "PostgreSQL", "ScyllaDB", "S3", "RocksDB"],
+        },
+        {
+          label: "INFRA & OPS",
+          items: ["Kubernetes", "Terraform", "Istio", "Prometheus", "Datadog"],
+        },
+        {
+          label: "NETWORK",
+          items: ["eBPF", "Envoy", "QUIC", "TLS 1.3", "Anycast"],
+        },
+        {
+          label: "TESTING",
+          items: ["K6", "Jepsen", "Chaos Mesh", "Unit Testing"],
+        },
+        {
+          label: "CI/CD",
+          items: ["GitHub Actions", "ArgoCD", "Helm", "Kaniko"],
+        },
       ],
     },
     fullDescription:
@@ -211,10 +238,9 @@ export const projects: ProjectItem[] = [
         keyContribution: null,
       },
       {
-        id: "performance-metrics",
-        title: "PERFORMANCE METRICS",
-        content:
-          "Breakdown of the 64% latency reduction and overall system throughput.",
+        id: "measurable-impact",
+        title: "MEASURABLE IMPACT",
+        content: "Details on performance and impact.",
         keyContribution: null,
       },
       {
@@ -277,5 +303,50 @@ export const projects: ProjectItem[] = [
           "Internal bandwidth costs and parsing overhead necessitated a binary protocol. gRPC reduced our payload sizes by 45% and enabled streaming telemetry.",
       },
     ],
+    measurableImpact: {
+      subtitle:
+        "Hard data reflecting the project's success and operational efficiency.",
+      items: [
+        {
+          label: "P99 LATENCY",
+          value: "42",
+          subValue: "ms",
+          trend: "⚡ 64% improvement",
+        },
+        {
+          label: "INFRASTRUCTURE COST",
+          value: "-2.4",
+          subValue: "M/yr",
+          trend: "⚡ 35% improvement",
+        },
+        {
+          label: "CACHE HIT RATIO",
+          value: "94.8",
+          subValue: "%",
+          trend: "⚡ 12% improvement",
+        },
+        { label: "SYSTEM UPTIME", value: "99.999", subValue: "%", trend: "" },
+      ],
+    },
+    postmortem: {
+      subtitle: "A reflection on the challenges faced and future iterations.",
+      items: [
+        {
+          title: "What went well?",
+          content:
+            'The decision to use Rust for the data plane was vindicated early. We saw zero segfaults during the initial rollout and the CPU overhead was significantly lower than anticipated, allowing us to downsize our edge instances. The phased "shadow-traffic" deployment strategy also meant zero downtime for existing users during the switchover.',
+        },
+        {
+          title: "What would I change?",
+          content:
+            "We initially built our own metrics aggregation before realizing the volume of edge telemetry would overwhelm the pipeline. Switching to a managed Datadog integration earlier would have saved three weeks of internal engineering.",
+        },
+        {
+          title: "The Road Ahead",
+          content:
+            "The next phase involves implementing WebAssembly plugins at the edge to allow tenants to run their own custom routing logic without compromising the secure sandbox of the data plane.",
+        },
+      ],
+    },
   },
 ];
