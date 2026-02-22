@@ -592,12 +592,17 @@ export type ProjectItemArchitecture = {
    * @type { ProjectItemArchitectureControlPlane }
    * @memberof ProjectItemArchitecture
    */
-  controlPlane: ProjectItemArchitectureControlPlane;
+  controlPlane: ProjectItemArchitectureControlPlane | null;
   /**
    * @type { ProjectItemArchitectureDataPlane }
    * @memberof ProjectItemArchitecture
    */
-  dataPlane: ProjectItemArchitectureDataPlane;
+  dataPlane: ProjectItemArchitectureDataPlane | null;
+  /**
+   * @type { ProjectItemArchitectureLayer[] }
+   * @memberof ProjectItemArchitecture
+   */
+  layers: ProjectItemArchitectureLayer[] | null;
 };
 
 export function decodeProjectItemArchitecture(
@@ -611,12 +616,12 @@ export function decodeProjectItemArchitecture(
     const decodedDataPlane = decodeProjectItemArchitectureDataPlane(
       rawInput["dataPlane"],
     );
+    const decodedLayers = decodeArray(
+      rawInput["layers"],
+      decodeProjectItemArchitectureLayer,
+    );
 
-    if (
-      decodedTitle === null ||
-      decodedControlPlane === null ||
-      decodedDataPlane === null
-    ) {
+    if (decodedTitle === null) {
       return null;
     }
 
@@ -624,6 +629,7 @@ export function decodeProjectItemArchitecture(
       title: decodedTitle,
       controlPlane: decodedControlPlane,
       dataPlane: decodedDataPlane,
+      layers: decodedLayers,
     };
   }
   return null;
@@ -686,6 +692,90 @@ export function decodeProjectItemArchitectureDataPlane(
   if (isJSON(rawInput)) {
     const decodedLabel = decodeString(rawInput["label"]);
     const decodedNodes = decodeArray(rawInput["nodes"], decodeString);
+
+    if (decodedLabel === null || decodedNodes === null) {
+      return null;
+    }
+
+    return {
+      label: decodedLabel,
+      nodes: decodedNodes,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { ProjectItemArchitectureLayerNode }
+ */
+export type ProjectItemArchitectureLayerNode = {
+  /**
+   * @type { string }
+   * @memberof ProjectItemArchitectureLayerNode
+   */
+  icon: string;
+  /**
+   * @type { string }
+   * @memberof ProjectItemArchitectureLayerNode
+   */
+  label: string;
+  /**
+   * @type { string }
+   * @memberof ProjectItemArchitectureLayerNode
+   */
+  description: string;
+};
+
+export function decodeProjectItemArchitectureLayerNode(
+  rawInput: unknown,
+): ProjectItemArchitectureLayerNode | null {
+  if (isJSON(rawInput)) {
+    const decodedIcon = decodeString(rawInput["icon"]);
+    const decodedLabel = decodeString(rawInput["label"]);
+    const decodedDescription = decodeString(rawInput["description"]);
+
+    if (
+      decodedIcon === null ||
+      decodedLabel === null ||
+      decodedDescription === null
+    ) {
+      return null;
+    }
+
+    return {
+      icon: decodedIcon,
+      label: decodedLabel,
+      description: decodedDescription,
+    };
+  }
+  return null;
+}
+
+/**
+ * @type { ProjectItemArchitectureLayer }
+ */
+export type ProjectItemArchitectureLayer = {
+  /**
+   * @type { string }
+   * @memberof ProjectItemArchitectureLayer
+   */
+  label: string;
+  /**
+   * @type { ProjectItemArchitectureLayerNode[] }
+   * @memberof ProjectItemArchitectureLayer
+   */
+  nodes: ProjectItemArchitectureLayerNode[];
+};
+
+export function decodeProjectItemArchitectureLayer(
+  rawInput: unknown,
+): ProjectItemArchitectureLayer | null {
+  if (isJSON(rawInput)) {
+    const decodedLabel = decodeString(rawInput["label"]);
+    const decodedNodes = decodeArray(
+      rawInput["nodes"],
+      decodeProjectItemArchitectureLayerNode,
+    );
 
     if (decodedLabel === null || decodedNodes === null) {
       return null;

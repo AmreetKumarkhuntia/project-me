@@ -75,6 +75,7 @@ export const projects: ProjectItem[] = [
         label: "// Data Plane",
         nodes: ["Kokoro TTS", "Local Tools"],
       },
+      layers: null,
     },
     technicalDecisions: [
       {
@@ -210,6 +211,7 @@ export const projects: ProjectItem[] = [
         label: "// Output",
         nodes: ["Console", "File", "Remote"],
       },
+      layers: null,
     },
     technicalDecisions: [
       {
@@ -339,6 +341,7 @@ export const projects: ProjectItem[] = [
         label: "// Integration",
         nodes: ["SvelteKit", "Vite"],
       },
+      layers: null,
     },
     technicalDecisions: [
       {
@@ -465,6 +468,7 @@ export const projects: ProjectItem[] = [
         label: "// Data",
         nodes: ["Database", "Cache"],
       },
+      layers: null,
     },
     technicalDecisions: [
       {
@@ -622,14 +626,65 @@ export const projects: ProjectItem[] = [
     },
     architecture: {
       title: "System Architecture",
-      controlPlane: {
-        label: "// Control Plane",
-        items: ["Orchestrator", "Routing"],
-      },
-      dataPlane: {
-        label: "// Data Plane",
-        nodes: ["Edge Nodes", "Cache"],
-      },
+      controlPlane: null,
+      dataPlane: null,
+      layers: [
+        {
+          label: "CLIENT LAYER / ANYCAST INGRESS",
+          nodes: [
+            {
+              icon: "global-users",
+              label: "Global Users",
+              description: "12M+ Monthly active browsers & mobile clients",
+            },
+            {
+              icon: "dns",
+              label: "DNS Routing",
+              description: "Cloudflare Workers for initial GEO-load balancing",
+            },
+          ],
+        },
+        {
+          label: "DATA PLANE / EDGE MESH",
+          nodes: [
+            {
+              icon: "edge-cache",
+              label: "Edge Cache",
+              description: "Rust-based caching engine (Aegis-Core)",
+            },
+            {
+              icon: "tls",
+              label: "TLS Term",
+              description: "BoringSSL optimization for rapid handshakes",
+            },
+            {
+              icon: "purge",
+              label: "Purge Svc",
+              description: "Redis-backed real-time cache invalidation",
+            },
+          ],
+        },
+        {
+          label: "CONTROL PLANE / ORCHESTRATION",
+          nodes: [
+            {
+              icon: "kubernetes",
+              label: "Kubernetes",
+              description: "Global cluster management across GCP/AWS",
+            },
+            {
+              icon: "telemetry",
+              label: "Telemetry",
+              description: "Prometheus + Grafana for edge observability",
+            },
+            {
+              icon: "auth",
+              label: "Auth Pivot",
+              description: "Centralized JWT validation service",
+            },
+          ],
+        },
+      ],
     },
     technicalDecisions: [
       {
