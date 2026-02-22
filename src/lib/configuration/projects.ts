@@ -3,10 +3,11 @@ import type { ProjectItem } from "$generated/types/Configuration";
 export const projects: ProjectItem[] = [
   {
     id: "knik",
-    title: "Knik (AI Voice Console)",
-    subTitle: null,
-    category: null,
-    fullDescription: null,
+    title: "Knik",
+    subTitle: "Local-First Inference.",
+    category: "AI & REAL-TIME COMMUNICATIONS",
+    fullDescription:
+      "High latency and privacy concerns plague cloud-based voice assistants. The objective of Knik was to develop a local-first voice console utilizing the cutting-edge Kokoro-82M TTS model to achieve sub-second response times without sending private audio to the cloud.",
     links: null,
     stats: [{ label: "TIMELINE", value: "2024 - Till Date" }],
     detailedSections: [
@@ -140,10 +141,11 @@ export const projects: ProjectItem[] = [
   },
   {
     id: "lilac",
-    title: "Lilac (TypeScript Logging Package)",
-    subTitle: null,
-    category: null,
-    fullDescription: null,
+    title: "Lilac",
+    subTitle: "Zero-Dependency Logging.",
+    category: "DEVELOPER TOOLS & OPEN SOURCE",
+    fullDescription:
+      "Lilac was born out of frustration with existing logging libraries that were bloated with dependencies. The goal was to build a zero-dependency, strongly-typed logger that supports custom transports and structured JSON logging out of the box.",
     links: null,
     stats: [{ label: "TIMELINE", value: "2024 - Till Date" }],
     detailedSections: [
@@ -270,10 +272,11 @@ export const projects: ProjectItem[] = [
   },
   {
     id: "vernix",
-    title: "Vernix (Svelte Component Package)",
-    subTitle: null,
-    category: null,
-    fullDescription: null,
+    title: "Vernix",
+    subTitle: "Accessible UI Primitives.",
+    category: "DESIGN SYSTEMS & FRONTEND ARCHITECTURE",
+    fullDescription:
+      "Inconsistent design patterns and slow UI development fragmented our engineering efforts across multiple frontends. Vernix was developed as a unified Svelte component library to enforce design system consistency and provide pre-built accessible components with smooth transitions.",
     links: null,
     stats: [{ label: "TIMELINE", value: "2024 - Till Date" }],
     detailedSections: [
@@ -398,9 +401,10 @@ export const projects: ProjectItem[] = [
   {
     id: "hospital-api",
     title: "Hospital API",
-    subTitle: null,
-    category: null,
-    fullDescription: null,
+    subTitle: "Patient Lookup Optimization.",
+    category: "BACKEND & DATA OPTIMIZATION",
+    fullDescription:
+      "The Hospital API faced critical performance bottlenecks, where slow retrieval of patient data was actively affecting care coordination efficiency in urgent scenarios. I spearheaded the optimization of the backend service, introducing advanced filtering mechanisms and database query optimization.",
     links: null,
     stats: [{ label: "TIMELINE", value: "2021-22" }],
     detailedSections: [

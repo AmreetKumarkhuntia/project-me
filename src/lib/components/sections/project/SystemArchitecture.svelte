@@ -41,36 +41,36 @@
         </svelte:fragment>
       </SectionHeader>
 
-      <div class="diagram-container">
-        {#if architecture.layers}
-          <div class="layers-container">
-            <div class="vertical-connector-line"></div>
-            {#each architecture.layers as layer, i}
-              <div
-                class="layer-section"
-                style:z-index={architecture.layers.length - i}
-              >
-                <div class="layer-label-wrapper">
-                  <h3 class="layer-label">{layer.label}</h3>
-                </div>
-                <div class="layer-nodes-grid">
-                  {#each layer.nodes as node}
-                    <div class="layer-node-card">
-                      <div class="node-header">
-                        <span class="node-icon">
-                          <PackageIcon />
-                        </span>
-                        <span class="node-title">{node.label}</span>
-                      </div>
-                      <p class="node-desc">{node.description}</p>
-                    </div>
-                  {/each}
-                </div>
+      {#if architecture.layers}
+        <div class="layers-container">
+          <div class="vertical-connector-line"></div>
+          {#each architecture.layers as layer, i}
+            <div
+              class="layer-section"
+              style:z-index={architecture.layers.length - i}
+            >
+              <div class="layer-label-wrapper">
+                <h3 class="layer-label">{layer.label}</h3>
               </div>
-            {/each}
-          </div>
-        {:else if architecture.controlPlane && architecture.dataPlane}
-          <!-- Control Plane -->
+              <div class="layer-nodes-grid">
+                {#each layer.nodes as node}
+                  <div class="layer-node-card">
+                    <div class="node-header">
+                      <span class="node-icon">
+                        <PackageIcon />
+                      </span>
+                      <span class="node-title">{node.label}</span>
+                    </div>
+                    <p class="node-desc">{node.description}</p>
+                  </div>
+                {/each}
+              </div>
+            </div>
+          {/each}
+        </div>
+      {:else if architecture.controlPlane && architecture.dataPlane}
+        <!-- Control Plane -->
+        <div class="diagram-container">
           <div class="plane-box control-plane">
             <h3 class="plane-label">{architecture.controlPlane.label}</h3>
             <div class="nodes-grid">
@@ -94,8 +94,8 @@
               {/each}
             </div>
           </div>
-        {/if}
-      </div>
+        </div>
+      {/if}
     </div>
   </section>
 {/if}
@@ -110,15 +110,14 @@
     width: 100%;
   }
 
-  /* Diagram styles */
   .diagram-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: var(--color-bg-secondary);
+    background: var(--color-bg-panel-dark);
     padding: var(--space-8);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--color-border-subtle);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   .plane-box {
@@ -198,14 +197,14 @@
     top: 50px; /* Start below the first label */
     bottom: 50px; /* End above the last cards */
     width: 2px;
-    background: var(--color-primary-accent); /* Solid yellow color */
+    background: var(--color-primary); /* Solid yellow color */
     opacity: 0.15; /* Make it subtle like in the design */
   }
 
   .layer-section {
     position: relative;
     /* Add a small solid yellow line segment for each layer */
-    border-left: 2px solid var(--color-primary-accent);
+    border-left: 2px solid var(--color-primary);
     padding-left: var(--space-8);
     margin-left: calc(
       -1 * var(--space-8) - 2px
@@ -237,18 +236,16 @@
   }
 
   .layer-node-card {
-    background: var(
-      --color-bg-card-dark
-    ); /* Darker, slightly brownish-grey background */
-    border-radius: var(--radius-lg);
+    background: var(--color-bg-card-dark);
+    border-radius: 8px;
     padding: var(--space-6);
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
     flex: 1;
     min-width: 240px;
-    max-width: 320px; /* Prevent cards from getting too wide */
-    border: 1px solid var(--color-border-subtle-white); /* Extremely subtle border */
+    max-width: 320px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
     transition:
       transform 0.2s,
       box-shadow 0.2s,
@@ -258,12 +255,7 @@
   .layer-node-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-    border-color: rgba(
-      255,
-      255,
-      255,
-      0.08
-    ); /* Slightly visible border on hover */
+    border-color: rgba(255, 255, 255, 0.4);
   }
 
   .node-header {
