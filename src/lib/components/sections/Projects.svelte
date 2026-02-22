@@ -90,9 +90,6 @@
                         {/each}
                       </div>
                     </div>
-                    {#if i < project.architecture.layers.length - 1}
-                      <div class="layer-connector"></div>
-                    {/if}
                   {/each}
                 </div>
               {:else if project.architecture.controlPlane && project.architecture.dataPlane}
@@ -328,10 +325,10 @@
     border: 1px solid var(--color-border-subtle-white);
     background: var(--color-bg-card-darker);
     padding: var(--space-2) var(--space-4);
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     font-size: var(--font-size-xs);
     color: var(--color-text-primary);
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     text-align: center;
     flex: 1;
   }
@@ -354,9 +351,9 @@
 
   .layer-label {
     color: var(--color-primary);
-    font-size: 0.7rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
+    font-size: var(--font-size-2xs);
+    font-weight: var(--font-weight-extrabold);
+    letter-spacing: var(--letter-spacing-widest);
     text-transform: uppercase;
   }
 
@@ -383,9 +380,9 @@
   }
 
   .layer-node-card:hover {
-    background: #1e1e1e;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    border-color: rgba(255, 255, 255, 0.08);
+    background: var(--color-bg-node-card-hover);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--color-border-subtle-hover);
   }
 
   .node-header {
@@ -395,8 +392,8 @@
   }
 
   .node-icon-placeholder {
-    color: var(--color-primary-accent); /* yellow icon */
-    background: rgba(255, 204, 0, 0.08); /* subtle yellow background */
+    color: var(--color-primary-accent);
+    background: var(--color-bg-icon-accent);
     padding: var(--space-2);
     border-radius: var(--radius-md);
     display: flex;
@@ -405,10 +402,10 @@
   }
 
   .node-title {
-    color: var(--color-text-primary); /* white text for title */
-    font-weight: 700;
-    font-size: 0.95rem; /* slightly larger */
-    letter-spacing: -0.01em;
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-node);
+    letter-spacing: var(--letter-spacing-tight);
   }
 
   .node-desc {

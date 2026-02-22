@@ -46,6 +46,23 @@
   /* Text Colors (extended) */
   --color-text-muted: rgba(255, 255, 255, 0.4);
 
+  /* Projects Section */
+  --color-primary-accent: #ffd700; /* semantic alias for --color-primary, used for accents like layer borders and icons */
+  --color-bg-node-card-hover: #1e1e1e; /* hover background for layer-node-card */
+  --color-border-subtle-hover: rgba(
+    255,
+    255,
+    255,
+    0.08
+  ); /* border color on node card hover */
+  --color-bg-icon-accent: rgba(
+    255,
+    204,
+    0,
+    0.08
+  ); /* subtle yellow background for icon placeholder */
+  --shadow-card-hover: 0 4px 15px rgba(0, 0, 0, 0.5); /* hover shadow for architecture node cards */
+
   /* State Colors */
   --color-hover: rgba(255, 215, 0, 0.1);
   --color-active: #ffc700;
