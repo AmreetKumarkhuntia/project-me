@@ -4,13 +4,13 @@ export const footer: FooterConfig = {
   brand: {
     title: "Amreet K",
     description:
-      "Engineering robust distributed systems that prioritize reliability, observability, and cost-efficiency. Available for strategic consulting and high-impact technical leadership.",
+      "Architecting code, automating infrastructure, and building scalable backend systems. Available for strategic consulting and DevOps/Backend engineering roles.",
   },
   navLinks: [
-    { label: "Top", url: "#" },
-    { label: "Case Studies", url: "#projects" },
-    { label: "Tech Stack", url: "#tech" },
-    { label: "Philosophy", url: "#philosophy" },
+    { label: "Work", url: "/work" },
+    { label: "Stack", url: "/stack" },
+    { label: "Timeline", url: "/timeline" },
+    { label: "Philosophy", url: "/philosophy" },
   ],
   connectLinks: [
     { label: "GitHub", url: "https://github.com/AmreetKumarkhuntia" },

@@ -23,19 +23,16 @@
       </div>
 
       <h1 class="landing-title">
-        Building<br />
-        Scalable<br />
-        <span class="highlight">Systems</span><br />
-        That<br />
-        Don't<br />
-        Break.
+        Architecting<br />
+        <span class="highlight">Code.</span><br />
+        Automating<br />
+        Infrastructure.
       </h1>
 
       <p class="landing-description">
-        Backend Engineer | Distributed Systems |<br />
-        Cloud Infrastructure. Optimizing<br />
-        high-throughput architectures for<br />
-        mission-critical reliability.
+        Software & DevOps Engineer | Building robust applications,<br />
+        automating CI/CD pipelines, and managing cloud<br />
+        infrastructure for seamless delivery.
       </p>
 
       <div class="landing-actions">
