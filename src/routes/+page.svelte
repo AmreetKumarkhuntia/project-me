@@ -39,8 +39,8 @@
       </p>
 
       <div class="landing-actions">
-        <Button variant="primary">
-          View Systems
+        <Button variant="primary" href="/work">
+          View Work
           <ArrowRight />
         </Button>
 

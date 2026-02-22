@@ -2,9 +2,9 @@ import type { NavigationOptions } from "vergins";
 
 export const navbarLinks: NavigationOptions[] = [
   {
-    id: "systems",
-    title: "Systems",
-    navigationURL: "/systems",
+    id: "work",
+    title: "Work",
+    navigationURL: "/work",
   },
   {
     id: "stack",
