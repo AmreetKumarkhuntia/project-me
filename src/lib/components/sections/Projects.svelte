@@ -70,29 +70,7 @@
             </div>
 
             <div class="arch-diagram">
-              {#if project.architecture.layers}
-                <div class="layers-container">
-                  {#each project.architecture.layers as layer, i}
-                    <div class="layer-section">
-                      <div class="layer-label">{layer.label}</div>
-                      <div class="layer-nodes">
-                        {#each layer.nodes as node}
-                          <div class="layer-node-card">
-                            <div class="node-header">
-                              <span class="node-icon-placeholder">
-                                <!-- simple SVG placeholder or mapped icon, using a generic box for now -->
-                                <PackageIcon size={16} />
-                              </span>
-                              <span class="node-title">{node.label}</span>
-                            </div>
-                            <span class="node-desc">{node.description}</span>
-                          </div>
-                        {/each}
-                      </div>
-                    </div>
-                  {/each}
-                </div>
-              {:else if project.architecture.controlPlane && project.architecture.dataPlane}
+              {#if project.architecture.controlPlane && project.architecture.dataPlane}
                 <div class="arch-box control-plane">
                   <div class="box-label">
                     {project.architecture.controlPlane.label}
@@ -331,95 +309,6 @@
     font-weight: var(--font-weight-medium);
     text-align: center;
     flex: 1;
-  }
-
-  /* Layered Architecture Styles */
-  .layers-container {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-12);
-  }
-
-  .layer-section {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    position: relative;
-    padding-left: var(--space-8);
-    border-left: 2px solid var(--color-primary-accent); /* Yellow line on the left */
-  }
-
-  .layer-label {
-    color: var(--color-primary);
-    font-size: var(--font-size-2xs);
-    font-weight: var(--font-weight-extrabold);
-    letter-spacing: var(--letter-spacing-widest);
-    text-transform: uppercase;
-  }
-
-  .layer-nodes {
-    display: flex;
-    gap: var(--space-4);
-    flex-wrap: wrap;
-  }
-
-  .layer-node-card {
-    background: var(--color-bg-card-dark); /* Darker card background */
-    border-radius: var(--radius-lg);
-    padding: var(--space-4);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    min-width: 180px;
-    flex: 1;
-    border: 1px solid var(--color-border-subtle-white); /* Extremely subtle border */
-    transition:
-      background 0.2s,
-      box-shadow 0.2s,
-      border-color 0.2s;
-  }
-
-  .layer-node-card:hover {
-    background: var(--color-bg-node-card-hover);
-    box-shadow: var(--shadow-card-hover);
-    border-color: var(--color-border-subtle-hover);
-  }
-
-  .node-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-  }
-
-  .node-icon-placeholder {
-    color: var(--color-primary-accent);
-    background: var(--color-bg-icon-accent);
-    padding: var(--space-2);
-    border-radius: var(--radius-md);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .node-title {
-    color: var(--color-text-primary);
-    font-weight: var(--font-weight-bold);
-    font-size: var(--font-size-node);
-    letter-spacing: var(--letter-spacing-tight);
-  }
-
-  .node-desc {
-    color: var(--color-text-muted-dark); /* lighter grey */
-    font-size: var(--font-size-xs);
-    line-height: 1.4;
-  }
-
-  .layer-connector {
-    width: 2px;
-    height: 32px;
-    background-color: var(--color-primary-accent);
-    opacity: 0.15;
-    margin-left: -2px; /* align with the border-left of the section */
   }
 
   /* Responsive */

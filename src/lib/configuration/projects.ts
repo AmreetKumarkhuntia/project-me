@@ -76,7 +76,38 @@ export const projects: ProjectItem[] = [
         label: "// Data Plane",
         nodes: ["Kokoro TTS", "Local Tools"],
       },
-      layers: null,
+      layers: [
+        {
+          label: "CONTROL PLANE / ORCHESTRATION",
+          nodes: [
+            {
+              icon: "server",
+              label: "FastAPI Orchestrator",
+              description: "Async Python backend managing conversational state",
+            },
+            {
+              icon: "router",
+              label: "MCP Router",
+              description: "Intelligent routing system for tool execution",
+            },
+          ],
+        },
+        {
+          label: "DATA PLANE / INFERENCE",
+          nodes: [
+            {
+              icon: "cpu",
+              label: "Kokoro TTS",
+              description: "Local 82M parameter text-to-speech engine",
+            },
+            {
+              icon: "tool",
+              label: "Local Tools",
+              description: "Native integrations and tools payload",
+            },
+          ],
+        },
+      ],
     },
     technicalDecisions: [
       {
@@ -213,7 +244,43 @@ export const projects: ProjectItem[] = [
         label: "// Output",
         nodes: ["Console", "File", "Remote"],
       },
-      layers: null,
+      layers: [
+        {
+          label: "CORE SYSTEM",
+          nodes: [
+            {
+              icon: "core",
+              label: "Lightweight Logger",
+              description: "Zero-dependency TypeScript logging core",
+            },
+            {
+              icon: "plugin",
+              label: "Custom Transports",
+              description: "Pluggable sink interface for log routing",
+            },
+          ],
+        },
+        {
+          label: "OUTPUT SINKS",
+          nodes: [
+            {
+              icon: "terminal",
+              label: "Console",
+              description: "Standard out/err with rich formatting",
+            },
+            {
+              icon: "file",
+              label: "File",
+              description: "Local file system logging transport",
+            },
+            {
+              icon: "network",
+              label: "Remote",
+              description: "Network transports for observability",
+            },
+          ],
+        },
+      ],
     },
     technicalDecisions: [
       {
@@ -344,7 +411,38 @@ export const projects: ProjectItem[] = [
         label: "// Integration",
         nodes: ["SvelteKit", "Vite"],
       },
-      layers: null,
+      layers: [
+        {
+          label: "UI COMPONENTS LAYER",
+          nodes: [
+            {
+              icon: "button",
+              label: "Components",
+              description: "Buttons, Inputs, Modals & Base Primitives",
+            },
+            {
+              icon: "theme",
+              label: "Theming System",
+              description: "CSS variables and theme injection",
+            },
+          ],
+        },
+        {
+          label: "INTEGRATION LAYER",
+          nodes: [
+            {
+              icon: "svelte",
+              label: "SvelteKit",
+              description: "Native framework integration & SSR",
+            },
+            {
+              icon: "vite",
+              label: "Vite",
+              description: "Fast compilation & asset bundling",
+            },
+          ],
+        },
+      ],
     },
     technicalDecisions: [
       {
@@ -472,7 +570,38 @@ export const projects: ProjectItem[] = [
         label: "// Data",
         nodes: ["Database", "Cache"],
       },
-      layers: null,
+      layers: [
+        {
+          label: "LOGIC LAYER",
+          nodes: [
+            {
+              icon: "logic",
+              label: "Query Optimization",
+              description: "Compound indexing & query generation",
+            },
+            {
+              icon: "format",
+              label: "Advanced Formatting",
+              description: "Data transformation and hydration",
+            },
+          ],
+        },
+        {
+          label: "DATA LAYER",
+          nodes: [
+            {
+              icon: "database",
+              label: "Database",
+              description: "Main analytical patient records storage",
+            },
+            {
+              icon: "cache",
+              label: "Cache",
+              description: "Redis-based query caching layer",
+            },
+          ],
+        },
+      ],
     },
     technicalDecisions: [
       {
@@ -522,245 +651,6 @@ export const projects: ProjectItem[] = [
           title: "The Road Ahead",
           content:
             "Transitioning the monolithic Go service into domain-driven microservices (e.g., separating patient ingest from historical read models) using CQRS patterns to further isolate fault domains.",
-        },
-      ],
-    },
-  },
-  {
-    id: "aegis-mesh",
-    title: "AEGIS MESH:",
-    subTitle: "Global Edge Architecture.",
-    category: "INFRASTRUCTURE & DISTRIBUTED SYSTEMS",
-    tags: ["Rust", "CDN", "Edge"],
-    engineeringStack: {
-      subtitle:
-        "Core technologies selected for performance, safety, and reliability.",
-      groups: [
-        {
-          label: "THE ENGINE",
-          items: ["Rust", "Go", "Tokio", "gRPC", "WebAssembly"],
-        },
-        {
-          label: "DATA & STORAGE",
-          items: ["Redis", "PostgreSQL", "ScyllaDB", "S3", "RocksDB"],
-        },
-        {
-          label: "INFRA & OPS",
-          items: ["Kubernetes", "Terraform", "Istio", "Prometheus", "Datadog"],
-        },
-        {
-          label: "NETWORK",
-          items: ["eBPF", "Envoy", "QUIC", "TLS 1.3", "Anycast"],
-        },
-        {
-          label: "TESTING",
-          items: ["K6", "Jepsen", "Chaos Mesh", "Unit Testing"],
-        },
-        {
-          label: "CI/CD",
-          items: ["GitHub Actions", "ArgoCD", "Helm", "Kaniko"],
-        },
-      ],
-    },
-    fullDescription:
-      "Replacing legacy CDN infrastructure with a custom-built, Rust-powered edge-caching layer that reduced cold-start latency by 64% for 12M global users.",
-    links: [
-      { label: "View Repository", url: "#" },
-      { label: "Technical Docs", url: "#" },
-    ],
-    stats: [
-      { label: "TIMELINE", value: "Q3 2023 - Q1 2024" },
-      { label: "SCALE", value: "1.2M Req/sec Peak" },
-      { label: "COST SAVINGS", value: "$220k / Month" },
-    ],
-    detailedSections: [
-      {
-        id: "executive-summary",
-        title: "EXECUTIVE SUMMARY",
-        content:
-          "The mission was to eliminate vendor lock-in and provide sub-50ms global content delivery through a proprietary mesh network.\n\nAs lead system architect, I directed the migration from a third-party managed CDN to a custom-orchestrated edge mesh. The primary challenge was maintaining strong consistency for dynamic assets across 42 global POPs while minimizing the overhead of the data plane.",
-        keyContribution:
-          '"Designed a novel eventual-consistency protocol for edge metadata synchronization that reduced inter-region chatter by 40%, directly translating to lower cloud egress costs."',
-      },
-      {
-        id: "system-architecture",
-        title: "SYSTEM ARCHITECTURE",
-        content:
-          "Detailed architecture design and implementation of the edge nodes and control plane.",
-        keyContribution: null,
-      },
-      {
-        id: "engineering-stack",
-        title: "ENGINEERING STACK",
-        content:
-          "Overview of technologies used including Rust, distributed key-value stores, and anycast routing.",
-        keyContribution: null,
-      },
-      {
-        id: "technical-decisions",
-        title: "TECHNICAL DECISIONS",
-        content: "Key decisions made during the design phase.",
-        keyContribution: null,
-      },
-      {
-        id: "measurable-impact",
-        title: "MEASURABLE IMPACT",
-        content: "Details on performance and impact.",
-        keyContribution: null,
-      },
-      {
-        id: "postmortem",
-        title: "POSTMORTEM",
-        content:
-          "Lessons learned from the deployment and what we would do differently.",
-        keyContribution: null,
-      },
-    ],
-    problem: {
-      title: "THE PROBLEM",
-      description: "High costs and vendor lock-in with existing managed CDN.",
-    },
-    engineering: {
-      title: "THE ENGINEERING",
-      description: "Custom Rust-powered edge-caching layer.",
-    },
-    impact: {
-      value: "64%",
-      description: "latency reduction",
-    },
-    architecture: {
-      title: "System Architecture",
-      controlPlane: null,
-      dataPlane: null,
-      layers: [
-        {
-          label: "CLIENT LAYER / ANYCAST INGRESS",
-          nodes: [
-            {
-              icon: "global-users",
-              label: "Global Users",
-              description: "12M+ Monthly active browsers & mobile clients",
-            },
-            {
-              icon: "dns",
-              label: "DNS Routing",
-              description: "Cloudflare Workers for initial GEO-load balancing",
-            },
-          ],
-        },
-        {
-          label: "DATA PLANE / EDGE MESH",
-          nodes: [
-            {
-              icon: "edge-cache",
-              label: "Edge Cache",
-              description: "Rust-based caching engine (Aegis-Core)",
-            },
-            {
-              icon: "tls",
-              label: "TLS Term",
-              description: "BoringSSL optimization for rapid handshakes",
-            },
-            {
-              icon: "purge",
-              label: "Purge Svc",
-              description: "Redis-backed real-time cache invalidation",
-            },
-          ],
-        },
-        {
-          label: "CONTROL PLANE / ORCHESTRATION",
-          nodes: [
-            {
-              icon: "kubernetes",
-              label: "Kubernetes",
-              description: "Global cluster management across GCP/AWS",
-            },
-            {
-              icon: "telemetry",
-              label: "Telemetry",
-              description: "Prometheus + Grafana for edge observability",
-            },
-            {
-              icon: "auth",
-              label: "Auth Pivot",
-              description: "Centralized JWT validation service",
-            },
-          ],
-        },
-      ],
-    },
-    technicalDecisions: [
-      {
-        title: "Core Runtime Language",
-        options: [
-          { label: "Go (Standard)", isChosen: false },
-          { label: "Rust (Aegis-Core)", isChosen: true },
-        ],
-        rationale:
-          "We required zero-garbage-collection to maintain consistent P99 latency. Rust's memory safety and performance at the network level were non-negotiable for the Edge nodes.",
-      },
-      {
-        title: "Global State Store",
-        options: [
-          { label: "Etcd", isChosen: false },
-          { label: "ScyllaDB", isChosen: true },
-        ],
-        rationale:
-          "For metadata propagation across 40+ regions, ScyllaDB provided superior throughput and lower cross-region replication lag compared to the consensus-heavy nature of Etcd.",
-      },
-      {
-        title: "Inter-service Communication",
-        options: [
-          { label: "JSON / REST", isChosen: false },
-          { label: "Protobuf / gRPC", isChosen: true },
-        ],
-        rationale:
-          "Internal bandwidth costs and parsing overhead necessitated a binary protocol. gRPC reduced our payload sizes by 45% and enabled streaming telemetry.",
-      },
-    ],
-    measurableImpact: {
-      subtitle:
-        "Hard data reflecting the project's success and operational efficiency.",
-      items: [
-        {
-          label: "P99 LATENCY",
-          value: "42",
-          subValue: "ms",
-          trend: "⚡ 64% improvement",
-        },
-        {
-          label: "INFRASTRUCTURE COST",
-          value: "-2.4",
-          subValue: "M/yr",
-          trend: "⚡ 35% improvement",
-        },
-        {
-          label: "CACHE HIT RATIO",
-          value: "94.8",
-          subValue: "%",
-          trend: "⚡ 12% improvement",
-        },
-        { label: "SYSTEM UPTIME", value: "99.999", subValue: "%", trend: "" },
-      ],
-    },
-    postmortem: {
-      subtitle: "A reflection on the challenges faced and future iterations.",
-      items: [
-        {
-          title: "What went well?",
-          content:
-            'The decision to use Rust for the data plane was vindicated early. We saw zero segfaults during the initial rollout and the CPU overhead was significantly lower than anticipated, allowing us to downsize our edge instances. The phased "shadow-traffic" deployment strategy also meant zero downtime for existing users during the switchover.',
-        },
-        {
-          title: "What would I change?",
-          content:
-            "We initially built our own metrics aggregation before realizing the volume of edge telemetry would overwhelm the pipeline. Switching to a managed Datadog integration earlier would have saved three weeks of internal engineering.",
-        },
-        {
-          title: "The Road Ahead",
-          content:
-            "The next phase involves implementing WebAssembly plugins at the edge to allow tenants to run their own custom routing logic without compromising the secure sandbox of the data plane.",
         },
       ],
     },
