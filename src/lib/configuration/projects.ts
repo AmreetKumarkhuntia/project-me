@@ -76,7 +76,38 @@ export const projects: ProjectItem[] = [
         label: "// Data Plane",
         nodes: ["Kokoro TTS", "Local Tools"],
       },
-      layers: null,
+      layers: [
+        {
+          label: "CONTROL PLANE / ORCHESTRATION",
+          nodes: [
+            {
+              icon: "server",
+              label: "FastAPI Orchestrator",
+              description: "Async Python backend managing conversational state",
+            },
+            {
+              icon: "router",
+              label: "MCP Router",
+              description: "Intelligent routing system for tool execution",
+            },
+          ],
+        },
+        {
+          label: "DATA PLANE / INFERENCE",
+          nodes: [
+            {
+              icon: "cpu",
+              label: "Kokoro TTS",
+              description: "Local 82M parameter text-to-speech engine",
+            },
+            {
+              icon: "tool",
+              label: "Local Tools",
+              description: "Native integrations and tools payload",
+            },
+          ],
+        },
+      ],
     },
     technicalDecisions: [
       {
@@ -213,7 +244,43 @@ export const projects: ProjectItem[] = [
         label: "// Output",
         nodes: ["Console", "File", "Remote"],
       },
-      layers: null,
+      layers: [
+        {
+          label: "CORE SYSTEM",
+          nodes: [
+            {
+              icon: "core",
+              label: "Lightweight Logger",
+              description: "Zero-dependency TypeScript logging core",
+            },
+            {
+              icon: "plugin",
+              label: "Custom Transports",
+              description: "Pluggable sink interface for log routing",
+            },
+          ],
+        },
+        {
+          label: "OUTPUT SINKS",
+          nodes: [
+            {
+              icon: "terminal",
+              label: "Console",
+              description: "Standard out/err with rich formatting",
+            },
+            {
+              icon: "file",
+              label: "File",
+              description: "Local file system logging transport",
+            },
+            {
+              icon: "network",
+              label: "Remote",
+              description: "Network transports for observability",
+            },
+          ],
+        },
+      ],
     },
     technicalDecisions: [
       {
@@ -344,7 +411,38 @@ export const projects: ProjectItem[] = [
         label: "// Integration",
         nodes: ["SvelteKit", "Vite"],
       },
-      layers: null,
+      layers: [
+        {
+          label: "UI COMPONENTS LAYER",
+          nodes: [
+            {
+              icon: "button",
+              label: "Components",
+              description: "Buttons, Inputs, Modals & Base Primitives",
+            },
+            {
+              icon: "theme",
+              label: "Theming System",
+              description: "CSS variables and theme injection",
+            },
+          ],
+        },
+        {
+          label: "INTEGRATION LAYER",
+          nodes: [
+            {
+              icon: "svelte",
+              label: "SvelteKit",
+              description: "Native framework integration & SSR",
+            },
+            {
+              icon: "vite",
+              label: "Vite",
+              description: "Fast compilation & asset bundling",
+            },
+          ],
+        },
+      ],
     },
     technicalDecisions: [
       {
@@ -472,7 +570,38 @@ export const projects: ProjectItem[] = [
         label: "// Data",
         nodes: ["Database", "Cache"],
       },
-      layers: null,
+      layers: [
+        {
+          label: "LOGIC LAYER",
+          nodes: [
+            {
+              icon: "logic",
+              label: "Query Optimization",
+              description: "Compound indexing & query generation",
+            },
+            {
+              icon: "format",
+              label: "Advanced Formatting",
+              description: "Data transformation and hydration",
+            },
+          ],
+        },
+        {
+          label: "DATA LAYER",
+          nodes: [
+            {
+              icon: "database",
+              label: "Database",
+              description: "Main analytical patient records storage",
+            },
+            {
+              icon: "cache",
+              label: "Cache",
+              description: "Redis-based query caching layer",
+            },
+          ],
+        },
+      ],
     },
     technicalDecisions: [
       {
