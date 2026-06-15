@@ -35,7 +35,6 @@
 <footer class="colophon">
   <div class="wrap">
     <span>© 2026 Amreet Khuntia</span>
-    <span>Set in Bodoni Moda · Space Grotesk · Space Mono</span>
     <span>Bengaluru, India</span>
   </div>
 </footer>
