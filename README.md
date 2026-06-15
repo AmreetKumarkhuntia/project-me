@@ -1,71 +1,84 @@
-# Project-Me
+# Project-Me — Portfolio (v3)
 
-Welcome to Project-Me, my interactive portfolio where you can explore my gaming adventures, favorite music, personal insights, and creative projects all in one place. Discover my passions, experiences, and the stories that make me who I am. Whether you're here to connect or just curious, dive in and enjoy the journey!
+The personal portfolio of **Amreet Khuntia**, Software & DevOps Engineer.
 
-## Creating a Project
+A single immersive landing page in an **Editorial Noir** style — ink-black canvas,
+a single acid-yellow accent, and a Didone display face (Bodoni Moda) paired with a
+techy grotesk and mono. It introduces who I am up front, then unfolds section by
+section: capabilities, selected work, stack, experience, ethos, and contact.
 
-If you're seeing this, you've probably already done this step. Congrats!
+Built with **SvelteKit + Svelte 5** and plain SCSS. Two lightweight, dependency-free
+`<canvas>` animations provide the 3D atmosphere (a drifting wireframe globe behind
+everything, and a cursor-reactive constellation in the hero).
 
-To create a new project in the current directory:
+## Tech stack
 
-```bash
-npx sv create
+- **Framework:** SvelteKit 2 / Svelte 5 (runes)
+- **Styling:** SCSS (`src/css/noir.scss`) with CSS custom-property design tokens
+- **Type fonts:** Bodoni Moda · Space Grotesk · Space Mono (Google Fonts)
+- **Graphics:** Canvas 2D, hand-rolled (no Three.js / WebGL libraries)
+- **Tooling:** Vite 6, TypeScript, svelte-check, Prettier (+ prettier-plugin-svelte)
+
+## Project structure
+
+```
+src/
+├─ app.html                  # document shell + font links
+├─ css/noir.scss             # global tokens, ambient layers, all section styles
+├─ routes/
+│  ├─ +layout.svelte         # ambient layers, background field, scroll-reveal logic
+│  └─ +page.svelte           # composes all sections
+└─ lib/
+   ├─ components/            # Masthead, Nav, Hero, Capabilities, Work, Stack,
+   │                         #   Experience, Manifesto, Contact, WireObject,
+   │                         #   BackgroundField, ArUp
+   └─ configuration/         # content as typed constants (the single source of truth)
+      ├─ identity.ts  capabilities.ts  projects.ts  skills.ts
+      ├─ experience.ts  philosophy.ts  types.ts  index.ts
+static/
+└─ resume.pdf                # linked from the hero "View resume" button
 ```
 
-To create a new project in a folder called `my-app`:
+### Editing content
 
-```bash
-npx sv create my-app
-```
+All copy is data-driven — edit the files under `src/lib/configuration/` and the page
+updates. No component changes are needed to add a project, metric, or timeline entry.
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Install dependencies, then start the dev server (port **4366**):
 
 ```bash
+npm install
 npm run dev
 ```
 
-Alternatively, you can start the server and open the app in a new browser tab:
+## Scripts
 
-```bash
-npm run dev -- --open
-```
+| Command           | Description                                  |
+| ----------------- | -------------------------------------------- |
+| `npm run dev`     | Start the dev server on port 4366            |
+| `npm run build`   | Production build                             |
+| `npm run preview` | Preview the production build (port 4366)     |
+| `npm run check`   | Type-check the project with `svelte-check`   |
+| `npm run format`  | Format `src/` with Prettier                  |
 
-Everything inside `src/lib` is part of your library, and everything inside `src/routes` can be used as a showcase or preview app.
-
-## Building
-
-To build your project:
-
-```bash
-npm run package
-```
-
-To create a production version of your showcase app:
+## Building & deploying
 
 ```bash
 npm run build
+npm run preview   # to sanity-check the output locally
 ```
 
-You can preview the production build with:
+The project uses `@sveltejs/adapter-auto`. For a specific host (Vercel, Netlify,
+Node, static, …) install the matching [adapter](https://svelte.dev/docs/kit/adapters)
+and update `svelte.config.js`.
 
-```bash
-npm run preview
-```
+## Branches
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
-
-## Publishing
-
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also, consider adding a `"license"` field and point it to a `LICENSE` file, which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```bash
-npm publish
-```
+- `main` — current site (v3, Editorial Noir).
+- `v2` — archived snapshot of the previous multi-page portfolio.
 
 ---
 
-Enjoy your journey through Project-Me, and feel free to reach out if you have any questions or want to connect!
+Feel free to reach out or connect — links are in the contact section of the site.
