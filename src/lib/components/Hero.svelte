@@ -26,9 +26,9 @@
         <a class="btn btn--fill" href="#work">See the work <ArUp /></a>
         <a
           class="btn btn--line"
-          href={f.links.site}
+          href="/resume.pdf"
           target="_blank"
-          rel="noopener">Read the blog</a
+          rel="noopener">View resume <ArUp /></a
         >
       </div>
       <div class="scrollcue stag"><span class="bar"></span>Scroll to begin</div>
