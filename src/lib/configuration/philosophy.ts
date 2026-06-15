@@ -1,25 +1,16 @@
-import type {
-  PhilosophyItem,
-  PhilosophyIcon,
-} from "$generated/types/Configuration";
+import type { PhilosophyItem } from "./types";
 
 export const philosophy: PhilosophyItem[] = [
   {
-    title: "SIMPLICITY",
-    quote:
-      '"I build systems that are easy to reason about. Complex problems don\'t always require complex solutions. I prioritize maintainability and clarity over cleverness."',
-    icon: "bolt" as PhilosophyIcon,
+    title: "Simplicity",
+    body: "The best system is the one you can hold in your head. I remove before I add.",
   },
   {
-    title: "OBSERVABILITY",
-    quote:
-      "\"If you can't measure it, you don't own it. I embed telemetry, structured logging, and tracing into the heart of every service to ensure full operational transparency.\"",
-    icon: "pulse" as PhilosophyIcon,
+    title: "Observability",
+    body: "If you can't see it, you can't fix it. Every system ships with eyes.",
   },
   {
-    title: "PREDICTABILITY",
-    quote:
-      '"Performance should be deterministic. I architect for predictable latencies and graceful degradation, ensuring the system remains stable under extreme load."',
-    icon: "shield" as PhilosophyIcon,
+    title: "Predictability",
+    body: "Boring deploys are good deploys. Surprises belong in the product, not the pipeline.",
   },
 ];

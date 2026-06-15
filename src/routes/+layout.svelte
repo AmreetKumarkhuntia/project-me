@@ -1,116 +1,74 @@
 <script lang="ts">
-  import "$css/theme.scss";
-  import "$css/style.scss";
-
+  import "$css/noir.scss";
   import { onMount } from "svelte";
-  import { afterNavigate } from "$app/navigation";
-  import { browser } from "$app/environment";
+  import BackgroundField from "$components/BackgroundField.svelte";
 
-  import Loader from "$components/Loaders/Loader.svelte";
-  import Navbar from "$components/layout/Navbar.svelte";
-  import Footer from "$components/layout/Footer.svelte";
-  import { setSource, setTheme, siteStore } from "$stores/site";
-  import { decodeSource, decodeTheme } from "$generated/types";
+  let { children } = $props();
 
-  let body: HTMLDivElement | null = null;
+  onMount(() => {
+    const root = document.documentElement;
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
-  $: showLoader = $siteStore.showLoader;
-  $: setSiteTheme(), $siteStore.theme;
+    let io: IntersectionObserver | null = null;
 
-  function setSiteTheme() {
-    if (browser) {
-      document.body.setAttribute("data-theme", $siteStore.theme);
+    function enable() {
+      root.classList.add("reveal-on");
+      // hero stagger: reveal on next frame so the transition plays
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          document.querySelectorAll<HTMLElement>(".stag").forEach((el, i) => {
+            el.style.transitionDelay = (0.05 + i * 0.07).toFixed(2) + "s";
+            el.classList.add("is-in");
+          });
+        }),
+      );
+      // scroll-driven reveals for the rest
+      io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("is-in");
+              io?.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.14, rootMargin: "0px 0px -7% 0px" },
+      );
+      document.querySelectorAll(".r").forEach((el) => io!.observe(el));
     }
-  }
 
-  afterNavigate(() => {
-    if (body) {
-      body.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    }
-  });
+    let onVis: (() => void) | null = null;
 
-  onMount(async () => {
-    const savedTheme = decodeTheme(localStorage.getItem("x-theme"));
-    const savedSkill = decodeSource(localStorage.getItem("x-skill"));
+    // content stays fully visible when reduced motion is requested
+    if (!reduced) {
+      if (!document.hidden) {
+        // give the DOM a tick to paint, then arm reveals
+        requestAnimationFrame(enable);
+      } else {
+        onVis = () => {
+          if (!document.hidden) {
+            document.removeEventListener("visibilitychange", onVis!);
+            enable();
+          }
+        };
+        document.addEventListener("visibilitychange", onVis);
+      }
+    }
 
-    if (savedTheme !== null) {
-      setTheme(savedTheme);
-    }
-    if (savedSkill !== null) {
-      setSource(savedSkill);
-    } else {
-      setSource("github");
-    }
+    return () => {
+      io?.disconnect();
+      if (onVis) document.removeEventListener("visibilitychange", onVis);
+      root.classList.remove("reveal-on");
+    };
   });
 </script>
 
-<svelte:head>
-  <link
-    rel="stylesheet"
-    type="text/css"
-    href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
-  />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/monokai.min.css"
-  />
-</svelte:head>
-
-<!-- svelte-ignore a11y_no_static_element_interactions -->
-<div class="body" bind:this={body}>
-  {#if showLoader}
-    <div
-      class="loader-container display-flex display-flex-center display-align-col"
-    >
-      <Loader />
-    </div>
-  {/if}
-
-  <div style="display: {showLoader === true ? 'none' : 'block'};">
-    <Navbar />
-    <main class="content">
-      <slot />
-      <Footer />
-    </main>
-  </div>
+<div class="scanlight"></div>
+<div class="gridfx"></div>
+<BackgroundField />
+<div class="grain"></div>
+<div class="shell">
+  {@render children()}
 </div>
-
-<style>
-  .body {
-    overflow-x: hidden;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    z-index: 0;
-    padding: 0; /* Removed padding to allow full-width navbar */
-    background: linear-gradient(
-      180deg,
-      var(--color-bg-primary) 0%,
-      var(--color-bg-secondary) 100%
-    );
-    overflow-y: auto; /* Explicitly allow scrolling */
-  }
-
-  .body::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* New content wrapper style */
-  .content {
-    padding: 0 var(--space-24) 0 var(--space-24);
-    min-height: calc(100vh - 72px); /* Ensure footer pushes down if needed */
-    display: flex;
-    flex-direction: column;
-  }
-
-  .loader-container {
-    height: 100vh;
-    width: 100vw;
-
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
-</style>
