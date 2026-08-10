@@ -5,6 +5,9 @@ import GalleryPlaque from "@/components/GalleryPlaque";
 import MetaTable from "@/components/MetaTable";
 import WordReveal from "@/components/home/WordReveal";
 import WebGLFallback, { useReducedMotion, useWebGLSupport } from "@/components/three/WebGLFallback";
+import { homeContent } from "@/data/pages/home";
+import { site } from "@/data/site";
+import { toMaskWords } from "@/lib/headline";
 
 const AtriumScene = lazy(() => import("@/components/home/AtriumScene"));
 
@@ -12,11 +15,7 @@ const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 /** S0 — pre-hero strip (static, not a scrolling marquee). */
 function PreHeroStrip() {
-  const items = [
-    "Software & DevOps Engineer",
-    "Vol. 02 — The Atelier",
-    null, // status cluster
-  ];
+  const items: (string | null)[] = [...homeContent.preHeroStrip, null /* status cluster */];
   return (
     <div
       className="hairline-b flex h-10 items-center justify-between font-mono text-micro-10 uppercase text-ink-faint"
@@ -33,7 +32,7 @@ function PreHeroStrip() {
           {item ?? (
             <span className="flex items-center gap-2">
               <span aria-hidden className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-chartreuse" />
-              Bengaluru, IN · Open to work
+              {site.statusLine}
             </span>
           )}
         </motion.span>
@@ -74,31 +73,16 @@ export default function Hero() {
             transition={{ delay: 0.5, duration: 0.9, ease: EASE }}
             className="micro-label mb-8"
           >
-            — <span className="text-chartreuse">01</span> / AMREET KHUNTIA
+            — <span className="text-chartreuse">{homeContent.hero.label.number}</span> /{" "}
+            {homeContent.hero.label.text}
           </motion.p>
 
           <h1 className="font-display text-display-xl font-normal leading-display text-ink">
-            <span className="block">
-              <WordReveal words={[{ node: "I" }, { node: "build" }]} baseDelay={0.6} />
-            </span>
-            <span className="block">
-              <WordReveal words={[{ node: <em className="italic">resilient</em> }]} baseDelay={0.72} />
-            </span>
-            <span className="block">
-              <WordReveal words={[{ node: "systems" }, { node: "&" }]} baseDelay={0.84} />
-            </span>
-            <span className="block">
-              <WordReveal words={[{ node: "automate" }, { node: "the" }]} baseDelay={0.96} />
-            </span>
-            <span className="block">
-              <WordReveal
-                words={[{ node: <em className="italic text-chartreuse">infrastructure</em>, delay: 0.3 }]}
-                baseDelay={1.08}
-              />
-            </span>
-            <span className="block">
-              <WordReveal words={[{ node: "they" }, { node: "run" }, { node: "on." }]} baseDelay={1.2} />
-            </span>
+            {homeContent.hero.headline.map((line, i) => (
+              <span key={i} className="block">
+                <WordReveal words={toMaskWords(line)} baseDelay={0.6 + i * 0.12} />
+              </span>
+            ))}
           </h1>
 
           <motion.p
@@ -107,10 +91,8 @@ export default function Hero() {
             transition={{ delay: 1.5, duration: 1.0, ease: EASE }}
             className="mt-10 max-w-[46ch] font-sans text-[16px] leading-body text-ink-dim md:text-[17px]"
           >
-            <span className="font-medium text-ink">Software & DevOps Engineer.</span> I build
-            robust backend systems, automate CI/CD pipelines, and run cloud infrastructure that
-            ships without drama. I care about simplicity, observability, and making the
-            predictable boring.
+            <span className="font-medium text-ink">{homeContent.hero.bio.lead}</span>{" "}
+            {homeContent.hero.bio.body}
           </motion.p>
 
           {/* scroll hint */}
@@ -137,11 +119,14 @@ export default function Hero() {
             className="relative mx-auto aspect-square w-full max-w-[480px]"
           >
             {showLive ? (
-              <Suspense fallback={<WebGLFallback src="/sculpt-atrium.png" />}>
+              <Suspense fallback={<WebGLFallback src={homeContent.hero.sculpture.src} />}>
                 <AtriumScene />
               </Suspense>
             ) : (
-              <WebGLFallback src="/sculpt-atrium.png" alt="Warm-stone clay displaced torus sculpture" />
+              <WebGLFallback
+                src={homeContent.hero.sculpture.src}
+                alt={homeContent.hero.sculpture.alt}
+              />
             )}
             <div aria-hidden className="vignette pointer-events-none absolute inset-0" />
           </motion.div>
@@ -153,9 +138,9 @@ export default function Hero() {
             className="-mt-6 flex justify-center lg:justify-start"
           >
             <GalleryPlaque
-              title="Nº 01 — Untitled (System)"
-              medium="Displaced clay, studio light"
-              year="2026"
+              title={homeContent.hero.plaque.title}
+              medium={homeContent.hero.plaque.medium}
+              year={homeContent.hero.plaque.year}
             />
           </motion.div>
 
@@ -165,14 +150,7 @@ export default function Hero() {
             variants={{ show: { transition: { staggerChildren: 0.1, delayChildren: 1.8 } } }}
             className="mt-10 max-w-[360px]"
           >
-            <MetaTable
-              rows={[
-                { label: "Role", value: "SWE · DevOps" },
-                { label: "Based", value: "Bengaluru, India" },
-                { label: "Focus", value: "Backend · Platform" },
-                { label: "Status", value: "Available", accentDot: true },
-              ]}
-            />
+            <MetaTable rows={homeContent.hero.metaRows} />
           </motion.div>
         </motion.div>
       </div>

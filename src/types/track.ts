@@ -7,5 +7,7 @@ export interface Track {
   src: string; // audio file path
   cover: string;
   duration: string; // display duration
-  mood: string;
+  genre: string; // italic Playfair genre under the title
+  moodNote: string; // mono caption, e.g. "DUSK HIGHWAY, LONG EXPOSURE"
+  mood: string; // longer sentence in the detail strip
 }

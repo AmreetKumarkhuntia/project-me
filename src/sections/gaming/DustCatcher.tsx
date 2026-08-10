@@ -12,6 +12,7 @@ import {
 } from "@/sections/gaming/dustCatcherEngine";
 import type { GamePhase } from "@/types";
 import type { GameEngine } from "@/sections/gaming/dustCatcherEngine";
+import { gamingContent } from "@/data/pages/gaming";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -193,15 +194,15 @@ export default function DustCatcher() {
       >
         {/* corner plaque — inverts the museum rule */}
         <div className="absolute -top-3 right-4 bg-bg px-3 font-mono text-micro-10 uppercase text-chartreuse md:right-6">
-          Interactive — please touch
+          {gamingContent.vitrine.cornerPlaque}
         </div>
 
         {/* header row */}
         <div className="flex flex-wrap items-end justify-between gap-4 px-1 pb-5 pt-2 md:px-2">
           <div>
-            <h2 className="font-display text-title-s text-ink">Dust Catcher</h2>
+            <h2 className="font-display text-title-s text-ink">{gamingContent.vitrine.title}</h2>
             <p className="mt-1 font-mono text-micro-10 uppercase text-ink-faint">
-              A kinetic study in drift and timing · 2026
+              {gamingContent.vitrine.subtitle}
             </p>
           </div>
           <div className="flex items-center gap-6" aria-live="polite">
@@ -250,7 +251,9 @@ export default function DustCatcher() {
                 transition={{ duration: 0.5, ease: EASE }}
                 className="absolute inset-0 flex flex-col items-center justify-center gap-6 bg-[rgba(18,17,16,0.72)]"
               >
-                <p className="font-display text-display-m italic text-ink">Press to begin</p>
+                <p className="font-display text-display-m italic text-ink">
+                  {gamingContent.vitrine.idleHeading}
+                </p>
                 <PrimaryButton onClick={beginCountdown} data-cursor="PLAY">
                   Start
                 </PrimaryButton>
@@ -292,7 +295,7 @@ export default function DustCatcher() {
                 className="absolute inset-0 flex flex-col items-center justify-center gap-6 bg-[rgba(18,17,16,0.72)]"
               >
                 <p className="font-display text-display-m italic text-ink">
-                  Paused — the dust waits.
+                  {gamingContent.vitrine.pausedHeading}
                 </p>
                 <PrimaryButton onClick={togglePause}>Resume</PrimaryButton>
               </motion.div>
@@ -308,7 +311,7 @@ export default function DustCatcher() {
                 className="absolute inset-0 flex flex-col items-center justify-center gap-5 bg-[rgba(18,17,16,0.78)]"
                 aria-live="assertive"
               >
-                <p className="micro-label">Game over</p>
+                <p className="micro-label">{gamingContent.vitrine.gameOverLabel}</p>
                 <p className="font-display text-display-m text-ink">{pad3(score)}</p>
                 {showBestRibbon && (
                   <motion.p
@@ -356,13 +359,7 @@ export default function DustCatcher() {
         </motion.div>
 
         {/* HTML text alternative (gaming-v2 interactions checklist) */}
-        <p className="sr-only">
-          Dust Catcher is a minimalist catching game. Press Start, then move the off-white ring
-          along the bottom of the playfield with the left and right arrow keys, the A and D keys,
-          or by dragging on touch screens. Catch the falling warm-white dust motes for one point
-          and chartreuse motes for three points. Catching a dark-gray shard ends the run. Escape
-          pauses the game. Your best score is saved locally on this device.
-        </p>
+        <p className="sr-only">{gamingContent.vitrine.srDescription}</p>
       </motion.div>
     </section>
   );

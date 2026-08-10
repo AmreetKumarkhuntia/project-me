@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import RoomHeader from "@/sections/gaming/RoomHeader";
 import DustCatcher from "@/sections/gaming/DustCatcher";
 import Shelf from "@/sections/gaming/Shelf";
+import { gamingContent } from "@/data/pages/gaming";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -19,8 +20,8 @@ function ControlsStrip() {
       className="hairline-t mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-3 py-5 font-mono text-micro-10 uppercase text-ink-faint"
       style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
     >
-      <span>Controls — ←/→ or A/D move · Esc pause · Sound toggle in-vitrine</span>
-      <span>Best score saved locally</span>
+      <span>{gamingContent.controlsStrip.left}</span>
+      <span>{gamingContent.controlsStrip.right}</span>
     </motion.div>
   );
 }
@@ -38,14 +39,15 @@ function ReturnBand() {
         viewport={{ once: true, amount: 0.6 }}
         transition={{ duration: 1.1, ease: EASE }}
       >
-        <p className="micro-label mb-6">Back to —</p>
+        <p className="micro-label mb-6">{gamingContent.returnBand.label}</p>
         <Link
-          to="/"
+          to={gamingContent.returnBand.to}
           className="group inline-flex items-baseline gap-3 font-display text-display-l leading-[1.0] text-ink"
           data-cursor="VIEW"
         >
           <span>
-            The <em className="italic">Atrium</em>
+            {gamingContent.returnBand.pre}{" "}
+            <em className="italic">{gamingContent.returnBand.em}</em>
           </span>
           <ArrowUpRight
             aria-hidden

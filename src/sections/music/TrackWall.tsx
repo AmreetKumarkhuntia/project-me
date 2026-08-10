@@ -1,7 +1,6 @@
 // src/sections/music/TrackWall.tsx — S2 "The Wall": five playable pieces,
-// hairline-separated exhibition rows (music.md §S2). Track files/titles/
-// covers come from src/data/tracks.ts; only presentational genre + mood-note
-// copy lives here (music.md's verbatim table).
+// hairline-separated exhibition rows (music.md §S2). Everything rendered here
+// comes from src/data/tracks.ts.
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Pause, Play, Plus } from "lucide-react";
@@ -9,7 +8,6 @@ import { tracks } from "@/data/tracks";
 import type { Track } from "@/types";
 import { useAudio } from "@/providers/AudioProvider";
 import FreqBars from "@/components/music/FreqBars";
-import { trackMeta } from "@/components/music/trackMeta";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -32,7 +30,6 @@ export default function TrackWall({ onQueue, queuedIds }: TrackWallProps) {
       <div className="mx-auto max-w-[1440px]" style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}>
         <ul role="list">
           {tracks.map((track, i) => {
-            const meta = trackMeta(track.id);
             const isActive = currentTrack?.id === track.id;
             const open = openId === track.id;
             const queued = queuedIds.includes(track.id);
@@ -121,12 +118,12 @@ export default function TrackWall({ onQueue, queuedIds }: TrackWallProps) {
                         {track.title}
                       </motion.p>
                     </AnimatePresence>
-                    <p className="mt-1 font-display text-[15px] italic text-ink-dim">{meta.genre}</p>
+                    <p className="mt-1 font-display text-[15px] italic text-ink-dim">{track.genre}</p>
                   </div>
 
                   {/* mood note */}
                   <span className="col-span-3 hidden font-mono text-micro-10 uppercase text-ink-faint lg:block">
-                    {meta.moodNote}
+                    {track.moodNote}
                   </span>
 
                   {/* duration + controls */}
@@ -187,7 +184,7 @@ export default function TrackWall({ onQueue, queuedIds }: TrackWallProps) {
                         </div>
                         <div className="md:col-span-4">
                           <p className="font-mono text-micro-10 uppercase text-ink-faint">
-                            {meta.moodNote}
+                            {track.moodNote}
                           </p>
                           <p className="mt-3 font-sans text-[15px] leading-body text-ink-dim">
                             {track.mood}

@@ -9,7 +9,7 @@ import { tracks } from "@/data/tracks";
 import type { Track } from "@/types";
 import { useAudio } from "@/providers/AudioProvider";
 import FreqBars from "@/components/music/FreqBars";
-import { trackMeta } from "@/components/music/trackMeta";
+import { musicContent } from "@/data/pages/music";
 import { ensureGainWiring, getGainVolume, getStoredVolume, setGainVolume, storeVolume } from "@/components/music/audioGain";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -222,7 +222,6 @@ export default function PlayerBar({ queuedIds }: PlayerBarProps) {
   ];
 
   const VolumeIcon = muted || volume === 0 ? VolumeX : volume < 50 ? Volume1 : Volume2;
-  const meta = currentTrack ? trackMeta(currentTrack.id) : { genre: "", moodNote: "" };
 
   return (
     <>
@@ -325,7 +324,7 @@ export default function PlayerBar({ queuedIds }: PlayerBarProps) {
                     </motion.p>
                   </AnimatePresence>
                   <p className="mt-0.5 truncate font-mono text-micro-10 uppercase text-ink-faint">
-                    {meta.genre}
+                    {currentTrack.genre}
                   </p>
                 </div>
               </div>
@@ -501,7 +500,7 @@ export default function PlayerBar({ queuedIds }: PlayerBarProps) {
                             {track.title}
                           </span>
                           <span className="mt-0.5 block truncate font-mono text-micro-10 uppercase text-ink-faint">
-                            {trackMeta(track.id).genre} · {track.duration}
+                            {track.genre} · {track.duration}
                           </span>
                         </span>
                         {active && isPlaying && (
@@ -517,12 +516,9 @@ export default function PlayerBar({ queuedIds }: PlayerBarProps) {
               <div className="border-t px-6 py-5" style={{ borderColor: "var(--hairline)" }}>
                 <p className="micro-label mb-3">KEYBOARD</p>
                 <ul className="grid grid-cols-2 gap-x-6 gap-y-2 font-mono text-micro-10 uppercase text-ink-faint">
-                  <li>Space — Play / Pause</li>
-                  <li>← → — Seek 5s</li>
-                  <li>↑ ↓ — Volume</li>
-                  <li>M — Mute</li>
-                  <li>N — Next</li>
-                  <li>P — Previous</li>
+                  {musicContent.keyboardMap.map((row) => (
+                    <li key={row}>{row}</li>
+                  ))}
                 </ul>
               </div>
             </motion.aside>

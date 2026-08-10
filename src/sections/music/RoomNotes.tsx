@@ -1,6 +1,7 @@
 // src/sections/music/RoomNotes.tsx — S4 "About the room" editorial strip
 // (music.md §S4): hairline top, 6/6 split.
 import { motion } from "framer-motion";
+import { musicContent } from "@/data/pages/music";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -19,10 +20,11 @@ export default function RoomNotes() {
           className="md:col-span-6"
         >
           <p className="micro-label mb-6">
-            — <span className="text-chartreuse">02</span> / NOTES
+            — <span className="text-chartreuse">{musicContent.notes.label.number}</span> /{" "}
+            {musicContent.notes.label.text}
           </p>
           <p className="font-display text-title-s italic leading-snug text-ink">
-            “Made between deploys.”
+            {musicContent.notes.quote}
           </p>
         </motion.div>
 
@@ -34,9 +36,7 @@ export default function RoomNotes() {
           className="md:col-span-6"
         >
           <p className="max-w-[52ch] font-sans text-[16px] leading-body text-ink-dim">
-            Every piece here was produced late at night in Bengaluru — a counterpoint to the day
-            job: unpredictable on purpose. The room tone toggle lowers the lights, the way a
-            gallery does for video work.
+            {musicContent.notes.body}
           </p>
         </motion.div>
       </div>

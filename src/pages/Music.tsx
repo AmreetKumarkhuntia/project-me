@@ -10,6 +10,7 @@ import MusicHero from "@/sections/music/MusicHero";
 import TrackWall from "@/sections/music/TrackWall";
 import PlayerBar from "@/sections/music/PlayerBar";
 import RoomNotes from "@/sections/music/RoomNotes";
+import { musicContent } from "@/data/pages/music";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -36,14 +37,15 @@ export default function Music() {
             transition={{ duration: 0.9, ease: EASE }}
             className="hairline-t pt-16"
           >
-            <p className="micro-label mb-6">NEXT ROOM —</p>
+            <p className="micro-label mb-6">{musicContent.nextRoom.label}</p>
             <Link
-              to="/gaming"
+              to={musicContent.nextRoom.to}
               data-cursor="VIEW"
               className="group inline-flex items-baseline gap-4 font-display text-display-m font-normal leading-display-m text-ink transition-colors duration-500 hover:text-chartreuse"
             >
               <span>
-                The <em className="italic">Play</em> Room
+                {musicContent.nextRoom.pre} <em className="italic">{musicContent.nextRoom.em}</em>{" "}
+                {musicContent.nextRoom.post}
               </span>
               <ArrowUpRight
                 aria-hidden

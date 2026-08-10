@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import SectionHeader from "@/components/SectionHeader";
 import { experience } from "@/data/experience";
+import { workContent } from "@/data/pages/work";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -23,7 +24,10 @@ export default function Provenance() {
       style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
       aria-label="Provenance — experience"
     >
-      <SectionHeader index="03" label="PROVENANCE" />
+      <SectionHeader
+        index={workContent.provenance.label.number}
+        label={workContent.provenance.label.text}
+      />
 
       <div ref={listRef} className="relative mt-4 pl-6 md:pl-10">
         {/* spine hairline, drawn vertically with scroll (scaleY scrub) */}

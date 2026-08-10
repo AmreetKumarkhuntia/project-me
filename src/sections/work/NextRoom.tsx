@@ -1,6 +1,7 @@
 // src/sections/work/NextRoom.tsx — S5 next-room band → The Listening Room (work.md §S5)
 import { Link } from "react-router";
 import { motion } from "framer-motion";
+import { workContent } from "@/data/pages/work";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -18,13 +19,13 @@ export default function NextRoom() {
         transition={{ duration: 0.9, ease: EASE }}
         className="hairline-t pt-10"
       >
-        <p className="micro-label">Next Room —</p>
+        <p className="micro-label">{workContent.nextRoom.label}</p>
         <Link
-          to="/music"
+          to={workContent.nextRoom.to}
           data-cursor="ENTER"
           className="group mt-4 inline-flex items-baseline gap-3 font-display text-display-m leading-display-m text-ink transition-colors duration-300 hover:italic hover:text-chartreuse"
         >
-          The Listening Room
+          {workContent.nextRoom.text}
           <span aria-hidden className="font-sans text-[0.6em] transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
             ↗
           </span>

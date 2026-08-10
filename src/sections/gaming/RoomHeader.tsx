@@ -4,6 +4,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import GalleryPlaque from "@/components/GalleryPlaque";
 import WordReveal from "@/components/home/WordReveal";
 import WebGLFallback, { useReducedMotion, useWebGLSupport } from "@/components/three/WebGLFallback";
+import { gamingContent } from "@/data/pages/gaming";
+import { toMaskWords } from "@/lib/headline";
 
 const PlayScene = lazy(() => import("@/sections/gaming/PlayScene"));
 
@@ -56,17 +58,12 @@ export default function RoomHeader() {
             transition={{ delay: 0.3, duration: 0.9, ease: EASE }}
             className="micro-label mb-8"
           >
-            — <span className="text-chartreuse">01</span> / THE PLAY ROOM
+            — <span className="text-chartreuse">{gamingContent.hero.label.number}</span> /{" "}
+            {gamingContent.hero.label.text}
           </motion.p>
 
           <h1 className="font-display text-display-l font-normal leading-[1.0] text-ink">
-            <WordReveal
-              words={[
-                { node: "Play," },
-                { node: <em className="italic text-chartreuse">framed.</em>, delay: 0.3 },
-              ]}
-              baseDelay={0.5}
-            />
+            <WordReveal words={toMaskWords(gamingContent.hero.headline[0] ?? [])} baseDelay={0.5} />
           </h1>
 
           <motion.p
@@ -75,8 +72,7 @@ export default function RoomHeader() {
             transition={{ delay: 1.1, duration: 1.0, ease: EASE }}
             className="mt-8 max-w-[44ch] font-sans text-[16px] leading-body text-ink-dim md:text-[17px]"
           >
-            One playable piece and a shelf of the games that shaped how I think about systems,
-            feedback, and flow.
+            {gamingContent.hero.sub}
           </motion.p>
         </div>
 
@@ -90,13 +86,13 @@ export default function RoomHeader() {
             className="relative mx-auto aspect-[4/3] w-full max-w-[420px]"
           >
             {showLive ? (
-              <Suspense fallback={<WebGLFallback src="/sculpt-glass.png" />}>
+              <Suspense fallback={<WebGLFallback src={gamingContent.hero.sculpture.src} />}>
                 <PlayScene paused={!onScreen} />
               </Suspense>
             ) : (
               <WebGLFallback
-                src="/sculpt-glass.png"
-                alt="Frosted glass abstract polyhedral sculpture with soft inner glow"
+                src={gamingContent.hero.sculpture.src}
+                alt={gamingContent.hero.sculpture.alt}
               />
             )}
             <div aria-hidden className="vignette pointer-events-none absolute inset-0" />
@@ -108,7 +104,11 @@ export default function RoomHeader() {
             transition={{ delay: 1.4, duration: 0.9, ease: EASE }}
             className="-mt-4 flex justify-center lg:justify-start"
           >
-            <GalleryPlaque title="Nº 04 — Frozen Dice" medium="Frosted glass, inner light" year="2026" />
+            <GalleryPlaque
+              title={gamingContent.hero.plaque.title}
+              medium={gamingContent.hero.plaque.medium}
+              year={gamingContent.hero.plaque.year}
+            />
           </motion.div>
         </motion.div>
       </div>
