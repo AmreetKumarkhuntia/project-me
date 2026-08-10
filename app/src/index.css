@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* THE ATELIER tokens (design-v2 §1) */
+    --bg: #121110;
+    --bg-2: #171614;
+    --bg-3: #1d1c19;
+    --ink: #edeae3;
+    --ink-dim: #a9a49a;
+    --ink-faint: #6e6a61;
+    --accent: #d4ff00;
+    --accent-dim: rgba(212, 255, 0, 0.35);
+    --hairline: rgba(237, 234, 227, 0.1);
+    --hairline-strong: rgba(237, 234, 227, 0.22);
+
+    --gallery-ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --gallery-exit: cubic-bezier(0.65, 0, 0.35, 1);
+
+    /* shadcn token bridge */
+    --background: 40 6% 7%;
+    --foreground: 40 14% 91%;
+    --card: 45 6% 9%;
+    --card-foreground: 40 14% 91%;
+    --popover: 45 6% 9%;
+    --popover-foreground: 40 14% 91%;
+    --primary: 70 100% 50%;
+    --primary-foreground: 40 6% 7%;
+    --secondary: 45 7% 11%;
+    --secondary-foreground: 40 14% 91%;
+    --muted: 45 7% 11%;
+    --muted-foreground: 42 7% 63%;
+    --accent-h: 70 100% 50%;
+    --destructive: 0 62% 47%;
+    --destructive-foreground: 40 14% 91%;
+    --border: 40 6% 16%;
+    --input: 40 6% 16%;
+    --ring: 70 100% 50%;
+    --radius: 2px;
+    --sidebar-background: 45 6% 9%;
+    --sidebar-foreground: 40 14% 91%;
+    --sidebar-primary: 70 100% 50%;
+    --sidebar-primary-foreground: 40 6% 7%;
+    --sidebar-accent: 45 7% 11%;
+    --sidebar-accent-foreground: 40 14% 91%;
+    --sidebar-border: 40 6% 16%;
+    --sidebar-ring: 70 100% 50%;
+  }
+
+  html {
+    background: var(--bg);
+    scroll-behavior: auto;
+  }
+
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+    font-feature-settings: "ss01" on;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: #121110;
+  }
+
+  /* hide native cursor only on fine pointers with custom cursor active */
+  .has-custom-cursor,
+  .has-custom-cursor * {
+    cursor: none;
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* micro-label (design-v2 §2) */
+  .micro-label {
+    @apply font-mono text-micro uppercase text-ink-faint;
+  }
+
+  .micro-label-accent {
+    @apply font-mono text-micro uppercase text-chartreuse;
+  }
+
+  /* hairline rules */
+  .hairline-b {
+    border-bottom: 1px solid var(--hairline);
+  }
+  .hairline-t {
+    border-top: 1px solid var(--hairline);
+  }
+
+  /* global grain texture overlay (design-v2 §11) */
+  .texture-grain {
+    background-image: url("/texture-grain.png");
+    background-repeat: repeat;
+    background-size: 512px 512px;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+  }
+
+  /* soft CSS vignette (design-v2 §6 — at most a vignette, no post stacks) */
+  .vignette {
+    background: radial-gradient(
+      ellipse 90% 80% at 50% 45%,
+      transparent 55%,
+      rgba(18, 17, 16, 0.55) 100%
+    );
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
