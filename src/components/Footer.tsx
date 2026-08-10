@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { socials, email, emailHref } from "@/data/socials";
 import { profile } from "@/data/profile";
+import { footerContent } from "@/data/site";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -24,9 +25,9 @@ export default function Footer() {
         style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
       >
         <h2 className="font-display text-display-l leading-[1.0] text-ink">
-          Let's{" "}
-          <em className="italic text-chartreuse">build</em>{" "}
-          something.
+          {footerContent.heading.pre}{" "}
+          <em className="italic text-chartreuse">{footerContent.heading.accent}</em>{" "}
+          {footerContent.heading.post}
         </h2>
 
         <p className="mt-6 max-w-[52ch] font-sans text-[16px] leading-body text-ink-dim">
@@ -70,9 +71,9 @@ export default function Footer() {
 
         {/* legal row */}
         <div className="hairline-t mt-24 flex flex-col gap-2 pt-6 font-mono text-micro-10 uppercase text-ink-faint md:flex-row md:items-center md:justify-between">
-          <span>© 2026 Amreet Khuntia</span>
-          <span className="hidden md:block">Designed as an atelier</span>
-          <span>Bengaluru, India</span>
+          <span>{footerContent.legal.copyright}</span>
+          <span className="hidden md:block">{footerContent.legal.tagline}</span>
+          <span>{footerContent.legal.location}</span>
         </div>
       </div>
     </footer>

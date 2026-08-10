@@ -3,12 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-
-const LINKS = [
-  { to: "/work", label: "WORK", index: "01" },
-  { to: "/music", label: "MUSIC", index: "02" },
-  { to: "/gaming", label: "GAMING", index: "03" },
-];
+import { homeNavItem, navLinks, site } from "@/data/site";
 
 function scrollToContact() {
   const el = document.getElementById("contact");
@@ -67,16 +62,18 @@ export default function Navbar() {
           aria-label="Primary"
         >
           {/* logo + wordmark */}
-          <Link to="/" className="flex items-center gap-3" aria-label="Amreet Khuntia — home">
+          <Link to="/" className="flex items-center gap-3" aria-label={`${site.brand.wordmark} — home`}>
             <span className="flex h-7 w-7 items-center justify-center bg-chartreuse">
-              <span className="font-display text-[16px] font-semibold leading-none text-bg">A</span>
+              <span className="font-display text-[16px] font-semibold leading-none text-bg">
+                {site.brand.initial}
+              </span>
             </span>
-            <span className="font-display text-[18px] italic text-ink">Amreet Khuntia</span>
+            <span className="font-display text-[18px] italic text-ink">{site.brand.wordmark}</span>
           </Link>
 
           {/* desktop links */}
           <div className="hidden items-center gap-8 md:flex">
-            {LINKS.map((l) => (
+            {navLinks.map((l) => (
               <NavLink
                 key={l.to}
                 to={l.to}
@@ -106,14 +103,14 @@ export default function Navbar() {
           <div className="hidden items-center gap-6 md:flex">
             <span className="flex items-center gap-2 font-mono text-micro-10 uppercase text-ink-faint">
               <span aria-hidden className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-chartreuse" />
-              Bengaluru, IN · Open to work
+              {site.statusLine}
             </span>
             <button
               type="button"
               onClick={onContact}
               className="rounded-sm bg-chartreuse px-4 py-2 font-mono text-micro uppercase text-bg transition-all duration-300 hover:scale-[1.02] hover:shadow-accent-glow"
             >
-              Get in touch
+              {site.ctaLabel}
             </button>
           </div>
 
@@ -142,7 +139,7 @@ export default function Navbar() {
             style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
           >
             <nav className="flex flex-col gap-2" aria-label="Mobile">
-              {[{ to: "/", label: "Home", index: "00" }, ...LINKS.map((l) => ({ ...l, label: l.label[0] + l.label.slice(1).toLowerCase() }))].map(
+              {[homeNavItem, ...navLinks.map((l) => ({ ...l, label: l.label[0] + l.label.slice(1).toLowerCase() }))].map(
                 (l, i) => (
                   <motion.div
                     key={l.to}
@@ -169,14 +166,14 @@ export default function Navbar() {
             >
               <span className="flex items-center gap-2 font-mono text-micro-10 uppercase text-ink-faint">
                 <span aria-hidden className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-chartreuse" />
-                Bengaluru, IN · Open to work
+                {site.statusLine}
               </span>
               <button
                 type="button"
                 onClick={onContact}
                 className="mt-2 w-fit rounded-sm bg-chartreuse px-5 py-3 font-mono text-micro uppercase text-bg"
               >
-                Get in touch
+                {site.ctaLabel}
               </button>
             </motion.div>
           </motion.div>
