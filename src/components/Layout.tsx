@@ -35,7 +35,7 @@ export default function Layout() {
 
   return (
     <div className="relative min-h-[100dvh] bg-bg">
-      {/* global grain texture (design-v2 §11) */}
+      {/* site-wide grain texture (design-v2 §11) */}
       <div aria-hidden className="texture-grain pointer-events-none fixed inset-0 z-[55]" />
 
       <a
