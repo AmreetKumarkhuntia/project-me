@@ -21,8 +21,7 @@ export function SecondaryButton({ children, className = "", ...rest }: ButtonPro
   return (
     <button
       type="button"
-      className={`rounded-sm border px-5 py-3 font-mono text-micro uppercase text-ink transition-colors duration-300 hover:border-chartreuse ${className}`}
-      style={{ borderColor: "var(--hairline-strong)" }}
+      className={`rounded-sm border border-hairline-strong px-5 py-3 font-mono text-micro uppercase text-ink transition-colors duration-300 hover:border-chartreuse ${className}`}
       {...rest}
     >
       {children}

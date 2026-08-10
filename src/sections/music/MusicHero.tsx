@@ -29,8 +29,7 @@ export default function MusicHero() {
   return (
     <section ref={sectionRef} className="relative pt-[160px]" aria-label="The Listening Room">
       <div
-        className="mx-auto grid max-w-[1440px] grid-cols-1 gap-16 pb-24 lg:grid-cols-12 lg:items-center"
-        style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+        className="mx-auto grid max-w-[1440px] grid-cols-1 gap-16 pb-24 lg:grid-cols-12 lg:items-center px-gutter"
       >
         {/* left (8 cols): section number + headline + sub */}
         <div className="lg:col-span-8">

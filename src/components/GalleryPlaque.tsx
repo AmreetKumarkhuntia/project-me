@@ -9,8 +9,7 @@ interface GalleryPlaqueProps {
 export default function GalleryPlaque({ title, medium, year, className = "" }: GalleryPlaqueProps) {
   return (
     <div
-      className={`w-fit border bg-bg-2 px-4 py-3 ${className}`}
-      style={{ borderColor: "var(--hairline-strong)" }}
+      className={`w-fit border border-hairline-strong bg-bg-2 px-4 py-3 ${className}`}
     >
       <p className="font-mono text-micro uppercase text-ink">{title}</p>
       <p className="mt-1 font-mono text-micro-10 uppercase text-ink-faint">{medium}</p>

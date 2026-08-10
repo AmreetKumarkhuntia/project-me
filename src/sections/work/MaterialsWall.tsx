@@ -10,8 +10,7 @@ const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 export default function MaterialsWall() {
   return (
     <section
-      className="mx-auto max-w-[1440px] pt-24 md:pt-36"
-      style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+      className="mx-auto max-w-[1440px] pt-24 md:pt-36 px-gutter"
       aria-label="Materials — technical stack"
     >
       <SectionHeader
@@ -29,7 +28,7 @@ export default function MaterialsWall() {
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true, amount: 0.8 }}
               transition={{ duration: 1.1, ease: EASE }}
-              className="absolute left-0 top-0 h-px w-full origin-left bg-[var(--hairline)]"
+              className="absolute left-0 top-0 h-px w-full origin-left bg-hairline"
             />
             <div className="grid grid-cols-1 gap-4 py-8 md:grid-cols-12">
               <motion.p
@@ -70,7 +69,7 @@ export default function MaterialsWall() {
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true, amount: 0.8 }}
           transition={{ duration: 1.1, ease: EASE }}
-          className="block h-px w-full origin-left bg-[var(--hairline)]"
+          className="block h-px w-full origin-left bg-hairline"
         />
       </div>
     </section>

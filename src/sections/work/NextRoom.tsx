@@ -8,8 +8,7 @@ const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 export default function NextRoom() {
   return (
     <section
-      className="mx-auto max-w-[1440px] py-24 md:py-36"
-      style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+      className="mx-auto max-w-[1440px] py-24 md:py-36 px-gutter"
       aria-label="Next room"
     >
       <motion.div

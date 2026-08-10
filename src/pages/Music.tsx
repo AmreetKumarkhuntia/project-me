@@ -29,7 +29,7 @@ export default function Music() {
 
       {/* S5 — next-room band */}
       <section aria-label="Next room" className="pb-40">
-        <div className="mx-auto max-w-[1440px]" style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}>
+        <div className="mx-auto max-w-[1440px] px-gutter">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

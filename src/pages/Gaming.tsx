@@ -17,8 +17,7 @@ function ControlsStrip() {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.9 }}
       transition={{ duration: 0.9, ease: EASE }}
-      className="hairline-t mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-3 py-5 font-mono text-micro-10 uppercase text-ink-faint"
-      style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+      className="hairline-t mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-3 py-5 font-mono text-micro-10 uppercase text-ink-faint px-gutter"
     >
       <span>{gamingContent.controlsStrip.left}</span>
       <span>{gamingContent.controlsStrip.right}</span>
@@ -30,8 +29,7 @@ function ControlsStrip() {
 function ReturnBand() {
   return (
     <div
-      className="hairline-t mx-auto max-w-[1440px] py-20 md:py-28"
-      style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+      className="hairline-t mx-auto max-w-[1440px] py-20 md:py-28 px-gutter"
     >
       <motion.div
         initial={{ opacity: 0, x: -60 }}

@@ -47,8 +47,7 @@ export default function WingHeader() {
     <section
       ref={sectionRef}
       aria-label="The Engineering Wing"
-      className="mx-auto max-w-[1440px] pt-8 md:pt-24"
-      style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+      className="mx-auto max-w-[1440px] pt-8 md:pt-24 px-gutter"
     >
       <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
         {/* left (8): label + headline + sub-line */}

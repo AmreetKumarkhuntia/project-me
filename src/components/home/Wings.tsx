@@ -23,8 +23,7 @@ export default function Wings() {
 
   return (
     <section
-      className="mx-auto max-w-[1440px] py-24 md:py-36"
-      style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+      className="mx-auto max-w-[1440px] py-24 md:py-36 px-gutter"
       aria-label="The wings"
     >
       <SectionHeader index={homeContent.wings.label.number} label={homeContent.wings.label.text} />
@@ -80,8 +79,7 @@ export default function Wings() {
               <img
                 src={WINGS[hovered]!.preview}
                 alt=""
-                className="h-full w-full border object-cover"
-                style={{ borderColor: "var(--hairline-strong)" }}
+                className="h-full w-full border object-cover border-hairline-strong"
               />
             </motion.div>
           )}

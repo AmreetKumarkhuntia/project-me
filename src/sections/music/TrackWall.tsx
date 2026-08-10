@@ -27,7 +27,7 @@ export default function TrackWall({ onQueue, queuedIds }: TrackWallProps) {
 
   return (
     <section aria-label="The Wall — five pieces" className="pb-32">
-      <div className="mx-auto max-w-[1440px]" style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}>
+      <div className="mx-auto max-w-[1440px] px-gutter">
         <ul role="list">
           {tracks.map((track, i) => {
             const isActive = currentTrack?.id === track.id;
@@ -41,7 +41,7 @@ export default function TrackWall({ onQueue, queuedIds }: TrackWallProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.8 }}
                 transition={{ duration: 0.9, ease: EASE, delay: i * 0.1 }}
-                className="hairline-t last:border-b last:border-b-[var(--hairline)]"
+                className="hairline-t last:border-b last:border-b-hairline"
               >
                 {/* row */}
                 <div
@@ -81,8 +81,7 @@ export default function TrackWall({ onQueue, queuedIds }: TrackWallProps) {
                   {/* cover / live mini visualizer */}
                   <div className="col-span-3 sm:col-span-2 md:col-span-1">
                     <div
-                      className="relative h-[72px] w-[72px] overflow-hidden border bg-bg-2 p-1 sm:h-[96px] sm:w-[96px]"
-                      style={{ borderColor: "var(--hairline-strong)" }}
+                      className="relative h-[72px] w-[72px] overflow-hidden border bg-bg-2 p-1 sm:h-[96px] sm:w-[96px] border-hairline-strong"
                     >
                       <img
                         src={track.cover}
@@ -134,9 +133,8 @@ export default function TrackWall({ onQueue, queuedIds }: TrackWallProps) {
                       className={`flex h-11 w-11 items-center justify-center rounded-full border transition-colors duration-500 ${
                         isActive && isPlaying
                           ? "border-chartreuse text-chartreuse"
-                          : "text-ink-dim group-hover:border-chartreuse group-hover:text-chartreuse"
+                          : "border-hairline-strong text-ink-dim group-hover:border-chartreuse group-hover:text-chartreuse"
                       }`}
-                      style={{ borderColor: isActive && isPlaying ? undefined : "var(--hairline-strong)" }}
                     >
                       {isActive && isPlaying ? (
                         <Pause size={15} />
@@ -195,8 +193,7 @@ export default function TrackWall({ onQueue, queuedIds }: TrackWallProps) {
                             type="button"
                             disabled={queued}
                             onClick={() => onQueue(track)}
-                            className="flex items-center gap-2 border px-5 py-2.5 font-mono text-micro uppercase text-ink transition-colors duration-500 hover:border-chartreuse hover:text-chartreuse disabled:cursor-default disabled:text-ink-faint"
-                            style={{ borderColor: "var(--hairline-strong)" }}
+                            className="flex items-center gap-2 border px-5 py-2.5 font-mono text-micro uppercase text-ink transition-colors duration-500 hover:border-chartreuse hover:text-chartreuse disabled:cursor-default disabled:text-ink-faint border-hairline-strong"
                           >
                             <Plus size={12} aria-hidden />
                             {queued ? "Queued" : "Add to queue"}

@@ -20,8 +20,7 @@ export default function Provenance() {
 
   return (
     <section
-      className="mx-auto max-w-[1440px] pt-24 md:pt-36"
-      style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+      className="mx-auto max-w-[1440px] pt-24 md:pt-36 px-gutter"
       aria-label="Provenance — experience"
     >
       <SectionHeader
@@ -34,7 +33,7 @@ export default function Provenance() {
         <motion.span
           aria-hidden
           style={{ scaleY: spineScaleY }}
-          className="absolute bottom-0 left-0 top-0 w-px origin-top bg-[var(--hairline-strong)]"
+          className="absolute bottom-0 left-0 top-0 w-px origin-top bg-hairline-strong"
         />
         {/* 4px accent dot riding the spine */}
         <motion.span
@@ -50,7 +49,7 @@ export default function Provenance() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.6 }}
             transition={{ duration: 0.9, ease: EASE, delay: i * 0.15 }}
-            className="hairline-b grid grid-cols-1 gap-4 py-10 first:border-t first:border-[var(--hairline)] md:grid-cols-12"
+            className="hairline-b grid grid-cols-1 gap-4 py-10 first:border-t first:border-hairline md:grid-cols-12"
           >
             <div className="md:col-span-4">
               <p className="micro-label">{entry.period}</p>

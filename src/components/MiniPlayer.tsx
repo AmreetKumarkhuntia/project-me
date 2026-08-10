@@ -22,8 +22,7 @@ export default function MiniPlayer() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 24 }}
           transition={{ duration: 0.6, ease: EASE }}
-          className="fixed bottom-5 right-5 z-[60] flex items-center gap-3 border bg-bg-2 py-2 pl-2 pr-3"
-          style={{ borderColor: "var(--hairline-strong)" }}
+          className="fixed bottom-5 right-5 z-[60] flex items-center gap-3 border bg-bg-2 py-2 pl-2 pr-3 border-hairline-strong"
           data-cursor="LISTEN"
         >
           <img src={currentTrack.cover} alt="" className="h-9 w-9 object-cover" />
