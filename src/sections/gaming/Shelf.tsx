@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import SectionHeader from "@/components/SectionHeader";
 import { games } from "@/data/games";
+import { gamingContent } from "@/data/pages/gaming";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -12,7 +13,11 @@ export default function Shelf() {
       style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
       aria-label="Favorite games"
     >
-      <SectionHeader index="02" label="THE SHELF" note="FOUR THAT SHAPED THE SYSTEMS THINKING" />
+      <SectionHeader
+        index={gamingContent.shelf.label.number}
+        label={gamingContent.shelf.label.text}
+        note={gamingContent.shelf.note}
+      />
 
       <motion.div
         initial="hidden"

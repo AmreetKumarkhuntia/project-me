@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import SectionHeader from "@/components/SectionHeader";
 import Pill from "@/components/Pill";
 import { projects } from "@/data/projects";
+import { homeContent } from "@/data/pages/home";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -17,7 +18,11 @@ export default function FeaturedWork() {
       style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
       aria-label="Selected work"
     >
-      <SectionHeader index="04" label="SELECTED WORK" note="FULL EXHIBITION → /WORK" />
+      <SectionHeader
+        index={homeContent.featured.label.number}
+        label={homeContent.featured.label.text}
+        note={homeContent.featured.note}
+      />
 
       <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-2">
         {/* left: meta + name + summary + pills */}
@@ -63,8 +68,10 @@ export default function FeaturedWork() {
           className="flex flex-col items-start justify-center gap-6 lg:items-end lg:text-right"
         >
           <div>
-            <p className="font-display text-display-l italic leading-[1.0] text-chartreuse">Top 10</p>
-            <p className="micro-label mt-3">Ranked segments per run</p>
+            <p className="font-display text-display-l italic leading-[1.0] text-chartreuse">
+              {homeContent.featured.impactFigure}
+            </p>
+            <p className="micro-label mt-3">{homeContent.featured.impactCaption}</p>
           </div>
           <div className="flex flex-wrap items-center gap-6">
             <a

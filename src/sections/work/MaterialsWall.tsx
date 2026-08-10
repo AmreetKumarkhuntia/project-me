@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import SectionHeader from "@/components/SectionHeader";
 import Pill from "@/components/Pill";
 import { skills } from "@/data/skills";
+import { workContent } from "@/data/pages/work";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -13,7 +14,10 @@ export default function MaterialsWall() {
       style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
       aria-label="Materials — technical stack"
     >
-      <SectionHeader index="02" label="MATERIALS" />
+      <SectionHeader
+        index={workContent.materials.label.number}
+        label={workContent.materials.label.text}
+      />
 
       <div className="mt-4">
         {skills.map((group) => (

@@ -1,15 +1,10 @@
 // src/components/home/MetricsFrieze.tsx — S2 "Proof in the Plaster" (home.md)
 import { motion } from "framer-motion";
 import SectionHeader from "@/components/SectionHeader";
+import { metrics } from "@/data/profile";
+import { homeContent } from "@/data/pages/home";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-
-const METRICS = [
-  { figure: "Sub-50ms", caption: "P95 Latency — High-throughput APIs", accent: false },
-  { figure: "99.99%", caption: "Uptime — Resilient infrastructure", accent: true },
-  { figure: "1M+", caption: "Logs / Day — Observability at scale", accent: false },
-  { figure: "−40%", caption: "MTTR — Fast incident recovery", accent: false },
-];
 
 export default function MetricsFrieze() {
   return (
@@ -18,10 +13,13 @@ export default function MetricsFrieze() {
       style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
       aria-label="Measured impact"
     >
-      <SectionHeader index="02" label="MEASURED" />
+      <SectionHeader
+        index={homeContent.metrics.label.number}
+        label={homeContent.metrics.label.text}
+      />
 
       <div className="mt-16 grid grid-cols-2 lg:grid-cols-4">
-        {METRICS.map((m, i) => (
+        {metrics.map((m, i) => (
           <div
             key={m.figure}
             className={`relative flex flex-col items-center gap-4 px-6 py-10 text-center ${

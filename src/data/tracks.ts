@@ -10,6 +10,8 @@ export const tracks: Track[] = [
     src: "/track-01.mp3",
     cover: "/cover-neon-drift.png",
     duration: "3:24",
+    genre: "synthwave",
+    moodNote: "DUSK HIGHWAY, LONG EXPOSURE",
     mood: "Synthwave drive — magenta light trails, night highway energy",
   },
   {
@@ -19,6 +21,8 @@ export const tracks: Track[] = [
     src: "/track-02.mp3",
     cover: "/cover-static-bloom.png",
     duration: "4:02",
+    genre: "dark ambient",
+    moodNote: "INK DIFFUSING AT NIGHT",
     mood: "Dark ambient — plasma petals, slow unfurling textures",
   },
   {
@@ -28,6 +32,8 @@ export const tracks: Track[] = [
     src: "/track-03.mp3",
     cover: "/cover-midnight-compile.png",
     duration: "3:47",
+    genre: "lo-fi",
+    moodNote: "DESK LAMP, WARM STATIC",
     mood: "Lo-fi late-night coding — data rain, terminal glow",
   },
   {
@@ -37,6 +43,8 @@ export const tracks: Track[] = [
     src: "/track-04.mp3",
     cover: "/cover-latency-zero.png",
     duration: "3:15",
+    genre: "EDM",
+    moodNote: "CONCENTRIC, PRECISE",
     mood: "High-energy EDM — tachyon burst, zero ping euphoria",
   },
   {
@@ -46,6 +54,8 @@ export const tracks: Track[] = [
     src: "/track-05.mp3",
     cover: "/cover-signal-lost.png",
     duration: "4:38",
+    genre: "sci-fi ambient",
+    moodNote: "ONE LIGHT, VERY FAR",
     mood: "Melancholic sci-fi — a transmission fading into deep space",
   },
 ];

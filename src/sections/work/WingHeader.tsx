@@ -4,6 +4,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import GalleryPlaque from "@/components/GalleryPlaque";
 import WordReveal from "@/components/home/WordReveal";
 import WebGLFallback, { useReducedMotion, useWebGLSupport } from "@/components/three/WebGLFallback";
+import { workContent } from "@/data/pages/work";
+import { toMaskWords } from "@/lib/headline";
 
 const BronzeScene = lazy(() => import("@/sections/work/BronzeScene"));
 
@@ -57,22 +59,16 @@ export default function WingHeader() {
             transition={{ delay: 0.2, duration: 0.9, ease: EASE }}
             className="micro-label mb-8"
           >
-            — <span className="text-chartreuse">01</span> / THE ENGINEERING WING
+            — <span className="text-chartreuse">{workContent.hero.label.number}</span> /{" "}
+            {workContent.hero.label.text}
           </motion.p>
 
           <h1 className="font-display text-display-l font-normal leading-[1.0] text-ink">
-            <span className="block">
-              <WordReveal words={[{ node: "Systems" }, { node: "that" }]} baseDelay={0.3} />
-            </span>
-            <span className="block">
-              <WordReveal
-                words={[
-                  { node: <em className="italic text-chartreuse">stay&nbsp;up</em>, delay: 0.25 },
-                  { node: "." },
-                ]}
-                baseDelay={0.42}
-              />
-            </span>
+            {workContent.hero.headline.map((line, i) => (
+              <span key={i} className="block">
+                <WordReveal words={toMaskWords(line)} baseDelay={0.3 + i * 0.12} />
+              </span>
+            ))}
           </h1>
 
           <motion.p
@@ -81,7 +77,7 @@ export default function WingHeader() {
             transition={{ delay: 0.9, duration: 1.0, ease: EASE }}
             className="mt-10 max-w-[44ch] font-sans text-[16px] leading-body text-ink-dim md:text-[17px]"
           >
-            Four selected works — tools, libraries, and pipelines built to be boring in production.
+            {workContent.hero.sub}
           </motion.p>
         </div>
 
@@ -96,13 +92,13 @@ export default function WingHeader() {
               className="relative mx-auto aspect-[4/3] w-full"
             >
               {showLive ? (
-                <Suspense fallback={<WebGLFallback src="/sculpt-bronze.png" />}>
+                <Suspense fallback={<WebGLFallback src={workContent.hero.sculpture.src} />}>
                   <BronzeScene paused={!inView || !tabVisible} />
                 </Suspense>
               ) : (
                 <WebGLFallback
-                  src="/sculpt-bronze.png"
-                  alt="Dark-bronze metallic sculpture of interlocking geometric ribbons"
+                  src={workContent.hero.sculpture.src}
+                  alt={workContent.hero.sculpture.alt}
                 />
               )}
               <div aria-hidden className="vignette pointer-events-none absolute inset-0" />
@@ -114,7 +110,11 @@ export default function WingHeader() {
               transition={{ delay: 1.2, duration: 0.9, ease: EASE }}
               className="-mt-4 flex justify-center lg:justify-start"
             >
-              <GalleryPlaque title="Nº 02 — Load-Bearing Ribbons" medium="Cast bronze, kinetic" />
+              <GalleryPlaque
+                title={workContent.hero.plaque.title}
+                medium={workContent.hero.plaque.medium}
+                year={workContent.hero.plaque.year}
+              />
             </motion.div>
           </motion.div>
         </div>

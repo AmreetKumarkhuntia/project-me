@@ -1,6 +1,7 @@
 // src/components/home/Artist.tsx — S5 portrait + ethos teaser (home.md)
 import { motion } from "framer-motion";
 import { principles } from "@/data/profile";
+import { homeContent } from "@/data/pages/home";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -22,8 +23,8 @@ export default function Artist() {
           style={{ borderColor: "var(--hairline)" }}
         >
           <img
-            src="/portrait.png"
-            alt="Fine-art portrait of Amreet Khuntia"
+            src={homeContent.artist.portrait.src}
+            alt={homeContent.artist.portrait.alt}
             className="aspect-[4/5] w-full object-cover"
             loading="lazy"
           />
@@ -35,20 +36,21 @@ export default function Artist() {
           transition={{ delay: 0.5, duration: 0.9, ease: EASE }}
           className="micro-label mt-4"
         >
-          The Artist — Bengaluru, IN
+          {homeContent.artist.caption}
         </motion.p>
       </div>
 
       {/* right (7 cols): ethos quote + principles */}
       <div className="flex flex-col justify-center lg:col-span-7">
         <p className="micro-label mb-10">
-          — <span className="text-chartreuse">05</span> / ETHOS
+          — <span className="text-chartreuse">{homeContent.artist.label.number}</span> /{" "}
+          {homeContent.artist.label.text}
         </p>
 
         <blockquote className="font-display text-[28px] italic leading-[1.3] text-ink md:text-[40px]">
-          <WordSpan text="“The best system is the one you can hold in your head — and the" />
-          <em className="italic text-chartreuse"> boring deploy </em>
-          <WordSpan text="is the good deploy.”" />
+          <WordSpan text={homeContent.artist.ethos.pre} />
+          <em className="italic text-chartreuse"> {homeContent.artist.ethos.accent} </em>
+          <WordSpan text={homeContent.artist.ethos.post} />
         </blockquote>
 
         <div className="mt-16">

@@ -4,6 +4,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import GalleryPlaque from "@/components/GalleryPlaque";
 import WordReveal from "@/components/home/WordReveal";
 import WebGLFallback, { useReducedMotion, useWebGLSupport } from "@/components/three/WebGLFallback";
+import { musicContent } from "@/data/pages/music";
+import { toMaskWords } from "@/lib/headline";
 
 const CeramicWaveScene = lazy(() => import("@/sections/music/CeramicWaveScene"));
 
@@ -38,17 +40,13 @@ export default function MusicHero() {
             transition={{ delay: 0.4, duration: 0.9, ease: EASE }}
             className="micro-label mb-8"
           >
-            — <span className="text-chartreuse">01</span> / THE LISTENING ROOM
+            — <span className="text-chartreuse">{musicContent.hero.label.number}</span> /{" "}
+            {musicContent.hero.label.text}
           </motion.p>
 
           <h1 className="font-display text-display-l font-normal leading-[1.0] text-ink">
             <WordReveal
-              words={[
-                { node: "Sound," },
-                { node: <em className="italic text-chartreuse">hung</em>, delay: 0.24 },
-                { node: "on" },
-                { node: "walls." },
-              ]}
+              words={toMaskWords(musicContent.hero.headline[0] ?? [])}
               baseDelay={0.55}
               stagger={0.06}
             />
@@ -60,8 +58,7 @@ export default function MusicHero() {
             transition={{ delay: 1.3, duration: 1.0, ease: EASE }}
             className="mt-10 max-w-[44ch] font-sans text-[16px] leading-body text-ink-dim md:text-[17px]"
           >
-            Five pieces written between deploys — synths, ambience, and slow compilations. Press
-            play; the room dims.
+            {musicContent.hero.sub}
           </motion.p>
         </div>
 
@@ -74,15 +71,13 @@ export default function MusicHero() {
             className="relative mx-auto aspect-square w-full max-w-[420px]"
           >
             {showLive ? (
-              <Suspense
-                fallback={<WebGLFallback src="/sculpt-ceramic.png" alt="" />}
-              >
+              <Suspense fallback={<WebGLFallback src={musicContent.hero.sculpture.src} alt="" />}>
                 <CeramicWaveScene />
               </Suspense>
             ) : (
               <WebGLFallback
-                src="/sculpt-ceramic.png"
-                alt="Black ceramic sound-wave sculpture with concentric ripples"
+                src={musicContent.hero.sculpture.src}
+                alt={musicContent.hero.sculpture.alt}
               />
             )}
             <div aria-hidden className="vignette pointer-events-none absolute inset-0" />
@@ -94,7 +89,11 @@ export default function MusicHero() {
             transition={{ delay: 1.5, duration: 0.9, ease: EASE }}
             className="-mt-6 flex justify-center lg:justify-start"
           >
-            <GalleryPlaque title="Nº 03 — Frozen Waveform" medium="Glazed ceramic, sound-reactive" />
+            <GalleryPlaque
+              title={musicContent.hero.plaque.title}
+              medium={musicContent.hero.plaque.medium}
+              year={musicContent.hero.plaque.year}
+            />
           </motion.div>
         </motion.div>
       </div>

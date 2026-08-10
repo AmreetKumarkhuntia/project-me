@@ -4,32 +4,11 @@ import { Link } from "react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import SectionHeader from "@/components/SectionHeader";
+import { homeContent } from "@/data/pages/home";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
-const WINGS = [
-  {
-    index: "W.01",
-    name: "Engineering",
-    descriptor: "Resilient systems, boring deploys",
-    to: "/work",
-    preview: "/sculpt-bronze.png",
-  },
-  {
-    index: "W.02",
-    name: "Music",
-    descriptor: "Five pieces, one listening room",
-    to: "/music",
-    preview: "/cover-midnight-compile.png",
-  },
-  {
-    index: "W.03",
-    name: "Gaming",
-    descriptor: "A small game, framed",
-    to: "/gaming",
-    preview: "/sculpt-glass.png",
-  },
-];
+const WINGS = homeContent.wings.entries;
 
 export default function Wings() {
   const [hovered, setHovered] = useState<number | null>(null);
@@ -48,7 +27,7 @@ export default function Wings() {
       style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
       aria-label="The wings"
     >
-      <SectionHeader index="03" label="THE WINGS" />
+      <SectionHeader index={homeContent.wings.label.number} label={homeContent.wings.label.text} />
 
       <div ref={wrapRef} className="relative mt-16" onMouseMove={onMove} onMouseLeave={() => setHovered(null)}>
         {WINGS.map((w, i) => (

@@ -7,4 +7,21 @@ export type { Game, GamePhase } from "./game";
 export type { Social } from "./social";
 export type { Experience } from "./experience";
 export type { SkillCategory } from "./skill";
-export type { MetaRow } from "./content";
+export type {
+  MetaRow,
+  NavItem,
+  SectionLabel,
+  Plaque,
+  Artwork,
+  HeadlineWord,
+  WingEntry,
+  RoomBand,
+  EthosQuote,
+  HeroBio,
+  LabeledSection,
+  RoomHero,
+  HomeContent,
+  WorkContent,
+  MusicContent,
+  GamingContent,
+} from "./content";
