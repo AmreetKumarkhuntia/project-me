@@ -13,5 +13,8 @@ Thumbs.db
 # Editors
 .vscode
 
+# Tooling artifacts
+.playwright-mcp
+
 # Leftovers from the previous SvelteKit app
 .svelte-kit
