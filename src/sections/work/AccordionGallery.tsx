@@ -40,7 +40,7 @@ function AccordionRow({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.8 }}
       transition={{ duration: 0.9, ease: EASE }}
-      className="hairline-b first:border-t first:border-[var(--hairline)]"
+      className="hairline-b first:border-t first:border-hairline"
     >
       {/* collapsed row (also the toggle) */}
       <button
@@ -116,7 +116,7 @@ function AccordionRow({
             </div>
 
             {/* right (5): vertical hairline + impact + stack pills */}
-            <div className="border-t border-[var(--hairline)] pt-8 md:col-span-5 md:border-l md:border-t-0 md:pl-10 md:pt-0">
+            <div className="border-t border-hairline pt-8 md:col-span-5 md:border-l md:border-t-0 md:pl-10 md:pt-0">
               <p className="micro-label">Impact</p>
               <AnimatePresence mode="wait">
                 {open && (
@@ -152,8 +152,7 @@ export default function AccordionGallery() {
 
   return (
     <section
-      className="mx-auto max-w-[1440px] pt-24 md:pt-36"
-      style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+      className="mx-auto max-w-[1440px] pt-24 md:pt-36 px-gutter"
       aria-label="Selected works"
     >
       <div>

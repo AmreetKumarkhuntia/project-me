@@ -86,6 +86,20 @@
     mix-blend-mode: overlay;
   }
 
+  /* room tone (music.md §S3): PlayerBar toggles .room-dimmed / .player-open
+     on <html>; the page dims and the footer clears the fixed player bar */
+  #main,
+  footer {
+    transition: filter 0.9s var(--gallery-ease);
+  }
+  .room-dimmed #main,
+  .room-dimmed footer {
+    filter: brightness(0.85);
+  }
+  .player-open footer {
+    padding-bottom: 88px;
+  }
+
   /* soft CSS vignette (design-v2 §6 — at most a vignette, no post stacks) */
   .vignette {
     background: radial-gradient(

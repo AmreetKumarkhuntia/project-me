@@ -9,8 +9,7 @@ const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 export default function Shelf() {
   return (
     <section
-      className="mx-auto max-w-[1440px] pb-24 md:pb-40"
-      style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+      className="mx-auto max-w-[1440px] pb-24 md:pb-40 px-gutter"
       aria-label="Favorite games"
     >
       <SectionHeader
@@ -39,10 +38,7 @@ export default function Shelf() {
             data-cursor="VIEW"
           >
             {/* 4:5 cover in hairline frame with 8px bg-3 mat; clip-wipe bottom→top on reveal */}
-            <div
-              className="border p-2"
-              style={{ borderColor: "var(--hairline)", backgroundColor: "var(--bg-3)" }}
-            >
+            <div className="border border-hairline bg-bg-3 p-2">
               <motion.div
                 initial={{ clipPath: "inset(100% 0% 0% 0%)" }}
                 whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}

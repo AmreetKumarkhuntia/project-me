@@ -21,8 +21,7 @@ export default function Footer() {
       />
 
       <div
-        className="mx-auto max-w-[1440px] py-24 md:py-36"
-        style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+        className="mx-auto max-w-[1440px] py-24 md:py-36 px-gutter"
       >
         <h2 className="font-display text-display-l leading-[1.0] text-ink">
           {footerContent.heading.pre}{" "}
@@ -57,8 +56,7 @@ export default function Footer() {
               href={s.href}
               target="_blank"
               rel="noreferrer"
-              className="group flex items-center gap-1.5 rounded-full border px-4 py-2.5 font-mono text-micro uppercase text-ink transition-colors duration-300 hover:border-chartreuse"
-              style={{ borderColor: "var(--hairline-strong)" }}
+              className="group flex items-center gap-1.5 rounded-full border px-4 py-2.5 font-mono text-micro uppercase text-ink transition-colors duration-300 hover:border-chartreuse border-hairline-strong"
             >
               {s.label}
               <ArrowUpRight

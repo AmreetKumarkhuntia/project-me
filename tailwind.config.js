@@ -16,6 +16,15 @@ module.exports = {
         "ink-dim": "#A9A49A",
         "ink-faint": "#6E6A61",
         chartreuse: "#D4FF00",
+        hairline: "var(--hairline)",
+        "hairline-strong": "var(--hairline-strong)",
+        "accent-dim": "var(--accent-dim)",
+      },
+      spacing: {
+        /* page side gutter (design-v2 §3) */
+        gutter: "clamp(24px, 6vw, 96px)",
+        /* tighter inner gutter (player bar) */
+        "gutter-sm": "clamp(16px, 3vw, 48px)",
       },
       fontFamily: {
         display: ["'Playfair Display'", "Georgia", "serif"],

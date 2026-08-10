@@ -9,8 +9,7 @@ export default function RoomNotes() {
   return (
     <section aria-label="Notes about the room" className="pb-32">
       <div
-        className="hairline-t mx-auto grid max-w-[1440px] grid-cols-1 gap-10 pt-16 md:grid-cols-12"
-        style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+        className="hairline-t mx-auto grid max-w-[1440px] grid-cols-1 gap-10 pt-16 md:grid-cols-12 px-gutter"
       >
         <motion.div
           initial={{ opacity: 0, y: 30 }}

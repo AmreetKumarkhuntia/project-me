@@ -179,8 +179,7 @@ export default function DustCatcher() {
 
   return (
     <section
-      className="mx-auto max-w-[1440px] py-24 md:py-40"
-      style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+      className="mx-auto max-w-[1440px] py-24 md:py-40 px-gutter"
       aria-label="Dust Catcher — playable piece"
     >
       {/* panel fades + rises 40px at 80% viewport (gaming-v2 §S2) */}
@@ -189,8 +188,7 @@ export default function DustCatcher() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 1.2, ease: EASE }}
-        className="relative border bg-bg-2 p-4 md:p-6"
-        style={{ borderColor: "var(--hairline)" }}
+        className="relative border bg-bg-2 p-4 md:p-6 border-hairline"
       >
         {/* corner plaque — inverts the museum rule */}
         <div className="absolute -top-3 right-4 bg-bg px-3 font-mono text-micro-10 uppercase text-chartreuse md:right-6">
@@ -222,8 +220,7 @@ export default function DustCatcher() {
           whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 1.0, ease: EASE, delay: 0.2 }}
-          className="relative border"
-          style={{ borderColor: "var(--hairline)", backgroundColor: "var(--bg)" }}
+          className="relative border border-hairline bg-bg"
           data-cursor="PLAY"
         >
           <canvas
@@ -339,8 +336,7 @@ export default function DustCatcher() {
                 type="button"
                 onClick={togglePause}
                 aria-label={ui === "playing" ? "Pause game" : "Resume game"}
-                className="flex h-9 w-9 items-center justify-center border bg-[rgba(18,17,16,0.6)] text-ink transition-colors duration-300 hover:border-chartreuse"
-                style={{ borderColor: "var(--hairline-strong)" }}
+                className="flex h-9 w-9 items-center justify-center border bg-[rgba(18,17,16,0.6)] text-ink transition-colors duration-300 hover:border-chartreuse border-hairline-strong"
               >
                 {ui === "playing" ? <Pause size={14} /> : <Play size={14} />}
               </button>
@@ -350,8 +346,7 @@ export default function DustCatcher() {
               onClick={() => setLocalMuted((m) => !m)}
               aria-label={soundMuted ? "Unmute game sounds" : "Mute game sounds"}
               aria-pressed={soundMuted}
-              className="flex h-9 w-9 items-center justify-center border bg-[rgba(18,17,16,0.6)] text-ink transition-colors duration-300 hover:border-chartreuse"
-              style={{ borderColor: "var(--hairline-strong)" }}
+              className="flex h-9 w-9 items-center justify-center border bg-[rgba(18,17,16,0.6)] text-ink transition-colors duration-300 hover:border-chartreuse border-hairline-strong"
             >
               {soundMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
             </button>

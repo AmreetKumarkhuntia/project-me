@@ -9,8 +9,7 @@ const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 export default function MetricsFrieze() {
   return (
     <section
-      className="mx-auto max-w-[1440px] py-24 md:py-36"
-      style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+      className="mx-auto max-w-[1440px] py-24 md:py-36 px-gutter"
       aria-label="Measured impact"
     >
       <SectionHeader
@@ -22,10 +21,9 @@ export default function MetricsFrieze() {
         {metrics.map((m, i) => (
           <div
             key={m.figure}
-            className={`relative flex flex-col items-center gap-4 px-6 py-10 text-center ${
+            className={`relative flex flex-col items-center gap-4 border-hairline px-6 py-10 text-center ${
               i > 0 ? "lg:border-l" : ""
             } ${i % 2 === 1 ? "border-l lg:border-l" : ""}`}
-            style={{ borderColor: "var(--hairline)" }}
           >
             <span className="inline-block overflow-hidden">
               <motion.span
@@ -51,8 +49,7 @@ export default function MetricsFrieze() {
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true, amount: 0.8 }}
         transition={{ duration: 0.8, ease: EASE }}
-        className="h-px origin-left"
-        style={{ background: "var(--hairline)" }}
+        className="h-px origin-left bg-hairline"
       />
     </section>
   );

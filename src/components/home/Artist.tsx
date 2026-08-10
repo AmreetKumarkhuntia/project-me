@@ -8,8 +8,7 @@ const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 export default function Artist() {
   return (
     <section
-      className="mx-auto grid max-w-[1440px] grid-cols-1 gap-16 py-24 md:py-36 lg:grid-cols-12"
-      style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+      className="mx-auto grid max-w-[1440px] grid-cols-1 gap-16 py-24 md:py-36 lg:grid-cols-12 px-gutter"
       aria-label="The artist"
     >
       {/* left (5 cols): framed portrait */}
@@ -19,8 +18,7 @@ export default function Artist() {
           whileInView={{ clipPath: "inset(0% 0 0 0)", scale: 1 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 1.2, ease: EASE }}
-          className="border bg-bg-2 p-2"
-          style={{ borderColor: "var(--hairline)" }}
+          className="border bg-bg-2 p-2 border-hairline"
         >
           <img
             src={homeContent.artist.portrait.src}

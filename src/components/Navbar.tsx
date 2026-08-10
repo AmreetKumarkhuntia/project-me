@@ -50,15 +50,10 @@ export default function Navbar() {
         initial={false}
         animate={{ y: hidden ? "-100%" : "0%" }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed inset-x-0 top-0 z-50 border-b backdrop-blur-[12px]"
-        style={{
-          borderColor: "var(--hairline)",
-          backgroundColor: "rgba(18,17,16,0.8)",
-        }}
+        className="fixed inset-x-0 top-0 z-50 border-b border-hairline bg-bg/80 backdrop-blur-[12px]"
       >
         <nav
-          className="mx-auto flex h-16 max-w-[1440px] items-center justify-between"
-          style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+          className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-gutter"
           aria-label="Primary"
         >
           {/* logo + wordmark */}
@@ -135,8 +130,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-40 flex flex-col justify-center bg-bg md:hidden"
-            style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+            className="fixed inset-0 z-40 flex flex-col justify-center bg-bg md:hidden px-gutter"
           >
             <nav className="flex flex-col gap-2" aria-label="Mobile">
               {[homeNavItem, ...navLinks.map((l) => ({ ...l, label: l.label[0] + l.label.slice(1).toLowerCase() }))].map(

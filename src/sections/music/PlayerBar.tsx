@@ -188,31 +188,17 @@ export default function PlayerBar({ queuedIds }: PlayerBarProps) {
   }, [toggle, seek, next, prev, setMuted, muted, duration, applyVolume]);
 
   // —— room tone: lower the gallery lights (music.md §S3) ——
+  // Styling lives in index.css (.room-dimmed / .player-open); this only toggles classes.
   const dimmed = roomTone && isPlaying;
   useEffect(() => {
-    const main = document.getElementById("main");
-    const footer = document.querySelector("footer");
-    for (const el of [main, footer]) {
-      if (!(el instanceof HTMLElement)) continue;
-      el.style.filter = dimmed ? "brightness(0.85)" : "";
-      el.style.transition = "filter 0.9s cubic-bezier(0.16, 1, 0.3, 1)";
-    }
-    return () => {
-      for (const el of [main, footer]) {
-        if (el instanceof HTMLElement) el.style.filter = "";
-      }
-    };
+    document.documentElement.classList.toggle("room-dimmed", dimmed);
+    return () => document.documentElement.classList.remove("room-dimmed");
   }, [dimmed]);
 
   // —— shared Footer sits above the persistent player (music.md §S5) ——
   useEffect(() => {
-    const footer = document.querySelector("footer");
-    if (!(footer instanceof HTMLElement)) return;
-    if (currentTrack) footer.style.paddingBottom = "88px";
-    else footer.style.paddingBottom = "";
-    return () => {
-      footer.style.paddingBottom = "";
-    };
+    document.documentElement.classList.toggle("player-open", Boolean(currentTrack));
+    return () => document.documentElement.classList.remove("player-open");
   }, [currentTrack]);
 
   // queue drawer order: explicitly queued pieces first, then the wall order
@@ -247,8 +233,7 @@ export default function PlayerBar({ queuedIds }: PlayerBarProps) {
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ duration: 0.5, ease: EASE }}
-            className="fixed inset-x-0 bottom-0 z-[70] border-t backdrop-blur-md"
-            style={{ borderColor: "var(--hairline)", backgroundColor: "rgba(18, 17, 16, 0.85)" }}
+            className="fixed inset-x-0 bottom-0 z-[70] border-t border-hairline bg-bg/85 backdrop-blur-md"
             role="region"
             aria-label="Audio player"
           >
@@ -268,7 +253,7 @@ export default function PlayerBar({ queuedIds }: PlayerBarProps) {
               onPointerUp={onScrubPointerUp}
               className="group/scrub relative h-[14px] w-full cursor-pointer touch-none"
             >
-              <div className="absolute inset-x-0 top-1/2 h-[2px] -translate-y-1/2 bg-[var(--hairline)] transition-[height] duration-300 group-hover/scrub:h-[3px]">
+              <div className="absolute inset-x-0 top-1/2 h-[2px] -translate-y-1/2 bg-hairline transition-[height] duration-300 group-hover/scrub:h-[3px]">
                 <div
                   ref={fillRef}
                   className="h-full w-full origin-left bg-chartreuse"
@@ -284,8 +269,7 @@ export default function PlayerBar({ queuedIds }: PlayerBarProps) {
             </div>
 
             <div
-              className="relative grid h-[72px] grid-cols-12 items-center gap-3"
-              style={{ paddingInline: "clamp(16px, 3vw, 48px)" }}
+              className="relative grid h-[72px] grid-cols-12 items-center gap-3 px-gutter-sm"
             >
               {/* analyser bars behind the center controls (24 thin bars, 25%) */}
               <FreqBars
@@ -306,8 +290,7 @@ export default function PlayerBar({ queuedIds }: PlayerBarProps) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5, ease: EASE }}
-                    className="h-12 w-12 shrink-0 border object-cover"
-                    style={{ borderColor: "var(--hairline)" }}
+                    className="h-12 w-12 shrink-0 border object-cover border-hairline"
                   />
                 </AnimatePresence>
                 <div className="min-w-0 overflow-hidden">
@@ -388,8 +371,7 @@ export default function PlayerBar({ queuedIds }: PlayerBarProps) {
                   >
                     <VolumeIcon size={16} />
                   </button>
-                  <div className="pointer-events-none absolute bottom-full left-1/2 mb-2 hidden -translate-x-1/2 border bg-bg-2 px-3 py-4 opacity-0 transition-opacity duration-300 group-hover/vol:pointer-events-auto group-hover/vol:opacity-100 sm:block"
-                    style={{ borderColor: "var(--hairline-strong)" }}
+                  <div className="pointer-events-none absolute bottom-full left-1/2 mb-2 hidden -translate-x-1/2 border bg-bg-2 px-3 py-4 opacity-0 transition-opacity duration-300 group-hover/vol:pointer-events-auto group-hover/vol:opacity-100 sm:block border-hairline-strong"
                   >
                     <input
                       type="range"
@@ -413,9 +395,10 @@ export default function PlayerBar({ queuedIds }: PlayerBarProps) {
                   aria-checked={roomTone}
                   onClick={() => setRoomTone((v) => !v)}
                   className={`ml-1 hidden items-center gap-2 border px-3 py-2 font-mono text-micro-10 uppercase transition-colors duration-500 sm:flex ${
-                    roomTone ? "text-chartreuse" : "text-ink-faint hover:text-ink-dim"
+                    roomTone
+                      ? "border-accent-dim text-chartreuse"
+                      : "border-hairline-strong text-ink-faint hover:text-ink-dim"
                   }`}
-                  style={{ borderColor: roomTone ? "var(--accent-dim)" : "var(--hairline-strong)" }}
                 >
                   <span
                     aria-hidden
@@ -451,8 +434,7 @@ export default function PlayerBar({ queuedIds }: PlayerBarProps) {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.5, ease: EASE }}
-              className="fixed bottom-0 right-0 top-0 z-[90] flex w-full max-w-[380px] flex-col border-l bg-bg-2"
-              style={{ borderColor: "var(--hairline-strong)" }}
+              className="fixed bottom-0 right-0 top-0 z-[90] flex w-full max-w-[380px] flex-col border-l bg-bg-2 border-hairline-strong"
               role="dialog"
               aria-label="Play queue"
             >
@@ -488,8 +470,7 @@ export default function PlayerBar({ queuedIds }: PlayerBarProps) {
                         <img
                           src={track.cover}
                           alt=""
-                          className={`h-10 w-10 border object-cover ${active ? "opacity-40" : ""}`}
-                          style={{ borderColor: "var(--hairline)" }}
+                          className={`h-10 w-10 border border-hairline object-cover ${active ? "opacity-40" : ""}`}
                         />
                         <span className="min-w-0 flex-1">
                           <span
@@ -513,7 +494,7 @@ export default function PlayerBar({ queuedIds }: PlayerBarProps) {
               </ul>
 
               {/* keyboard map documentation (music.md §S3) */}
-              <div className="border-t px-6 py-5" style={{ borderColor: "var(--hairline)" }}>
+              <div className="border-t border-hairline px-6 py-5">
                 <p className="micro-label mb-3">KEYBOARD</p>
                 <ul className="grid grid-cols-2 gap-x-6 gap-y-2 font-mono text-micro-10 uppercase text-ink-faint">
                   {musicContent.keyboardMap.map((row) => (

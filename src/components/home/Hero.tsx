@@ -18,8 +18,7 @@ function PreHeroStrip() {
   const items: (string | null)[] = [...homeContent.preHeroStrip, null /* status cluster */];
   return (
     <div
-      className="hairline-b flex h-10 items-center justify-between font-mono text-micro-10 uppercase text-ink-faint"
-      style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+      className="hairline-b flex h-10 items-center justify-between font-mono text-micro-10 uppercase text-ink-faint px-gutter"
     >
       {items.map((item, i) => (
         <motion.span
@@ -62,8 +61,7 @@ export default function Hero() {
       <PreHeroStrip />
 
       <div
-        className="mx-auto grid min-h-[calc(100dvh-104px)] max-w-[1440px] grid-cols-1 items-center gap-12 py-16 lg:grid-cols-12 lg:py-0"
-        style={{ paddingInline: "clamp(24px, 6vw, 96px)" }}
+        className="mx-auto grid min-h-[calc(100dvh-104px)] max-w-[1440px] grid-cols-1 items-center gap-12 py-16 lg:grid-cols-12 lg:py-0 px-gutter"
       >
         {/* left (7 cols): label + mega headline + bio */}
         <motion.div style={{ y: headlineY }} className="relative z-10 lg:col-span-7">
@@ -104,7 +102,7 @@ export default function Hero() {
             aria-hidden
           >
             <span className="font-mono text-micro-10 uppercase text-ink-faint">Scroll</span>
-            <span className="relative h-10 w-px overflow-hidden bg-[var(--hairline)]">
+            <span className="relative h-10 w-px overflow-hidden bg-hairline">
               <span className="animate-scroll-line absolute inset-x-0 h-full bg-chartreuse" />
             </span>
           </motion.div>
