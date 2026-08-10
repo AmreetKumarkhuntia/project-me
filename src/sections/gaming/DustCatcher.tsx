@@ -10,7 +10,8 @@ import {
   LOGICAL_H,
   LOGICAL_W,
 } from "@/sections/gaming/dustCatcherEngine";
-import type { GameEngine, GamePhase } from "@/sections/gaming/dustCatcherEngine";
+import type { GamePhase } from "@/types";
+import type { GameEngine } from "@/sections/gaming/dustCatcherEngine";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 

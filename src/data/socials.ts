@@ -1,10 +1,5 @@
 // src/data/socials.ts — connect links (design-v2 §7 footer)
-
-export interface Social {
-  id: string;
-  label: string;
-  href: string;
-}
+import type { Social } from "@/types";
 
 export const email = "amreetleo123@gmail.com";
 export const emailHref = `mailto:${email}`;

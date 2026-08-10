@@ -1,17 +1,5 @@
 // src/data/projects.ts — selected work (design.md §14)
-
-export interface Project {
-  id: string;
-  index: string;
-  title: string;
-  category: string;
-  year: string;
-  problem: string;
-  built: string;
-  impact: string;
-  stack: string[];
-  links: { label: string; href: string }[];
-}
+import type { Project } from "@/types";
 
 export const projects: Project[] = [
   {

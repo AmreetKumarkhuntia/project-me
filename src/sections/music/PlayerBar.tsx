@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ListMusic, Pause, Play, SkipBack, SkipForward, Volume1, Volume2, VolumeX, X } from "lucide-react";
 import { tracks } from "@/data/tracks";
-import type { Track } from "@/data/tracks";
+import type { Track } from "@/types";
 import { useAudio } from "@/providers/AudioProvider";
 import FreqBars from "@/components/music/FreqBars";
 import { trackMeta } from "@/components/music/trackMeta";

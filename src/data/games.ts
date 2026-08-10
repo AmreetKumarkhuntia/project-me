@@ -1,15 +1,6 @@
 // src/data/games.ts — favorite games (design-v2 §10, The Play Room)
 // Placeholder favorites — swap in real games, ranks and hours.
-
-export interface Game {
-  id: string;
-  title: string; // TODO_EDIT: real game title
-  genre: string;
-  cover: string;
-  rank: string; // TODO_EDIT: real rank
-  hours: string; // TODO_EDIT: real hours
-  blurb: string; // TODO_EDIT: real blurb
-}
+import type { Game } from "@/types";
 
 export const games: Game[] = [
   {

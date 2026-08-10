@@ -1,17 +1,5 @@
 // src/data/profile.ts — core identity & metrics (design.md §14)
-
-export interface Metric {
-  index: string;
-  value: string;
-  label: string;
-  sub: string;
-}
-
-export interface Principle {
-  index: string;
-  name: string;
-  description: string;
-}
+import type { Metric, Principle } from "@/types";
 
 export const profile = {
   name: "Amreet Khuntia",

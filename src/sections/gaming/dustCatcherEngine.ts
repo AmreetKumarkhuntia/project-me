@@ -2,8 +2,7 @@
 // Raw canvas + requestAnimationFrame. A minimalist kinetic study in drift and
 // timing: move an off-white ring along the bottom, catch falling dust motes,
 // avoid the shards. Gallery-minimal palette only — no neon, no grid.
-
-export type GamePhase = "idle" | "playing" | "paused" | "gameover";
+import type { GamePhase } from "@/types";
 
 export interface EngineOptions {
   onPhase?: (phase: GamePhase) => void;
