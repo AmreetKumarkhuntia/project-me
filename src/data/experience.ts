@@ -1,11 +1,5 @@
 // src/data/experience.ts — roles & bullets (design.md §14)
-
-export interface Experience {
-  company: string;
-  role: string;
-  period: string;
-  bullets: string[];
-}
+import type { Experience } from "@/types";
 
 export const experience: Experience[] = [
   {

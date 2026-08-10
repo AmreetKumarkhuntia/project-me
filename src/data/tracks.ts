@@ -1,15 +1,6 @@
 // src/data/tracks.ts — track list (design.md §14)
 // Swap real songs here: set `src` to an mp3 path or a Spotify/SoundCloud embed URL.
-
-export interface Track {
-  id: string;
-  index: string;
-  title: string;
-  src: string; // audio file path
-  cover: string;
-  duration: string; // display duration
-  mood: string;
-}
+import type { Track } from "@/types";
 
 export const tracks: Track[] = [
   {

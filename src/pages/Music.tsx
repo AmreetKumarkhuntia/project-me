@@ -5,7 +5,7 @@ import { useCallback, useState } from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import type { Track } from "@/data/tracks";
+import type { Track } from "@/types";
 import MusicHero from "@/sections/music/MusicHero";
 import TrackWall from "@/sections/music/TrackWall";
 import PlayerBar from "@/sections/music/PlayerBar";

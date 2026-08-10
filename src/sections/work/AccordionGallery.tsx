@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Plus } from "lucide-react";
 import Pill from "@/components/Pill";
 import { projects } from "@/data/projects";
-import type { Project } from "@/data/projects";
+import type { Project } from "@/types";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 

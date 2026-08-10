@@ -1,9 +1,5 @@
 // src/components/MetaTable.tsx — right-column definition rows (design-v2 §7)
-export interface MetaRow {
-  label: string;
-  value: string;
-  accentDot?: boolean; // chartreuse status dot before value
-}
+import type { MetaRow } from "@/types";
 
 interface MetaTableProps {
   rows: MetaRow[];

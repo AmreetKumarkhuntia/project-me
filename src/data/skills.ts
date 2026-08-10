@@ -1,9 +1,5 @@
 // src/data/skills.ts — technical inventory (design.md §14)
-
-export interface SkillCategory {
-  name: string;
-  items: string[];
-}
+import type { SkillCategory } from "@/types";
 
 export const skills: SkillCategory[] = [
   { name: "Backend", items: ["Haskell", "PureScript", "TypeScript", "Node.js", "Servant", "Express"] },

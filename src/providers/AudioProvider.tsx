@@ -10,7 +10,7 @@ import {
 } from "react";
 import type { ReactNode } from "react";
 import { tracks } from "@/data/tracks";
-import type { Track } from "@/data/tracks";
+import type { Track } from "@/types";
 
 interface AudioState {
   currentTrack: Track | null;
