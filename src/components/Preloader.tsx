@@ -1,6 +1,7 @@
 // src/components/Preloader.tsx — quiet gallery fade-in intro (design-v2 §4)
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { site } from "@/data/site";
 
 const SESSION_KEY = "amreet-atelier-seen";
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -48,7 +49,9 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
               transition={{ duration: 0.9, ease: EASE }}
               className="flex h-10 w-10 items-center justify-center bg-chartreuse"
             >
-              <span className="font-display text-[22px] font-semibold leading-none text-bg">A</span>
+              <span className="font-display text-[22px] font-semibold leading-none text-bg">
+                {site.brand.initial}
+              </span>
             </motion.span>
             <motion.span
               initial={{ opacity: 0, y: 8 }}
@@ -56,7 +59,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
               transition={{ delay: 0.25, duration: 0.9, ease: EASE }}
               className="font-mono text-micro uppercase text-ink-faint"
             >
-              The Atelier · Vol. 02
+              {site.preloaderPlaque}
             </motion.span>
             <motion.span
               aria-hidden

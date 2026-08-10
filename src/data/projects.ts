@@ -1,5 +1,6 @@
 // src/data/projects.ts — selected work (design.md §14)
 import type { Project } from "@/types";
+import { placeholderLinks } from "@/data/placeholders";
 
 export const projects: Project[] = [
   {
@@ -15,7 +16,7 @@ export const projects: Project[] = [
     impact: "Top 10 ranked segments per run.",
     stack: ["TypeScript", "Node.js", "Svelte", "LLM API", "ffmpeg", "yt-dlp"],
     links: [
-      { label: "GITHUB", href: "https://github.com/TODO_EDIT" }, // TODO_EDIT: real repo URL
+      { label: "GITHUB", href: placeholderLinks.projectRepo },
     ],
   },
   {
@@ -31,7 +32,7 @@ export const projects: Project[] = [
     impact: "Sub-second local voice latency.",
     stack: ["React", "FastAPI", "Kokoro-82M", "MCP", "Python", "WebAudio"],
     links: [
-      { label: "GITHUB", href: "https://github.com/TODO_EDIT" }, // TODO_EDIT: real repo URL
+      { label: "GITHUB", href: placeholderLinks.projectRepo },
     ],
   },
   {
@@ -47,7 +48,7 @@ export const projects: Project[] = [
     impact: "10+ reusable components.",
     stack: ["Svelte", "SvelteKit", "Vite", "TypeScript", "NPM"],
     links: [
-      { label: "GITHUB", href: "https://github.com/TODO_EDIT" }, // TODO_EDIT: real repo URL
+      { label: "GITHUB", href: placeholderLinks.projectRepo },
     ],
   },
   {
@@ -63,7 +64,7 @@ export const projects: Project[] = [
     impact: "−20% debugging time.",
     stack: ["TypeScript", "Node.js", "NPM"],
     links: [
-      { label: "GITHUB", href: "https://github.com/TODO_EDIT" }, // TODO_EDIT: real repo URL
+      { label: "GITHUB", href: placeholderLinks.projectRepo },
     ],
   },
 ];
