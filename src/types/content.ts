@@ -116,7 +116,13 @@ export interface WorkContent {
 
 export interface MusicContent {
   hero: RoomHero;
-  notes: { label: SectionLabel; quote: string; body: string };
+  notes: {
+    label: SectionLabel;
+    quote: string;
+    body: string;
+    /** accent link out to the full catalogue */
+    link?: { label: string; href: string };
+  };
   nextRoom: RoomBand;
   /** rows documented in the queue drawer footer */
   keyboardMap: string[];

@@ -47,7 +47,8 @@ export const homeContent: HomeContent = {
         name: "Music",
         descriptor: "Five pieces, one listening room",
         to: "/music",
-        preview: "/cover-midnight-compile.png",
+        preview:
+          "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a3/ef/0a/a3ef0ac8-af8f-4ab8-3ae6-f83ba5d0be90/8721416091049.jpg/600x600bb.jpg",
       },
       {
         index: "W.03",

@@ -2,7 +2,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import SectionHeader from "@/components/SectionHeader";
-import { experience } from "@/data/experience";
+import { education, experience } from "@/data/experience";
 import { workContent } from "@/data/pages/work";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -67,6 +67,26 @@ export default function Provenance() {
                   </li>
                 ))}
               </ul>
+            </div>
+          </motion.div>
+        ))}
+
+        {/* education closes the timeline */}
+        {education.map((entry, i) => (
+          <motion.div
+            key={`${entry.institution}-${entry.degree}`}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.6 }}
+            transition={{ duration: 0.9, ease: EASE, delay: (experience.length + i) * 0.15 }}
+            className="hairline-b grid grid-cols-1 gap-4 py-10 md:grid-cols-12"
+          >
+            <div className="md:col-span-4">
+              <p className="micro-label">{entry.period}</p>
+              <p className="mt-2 font-mono text-micro uppercase text-ink">{entry.institution}</p>
+            </div>
+            <div className="md:col-span-8">
+              <h3 className="font-display text-title-s font-normal text-ink">{entry.degree}</h3>
             </div>
           </motion.div>
         ))}

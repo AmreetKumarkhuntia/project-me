@@ -1,5 +1,6 @@
 // src/data/pages/music.ts — all editorial copy for "The Listening Room" (music.md)
 import type { MusicContent } from "@/types";
+import { spotifyArtistUrl } from "@/data/socials";
 
 export const musicContent: MusicContent = {
   hero: {
@@ -12,7 +13,7 @@ export const musicContent: MusicContent = {
         { text: "walls." },
       ],
     ],
-    sub: "Five pieces written between deploys — synths, ambience, and slow compilations. Press play; the room dims.",
+    sub: "Five releases from the Amreet K catalogue — press play for a preview; the room dims.",
     sculpture: {
       src: "/sculpt-ceramic.png",
       alt: "Black ceramic sound-wave sculpture with concentric ripples",
@@ -23,7 +24,8 @@ export const musicContent: MusicContent = {
   notes: {
     label: { number: "02", text: "NOTES" },
     quote: "“Made between deploys.”",
-    body: "Every piece here was produced late at night in Bengaluru — a counterpoint to the day job: unpredictable on purpose. The room tone toggle lowers the lights, the way a gallery does for video work.",
+    body: "Released independently as Amreet K — the debut album ME (2021), Caught In Between (2026), and a run of 2026 singles. What plays in this room are 30-second previews; the full records hang on Spotify. The room tone toggle lowers the lights, the way a gallery does for video work.",
+    link: { label: "FULL DISCOGRAPHY", href: spotifyArtistUrl },
   },
 
   nextRoom: { label: "NEXT ROOM —", pre: "The", em: "Play", post: "Room", to: "/gaming" },
