@@ -23,6 +23,7 @@ export const homeContent: HomeContent = {
     plaque: { title: "Nº 01 — Untitled (System)", medium: "Displaced clay, studio light", year: "2026" },
     metaRows: [
       { label: "Role", value: "SWE · DevOps" },
+      { label: "Currently", value: profile.company },
       { label: "Based", value: profile.based },
       { label: "Focus", value: profile.focus },
       { label: "Status", value: profile.status, accentDot: true },

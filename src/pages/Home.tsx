@@ -1,11 +1,13 @@
 // src/pages/Home.tsx — "The Atrium" (design-v2 home.md)
 import Hero from "@/components/home/Hero";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import MetricsFrieze from "@/components/home/MetricsFrieze";
 import Wings from "@/components/home/Wings";
 import FeaturedWork from "@/components/home/FeaturedWork";
 import Artist from "@/components/home/Artist";
 
 export default function Home() {
+  usePageTitle();
   return (
     <>
       {/* nav (64px) + pre-hero strip (40px) stack; the hero grid's

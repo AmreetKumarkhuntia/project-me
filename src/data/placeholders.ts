@@ -1,17 +1,7 @@
 // src/data/placeholders.ts — THE single source for every not-yet-real value.
-// Replace TODO_EDIT (and the placeholder games below) with real content here;
-// nothing else in src/ hard-codes a placeholder.
+// Only the Play Room shelf games remain placeholders; social and project
+// links are real (see src/data/socials.ts and src/data/projects.ts).
 import type { Game } from "@/types";
-
-export const TODO_EDIT = "TODO_EDIT";
-
-export const placeholderLinks = {
-  github: `https://github.com/${TODO_EDIT}`,
-  linkedin: `https://linkedin.com/in/${TODO_EDIT}`,
-  twitter: `https://twitter.com/${TODO_EDIT}`,
-  /** all four project repos point here until the real URLs exist */
-  projectRepo: `https://github.com/${TODO_EDIT}`,
-} as const;
 
 /** Placeholder favorites for the Play Room shelf — swap in real games, ranks and hours. */
 export const placeholderGames: Game[] = [

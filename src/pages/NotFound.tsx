@@ -8,10 +8,12 @@ import GalleryPlaque from "@/components/GalleryPlaque";
 import WordReveal from "@/components/home/WordReveal";
 import { notFoundContent } from "@/data/pages/notFound";
 import { toMaskWords } from "@/lib/headline";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function NotFound() {
+  usePageTitle("Not found");
   return (
     <section
       className="mx-auto flex min-h-[calc(100dvh-64px)] max-w-[1440px] flex-col justify-center py-24 px-gutter"

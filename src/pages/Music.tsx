@@ -11,10 +11,12 @@ import TrackWall from "@/sections/music/TrackWall";
 import PlayerBar from "@/sections/music/PlayerBar";
 import RoomNotes from "@/sections/music/RoomNotes";
 import { musicContent } from "@/data/pages/music";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function Music() {
+  usePageTitle("Music");
   // pieces explicitly added via "ADD TO QUEUE" lead the queue drawer order
   const [queuedIds, setQueuedIds] = useState<string[]>([]);
   const handleQueue = useCallback((track: Track) => {
