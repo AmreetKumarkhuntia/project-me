@@ -4,9 +4,11 @@ import type { Metric, Principle } from "@/types";
 export const profile = {
   name: "Amreet Khuntia",
   role: "Software & DevOps Engineer",
+  company: "Juspay",
   based: "Bengaluru, India",
   focus: "Backend · Platform",
   status: "Available",
+  resumeHref: "/resume.pdf",
   availability: "Currently open to backend, platform & infrastructure roles.",
   contactBody:
     "Got a system to scale, a pipeline to tame — or a track to collab on? My inbox is open.",

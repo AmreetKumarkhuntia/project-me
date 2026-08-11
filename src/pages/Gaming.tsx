@@ -6,6 +6,7 @@ import RoomHeader from "@/sections/gaming/RoomHeader";
 import DustCatcher from "@/sections/gaming/DustCatcher";
 import Shelf from "@/sections/gaming/Shelf";
 import { gamingContent } from "@/data/pages/gaming";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -58,6 +59,7 @@ function ReturnBand() {
 }
 
 export default function Gaming() {
+  usePageTitle("Gaming");
   return (
     <>
       <RoomHeader />

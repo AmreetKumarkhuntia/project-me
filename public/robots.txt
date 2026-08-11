@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://amreet-khuntia.vercel.app/sitemap.xml
