@@ -1,5 +1,6 @@
 // src/sections/gaming/Shelf.tsx — S3 favorite games, data-driven (gaming-v2 §S3)
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import SectionHeader from "@/components/SectionHeader";
 import { games } from "@/data/games";
 import { gamingContent } from "@/data/pages/gaming";
@@ -7,6 +8,13 @@ import { gamingContent } from "@/data/pages/gaming";
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function Shelf() {
+  // covers reveal via clip-path; observe the (unclipped) grid — a fully
+  // clipped cover reports a 0% intersection ratio and would never fire
+  const gridRef = useRef<HTMLDivElement>(null);
+  const gridInView = useInView(gridRef, { once: true, amount: 0.15 });
+  const reduced = useReducedMotion();
+  const shown = reduced || gridInView;
+
   return (
     <section
       className="mx-auto max-w-[1440px] pb-24 md:pb-40 px-gutter"
@@ -19,6 +27,7 @@ export default function Shelf() {
       />
 
       <motion.div
+        ref={gridRef}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
@@ -40,10 +49,15 @@ export default function Shelf() {
             {/* 4:5 cover in hairline frame with 8px bg-3 mat; clip-wipe bottom→top on reveal */}
             <div className="border border-hairline bg-bg-3 p-2">
               <motion.div
-                initial={{ clipPath: "inset(100% 0% 0% 0%)" }}
-                whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 1.0, ease: EASE, delay: 0.15 + i * 0.12 }}
+                initial={reduced ? false : { clipPath: "inset(100% 0% 0% 0%)" }}
+                animate={
+                  shown ? { clipPath: "inset(0% 0% 0% 0%)" } : { clipPath: "inset(100% 0% 0% 0%)" }
+                }
+                transition={
+                  reduced
+                    ? { duration: 0 }
+                    : { duration: 1.0, ease: EASE, delay: 0.15 + i * 0.12 }
+                }
                 className="aspect-[4/5] overflow-hidden"
               >
                 <img
