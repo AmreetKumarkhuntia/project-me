@@ -13,7 +13,7 @@ export const musicContent: MusicContent = {
         { text: "walls." },
       ],
     ],
-    sub: "Five releases from the Amreet K catalogue — press play for a preview; the room dims.",
+    sub: "Two albums and a run of singles — the full Amreet K catalogue. Press play for a preview; the room dims.",
     sculpture: {
       src: "/sculpt-ceramic.png",
       alt: "Black ceramic sound-wave sculpture with concentric ripples",

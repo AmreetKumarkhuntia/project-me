@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import type { Track } from "@/types";
 import MusicHero from "@/sections/music/MusicHero";
-import TrackWall from "@/sections/music/TrackWall";
+import AlbumWall from "@/sections/music/AlbumWall";
 import PlayerBar from "@/sections/music/PlayerBar";
 import RoomNotes from "@/sections/music/RoomNotes";
 import { musicContent } from "@/data/pages/music";
@@ -26,7 +26,7 @@ export default function Music() {
   return (
     <>
       <MusicHero />
-      <TrackWall onQueue={handleQueue} queuedIds={queuedIds} />
+      <AlbumWall onQueue={handleQueue} queuedIds={queuedIds} />
       <RoomNotes />
 
       {/* S5 — next-room band */}
