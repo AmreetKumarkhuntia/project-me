@@ -12,5 +12,6 @@ export const socials: Social[] = [
   { id: "linkedin", label: "LINKEDIN", href: "https://www.linkedin.com/in/amreet-khuntia-15193220b/" },
   { id: "twitter", label: "TWITTER", href: "https://x.com/amreetsgto321" },
   { id: "spotify", label: "SPOTIFY", href: spotifyArtistUrl },
+  { id: "youtube", label: "YOUTUBE", href: "https://www.youtube.com/@amreetaintofficial" },
   { id: "resume", label: "RESUME", href: "/resume.pdf" },
 ];
