@@ -138,16 +138,12 @@ export interface NotFoundContent {
 
 export interface GamingContent {
   hero: RoomHero;
-  vitrine: {
+  screening: {
     cornerPlaque: string;
     title: string;
     subtitle: string;
-    idleHeading: string;
-    pausedHeading: string;
-    gameOverLabel: string;
-    srDescription: string;
+    channelLabel: string;
   };
   shelf: LabeledSection;
-  controlsStrip: { left: string; right: string };
   returnBand: RoomBand;
 }

@@ -3,28 +3,12 @@ import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import RoomHeader from "@/sections/gaming/RoomHeader";
-import DustCatcher from "@/sections/gaming/DustCatcher";
+import Screening from "@/sections/gaming/Screening";
 import Shelf from "@/sections/gaming/Shelf";
 import { gamingContent } from "@/data/pages/gaming";
 import { usePageTitle } from "@/hooks/usePageTitle";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-
-/** S4 — controls & credits strip (gaming-v2 §S4) */
-function ControlsStrip() {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, amount: 0.9 }}
-      transition={{ duration: 0.9, ease: EASE }}
-      className="hairline-t mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-3 py-5 font-mono text-micro-10 uppercase text-ink-faint px-gutter"
-    >
-      <span>{gamingContent.controlsStrip.left}</span>
-      <span>{gamingContent.controlsStrip.right}</span>
-    </motion.div>
-  );
-}
 
 /** S5 — return band (gaming-v2 §S5) */
 function ReturnBand() {
@@ -63,9 +47,8 @@ export default function Gaming() {
   return (
     <>
       <RoomHeader />
-      <DustCatcher />
+      <Screening />
       <Shelf />
-      <ControlsStrip />
       <ReturnBand />
       {/* shared contact footer lives in Layout */}
     </>

@@ -1,4 +1,4 @@
-// src/types/game.ts — favorite-game shape + Dust Catcher phases
+// src/types/game.ts — favorite-game shape
 
 export interface Game {
   id: string;
@@ -9,5 +9,3 @@ export interface Game {
   hours: string;
   blurb: string;
 }
-
-export type GamePhase = "idle" | "playing" | "paused" | "gameover";

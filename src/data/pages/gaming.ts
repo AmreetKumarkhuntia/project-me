@@ -7,7 +7,7 @@ export const gamingContent: GamingContent = {
     headline: [
       [{ text: "Play," }, { text: "framed.", italic: true, accent: true, delay: 0.3 }],
     ],
-    sub: "One playable piece and a shelf of the games that shaped how I think about systems, feedback, and flow.",
+    sub: "A screening wall of gameplay from the channel, and a shelf of the games that shaped how I think about systems, feedback, and flow.",
     sculpture: {
       src: "/sculpt-glass.png",
       alt: "Frosted glass abstract polyhedral sculpture with soft inner glow",
@@ -15,25 +15,16 @@ export const gamingContent: GamingContent = {
     plaque: { title: "Nº 04 — Frozen Dice", medium: "Frosted glass, inner light", year: "2026" },
   },
 
-  vitrine: {
-    cornerPlaque: "Interactive — please touch",
-    title: "Dust Catcher",
-    subtitle: "A kinetic study in drift and timing · 2026",
-    idleHeading: "Press to begin",
-    pausedHeading: "Paused — the dust waits.",
-    gameOverLabel: "Game over",
-    srDescription:
-      "Dust Catcher is a minimalist catching game. Press Start, then move the off-white ring along the bottom of the playfield with the left and right arrow keys, the A and D keys, or by dragging on touch screens. Catch the falling warm-white dust motes for one point and chartreuse motes for three points. Catching a dark-gray shard ends the run. Escape pauses the game. Your best score is saved locally on this device.",
+  screening: {
+    cornerPlaque: "Now showing",
+    title: "Amreet Aint",
+    subtitle: "Gameplay, walkthroughs & the occasional rage-quit · YouTube",
+    channelLabel: "Open channel",
   },
 
   shelf: {
     label: { number: "02", text: "THE SHELF" },
     note: "FOUR THAT SHAPED THE SYSTEMS THINKING",
-  },
-
-  controlsStrip: {
-    left: "Controls — ←/→ or A/D move · Esc pause · Sound toggle in-vitrine",
-    right: "Best score saved locally",
   },
 
   returnBand: { label: "Back to —", pre: "The", em: "Atrium", to: "/" },
