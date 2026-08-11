@@ -188,7 +188,7 @@ export default function TrackWall({ onQueue, queuedIds }: TrackWallProps) {
                             {track.mood}
                           </p>
                         </div>
-                        <div className="md:col-span-2 md:justify-self-end">
+                        <div className="flex flex-col items-start gap-4 md:col-span-2 md:items-end md:justify-self-end">
                           <button
                             type="button"
                             disabled={queued}
@@ -198,6 +198,15 @@ export default function TrackWall({ onQueue, queuedIds }: TrackWallProps) {
                             <Plus size={12} aria-hidden />
                             {queued ? "Queued" : "Add to queue"}
                           </button>
+                          <a
+                            href={track.listenUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            data-cursor="LISTEN"
+                            className="font-mono text-micro-10 uppercase text-chartreuse transition-opacity hover:opacity-70"
+                          >
+                            Full track <span aria-hidden>↗</span>
+                          </a>
                         </div>
                       </div>
                     </motion.div>

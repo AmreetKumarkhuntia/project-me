@@ -37,6 +37,17 @@ export default function RoomNotes() {
           <p className="max-w-[52ch] font-sans text-[16px] leading-body text-ink-dim">
             {musicContent.notes.body}
           </p>
+          {musicContent.notes.link && (
+            <a
+              href={musicContent.notes.link.href}
+              target="_blank"
+              rel="noreferrer"
+              data-cursor="LISTEN"
+              className="mt-6 inline-flex items-center gap-1.5 font-mono text-micro uppercase text-chartreuse transition-opacity hover:opacity-70"
+            >
+              {musicContent.notes.link.label} <span aria-hidden>↗</span>
+            </a>
+          )}
         </motion.div>
       </div>
     </section>

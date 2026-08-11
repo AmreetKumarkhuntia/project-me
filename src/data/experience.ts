@@ -1,5 +1,5 @@
-// src/data/experience.ts — roles & bullets (design.md §14)
-import type { Experience } from "@/types";
+// src/data/experience.ts — roles, bullets & education (design.md §14)
+import type { Education, Experience } from "@/types";
 
 export const experience: Experience[] = [
   {
@@ -20,5 +20,13 @@ export const experience: Experience[] = [
       "Shipped address validation that cut return-to-origin by ~75% across 30k+ monthly orders.",
       "Built AWS anomaly detection that reduced alert fatigue by ~30%.",
     ],
+  },
+];
+
+export const education: Education[] = [
+  {
+    institution: "NIT Rourkela",
+    degree: "B.Tech, Electrical Engineering",
+    period: "2020 — 2024",
   },
 ];
