@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import Dust from "@/components/three/Dust";
+import StudioEnvironment from "@/components/three/StudioEnvironment";
 
 function FrostedPolyhedron() {
   const groupRef = useRef<THREE.Group>(null);
@@ -23,12 +24,13 @@ function FrostedPolyhedron() {
         <icosahedronGeometry args={[1.6, 0]} />
         <meshPhysicalMaterial
           color="#D9D6CF"
-          transmission={0.85}
-          roughness={0.45}
+          transmission={0.88}
+          roughness={0.32}
           thickness={1.4}
-          ior={1.4}
+          ior={1.45}
+          envMapIntensity={1.1}
           transparent
-          opacity={0.92}
+          opacity={0.94}
           flatShading
         />
       </mesh>
@@ -45,7 +47,7 @@ function FrostedPolyhedron() {
       {/* delicate edge light — chartreuse wireframe echo at low opacity */}
       <mesh scale={1.002}>
         <icosahedronGeometry args={[1.6, 0]} />
-        <meshBasicMaterial color="#D4FF00" wireframe transparent opacity={0.08} />
+        <meshBasicMaterial color="#D4FF00" wireframe transparent opacity={0.14} />
       </mesh>
     </group>
   );
@@ -67,6 +69,7 @@ export default function PlayScene({ paused = false }: PlaySceneProps) {
       gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
       style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}
     >
+      <StudioEnvironment />
       {/* soft three-point studio lighting (design-v2 §6) */}
       <ambientLight intensity={0.4} color="#FFF4E0" />
       <directionalLight position={[-4, 5, 4]} intensity={1.3} color="#FFF4E0" />
