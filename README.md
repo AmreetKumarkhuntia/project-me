@@ -1,73 +1,79 @@
-# React + TypeScript + Vite
+# The Atelier — personal portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A portfolio as *a private art gallery after hours*. Four rooms — the Atrium
+(home), the Engineering Wing (work), the Listening Room (music), and the Play
+Room (gaming) — rendered in an editorial serif system with sculptural 3D
+centerpieces, a persistent audio player, and a playable canvas game.
 
-Currently, two official plugins are available:
+Live design language: warm near-black (`#121110`), warm off-white ink, one
+chartreuse accent (`#D4FF00`), Playfair Display / Inter / IBM Plex Mono.
+The full design docs live in [`docs/design-v2/`](docs/design-v2/).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Stack
 
-## React Compiler
+- **React 19 + TypeScript (strict)** on **Vite 7**
+- **react-router 7** (declarative routes) — `/`, `/work`, `/music`, `/gaming`, 404 catch-all
+- **Tailwind CSS 3.4** — all design tokens in `tailwind.config.js` (no ad-hoc inline styles)
+- **three + @react-three/fiber** — one sculpture scene per room, static-image fallback without WebGL
+- **GSAP + ScrollTrigger, Lenis, Framer Motion** — museum-pace motion, disabled under `prefers-reduced-motion`
+- **WebAudio** — analyser-driven visualizers and the game's sound blips
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Commands
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```sh
+npm install
+npm run dev       # vite dev server on :3000
+npm run build     # tsc -b (strict) + vite build -> dist/
+npm run preview   # serve the build locally (SPA fallback included)
+npm run start     # alias of preview
+npm run lint      # eslint, passes with zero errors
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Editing content
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Nothing user-visible is hard-coded in components — it all lives in typed data
+modules under [`src/data/`](src/data/):
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| File | Holds |
+|---|---|
+| `data/profile.ts` | identity, metrics, ethos principles |
+| `data/projects.ts` | the four selected works |
+| `data/tracks.ts` | the five tracks (file, cover, genre, mood) |
+| `data/games.ts` | the Play Room shelf |
+| `data/skills.ts` / `data/experience.ts` | materials wall + provenance timeline |
+| `data/socials.ts` | email + social links |
+| `data/site.ts` | nav, brand, footer, status line |
+| `data/pages/*.ts` | every headline, plaque, and paragraph, per room |
+| `data/placeholders.ts` | **the single source of every placeholder** — search `TODO_EDIT` |
+
+All shared types are in [`src/types/`](src/types/) (`import type { X } from "@/types"`).
+
+### Placeholders still to fill in
+
+`src/data/placeholders.ts` is the only file with placeholder content: the
+GitHub/LinkedIn/Twitter links, the four project repository URLs, and the four
+shelf games. Replace them there and the whole site updates.
+
+## Structure
+
 ```
+src/
+├── App.tsx            routes
+├── components/        shared chrome (Navbar, Footer, Cursor, Preloader, …)
+│   ├── home/          Atrium sections
+│   ├── music/         audio visualizer helpers
+│   └── three/         R3F helpers (Dust, ClayTorus, WebGLFallback)
+├── sections/          work/ · music/ · gaming/ page sections
+├── pages/             route components (thin composers)
+├── data/              all content (see above)
+├── types/             all shared TypeScript types
+├── hooks/             useAudio, useReducedMotion, useWebGLSupport
+├── providers/         AudioProvider + audio context
+└── lib/               small pure helpers
+```
+
+## Deploying
+
+Built for Vercel with zero dashboard config: Vite is auto-detected, `npm run
+build` emits `dist/`, and [`vercel.json`](vercel.json) rewrites every path to
+`index.html` so deep links like `/work` resolve with the client router.
