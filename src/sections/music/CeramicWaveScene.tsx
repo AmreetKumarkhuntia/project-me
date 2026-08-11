@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import Dust from "@/components/three/Dust";
+import StudioEnvironment from "@/components/three/StudioEnvironment";
 import { useAudio } from "@/hooks/useAudio";
 
 /** Ring/disc mesh with concentric ripples — "a frozen waveform". */
@@ -81,11 +82,14 @@ function WaveformDisc() {
   return (
     <group ref={groupRef} rotation={[-0.95, 0.25, 0]}>
       <mesh ref={meshRef} geometry={geometry}>
-        {/* glossy black ceramic */}
-        <meshStandardMaterial
-          color="#171512"
-          roughness={0.22}
-          metalness={0.18}
+        {/* glazed black ceramic: dark dielectric base + strong clearcoat specular */}
+        <meshPhysicalMaterial
+          color="#14110E"
+          roughness={0.5}
+          metalness={0}
+          clearcoat={1}
+          clearcoatRoughness={0.22}
+          envMapIntensity={0.85}
           side={THREE.DoubleSide}
         />
       </mesh>
@@ -126,12 +130,13 @@ export default function CeramicWaveScene() {
         gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
         style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}
       >
+        <StudioEnvironment />
         {/* soft three-point studio lighting (design-v2 §6) */}
         <ambientLight intensity={0.3} color="#FFF4E0" />
-        <directionalLight position={[-4, 5, 4]} intensity={1.5} color="#FFF4E0" />
-        <directionalLight position={[5, -2, 3]} intensity={0.3} color="#B9C4D6" />
+        <directionalLight position={[-4, 5, 4]} intensity={1.8} color="#FFF4E0" />
+        <directionalLight position={[5, -2, 3]} intensity={0.35} color="#B9C4D6" />
         {/* thin chartreuse rim from the right — the gallery spotlight */}
-        <directionalLight position={[6, 1, -4]} intensity={0.9} color="#D4FF00" />
+        <directionalLight position={[6, 1, -4]} intensity={1.1} color="#D4FF00" />
         <WaveformDisc />
         {/* quiet room air — denser dust (music.md §S1) */}
         <Dust count={400} spread={[8, 6, 4]} opacity={0.3} />
