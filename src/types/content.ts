@@ -122,6 +122,14 @@ export interface MusicContent {
   keyboardMap: string[];
 }
 
+export interface NotFoundContent {
+  label: SectionLabel;
+  headline: HeadlineWord[][];
+  body: string;
+  plaque: Plaque;
+  returnBand: RoomBand;
+}
+
 export interface GamingContent {
   hero: RoomHero;
   vitrine: {

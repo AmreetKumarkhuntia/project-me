@@ -24,4 +24,5 @@ export type {
   WorkContent,
   MusicContent,
   GamingContent,
+  NotFoundContent,
 } from "./content";
