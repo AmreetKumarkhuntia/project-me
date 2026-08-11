@@ -1,6 +1,6 @@
 // src/sections/gaming/DustCatcher.tsx — S2 the vitrine: playable "Dust Catcher" (gaming-v2 §S2)
 import { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useInView } from "framer-motion";
 import { Pause, Play, RotateCcw, Volume2, VolumeX } from "lucide-react";
 import { useAudio } from "@/hooks/useAudio";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -26,8 +26,13 @@ export default function DustCatcher() {
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<GameEngine | null>(null);
   const phaseRef = useRef<GamePhase>("idle");
+
+  // playfield clip reveal observes the (unclipped) panel — a clip-path'd
+  // element reports a 0% intersection ratio and would never fire
+  const panelInView = useInView(panelRef, { once: true, amount: 0.3 });
 
   const [ui, setUi] = useState<UiState>("idle");
   const [score, setScore] = useState(0);
@@ -65,13 +70,14 @@ export default function DustCatcher() {
     });
     engineRef.current = engine;
 
-    const wrap = wrapRef.current;
-    const io = wrap
+    // observe the unclipped panel (the clip-path'd playfield never intersects)
+    const panel = panelRef.current;
+    const io = panel
       ? new IntersectionObserver(([e]) => engine.setVisible(Boolean(e?.isIntersecting)), {
           threshold: 0.1,
         })
       : null;
-    if (wrap && io) io.observe(wrap);
+    if (panel && io) io.observe(panel);
     const onVis = () => engine.setVisible(!document.hidden);
     document.addEventListener("visibilitychange", onVis);
 
@@ -188,6 +194,7 @@ export default function DustCatcher() {
     >
       {/* panel fades + rises 40px at 80% viewport (gaming-v2 §S2) */}
       <motion.div
+        ref={panelRef}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
@@ -221,9 +228,12 @@ export default function DustCatcher() {
         <motion.div
           ref={wrapRef}
           initial={reduced ? false : { clipPath: "inset(0% 50% 0% 50%)" }}
-          whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 1.0, ease: EASE, delay: 0.2 }}
+          animate={
+            reduced || panelInView
+              ? { clipPath: "inset(0% 0% 0% 0%)" }
+              : { clipPath: "inset(0% 50% 0% 50%)" }
+          }
+          transition={reduced ? { duration: 0 } : { duration: 1.0, ease: EASE, delay: 0.2 }}
           className="relative border border-hairline bg-bg"
           data-cursor="PLAY"
         >

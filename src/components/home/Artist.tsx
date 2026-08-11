@@ -7,18 +7,29 @@ import { homeContent } from "@/data/pages/home";
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function Artist() {
+  const portraitRef = useRef<HTMLDivElement>(null);
+  const portraitInView = useInView(portraitRef, { once: true, amount: 0.4 });
+  const reduced = useReducedMotion();
+  const portraitShown = reduced || portraitInView;
+
   return (
     <section
       className="mx-auto grid max-w-[1440px] grid-cols-1 gap-16 py-24 md:py-36 lg:grid-cols-12 px-gutter"
       aria-label="The artist"
     >
-      {/* left (5 cols): framed portrait */}
-      <div className="lg:col-span-5">
+      {/* left (5 cols): framed portrait. The in-view observer sits on the
+          (unclipped) column — a fully clip-path-clipped element reports a 0%
+          intersection ratio, so observing the frame itself would never fire
+          the reveal (and blocks the browser's lazy image load too). */}
+      <div ref={portraitRef} className="lg:col-span-5">
         <motion.div
-          initial={{ clipPath: "inset(100% 0 0 0)", scale: 1.05 }}
-          whileInView={{ clipPath: "inset(0% 0 0 0)", scale: 1 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 1.2, ease: EASE }}
+          initial={reduced ? false : { clipPath: "inset(100% 0 0 0)", scale: 1.05 }}
+          animate={
+            portraitShown
+              ? { clipPath: "inset(0% 0 0 0)", scale: 1 }
+              : { clipPath: "inset(100% 0 0 0)", scale: 1.05 }
+          }
+          transition={reduced ? { duration: 0 } : { duration: 1.2, ease: EASE }}
           className="border bg-bg-2 p-2 border-hairline"
         >
           <img
