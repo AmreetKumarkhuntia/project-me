@@ -1,35 +1,9 @@
-// src/providers/AudioProvider.tsx — global audio context (design.md §9)
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+// src/providers/AudioProvider.tsx — global audio provider (design.md §9)
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { tracks } from "@/data/tracks";
-import type { Track } from "@/types";
-
-interface AudioState {
-  currentTrack: Track | null;
-  isPlaying: boolean;
-  muted: boolean;
-  progress: number; // seconds
-  duration: number; // seconds
-  play: (track: Track) => void;
-  toggle: () => void;
-  pause: () => void;
-  next: () => void;
-  prev: () => void;
-  seek: (seconds: number) => void;
-  setMuted: (muted: boolean) => void;
-  /** Shared AnalyserNode for visualizers (created lazily after a user gesture). */
-  getAnalyser: () => AnalyserNode | null;
-}
-
-const AudioContext = createContext<AudioState | null>(null);
+import type { AudioState, Track } from "@/types";
+import { AudioPlayerContext } from "@/providers/audioContext";
 
 export function AudioProvider({ children }: { children: ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -171,11 +145,5 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     [currentTrack, isPlaying, muted, progress, duration, play, toggle, pause, next, prev, seek, setMuted, getAnalyser],
   );
 
-  return <AudioContext.Provider value={value}>{children}</AudioContext.Provider>;
-}
-
-export function useAudio(): AudioState {
-  const ctx = useContext(AudioContext);
-  if (!ctx) throw new Error("useAudio must be used inside <AudioProvider>");
-  return ctx;
+  return <AudioPlayerContext.Provider value={value}>{children}</AudioPlayerContext.Provider>;
 }

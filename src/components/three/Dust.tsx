@@ -9,18 +9,31 @@ interface DustProps {
   opacity?: number;
 }
 
+/** Deterministic PRNG (mulberry32) — pure during render, same dust every mount. */
+function mulberry32(seed: number): () => number {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
 export default function Dust({ count = 400, spread = [10, 7, 5], opacity = 0.3 }: DustProps) {
   const ref = useRef<THREE.Points>(null);
 
   const { positions, seeds } = useMemo(() => {
+    const rand = mulberry32(count * 2654435761);
     const positions = new Float32Array(count * 3);
     const seeds = new Float32Array(count * 2);
     for (let i = 0; i < count; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * spread[0];
-      positions[i * 3 + 1] = (Math.random() - 0.5) * spread[1];
-      positions[i * 3 + 2] = (Math.random() - 0.5) * spread[2];
-      seeds[i * 2] = Math.random() * Math.PI * 2;
-      seeds[i * 2 + 1] = 0.2 + Math.random() * 0.6;
+      positions[i * 3] = (rand() - 0.5) * spread[0];
+      positions[i * 3 + 1] = (rand() - 0.5) * spread[1];
+      positions[i * 3 + 2] = (rand() - 0.5) * spread[2];
+      seeds[i * 2] = rand() * Math.PI * 2;
+      seeds[i * 2 + 1] = 0.2 + rand() * 0.6;
     }
     return { positions, seeds };
   }, [count, spread]);

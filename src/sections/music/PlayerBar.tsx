@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ListMusic, Pause, Play, SkipBack, SkipForward, Volume1, Volume2, VolumeX, X } from "lucide-react";
 import { tracks } from "@/data/tracks";
 import type { Track } from "@/types";
-import { useAudio } from "@/providers/AudioProvider";
+import { useAudio } from "@/hooks/useAudio";
 import FreqBars from "@/components/music/FreqBars";
 import { musicContent } from "@/data/pages/music";
 import { ensureGainWiring, getGainVolume, getStoredVolume, setGainVolume, storeVolume } from "@/components/music/audioGain";

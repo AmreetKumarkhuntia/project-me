@@ -31,8 +31,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // close overlay menu on route change
-  useEffect(() => setMenuOpen(false), [location.pathname]);
+  const closeMenu = () => setMenuOpen(false);
 
   const onContact = () => {
     setMenuOpen(false);
@@ -143,6 +142,7 @@ export default function Navbar() {
                   >
                     <Link
                       to={l.to}
+                      onClick={closeMenu}
                       className="hairline-b flex items-baseline gap-4 py-4 font-display text-display-m leading-display-m text-ink"
                     >
                       <span className="font-mono text-micro text-ink-faint">{l.index}</span>

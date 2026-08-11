@@ -2,8 +2,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Pause, Play, RotateCcw, Volume2, VolumeX } from "lucide-react";
-import { useAudio } from "@/providers/AudioProvider";
-import { useReducedMotion } from "@/components/three/WebGLFallback";
+import { useAudio } from "@/hooks/useAudio";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { PrimaryButton } from "@/components/Buttons";
 import {
   createDustCatcher,
@@ -38,9 +38,13 @@ export default function DustCatcher() {
   const startBestRef = useRef(0);
 
   const mutedRef = useRef(true);
-  mutedRef.current = globalMuted || localMuted;
   const reducedRef = useRef(reduced);
-  reducedRef.current = reduced;
+  useEffect(() => {
+    mutedRef.current = globalMuted || localMuted;
+  }, [globalMuted, localMuted]);
+  useEffect(() => {
+    reducedRef.current = reduced;
+  }, [reduced]);
 
   // engine lifecycle
   useEffect(() => {
