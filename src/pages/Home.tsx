@@ -8,10 +8,9 @@ import Artist from "@/components/home/Artist";
 export default function Home() {
   return (
     <>
-      {/* full-bleed hero opts out of the Layout nav offset */}
-      <div className="-mt-16">
-        <Hero />
-      </div>
+      {/* nav (64px) + pre-hero strip (40px) stack; the hero grid's
+          min-h-[calc(100dvh-104px)] fills the remaining viewport (home.md §S0) */}
+      <Hero />
       <MetricsFrieze />
       <Wings />
       <FeaturedWork />
