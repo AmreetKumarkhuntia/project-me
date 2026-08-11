@@ -1,17 +1,22 @@
-// src/sections/gaming/Screening.tsx — S2 the screening wall: real uploads from
-// the YouTube channel in a framed vitrine panel. Click a row to swap the
-// featured player; everything renders from src/data/videos.ts.
+// src/sections/gaming/Screening.tsx — S2 the screening wall: uploads from the
+// YouTube channel grouped into series sections (latest reel first). Click a
+// section to expand it, click a row to swap the featured player. Everything
+// renders from src/data/videos.ts.
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowUpRight, Play } from "lucide-react";
-import { videos, videoChannel } from "@/data/videos";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight, Play, Plus } from "lucide-react";
+import { videoSections, videoChannel } from "@/data/videos";
 import { gamingContent } from "@/data/pages/gaming";
+import type { Video } from "@/types";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
+const pad2 = (n: number) => String(n).padStart(2, "0");
+
 export default function Screening() {
-  const [activeId, setActiveId] = useState(videos[0]?.id ?? "");
-  const active = videos.find((v) => v.id === activeId) ?? videos[0];
+  const firstVideo = videoSections[0]?.videos[0];
+  const [active, setActive] = useState<Video | undefined>(firstVideo);
+  const [openId, setOpenId] = useState<string | null>(videoSections[0]?.id ?? null);
 
   if (!active) return null;
 
@@ -64,65 +69,113 @@ export default function Screening() {
           />
         </div>
 
-        {/* the reel — click a row to swap the featured player */}
-        <ul role="list" className="mt-4">
-          {videos.map((video, i) => {
-            const isActive = video.id === active.id;
+        {/* series sections — single-open accordion */}
+        <div className="mt-4">
+          {videoSections.map((section) => {
+            const open = openId === section.id;
             return (
-              <motion.li
-                key={video.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.6 }}
-                transition={{ duration: 0.7, ease: EASE, delay: i * 0.08 }}
-                className="hairline-t"
-              >
+              <div key={section.id} className="hairline-t">
                 <button
                   type="button"
-                  onClick={() => setActiveId(video.id)}
-                  data-cursor="PLAY"
-                  aria-current={isActive || undefined}
-                  className={`group relative grid w-full grid-cols-12 items-center gap-4 py-4 text-left transition-colors duration-500 hover:bg-bg-3 ${
-                    isActive ? "bg-bg-3" : ""
-                  }`}
+                  onClick={() => setOpenId(open ? null : section.id)}
+                  aria-expanded={open}
+                  data-cursor="OPEN"
+                  className="group grid w-full grid-cols-12 items-center gap-4 py-5 text-left transition-colors duration-500 hover:bg-bg-3"
                 >
-                  {isActive && (
-                    <motion.span
-                      layoutId="screening-active-bar"
-                      className="absolute left-0 top-0 h-full w-[3px] bg-chartreuse"
+                  <span className="col-span-8 flex items-baseline gap-4 pl-4 sm:col-span-6">
+                    <span
+                      className={`font-display text-[19px] leading-snug transition-all duration-500 md:text-[22px] ${
+                        open ? "italic text-chartreuse" : "text-ink group-hover:italic"
+                      }`}
+                    >
+                      {section.label}
+                    </span>
+                    <span className="hidden font-mono text-micro-10 uppercase text-ink-faint sm:inline">
+                      {section.note}
+                    </span>
+                  </span>
+                  <span className="col-span-4 flex items-center justify-end gap-5 pr-4 sm:col-span-6">
+                    <span className="font-mono text-micro-10 uppercase text-ink-faint">
+                      {pad2(section.videos.length)} FILMS
+                    </span>
+                    <Plus
+                      size={16}
                       aria-hidden
+                      className={`text-ink-faint transition-transform duration-500 ease-gallery ${
+                        open ? "rotate-45 text-chartreuse" : "group-hover:text-ink"
+                      }`}
                     />
-                  )}
-                  <span className="col-span-2 pl-4 font-mono text-micro text-ink-faint sm:col-span-1">
-                    V.{video.index}
-                  </span>
-                  <span className="col-span-7 flex items-center gap-3 sm:col-span-8">
-                    <span
-                      aria-hidden
-                      className={`hidden h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-colors duration-500 sm:flex ${
-                        isActive
-                          ? "border-chartreuse text-chartreuse"
-                          : "border-hairline-strong text-ink-dim group-hover:border-chartreuse group-hover:text-chartreuse"
-                      }`}
-                    >
-                      <Play size={11} className="ml-0.5" />
-                    </span>
-                    <span
-                      className={`font-display text-[17px] leading-snug md:text-[19px] ${
-                        isActive ? "italic text-chartreuse" : "text-ink"
-                      }`}
-                    >
-                      {video.title}
-                    </span>
-                  </span>
-                  <span className="col-span-3 pr-4 text-right font-mono text-micro-10 uppercase text-ink-faint">
-                    {video.published} · {video.duration}
                   </span>
                 </button>
-              </motion.li>
+
+                <AnimatePresence initial={false}>
+                  {open && (
+                    <motion.div
+                      key="rows"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.6, ease: EASE }}
+                      className="overflow-hidden"
+                    >
+                      <ul role="list" className="pb-3">
+                        {section.videos.map((video, i) => {
+                          const isActive = video.youtubeId === active.youtubeId;
+                          return (
+                            <li key={video.id}>
+                              <button
+                                type="button"
+                                onClick={() => setActive(video)}
+                                data-cursor="PLAY"
+                                aria-current={isActive || undefined}
+                                className={`group relative grid w-full grid-cols-12 items-center gap-4 py-3 text-left transition-colors duration-500 hover:bg-bg-3 ${
+                                  isActive ? "bg-bg-3" : ""
+                                }`}
+                              >
+                                {isActive && (
+                                  <motion.span
+                                    layoutId="screening-active-bar"
+                                    className="absolute left-0 top-0 h-full w-[3px] bg-chartreuse"
+                                    aria-hidden
+                                  />
+                                )}
+                                <span className="col-span-2 pl-6 font-mono text-micro-10 text-ink-faint sm:col-span-1">
+                                  V.{pad2(i + 1)}
+                                </span>
+                                <span className="col-span-7 flex items-center gap-3 sm:col-span-8">
+                                  <span
+                                    aria-hidden
+                                    className={`hidden h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-colors duration-500 sm:flex ${
+                                      isActive
+                                        ? "border-chartreuse text-chartreuse"
+                                        : "border-hairline-strong text-ink-dim group-hover:border-chartreuse group-hover:text-chartreuse"
+                                    }`}
+                                  >
+                                    <Play size={10} className="ml-0.5" />
+                                  </span>
+                                  <span
+                                    className={`font-sans text-[15px] leading-snug md:text-[16px] ${
+                                      isActive ? "text-chartreuse" : "text-ink-dim group-hover:text-ink"
+                                    }`}
+                                  >
+                                    {video.title}
+                                  </span>
+                                </span>
+                                <span className="col-span-3 pr-4 text-right font-mono text-micro-10 uppercase text-ink-faint">
+                                  {video.published} · {video.duration}
+                                </span>
+                              </button>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             );
           })}
-        </ul>
+        </div>
       </motion.div>
     </section>
   );

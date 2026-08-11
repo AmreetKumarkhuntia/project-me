@@ -2,9 +2,9 @@
 
 export type { Metric, Principle } from "./profile";
 export type { Project, ProjectLink } from "./project";
-export type { Track } from "./track";
+export type { Track, Album } from "./track";
 export type { Game } from "./game";
-export type { Video, VideoChannel } from "./video";
+export type { Video, VideoSection, VideoChannel } from "./video";
 export type { Social } from "./social";
 export type { Experience, Education } from "./experience";
 export type { SkillCategory } from "./skill";
