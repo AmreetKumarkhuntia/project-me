@@ -32,7 +32,11 @@ module.exports = {
         sans: ["Inter", "system-ui", "sans-serif"],
       },
       fontSize: {
-        "display-xl": "clamp(56px, 9vw, 132px)",
+        /* sized so the hero's longest line ("infrastructure", ~6.5em italic)
+           fits the 7/12 column (~700px at the 1440px container cap) —
+           the spec's 9vw/132px overflowed the column and broke the
+           six-line composition */
+        "display-xl": "clamp(48px, 6.6vw, 96px)",
         "display-l": "clamp(48px, 7vw, 104px)",
         "display-m": "clamp(36px, 5vw, 72px)",
         "title-s": "24px",
