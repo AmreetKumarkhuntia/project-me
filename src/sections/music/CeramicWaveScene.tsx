@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import Dust from "@/components/three/Dust";
-import { useAudio } from "@/providers/AudioProvider";
+import { useAudio } from "@/hooks/useAudio";
 
 /** Ring/disc mesh with concentric ripples — "a frozen waveform". */
 function WaveformDisc() {

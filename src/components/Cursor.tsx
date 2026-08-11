@@ -2,8 +2,15 @@
 import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
+function cursorSupported(): boolean {
+  return (
+    window.matchMedia("(pointer: fine)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
 export default function Cursor() {
-  const [enabled, setEnabled] = useState(false);
+  const [enabled] = useState(cursorSupported);
   const [label, setLabel] = useState<string | null>(null);
   const [active, setActive] = useState(false);
 
@@ -13,10 +20,7 @@ export default function Cursor() {
   const ringY = useSpring(y, { stiffness: 180, damping: 22, mass: 0.6 });
 
   useEffect(() => {
-    const fine = window.matchMedia("(pointer: fine)").matches;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!fine || reduced) return;
-    setEnabled(true);
+    if (!enabled) return;
     document.documentElement.classList.add("has-custom-cursor");
 
     const onMove = (e: MouseEvent) => {
@@ -34,7 +38,7 @@ export default function Cursor() {
       document.documentElement.classList.remove("has-custom-cursor");
       window.removeEventListener("mousemove", onMove);
     };
-  }, [x, y]);
+  }, [enabled, x, y]);
 
   if (!enabled) return null;
 

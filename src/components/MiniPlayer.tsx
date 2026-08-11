@@ -3,7 +3,7 @@
 import { useLocation, useNavigate } from "react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { Pause, Play, SkipForward, Maximize2 } from "lucide-react";
-import { useAudio } from "@/providers/AudioProvider";
+import { useAudio } from "@/hooks/useAudio";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 

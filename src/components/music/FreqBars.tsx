@@ -4,7 +4,7 @@
 // unavailable (or nothing plays) a gentle CSS-like sine motion is drawn
 // instead — the "graceful no-WebAudio fallback" (music.md §Interactions).
 import { useEffect, useRef } from "react";
-import { useAudio } from "@/providers/AudioProvider";
+import { useAudio } from "@/hooks/useAudio";
 import { ensureGainWiring } from "@/components/music/audioGain";
 
 interface FreqBarsProps {

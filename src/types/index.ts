@@ -7,6 +7,7 @@ export type { Game, GamePhase } from "./game";
 export type { Social } from "./social";
 export type { Experience } from "./experience";
 export type { SkillCategory } from "./skill";
+export type { AudioState } from "./audio";
 export type {
   MetaRow,
   NavItem,

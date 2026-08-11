@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Pause, Play, Plus } from "lucide-react";
 import { tracks } from "@/data/tracks";
 import type { Track } from "@/types";
-import { useAudio } from "@/providers/AudioProvider";
+import { useAudio } from "@/hooks/useAudio";
 import FreqBars from "@/components/music/FreqBars";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];

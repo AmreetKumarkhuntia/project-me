@@ -3,7 +3,9 @@ import { Suspense, lazy, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import GalleryPlaque from "@/components/GalleryPlaque";
 import WordReveal from "@/components/home/WordReveal";
-import WebGLFallback, { useReducedMotion, useWebGLSupport } from "@/components/three/WebGLFallback";
+import WebGLFallback from "@/components/three/WebGLFallback";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useWebGLSupport } from "@/hooks/useWebGLSupport";
 import { musicContent } from "@/data/pages/music";
 import { toMaskWords } from "@/lib/headline";
 
