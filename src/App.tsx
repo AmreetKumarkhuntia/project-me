@@ -5,6 +5,7 @@ import Home from "@/pages/Home";
 import Work from "@/pages/Work";
 import Music from "@/pages/Music";
 import Gaming from "@/pages/Gaming";
+import NotFound from "@/pages/NotFound";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="work" element={<Work />} />
           <Route path="music" element={<Music />} />
           <Route path="gaming" element={<Gaming />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </AudioProvider>
