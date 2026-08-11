@@ -1,5 +1,9 @@
 // src/components/home/MetricsFrieze.tsx — S2 "Proof in the Plaster" (home.md)
-import { motion } from "framer-motion";
+// The in-view observer sits on the (unclipped) grid: a figure that starts
+// fully clipped inside its overflow-hidden mask never intersects the
+// viewport, so observing the figures themselves would never fire the reveal.
+import { useRef } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import SectionHeader from "@/components/SectionHeader";
 import { metrics } from "@/data/profile";
 import { homeContent } from "@/data/pages/home";
@@ -7,6 +11,11 @@ import { homeContent } from "@/data/pages/home";
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function MetricsFrieze() {
+  const gridRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(gridRef, { once: true, amount: 0.5 });
+  const reduced = useReducedMotion();
+  const shown = reduced || inView;
+
   return (
     <section
       className="mx-auto max-w-[1440px] py-24 md:py-36 px-gutter"
@@ -17,7 +26,7 @@ export default function MetricsFrieze() {
         label={homeContent.metrics.label.text}
       />
 
-      <div className="mt-16 grid grid-cols-2 lg:grid-cols-4">
+      <div ref={gridRef} className="mt-16 grid grid-cols-2 lg:grid-cols-4">
         {metrics.map((m, i) => (
           <div
             key={m.figure}
@@ -27,10 +36,11 @@ export default function MetricsFrieze() {
           >
             <span className="inline-block overflow-hidden">
               <motion.span
-                initial={{ y: "110%" }}
-                whileInView={{ y: "0%" }}
-                viewport={{ once: true, amount: 0.8 }}
-                transition={{ duration: 0.8, ease: EASE, delay: i * 0.15 }}
+                initial={{ y: reduced ? "0%" : "110%" }}
+                animate={{ y: shown ? "0%" : "110%" }}
+                transition={
+                  reduced ? { duration: 0 } : { duration: 0.8, ease: EASE, delay: i * 0.15 }
+                }
                 className={`inline-block font-display text-display-m leading-display-m ${
                   m.accent ? "italic text-chartreuse" : "text-ink"
                 }`}

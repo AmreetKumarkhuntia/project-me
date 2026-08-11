@@ -1,5 +1,6 @@
 // src/components/home/Artist.tsx — S5 portrait + ethos teaser (home.md)
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { principles } from "@/data/profile";
 import { homeContent } from "@/data/pages/home";
 
@@ -78,24 +79,29 @@ export default function Artist() {
   );
 }
 
-/** small helper: words rise with stagger inside the quote */
+/** small helper: words rise with stagger inside the quote.
+ * Observes its own (unclipped) wrapper \u2014 the masked words themselves never
+ * intersect the viewport while fully clipped. */
 function WordSpan({ text }: { text: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.6 });
+  const reduced = useReducedMotion();
+  const shown = reduced || inView;
   return (
-    <>
+    <span ref={ref}>
       {text.split(" ").map((w, i) => (
         <span key={i} className="inline-block overflow-hidden pb-[0.08em] align-bottom">
           <motion.span
             className="inline-block"
-            initial={{ y: "110%" }}
-            whileInView={{ y: "0%" }}
-            viewport={{ once: true, amount: 0.6 }}
-            transition={{ duration: 0.9, ease: EASE, delay: i * 0.03 }}
+            initial={{ y: reduced ? "0%" : "110%" }}
+            animate={{ y: shown ? "0%" : "110%" }}
+            transition={reduced ? { duration: 0 } : { duration: 0.9, ease: EASE, delay: i * 0.03 }}
           >
             {w}
           </motion.span>
           {"\u00A0"}
         </span>
       ))}
-    </>
+    </span>
   );
 }
