@@ -1,52 +1,17 @@
-// src/sections/gaming/RoomHeader.tsx — S1 room header + frosted-glass sculpture (gaming-v2 §S1)
-import { Suspense, lazy, useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+// src/sections/gaming/RoomHeader.tsx — S1 room header (gaming-v2 §S1)
+// The frosted-glass polyhedron renders full-viewport in SceneBackdrop
+// (Layout); this header floats the headline and the museum plaque above it.
+import { motion } from "framer-motion";
 import GalleryPlaque from "@/components/GalleryPlaque";
 import WordReveal from "@/components/home/WordReveal";
-import WebGLFallback from "@/components/three/WebGLFallback";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { useWebGLSupport } from "@/hooks/useWebGLSupport";
 import { gamingContent } from "@/data/pages/gaming";
 import { toMaskWords } from "@/lib/headline";
-
-const PlayScene = lazy(() => import("@/sections/gaming/PlayScene"));
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function RoomHeader() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const webgl = useWebGLSupport();
-  const reduced = useReducedMotion();
-
-  // pause the render loop when the sculpture scrolls off-screen (design-v2 §6)
-  const [onScreen, setOnScreen] = useState(true);
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(([entry]) => setOnScreen(Boolean(entry?.isIntersecting)), {
-      threshold: 0,
-    });
-    io.observe(el);
-    const onVis = () => setOnScreen(!document.hidden);
-    document.addEventListener("visibilitychange", onVis);
-    return () => {
-      io.disconnect();
-      document.removeEventListener("visibilitychange", onVis);
-    };
-  }, []);
-
-  // scroll: sculpture parallax 1.15×, out by 60vh (gaming-v2 §S1)
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-  const sculptY = useTransform(scrollYProgress, [0, 1], [0, 115]);
-
-  const showLive = webgl && !reduced;
-
   return (
     <section
-      ref={sectionRef}
       className="mx-auto max-w-[1440px] pt-24 md:pt-40 px-gutter"
       aria-label="The Play Room"
     >
@@ -77,33 +42,12 @@ export default function RoomHeader() {
           </motion.p>
         </div>
 
-        {/* right (4 cols): frosted-glass polyhedron + plaque */}
-        <motion.div style={{ y: reduced ? 0 : sculptY }} className="lg:col-span-4">
-          {/* sculpture fades in tumbling from 12° rotation offset (gaming-v2 §S1) */}
-          <motion.div
-            initial={reduced ? { opacity: 0 } : { opacity: 0, rotate: 12, scale: 0.96 }}
-            animate={reduced ? { opacity: 1 } : { opacity: 1, rotate: 0, scale: 1 }}
-            transition={{ delay: 0.9, duration: 1.6, ease: EASE }}
-            className="relative mx-auto aspect-[4/3] w-full max-w-[420px]"
-          >
-            {showLive ? (
-              <Suspense fallback={<WebGLFallback src={gamingContent.hero.sculpture.src} />}>
-                <PlayScene paused={!onScreen} />
-              </Suspense>
-            ) : (
-              <WebGLFallback
-                src={gamingContent.hero.sculpture.src}
-                alt={gamingContent.hero.sculpture.alt}
-              />
-            )}
-            <div aria-hidden className="vignette pointer-events-none absolute inset-0" />
-          </motion.div>
-
+        {/* right (4 cols): museum plaque labeling the backdrop sculpture */}
+        <div className="flex justify-center lg:col-span-4 lg:justify-end lg:self-end">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.4, duration: 0.9, ease: EASE }}
-            className="-mt-4 flex justify-center lg:justify-start"
           >
             <GalleryPlaque
               title={gamingContent.hero.plaque.title}
@@ -111,7 +55,7 @@ export default function RoomHeader() {
               year={gamingContent.hero.plaque.year}
             />
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

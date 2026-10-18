@@ -5,7 +5,7 @@
  * Content stays fully usable — 3D is atmosphere, never information.
  */
 export default function WebGLFallback({
-  src = "/sculpt-atrium.png",
+  src = "/sculpt-atrium.webp",
   alt = "",
   className = "",
 }: {

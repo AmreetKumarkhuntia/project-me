@@ -19,7 +19,7 @@ export const homeContent: HomeContent = {
       lead: "Software & DevOps Engineer.",
       body: "I build robust backend systems, automate CI/CD pipelines, and run cloud infrastructure that ships without drama. I care about simplicity, observability, and making the predictable boring.",
     },
-    sculpture: { src: "/sculpt-atrium.png", alt: "Warm-stone clay displaced torus sculpture" },
+    sculpture: { src: "/sculpt-atrium.webp", alt: "Warm-stone clay displaced torus sculpture" },
     plaque: { title: "Nº 01 — Untitled (System)", medium: "Displaced clay, studio light", year: "2026" },
     metaRows: [
       { label: "Role", value: "SWE · DevOps" },
@@ -40,7 +40,7 @@ export const homeContent: HomeContent = {
         name: "Engineering",
         descriptor: "Resilient systems, boring deploys",
         to: "/work",
-        preview: "/sculpt-bronze.png",
+        preview: "/sculpt-bronze.webp",
       },
       {
         index: "W.02",
@@ -55,7 +55,7 @@ export const homeContent: HomeContent = {
         name: "Gaming",
         descriptor: "A small game, framed",
         to: "/gaming",
-        preview: "/sculpt-glass.png",
+        preview: "/sculpt-glass.webp",
       },
     ],
   },
@@ -69,7 +69,10 @@ export const homeContent: HomeContent = {
 
   artist: {
     label: { number: "05", text: "ETHOS" },
-    portrait: { src: "/portrait.png", alt: "Fine-art portrait of Amreet Khuntia" },
+    portrait: {
+      src: "/portrait.webp",
+      alt: "Amreet Khuntia in a dark suit and red tie, beside a mosaic-tiled stairwell wall",
+    },
     caption: "The Artist — Bengaluru, IN",
     ethos: {
       pre: "“The best system is the one you can hold in your head — and the",

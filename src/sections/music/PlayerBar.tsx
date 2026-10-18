@@ -211,7 +211,8 @@ export default function PlayerBar({ queuedIds }: PlayerBarProps) {
 
   return (
     <>
-      {/* vignette overlay while the room is dimmed */}
+      {/* room-dim overlay: uniform tint + vignette (replaces the old
+          brightness() filter on #main, which broke fixed positioning) */}
       <AnimatePresence>
         {dimmed && (
           <motion.div
@@ -220,8 +221,11 @@ export default function PlayerBar({ queuedIds }: PlayerBarProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.9, ease: EASE }}
-            className="vignette pointer-events-none fixed inset-0 z-[35]"
-          />
+            className="pointer-events-none fixed inset-0 z-[35]"
+          >
+            <div className="absolute inset-0 bg-bg/20" />
+            <div className="vignette absolute inset-0" />
+          </motion.div>
         )}
       </AnimatePresence>
 

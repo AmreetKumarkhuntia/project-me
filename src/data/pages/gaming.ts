@@ -9,7 +9,7 @@ export const gamingContent: GamingContent = {
     ],
     sub: "A screening wall of gameplay from the channel, and a shelf of the games that shaped how I think about systems, feedback, and flow.",
     sculpture: {
-      src: "/sculpt-glass.png",
+      src: "/sculpt-glass.webp",
       alt: "Frosted glass abstract polyhedral sculpture with soft inner glow",
     },
     plaque: { title: "Nº 04 — Frozen Dice", medium: "Frosted glass, inner light", year: "2026" },

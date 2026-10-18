@@ -25,6 +25,31 @@
   html {
     background: var(--bg);
     scroll-behavior: auto;
+    /* firefox scrollbar — thin plumb line in house colors */
+    scrollbar-width: thin;
+    scrollbar-color: #3a382f var(--bg);
+  }
+
+  /* scrollbar — a gallery plumb line: hairline track, square inset thumb,
+     chartreuse under the cursor (design-v2 §5 accent rules) */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+    border-left: 1px solid var(--hairline);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #3a382f;
+    border: 2px solid var(--bg); /* inset: thumb reads as a 6px bar */
+  }
+  ::-webkit-scrollbar-thumb:hover,
+  ::-webkit-scrollbar-thumb:active {
+    background: var(--accent);
+  }
+  ::-webkit-scrollbar-corner {
+    background: var(--bg);
   }
 
   body {
@@ -77,24 +102,25 @@
     border-top: 1px solid var(--hairline);
   }
 
-  /* global grain texture overlay (design-v2 §11) */
+  /* global grain texture overlay (design-v2 §11) — mid-gray gaussian noise
+     tile; mid-gray is neutral under overlay blend, so the grain reads on both
+     the dark ground and bright sculpture highlights (poster tooth) */
   .texture-grain {
-    background-image: url("/texture-grain.png");
+    background-image: url("/texture-grain.webp");
     background-repeat: repeat;
-    background-size: 512px 512px;
-    opacity: 0.035;
+    background-size: 256px 256px;
+    opacity: 0.3;
     mix-blend-mode: overlay;
   }
 
   /* room tone (music.md §S3): PlayerBar toggles .room-dimmed / .player-open
-     on <html>; the page dims and the footer clears the fixed player bar */
-  #main,
-  footer {
-    transition: filter 0.9s var(--gallery-ease);
+     on <html>. Dimming is done with overlays + backdrop opacity — never a
+     filter on #main, which would re-anchor fixed descendants (PlayerBar). */
+  .scene-backdrop {
+    transition: opacity 0.9s var(--gallery-ease);
   }
-  .room-dimmed #main,
-  .room-dimmed footer {
-    filter: brightness(0.85);
+  .room-dimmed .scene-backdrop {
+    opacity: 0.55;
   }
   .player-open footer {
     padding-bottom: 88px;

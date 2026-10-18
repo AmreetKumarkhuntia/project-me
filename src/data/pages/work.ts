@@ -10,7 +10,7 @@ export const workContent: WorkContent = {
     ],
     sub: "Four selected works — tools, libraries, and pipelines built to be boring in production.",
     sculpture: {
-      src: "/sculpt-bronze.png",
+      src: "/sculpt-bronze.webp",
       alt: "Dark-bronze metallic sculpture of interlocking geometric ribbons",
     },
     plaque: { title: "Nº 02 — Load-Bearing Ribbons", medium: "Cast bronze, kinetic" },
