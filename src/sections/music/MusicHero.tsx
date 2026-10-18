@@ -1,37 +1,19 @@
 // src/sections/music/MusicHero.tsx — S1 room header (music.md §S1)
-import { Suspense, lazy, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+// The ceramic waveform renders full-viewport in SceneBackdrop (Layout); this
+// header floats the headline and the museum plaque above it.
+import { motion } from "framer-motion";
 import GalleryPlaque from "@/components/GalleryPlaque";
 import WordReveal from "@/components/home/WordReveal";
-import WebGLFallback from "@/components/three/WebGLFallback";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { useWebGLSupport } from "@/hooks/useWebGLSupport";
 import { musicContent } from "@/data/pages/music";
 import { toMaskWords } from "@/lib/headline";
-
-const CeramicWaveScene = lazy(() => import("@/sections/music/CeramicWaveScene"));
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function MusicHero() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const webgl = useWebGLSupport();
-  const reduced = useReducedMotion();
-
-  // scroll: sculpture scales up 1 → 1.08 and exits at 70vh parallax (music.md §S1)
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-  const sculptY = useTransform(scrollYProgress, [0, 0.7], [0, 140]);
-  const sculptScale = useTransform(scrollYProgress, [0, 0.7], [1, 1.08]);
-
-  const showLive = webgl && !reduced;
-
   return (
-    <section ref={sectionRef} className="relative pt-[160px]" aria-label="The Listening Room">
+    <section className="relative pt-[160px]" aria-label="The Listening Room">
       <div
-        className="mx-auto grid max-w-[1440px] grid-cols-1 gap-16 pb-24 lg:grid-cols-12 lg:items-center px-gutter"
+        className="mx-auto grid max-w-[1440px] grid-cols-1 gap-16 pb-24 lg:min-h-[65svh] lg:grid-cols-12 lg:items-center px-gutter"
       >
         {/* left (8 cols): section number + headline + sub */}
         <div className="lg:col-span-8">
@@ -63,32 +45,12 @@ export default function MusicHero() {
           </motion.p>
         </div>
 
-        {/* right (4 cols): sculpture + plaque */}
-        <motion.div style={{ y: sculptY, scale: sculptScale }} className="relative lg:col-span-4">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 1.4, ease: EASE }}
-            className="relative mx-auto aspect-square w-full max-w-[420px]"
-          >
-            {showLive ? (
-              <Suspense fallback={<WebGLFallback src={musicContent.hero.sculpture.src} alt="" />}>
-                <CeramicWaveScene />
-              </Suspense>
-            ) : (
-              <WebGLFallback
-                src={musicContent.hero.sculpture.src}
-                alt={musicContent.hero.sculpture.alt}
-              />
-            )}
-            <div aria-hidden className="vignette pointer-events-none absolute inset-0" />
-          </motion.div>
-
+        {/* right (4 cols): museum plaque labeling the backdrop sculpture */}
+        <div className="flex justify-center lg:col-span-4 lg:justify-end lg:self-end lg:pb-10">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.5, duration: 0.9, ease: EASE }}
-            className="-mt-6 flex justify-center lg:justify-start"
           >
             <GalleryPlaque
               title={musicContent.hero.plaque.title}
@@ -96,7 +58,7 @@ export default function MusicHero() {
               year={musicContent.hero.plaque.year}
             />
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

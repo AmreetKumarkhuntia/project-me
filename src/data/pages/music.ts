@@ -15,7 +15,7 @@ export const musicContent: MusicContent = {
     ],
     sub: "Two albums and a run of singles — the full Amreet K catalogue. Press play for a preview; the room dims.",
     sculpture: {
-      src: "/sculpt-ceramic.png",
+      src: "/sculpt-ceramic.webp",
       alt: "Black ceramic sound-wave sculpture with concentric ripples",
     },
     plaque: { title: "Nº 03 — Frozen Waveform", medium: "Glazed ceramic, sound-reactive" },

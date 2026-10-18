@@ -1,17 +1,14 @@
 // src/components/home/Hero.tsx — S0 strip + S1 hero "The Centerpiece" (home.md)
-import { Suspense, lazy, useRef } from "react";
+// The sculpture itself lives in SceneBackdrop (Layout) — this hero floats
+// text, plaque, and meta table over it.
+import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import GalleryPlaque from "@/components/GalleryPlaque";
 import MetaTable from "@/components/MetaTable";
 import WordReveal from "@/components/home/WordReveal";
-import WebGLFallback from "@/components/three/WebGLFallback";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { useWebGLSupport } from "@/hooks/useWebGLSupport";
 import { homeContent } from "@/data/pages/home";
 import { site } from "@/data/site";
 import { toMaskWords } from "@/lib/headline";
-
-const AtriumScene = lazy(() => import("@/components/home/AtriumScene"));
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -44,19 +41,13 @@ function PreHeroStrip() {
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const webgl = useWebGLSupport();
-  const reduced = useReducedMotion();
 
-  // scroll parallax: headline 0.6×, sculpture 1.2× + slight scale (home.md §S1)
+  // scroll parallax: headline 0.6× (home.md §S1)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
   });
   const headlineY = useTransform(scrollYProgress, [0, 1], [0, -180]);
-  const sculptY = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const sculptScale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
-
-  const showLive = webgl && !reduced;
 
   return (
     <section ref={sectionRef} className="relative" aria-label="Intro">
@@ -110,32 +101,21 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* right (5 cols): sculpture + plaque + meta table */}
-        <motion.div style={{ y: sculptY, scale: sculptScale }} className="relative lg:col-span-5">
+        {/* right (5 cols): plaque + meta table floating over the backdrop sculpture */}
+        <div className="relative z-10 flex flex-col items-center gap-10 lg:col-span-5 lg:items-end lg:self-end lg:pb-16">
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1.1, duration: 1.6, ease: EASE }}
-            className="relative mx-auto aspect-square w-full max-w-[480px]"
+            initial="hidden"
+            animate="show"
+            variants={{ show: { transition: { staggerChildren: 0.1, delayChildren: 1.8 } } }}
+            className="w-full max-w-[360px] bg-bg/55 p-4 backdrop-blur-[2px]"
           >
-            {showLive ? (
-              <Suspense fallback={<WebGLFallback src={homeContent.hero.sculpture.src} />}>
-                <AtriumScene />
-              </Suspense>
-            ) : (
-              <WebGLFallback
-                src={homeContent.hero.sculpture.src}
-                alt={homeContent.hero.sculpture.alt}
-              />
-            )}
-            <div aria-hidden className="vignette pointer-events-none absolute inset-0" />
+            <MetaTable rows={homeContent.hero.metaRows} />
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.6, duration: 0.9, ease: EASE }}
-            className="-mt-6 flex justify-center lg:justify-start"
           >
             <GalleryPlaque
               title={homeContent.hero.plaque.title}
@@ -143,16 +123,7 @@ export default function Hero() {
               year={homeContent.hero.plaque.year}
             />
           </motion.div>
-
-          <motion.div
-            initial="hidden"
-            animate="show"
-            variants={{ show: { transition: { staggerChildren: 0.1, delayChildren: 1.8 } } }}
-            className="mt-10 max-w-[360px]"
-          >
-            <MetaTable rows={homeContent.hero.metaRows} />
-          </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

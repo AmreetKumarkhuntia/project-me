@@ -2,7 +2,7 @@
 // exhibition — album rows expand into their track lists (music.md §S2,
 // reshaped for a full catalogue). Long collections paginate. Everything
 // renders from src/data/tracks.ts; playback flows through AudioProvider.
-import { useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Pause, Play, Plus } from "lucide-react";
 import { albums } from "@/data/tracks";
@@ -11,7 +11,49 @@ import { useAudio } from "@/hooks/useAudio";
 import FreqBars from "@/components/music/FreqBars";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const EXIT_EASE: [number, number, number, number] = [0.65, 0, 0.35, 1];
 const PAGE_SIZE = 8;
+
+// page turn: rows leave toward the old direction and enter from the new one,
+// one by one (staggered); `custom` carries the direction (1 next / -1 prev)
+const pageListVariants = {
+  enter: { transition: { staggerChildren: 0.05 } },
+  exit: { transition: { staggerChildren: 0.04 } },
+};
+const pageRowVariants = {
+  initial: (dir: number) => ({ x: dir * 56, opacity: 0 }),
+  enter: { x: 0, opacity: 1, transition: { duration: 0.45, ease: EASE } },
+  exit: (dir: number) => ({
+    x: dir * -56,
+    opacity: 0,
+    transition: { duration: 0.3, ease: EXIT_EASE },
+  }),
+};
+
+/** Eases height changes when a page swap alters row count (e.g. a short last page). */
+function AnimatedHeight({ children }: { children: ReactNode }) {
+  const innerRef = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState<number | null>(null);
+
+  useEffect(() => {
+    const el = innerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setHeight(el.offsetHeight));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <motion.div
+      initial={false}
+      animate={height !== null ? { height } : undefined}
+      transition={{ duration: 0.5, ease: EASE }}
+      className="overflow-hidden"
+    >
+      <div ref={innerRef}>{children}</div>
+    </motion.div>
+  );
+}
 
 const pad2 = (n: number) => String(n).padStart(2, "0");
 
@@ -159,15 +201,37 @@ function AlbumTracks({
   const safePage = Math.min(page, pageCount - 1);
   const visible = album.tracks.slice(safePage * PAGE_SIZE, (safePage + 1) * PAGE_SIZE);
 
+  // 1 = next (leave left, enter from right), -1 = prev (mirrored)
+  const [dir, setDir] = useState(1);
+  const goTo = (p: number) => {
+    setDir(p > safePage ? 1 : -1);
+    onPage(p);
+  };
+
   return (
     <div className="bg-bg-2 px-4 pb-6 sm:px-10">
-      <ul role="list">
-        {visible.map((track, i) => {
+      <AnimatedHeight>
+        <AnimatePresence mode="wait" initial={false} custom={dir}>
+          <motion.ul
+          key={safePage}
+          role="list"
+          custom={dir}
+          initial="initial"
+          animate="enter"
+          exit="exit"
+          variants={pageListVariants}
+        >
+          {visible.map((track, i) => {
           const isActive = currentTrackId === track.id;
           const queued = queuedIds.includes(track.id);
           const number = safePage * PAGE_SIZE + i + 1;
           return (
-            <li key={track.id} className="hairline-t first:border-t-0">
+            <motion.li
+              key={track.id}
+              custom={dir}
+              variants={pageRowVariants}
+              className="hairline-t first:border-t-0"
+            >
               <div className="group grid grid-cols-12 items-center gap-4 py-3">
                 <span className="col-span-2 font-mono text-micro-10 text-ink-faint sm:col-span-1">
                   T.{pad2(number)}
@@ -233,17 +297,19 @@ function AlbumTracks({
                   </button>
                 </span>
               </div>
-            </li>
+            </motion.li>
           );
         })}
-      </ul>
+          </motion.ul>
+        </AnimatePresence>
+      </AnimatedHeight>
 
       {/* pagination — only when the collection overflows a page */}
       {pageCount > 1 && (
         <div className="hairline-t mt-2 flex items-center justify-between pt-4">
           <button
             type="button"
-            onClick={() => onPage(Math.max(0, safePage - 1))}
+            onClick={() => goTo(Math.max(0, safePage - 1))}
             disabled={safePage === 0}
             aria-label="Previous page"
             className="flex h-8 w-8 items-center justify-center border border-hairline-strong text-ink-dim transition-colors duration-500 hover:border-chartreuse hover:text-chartreuse disabled:cursor-default disabled:border-hairline disabled:text-ink-faint"
@@ -255,7 +321,7 @@ function AlbumTracks({
           </span>
           <button
             type="button"
-            onClick={() => onPage(Math.min(pageCount - 1, safePage + 1))}
+            onClick={() => goTo(Math.min(pageCount - 1, safePage + 1))}
             disabled={safePage >= pageCount - 1}
             aria-label="Next page"
             className="flex h-8 w-8 items-center justify-center border border-hairline-strong text-ink-dim transition-colors duration-500 hover:border-chartreuse hover:text-chartreuse disabled:cursor-default disabled:border-hairline disabled:text-ink-faint"

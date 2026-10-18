@@ -1,10 +1,11 @@
 // src/sections/music/CeramicWaveScene.tsx — black-ceramic frozen waveform
 // sculpture with concentric ripple displacement, sound-reactive via the
 // AudioProvider's shared AnalyserNode (design-v2 §6, music.md §S1).
-// One Canvas for the whole page; pauses when off-screen or tab hidden.
-import { useEffect, useMemo, useRef, useState } from "react";
+// Rendered as the page backdrop; the parent pauses it when the tab is hidden.
+import { useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import BackdropFraming from "@/components/three/BackdropFraming";
 import Dust from "@/components/three/Dust";
 import StudioEnvironment from "@/components/three/StudioEnvironment";
 import { useAudio } from "@/hooks/useAudio";
@@ -97,50 +98,33 @@ function WaveformDisc() {
   );
 }
 
-export default function CeramicWaveScene() {
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(true);
-  const [visible, setVisible] = useState(true);
+interface CeramicWaveSceneProps {
+  /** freeze the render loop on the last frame (tab hidden) */
+  paused?: boolean;
+}
 
-  useEffect(() => {
-    const el = wrapRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(([entry]) => setInView(entry?.isIntersecting ?? true), {
-      threshold: 0.05,
-    });
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const onVis = () => setVisible(document.visibilityState === "visible");
-    document.addEventListener("visibilitychange", onVis);
-    return () => document.removeEventListener("visibilitychange", onVis);
-  }, []);
-
-  const running = inView && visible;
-
+export default function CeramicWaveScene({ paused = false }: CeramicWaveSceneProps) {
   return (
-    <div ref={wrapRef} className="absolute inset-0">
-      <Canvas
-        aria-hidden
-        dpr={[1, 1.75]}
-        frameloop={running ? "always" : "never"}
-        camera={{ position: [0, 0, 5.2], fov: 42 }}
-        gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}
-      >
-        <StudioEnvironment />
-        {/* soft three-point studio lighting (design-v2 §6) */}
-        <ambientLight intensity={0.3} color="#FFF4E0" />
-        <directionalLight position={[-4, 5, 4]} intensity={1.8} color="#FFF4E0" />
-        <directionalLight position={[5, -2, 3]} intensity={0.35} color="#B9C4D6" />
-        {/* thin chartreuse rim from the right — the gallery spotlight */}
-        <directionalLight position={[6, 1, -4]} intensity={1.1} color="#D4FF00" />
+    <Canvas
+      aria-hidden
+      dpr={[1, 1.75]}
+      frameloop={paused ? "never" : "always"}
+      camera={{ position: [0, 0, 5.2], fov: 42 }}
+      gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
+      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}
+    >
+      <StudioEnvironment />
+      {/* soft three-point studio lighting (design-v2 §6) */}
+      <ambientLight intensity={0.3} color="#FFF4E0" />
+      <directionalLight position={[-4, 5, 4]} intensity={1.8} color="#FFF4E0" />
+      <directionalLight position={[5, -2, 3]} intensity={0.35} color="#B9C4D6" />
+      {/* thin chartreuse rim from the right — the gallery spotlight */}
+      <directionalLight position={[6, 1, -4]} intensity={1.1} color="#D4FF00" />
+      <BackdropFraming xFrac={0.23} y={-0.2} scale={1.3}>
         <WaveformDisc />
-        {/* quiet room air — denser dust (music.md §S1) */}
-        <Dust count={400} spread={[8, 6, 4]} opacity={0.3} />
-      </Canvas>
-    </div>
+      </BackdropFraming>
+      {/* quiet room air — denser dust (music.md §S1) */}
+      <Dust count={400} spread={[12, 6, 4]} opacity={0.3} />
+    </Canvas>
   );
 }

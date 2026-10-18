@@ -7,9 +7,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Cursor from "@/components/Cursor";
+import CursorTrail from "@/components/CursorTrail";
 import Preloader from "@/components/Preloader";
 import PageTransition from "@/components/PageTransition";
 import MiniPlayer from "@/components/MiniPlayer";
+import SceneBackdrop from "@/components/SceneBackdrop";
+import ScrollProgress from "@/components/ScrollProgress";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,8 +38,13 @@ export default function Layout() {
 
   return (
     <div className="relative min-h-[100dvh] bg-bg">
+      {/* full-viewport sculpture backdrop — z-0, below all content */}
+      <SceneBackdrop />
+
       {/* site-wide grain texture (design-v2 §11) */}
       <div aria-hidden className="texture-grain pointer-events-none fixed inset-0 z-[55]" />
+
+      <ScrollProgress />
 
       <a
         href="#main"
@@ -45,6 +53,7 @@ export default function Layout() {
         Skip to content
       </a>
 
+      <CursorTrail />
       <Cursor />
       <Preloader onDone={() => setBooted(true)} />
       <PageTransition />

@@ -4,6 +4,7 @@
 import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { useWindowPointer } from "@/components/three/useWindowPointer";
 
 interface ClayTorusProps {
   color?: string;
@@ -42,16 +43,18 @@ export default function ClayTorus({ color = "#B8AFA2", autoRotateSpeed = 0.08 }:
     return g;
   }, []);
 
-  useFrame((state, delta) => {
+  const pointer = useWindowPointer();
+
+  useFrame((_, delta) => {
     const mesh = meshRef.current;
     if (!mesh) return;
     mesh.rotation.y += delta * autoRotateSpeed;
     mesh.rotation.x = THREE.MathUtils.lerp(
       mesh.rotation.x,
-      state.pointer.y * -0.15 + 0.35,
+      pointer.y * -0.15 + 0.35,
       0.04,
     );
-    mesh.rotation.z = THREE.MathUtils.lerp(mesh.rotation.z, state.pointer.x * 0.15, 0.04);
+    mesh.rotation.z = THREE.MathUtils.lerp(mesh.rotation.z, pointer.x * 0.15, 0.04);
   });
 
   return (
